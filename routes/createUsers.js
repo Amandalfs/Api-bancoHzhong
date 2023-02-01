@@ -2,7 +2,7 @@ const fs = require('fs')
 const { post } = require('http');
 const { join } = require('path');
 
- 
+const filePath = join(__dirname, 'users.json')
 
 const getUsers = () => {
     const data = fs.existsSync(filePath)
@@ -37,10 +37,17 @@ const createUsers = (app) => {
             })
 
             if(value){
-                users.push(req.body)
+                const objetcNew = {
+                    ...req.body,
+                    saldo: 0,
+                    historico: [],
+                    agencia: '001',
+                    numero: '451'
+                }
+                users.push(objetcNew)
                 saveUser(users)
     
-                res.status(201).send('Ok')
+                res.status(201).send({users})
             }
         })
 }
