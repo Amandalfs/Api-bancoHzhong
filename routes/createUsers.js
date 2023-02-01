@@ -2,7 +2,7 @@ const fs = require('fs')
 const { post } = require('http');
 const { join } = require('path');
 
-const filePath = join(__dirname, 'users.json')
+ 
 
 const getUsers = () => {
     const data = fs.existsSync(filePath)
@@ -18,24 +18,19 @@ const getUsers = () => {
 
 const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, null, '\t'));
 
-const userRoute = (app) => {
-    app.route('/users/:id?')
-        .get((req, res) => {
-            const users = getUsers()
-
-            res.send({users})
-        })
+const createUsers = (app) => {
+    app.route('/createUsers/:id?')
         .post((req, res) => {
             const users = getUsers()
             let value = true;
 
-            if(verifyCpf(req.body.cpf) || checkSizeCpf(req.body.cpf) || req.body.senha1 !== req.body.senha2){
+            if(verifyCpf(req.body.cpf) || verifyAge(req.body.nasc) || checkSizeCpf(req.body.cpf) || req.body.senha1 !== req.body.senha2){
                 value = false;
                 return res.status(400).send("error create account")
             } 
 
             users.map(user => {
-                if(user.email === req.body.email || user.cpf === req.body.cpf) {
+                if(user.email === req.body.email || user.cpf === req.body.cpf || user.nameUser === req.body.nameUser) {
                     value = false;
                     return res.status(400).send("error create account")
                 }
@@ -98,4 +93,16 @@ function verifyCpf(cpf){
     }
 }
 
-module.exports = userRoute;
+function verifyAge(nasc){
+    const date = new Date();
+    const year = date.getFullYear();
+    const nascYear = nasc.slice(nasc.length-4)
+    if(year-nascYear>=18) {
+        return false
+    } else {
+        return true
+    }
+
+}
+
+module.exports = createUsers;
