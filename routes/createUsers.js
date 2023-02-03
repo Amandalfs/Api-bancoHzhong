@@ -39,10 +39,10 @@ const createUsers = (app) => {
             if(value){
                 const objetcNew = {
                     ...req.body,
-                    saldo: 0,
-                    historico: [],
-                    agencia: '001',
-                    numero: '451'
+                    balance: 0,
+                    history: [],
+                    agency: '001',
+                    number: '451'
                 }
                 users.push(objetcNew)
                 saveUser(users)
@@ -88,8 +88,8 @@ function verifyCpf(cpf){
     if(result<2){
         result = 0;
     }
-    if(result<2){
-        result = 0;
+    if(result2<2){
+        result2 = 0;
     }
     const conclusao = `${result}` + `${result2}`
     const comparacao = cpf[cpf.length-2]+cpf[cpf.length-1]

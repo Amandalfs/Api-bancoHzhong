@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const createUsers = require('./routes/createUsers');
 const loginUsers = require('./routes/loginUsers');
+const withdrawUsers = require('./routes/withdrawUsers');
 
 const app = express();
 const port = 8020;
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false}))
 
 createUsers(app);
 loginUsers(app);
+withdrawUsers(app);
 
 app.get('/', (req, res) => res.send('funcionou'));
 
