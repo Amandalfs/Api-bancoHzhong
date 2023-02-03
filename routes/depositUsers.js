@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { get } = require('http');
 const { join } = require('path');
-const generatorDate = require('./withdrawUsers');
+const generatorDate = require('../utils/dateGenerator');
 
 const filePath = join(__dirname, 'users.json')
 
