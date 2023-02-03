@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const createUsers = require('./routes/createUsers');
 const loginUsers = require('./routes/loginUsers');
 const withdrawUsers = require('./routes/withdrawUsers');
+const depositUsers = require('./routes/depositUsers');
 
 const app = express();
 const port = 8020;
@@ -11,6 +12,7 @@ const port = 8020;
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false}))
 
+depositUsers(app);
 createUsers(app);
 loginUsers(app);
 withdrawUsers(app);
