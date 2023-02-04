@@ -31,7 +31,7 @@ const withdrawUsers = (app) => {
                     if(withdraw < user.balance ){
                         const withdrawDate = generatorDate()
                         users[index].balance -= withdraw
-                        users[index].history.push(`sacou R$${withdraw.toFixed(2).replace('.',',')} em ${withdrawDate}`)
+                        users[index].history.push(`Sacou R$${withdraw.toFixed(2).replace('.',',')} em ${withdrawDate}`)
                         saveUser(users)
                         valueBoolean = false;
                         return res.status(201).send('OK');

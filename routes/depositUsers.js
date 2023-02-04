@@ -31,7 +31,7 @@ const depositUsers = (app) => {
                     users[index].history.push(`Depositou R$${deposit.toFixed(2).replace('.',',')} em ${generatorDate()}`)
                     saveUser(users);
                     valueBoolean = false;
-                    res.status(200).send({users});
+                    res.status(200).send('OK');
                 }
             })
             if(valueBoolean){
