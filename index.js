@@ -8,6 +8,7 @@ const depositUsers = require('./routes/depositUsers');
 const extractUsers = require('./routes/extractUsers');
 const createKeyPixUsers = require('./routes/createKeyPixUsers');
 const deleteKeyPixUsers = require('./routes/deleteKeyPixUsers');
+const pixKeyTransaction = require('./routes/pixKeyTransaction');
 
 
 const app = express();
@@ -16,6 +17,7 @@ const port = 8020;
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false}))
 
+pixKeyTransaction(app);
 deleteKeyPixUsers(app);
 createKeyPixUsers(app);
 extractUsers(app);
