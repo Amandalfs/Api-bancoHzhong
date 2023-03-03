@@ -1,6 +1,9 @@
 const fs = require('fs')
 const { post } = require('http');
 const { join } = require('path');
+const verifyCpf = require('../utils/verifyCpf');
+const verifyAge = require('../utils/verifyAge');
+const checkSizeCpf = require('../utils/checkSizeCpf');
 
 const filePath = join(__dirname, 'users.json')
 
@@ -20,19 +23,19 @@ const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, nul
 
 const createUsers = (app) => {
     app.route('/createUsers/:id?')
-        .post((req, res) => {
-            const users = getUsers()
+        .post(async(req, res) => {
+            const users = await getUsers()
             let value = true;
 
-            if(verifyCpf(req.body.cpf) || verifyAge(req.body.nasc) || checkSizeCpf(req.body.cpf) || req.body.senha1 !== req.body.senha2){
+            if(verifyCpf(req.body.cpf) || verifyAge(req.body.nasc) || checkSizeCpf(req.body.cpf) ||( req.body.senha1 !== req.body.senha2)){
                 value = false;
-                return res.status(400).send("error create account")
+                return res.status(400).send("error create account 2")
             } 
 
-            users.map(user => {
+            users.map((user) => {
                 if(user.email === req.body.email || user.cpf === req.body.cpf || user.nameUser === req.body.nameUser) {
                     value = false;
-                    return res.status(400).send("error create account")
+                    return res.status(400).send("error cpf or email invalid");
                 }
             })
 
@@ -44,72 +47,10 @@ const createUsers = (app) => {
                     agency: '001',
                     number: '451'
                 }
-                users.push(objetcNew)
-                saveUser(users)
-    
+                await users.push(objetcNew)
+                await saveUser(users)
                 res.status(201).send({users})
             }
         })
 }
-
-function checkSizeCpf(cpf){
-    if(cpf.length===11) {
-        return false
-    } else {
-        return true
-    }
-}
-
-function verifyCpf(cpf){
-    let soma = 0;
-    let soma2 = 0;
-    const arrayValue = []; 
-    const arrayValue2 = [];
-    let cont = 10
-    let cont2 = 11
-    for(let c=0; c<9; c++) {
-        arrayValue.push(cont*(parseInt(cpf[c])));
-        cont--;
-    }
-    for(let el of arrayValue){
-        soma+= el;
-    }
-    for(let c=0; c<9; c++){
-        arrayValue2.push(cont2*(parseInt(cpf[c])));
-        cont2--;
-    }
-    let result = 11-(soma%11);
-    arrayValue2.push(2*result);
-
-    for(let el of  arrayValue2){
-        soma2+=el
-    }
-    let result2 = 11-(soma2%11);
-    if(result<2){
-        result = 0;
-    }
-    if(result2<2){
-        result2 = 0;
-    }
-    const conclusao = `${result}` + `${result2}`
-    const comparacao = cpf[cpf.length-2]+cpf[cpf.length-1]
-    if(conclusao===comparacao){
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function verifyAge(nasc){
-    const date = new Date();
-    const year = date.getFullYear();
-    const nascYear = nasc.slice(nasc.length-4)
-    if(year-nascYear>=18) {
-        return false
-    } else {
-        return true
-    }
-
-}
-
 module.exports = createUsers;
