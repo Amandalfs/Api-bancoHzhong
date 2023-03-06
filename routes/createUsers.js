@@ -23,15 +23,14 @@ const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, nul
 
 const createUsers = (app) => {
     app.route('/createUsers/:id?')
-        .post(async(req, res) => {
+        .post(async (req, res) => {
+            try{
             const users = await getUsers()
             let value = true;
-
             if(verifyCpf(req.body.cpf) || verifyAge(req.body.nasc) || checkSizeCpf(req.body.cpf) ||( req.body.senha1 !== req.body.senha2)){
                 value = false;
                 return res.status(400).send("error create account 2")
-            } 
-
+            }
             users.map((user) => {
                 if(user.email === req.body.email || user.cpf === req.body.cpf || user.nameUser === req.body.nameUser) {
                     value = false;
@@ -50,6 +49,9 @@ const createUsers = (app) => {
                 await users.push(objetcNew)
                 await saveUser(users)
                 res.status(201).send({users})
+            }
+            } catch(e){
+
             }
         })
 }
