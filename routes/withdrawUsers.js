@@ -22,10 +22,11 @@ const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, nul
 
 const withdrawUsers = (app) => {
     app.route('/withdrawUsers')
-        .patch((req, res) => {
-            const users = getUsers()
+        .patch(async(req, res) => {
+            try{
+            const users = await getUsers()
             let valueBoolean = true;
-            users.map((user, index, array)=>{
+            await users.map((user, index, array)=>{
                 if(req.body.nameUser === user.nameUser && req.headers.senha === user.senha1){
                     const withdraw = Number(req.body.valueWithdraw)
                     if(withdraw < user.balance ){
@@ -40,6 +41,9 @@ const withdrawUsers = (app) => {
             })
             if(valueBoolean){
                 res.status(400).send('Error Withdraw');
+            }
+            }catch(erro){
+                console.log(erro)
             }
         })
 }
