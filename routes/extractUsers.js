@@ -20,24 +20,28 @@ const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, nul
 
 const extractUsers = (app) =>{
     app.route('/extractUsers')
-        .get((req, res)=>{
-            const users = getUsers();
-            let valueBoolean = true;
+        .get(async(req, res)=>{
+            try{
+                const users = await getUsers();
+                let valueBoolean = true;
 
-            users.map((user, index)=>{
-                if(req.body.nameUser === user.nameUser){
-                    valueBoolean = false;
-                    return res.status(200).send({
-                        name: user.name,
-                        balance: user.balance,
-                        agency: user.agency,
-                        id: user.id,
-                        history: user.history})
+                await users.map((user, index)=>{
+                    if(req.body.nameUser === user.nameUser){
+                        valueBoolean = false;
+                        return res.status(200).send({
+                            name: user.name,
+                            balance: user.balance,
+                            agency: user.agency,
+                            id: user.id,
+                            history: user.history})
+                    }
+                })
+
+                if(valueBoolean){
+                    return res.status(400).send("Error Extract");
                 }
-            })
-
-            if(valueBoolean){
-                return res.status(400).send("Error Extract")
+            }catch(error){
+                console.log(error);
             }
         })
 }
