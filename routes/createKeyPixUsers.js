@@ -22,6 +22,7 @@ const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, nul
 const createKeyPixUsers = (app) =>{
     app.route('/createKeyPixUsers')
         .patch(async(req, res) =>{
+           try{ 
             const users = await getUsers();   
             let valueBoolean = true;
 
@@ -36,6 +37,9 @@ const createKeyPixUsers = (app) =>{
             if(valueBoolean){
                 return res.status(400).send('Error create KEYPIX/existing key')
             }
+        } catch(error) {
+            console.log(error)
+        }
         })
 }
 
