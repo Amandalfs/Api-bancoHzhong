@@ -21,14 +21,14 @@ const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, nul
 
 const createKeyPixUsers = (app) =>{
     app.route('/createKeyPixUsers')
-        .patch((req, res) =>{
-            const users = getUsers();   
+        .patch(async(req, res) =>{
+            const users = await getUsers();   
             let valueBoolean = true;
 
-            users.map((user, index, array)=>{
+            await users.map(async(user, index, array)=>{
                 if(req.body.nameUser === user.nameUser && req.headers.password === user.senha1 && user.keyPix === undefined){
-                    users[index].keyPix = `${keyGenerator()}`
-                    saveUser(users)
+                    users[index].keyPix = `${keyGenerator()}`;
+                    await saveUser(users)
                     valueBoolean = false;
                     return res.status(201).send(user.keyPix)
                 }
