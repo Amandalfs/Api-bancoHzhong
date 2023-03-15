@@ -20,20 +20,24 @@ const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, nul
 
 const deleteKeyPixUsers = (app) => {
     app.route('/deleteKeyPixUsers')
-        .patch((req, res)=>{
-            const users = getUsers()
-            let valueBoolean = true;
+        .patch(async(req, res)=>{
+            try{
+                const users = await getUsers()
+                let valueBoolean = true;
 
-            users.map((user, index, array)=>{
-                if(req.body.nameUser === user.nameUser && req.headers.password === user.senha1 && user.keyPix !== undefined){
-                    delete users[index].keyPix;
-                    saveUser(users)
-                    valueBoolean = false;
-                    return res.status(200).send({user})
+                await users.map((user, index, array)=>{
+                    if(req.body.nameUser === user.nameUser && req.headers.password === user.senha1 && user.keyPix !== undefined){
+                        delete users[index].keyPix;
+                        saveUser(users)
+                        valueBoolean = false;
+                        return res.status(200).send({user})
+                    }
+                })
+                if(valueBoolean){
+                    return res.status(400).send('Unable to delete, key does not exist')
                 }
-            })
-            if(valueBoolean){
-                return res.status(400).send('Unable to delete, key does not exist')
+            }catch(error){
+                console.log(error);
             }
         })
 }
