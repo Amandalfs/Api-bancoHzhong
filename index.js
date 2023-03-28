@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 
 const createUsers = require('./routes/createUsers');
-const loginUsers = require('./routes/loginUsers');
+const loginUsers = require('./routes/loginUser');
 const withdrawUsers = require('./routes/withdrawUsers');
 const depositUsers = require('./routes/depositUsers');
 const extractUsers = require('./routes/extractUsers');

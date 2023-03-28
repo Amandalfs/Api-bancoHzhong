@@ -8,7 +8,7 @@ async function select(){
     return dados.rows;
 }
 
-const loginUsers = (app) => {
+const loginUser = (app) => {
     app.route('/loginUser')
         .get(async(req, res) => {
             let value = await true;
@@ -28,4 +28,4 @@ const loginUsers = (app) => {
         })
 }
 
-module.exports = loginUsers;
+module.exports = loginUser;
