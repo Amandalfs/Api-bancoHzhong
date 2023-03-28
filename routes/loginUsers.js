@@ -1,45 +1,30 @@
 const fs = require('fs');
-const { get } = require('http')
-const { join } = require('path');
+const { get } = require('http');
+const pool = require('../sql/sqlconfig');
 
-const filePath = join(__dirname, 'users.json')
 
-const getUsers = () => {
-    const data = fs.existsSync(filePath)
-        ?fs.readFileSync(filePath)
-        :[]
-
-    try {
-        return JSON.parse(data)
-    } catch (error) {
-        return []
-    }
+async function select(){
+    const dados = await pool.query('SELECT * FROM "dadosbanco"');
+    return dados.rows;
 }
 
-const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, null, '\t'));
-
 const loginUsers = (app) => {
-    app.route('/loginUsers')
+    app.route('/loginUser')
         .get(async(req, res) => {
-            try{
-                const users = await getUsers()
-                let value = true;
-                console.log(req.body['nameUser'], req.headers['senha']);
-                await users.map( user => {
-                    if(user.nameUser === req.body.nameUser && user.senha1 ===  req.headers.senha){
-                        
-                        value = false;
-                        return res.status(200).send('OK');
-                    }
-                })
-
-                if(value){
-                    res.status(400).send("login error account");
-                    
+            let value = await true;
+            const users = await select();
+            /* console.log(req.body['username'], req.headers['password']);
+            console.log(users); */
+            await users.map(user => {
+                if(user.username === req.body.username && user.password ===  req.headers.password){
+                    value = false;
+                    res.status(200).send('OK');
                 }
-            }catch(error){
-                console.log(error);
+            })
+            if(value){
+                res.status(400).send("login error account")
             }
+
         })
 }
 

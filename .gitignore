@@ -105,3 +105,6 @@ dist
 
 # variaveis de ambiente
 .env
+
+# users
+users.json
