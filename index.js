@@ -1,5 +1,6 @@
 const express =  require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const createUsers = require('./routes/createUsers');
 const loginUsers = require('./routes/loginUsers');
@@ -14,8 +15,9 @@ const pixKeyTransaction = require('./routes/pixKeyTransaction');
 const app = express();
 const port = 8020;
 
-app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: false}))
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false}));
 
 pixKeyTransaction(app);
 deleteKeyPixUsers(app);
