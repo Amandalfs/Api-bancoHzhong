@@ -2,7 +2,7 @@ const express =  require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 
-const createUsers = require('./routes/createUsers');
+const createUser = require('./routes/createUser');
 const loginUsers = require('./routes/loginUser');
 const withdrawUsers = require('./routes/withdrawUsers');
 const depositUsers = require('./routes/depositUsers');
@@ -24,7 +24,7 @@ deleteKeyPixUsers(app);
 createKeyPixUsers(app);
 extractUsers(app);
 depositUsers(app);
-createUsers(app);
+createUser(app);
 loginUsers(app);
 withdrawUsers(app);
 
