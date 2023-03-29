@@ -7,7 +7,7 @@ const loginUser = require('./routes/loginUser');
 const withdrawUser = require('./routes/withdrawUser');
 const depositUser = require('./routes/depositUser');
 const extractUser = require('./routes/extractUser');
-const createKeyPixUsers = require('./routes/createKeyPixUsers');
+const createKeyPixUser = require('./routes/createKeyPixUser');
 const deleteKeyPixUsers = require('./routes/deleteKeyPixUsers');
 const pixKeyTransaction = require('./routes/pixKeyTransaction');
 
@@ -19,9 +19,9 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-pixKeyTransaction(app);
-deleteKeyPixUsers(app);
-createKeyPixUsers(app);
+pixKeyTransaction(app); //
+deleteKeyPixUsers(app); //
+createKeyPixUser(app); //
 extractUser(app);
 depositUser(app);
 createUser(app);
