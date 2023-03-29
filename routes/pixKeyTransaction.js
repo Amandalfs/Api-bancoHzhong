@@ -1,56 +1,58 @@
-const fs = require('fs');
 const { patch, get } = require('http');
 const { join } = require('path');
-const dateGenerator = require('../utils/dateGenerator')
+const dateGenerator = require('../utils/dateGenerator');
+const date = require('../utils/date');
+const pool = require('../sql/sqlconfig')
 
-const filePath = join(__dirname, 'users.json')
-
-const getUsers = () => {
-    const data = fs.existsSync(filePath)
-        ?fs.readFileSync(filePath)
-        :[]
-
-    try {
-        return JSON.parse(data)
-    } catch (error) {
-        return []
-    }
+async function selectAll(){
+    const dados = await pool.query('SELECT * FROM "dadosbanco"');
+    return dados.rows;
 }
 
-const saveUser = (users) => fs.writeFileSync(filePath, JSON.stringify(users, null, '\t'));
 
 const pixKeyTransaction = (app) =>{
     app.route('/pixKeyTransaction')
         .patch(async(req, res)=>{
-            try{
-                const users = await getUsers();
+                const users = await selectAll();
                 let valueBoolean = true;
                 let valueBoolean2 = true;
 
                 await users.map(async(userSend, indexSend, arraySend)=>{
-                    try{
                         const depositSend = await Number(req.body.deposit);
-                        if(userSend.nameUser === req.body.nameUser && userSend.senha1 === req.headers.password){
+                        if(userSend.username === req.body.username && userSend.password === req.headers.password){
                             valueBoolean = false;
-                            if(userSend.balance>depositSend){
+                            if(userSend.saldo>depositSend){
                                 valueBoolean2 = false;
                                 await users.map((userReceive, indexReceive, arrayReceive)=>{
-                                    if(userReceive.keyPix === req.body.keyPix){
-                                        users[indexSend].balance -= depositSend;
-                                        users[indexSend].history.push(`Voce transferiu R$${depositSend.toFixed(2).replace('.',',')} para @${userReceive.nameUser} ${dateGenerator()}`);
-                                        users[indexReceive].balance += depositSend;
-                                        users[indexReceive].history.push(`Voce recebeu R${depositSend.toFixed(2).replace('.',',')} de @${userSend.nameUser} ${dateGenerator()}`);
-                                        saveUser(users);
-                                        return res.status(200).send(userSend.history[userSend.history.length-1]);
+                                    if(userReceive.keypix === req.body.keypix){
+                                        const valueSend = userSend.saldo-depositSend;
+                                        const descSend = (`Voce transferiu R$${depositSend.toFixed(2).replace('.',',')} para @${userReceive.username} ${dateGenerator()}`);
+                                        
+                                        const sqlSendUp = ('UPDATE dadosbanco SET saldo=$1 WHERE username like $2');
+                                        pool.query(sqlSendUp, [valueSend, userSend.username]);
+
+                                        const sqlSendEx = ('INSERT INTO extrato(username,date,descricao) VALUES ($1,$2,$3)');
+                                        const result = pool.query(sqlSendEx, [userSend.username, date(), descSend]);
+                                        
+
+                                        const valueReceive = userReceive.saldo+depositSend;
+                                        const descReceive = (`Voce recebeu R${depositSend.toFixed(2).replace('.',',')} de @${userSend.username} ${dateGenerator()}`);
+
+                                        const sqlReceiveUp = ('UPDATE dadosbanco SET saldo=$1 WHERE username like $2');
+                                        pool.query(sqlReceiveUp, [valueReceive, userReceive.username]);
+
+                                        const sqlReceiveEx = ('INSERT INTO extrato(username, date, descricao) VALUES ($1, $2, $3)');
+                                        pool.query(sqlReceiveEx, [userReceive.username, date(), descReceive]);
+
+
+                                        return res.status(200).send({descSend});
                                     }
                                 })
+                            }  else {
                                 return res.status(400).send('Error KeyPix invalidate');
-                            } 
+                            }
 
                         }
-                    }catch(erro2){
-                        console.log(erro2)
-                    }
 
                 })
 
@@ -61,9 +63,6 @@ const pixKeyTransaction = (app) =>{
                 if(valueBoolean2){
                     return res.status(400).send('insufficient fund')
                 }
-            }catch(error){
-                console.log(error);
-            }
         })
 }
 

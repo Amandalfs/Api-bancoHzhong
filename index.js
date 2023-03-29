@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-pixKeyTransaction(app); //
+pixKeyTransaction(app); 
 deleteKeyPixUser(app);
 createKeyPixUser(app); 
 extractUser(app);
