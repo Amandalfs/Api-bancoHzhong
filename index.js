@@ -8,7 +8,7 @@ const withdrawUser = require('./routes/withdrawUser');
 const depositUser = require('./routes/depositUser');
 const extractUser = require('./routes/extractUser');
 const createKeyPixUser = require('./routes/createKeyPixUser');
-const deleteKeyPixUsers = require('./routes/deleteKeyPixUsers');
+const deleteKeyPixUser = require('./routes/deleteKeyPixUser');
 const pixKeyTransaction = require('./routes/pixKeyTransaction');
 
 
@@ -20,8 +20,8 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
 pixKeyTransaction(app); //
-deleteKeyPixUsers(app); //
-createKeyPixUser(app); //
+deleteKeyPixUser(app);
+createKeyPixUser(app); 
 extractUser(app);
 depositUser(app);
 createUser(app);
