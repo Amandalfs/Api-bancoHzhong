@@ -5,7 +5,7 @@ const cors = require('cors')
 const createUser = require('./routes/createUser');
 const loginUsers = require('./routes/loginUser');
 const withdrawUsers = require('./routes/withdrawUsers');
-const depositUsers = require('./routes/depositUsers');
+const depositUser = require('./routes/depositUser');
 const extractUsers = require('./routes/extractUsers');
 const createKeyPixUsers = require('./routes/createKeyPixUsers');
 const deleteKeyPixUsers = require('./routes/deleteKeyPixUsers');
@@ -23,7 +23,7 @@ pixKeyTransaction(app);
 deleteKeyPixUsers(app);
 createKeyPixUsers(app);
 extractUsers(app);
-depositUsers(app);
+depositUser(app);
 createUser(app);
 loginUsers(app);
 withdrawUsers(app);
