@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 
 const createUser = require('./routes/createUser');
-const loginUsers = require('./routes/loginUser');
+const loginUser = require('./routes/loginUser');
 const withdrawUser = require('./routes/withdrawUser');
 const depositUser = require('./routes/depositUser');
-const extractUsers = require('./routes/extractUsers');
+const extractUser = require('./routes/extractUser');
 const createKeyPixUsers = require('./routes/createKeyPixUsers');
 const deleteKeyPixUsers = require('./routes/deleteKeyPixUsers');
 const pixKeyTransaction = require('./routes/pixKeyTransaction');
@@ -22,10 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false}));
 pixKeyTransaction(app);
 deleteKeyPixUsers(app);
 createKeyPixUsers(app);
-extractUsers(app);
+extractUser(app);
 depositUser(app);
 createUser(app);
-loginUsers(app);
+loginUser(app);
 withdrawUser(app);
 
 app.get('/', (req, res) => res.send('funcionou'));
