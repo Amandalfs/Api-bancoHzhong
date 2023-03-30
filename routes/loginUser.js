@@ -1,24 +1,28 @@
 const fs = require('fs');
 const { get } = require('http');
 const pool = require('../sql/sqlconfig');
-
-
-async function select(){
-    const dados = await pool.query('SELECT * FROM "dadosbanco"');
-    return dados.rows;
-}
+const periodMonth = require('../utils/periodMonth')
+const selectAll = require('../utils/selectAll');
 
 const loginUser = (app) => {
     app.route('/loginUser')
         .get(async(req, res) => {
             let value = await true;
-            const users = await select();
+            const users = await selectAll();
             /* console.log(req.body['username'], req.headers['password']);
             console.log(users); */
-            await users.map(user => {
+            await users.map(async(user) => {
                 if(user.username === req.body.username && user.password ===  req.headers.password){
                     value = false;
-                    res.status(200).send('OK');
+                    // format de date select * from extrato where date = '2023-03-29'
+                    const sql = await('SELECT * from extrato WHERE username like $1 AND date > $2 LIMIT 30');
+                    const extrato = await pool.query(sql, [user.username, periodMonth()]);
+                    const userData = {
+                        "username": user.username,
+                        "Saldo": user.saldo,
+                        "extrato": extrato.rows 
+                    }
+                    res.status(200).send({userData});
                 }
             })
             if(value){
@@ -27,5 +31,6 @@ const loginUser = (app) => {
 
         })
 }
+
 
 module.exports = loginUser;

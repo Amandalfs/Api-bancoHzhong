@@ -1,3 +1,4 @@
+
 function generatorDate() {
     const date = new Date();
     const day = date.getDate().toString().padStart(2,0);
