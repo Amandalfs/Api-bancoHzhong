@@ -4,12 +4,8 @@ const verifyCpf = require('../utils/verifyCpf');
 const verifyAge = require('../utils/verifyAge');
 const checkSizeCpf = require('../utils/checkSizeCpf');
 const pool = require('../sql/sqlconfig');
+const selectAll = require('../utils/selectAll');
 
-
-async function selectAll(){
-    const dados = await pool.query('SELECT * FROM "dadosbanco"');
-    return dados.rows;
-}
 
 const createUser = (app) => {
     app.route('/createUser')
