@@ -5,12 +5,7 @@ const { send } = require('process');
 const generatorDate = require('../utils/dateGenerator');
 const date = require('../utils/date');
 const pool = require('../sql/sqlconfig');
-
-async function selectAll(){
-    const dados = await pool.query('SELECT * FROM "dadosbanco"');
-    return dados.rows;
-}
-
+const selectAll = require('../utils/selectAll');
 
 const withdrawUser = (app) => {
     app.route('/withdrawUser')

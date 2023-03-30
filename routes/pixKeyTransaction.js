@@ -3,12 +3,7 @@ const { join } = require('path');
 const dateGenerator = require('../utils/dateGenerator');
 const date = require('../utils/date');
 const pool = require('../sql/sqlconfig')
-
-async function selectAll(){
-    const dados = await pool.query('SELECT * FROM "dadosbanco"');
-    return dados.rows;
-}
-
+const selectAll = require('../utils/selectAll');
 
 const pixKeyTransaction = (app) =>{
     app.route('/pixKeyTransaction')

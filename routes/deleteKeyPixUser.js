@@ -1,11 +1,7 @@
 const { patch } = require('http');
 const { join } = require('path');
 const pool = require('../sql/sqlconfig');
-
-async function selectAll(){
-    const dados = await pool.query('SELECT * FROM "dadosbanco"');
-    return dados.rows;
-}
+const selectAll = require('../utils/selectAll');
 
 
 const deleteKeyPixUser = (app) => {

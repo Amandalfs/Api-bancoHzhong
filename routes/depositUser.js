@@ -3,12 +3,7 @@ const { join } = require('path');
 const generatorDate = require('../utils/dateGenerator');
 const pool = require('../sql/sqlconfig');
 const date = require('../utils/date');
-
-async function selectAll(){
-    const dados = await pool.query('SELECT * FROM "dadosbanco"');
-    return dados.rows;
-}
-
+const selectAll = require('../utils/selectAll');
 
 const depositUsers = (app) => {
     app.route('/depositUser')
