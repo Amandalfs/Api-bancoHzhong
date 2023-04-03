@@ -16,7 +16,7 @@ const loginUser = (app) => {
                 if(user.username === req.query.username && user.password ===  req.query.password){
                     value = false;
                     // format de date select * from extrato where date = '2023-03-29'
-                    const sql = await('SELECT * from extrato WHERE username like $1 AND date > $2 LIMIT 30');
+                    const sql = await('SELECT * from extrato WHERE username like $1 AND date > $2 LIMIT 5');
                     const extrato = await pool.query(sql, [user.username, periodMonth()]);
                     const userData = {
                         "username": user.username,
