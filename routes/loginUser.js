@@ -9,10 +9,11 @@ const loginUser = (app) => {
         .get(async(req, res) => {
             let value = await true;
             const users = await selectAll();
+            console.log(req.query);
             /* console.log(req.body['username'], req.headers['password']);
             console.log(users); */
             await users.map(async(user) => {
-                if(user.username === req.body.username && user.password ===  req.headers.password){
+                if(user.username === req.query.username && user.password ===  req.query.password){
                     value = false;
                     // format de date select * from extrato where date = '2023-03-29'
                     const sql = await('SELECT * from extrato WHERE username like $1 AND date > $2 LIMIT 30');
