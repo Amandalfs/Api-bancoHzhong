@@ -19,7 +19,7 @@ const userAccont = (app) =>{
                     const extrato = await pool.query(sql, [user.username, periodMonth()]);
                     const dados = await {
                         "username": user.username,
-                        "saldo": user.Saldo,
+                        "saldo": user.saldo,
                         "extrato": extrato.rows
                     }
                     return res.status(201).send({dados});

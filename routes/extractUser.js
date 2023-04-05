@@ -11,13 +11,14 @@ const extractUser = (app) =>{
     app.route('/extractUsers')
         .get(async(req, res)=>{
             const users = await selectAll();
+            const {dateInicial, dateFinal} = req.body
             let valueBoolean = true;
 
             await users.map(async(user, index)=>{
                 if(req.body.username === user.username){
                     valueBoolean = false;
-                    const sqlEx = await('SELECT * FROM extrato WHERE username like $1');
-                    const valuesEx = await[user.username];
+                    const sqlEx = await('SELECT * FROM extrato WHERE username like $1 AND BEETWEEN $2 AND $3');
+                    const valuesEx = await[user.username, dateInicial, dateFinal];
                     const folha = await pool.query(sqlEx, valuesEx)
                     return res.status(201).send(folha.rows);
                 }
