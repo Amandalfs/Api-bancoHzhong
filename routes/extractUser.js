@@ -17,7 +17,7 @@ const extractUser = (app) =>{
             await users.map(async(user, index)=>{
                 if(username === user.username){
                     valueBoolean = false;
-                    const sqlEx = await('SELECT * FROM extrato WHERE username like $1 AND BETWEEN $2 AND $3');
+                    const sqlEx = await('SELECT * FROM extrato WHERE username like $1 AND date BETWEEN $2 AND $3');
                     const valuesEx = await[user.username, dateInicial, dateFinal];
                     const folha = await pool.query(sqlEx, valuesEx)
                     return res.status(201).send(folha.rows);
