@@ -4,7 +4,7 @@
  */
 exports.up = function(knex) {
     knex.schema.createTable('extrato', function (table) {
-        table.increments('id_agenda').primary();
+        table.increments('id_extrato').primary();
         table.integer('id_user');
         table.string('name');
         table.string('tipo');
