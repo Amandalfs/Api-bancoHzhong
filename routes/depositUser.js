@@ -1,36 +1,86 @@
-const { get } = require('http');
-const { join } = require('path');
 const generatorDate = require('../utils/dateGenerator');
-const { pool } = require('../sql/sqlconfig');
 const date = require('../utils/date');
-const selectAll = require('../utils/selectAll');
+
+const { compare } = require('bcrypt')
+
+const garantirAuth = require('../middlewares/garantirAuth');
+const dbUsers = require('../sql/dbUsers');
+const dbExtratos = require('../sql/dbExtratos');
+const db = require('../sql/knex/index');
+
+const verificarDados = (req, res, next) =>{
+    const { deposit } = req.body;
+    const { password } = req.headers;
+
+    const errors = [];
+
+    if(!deposit){
+        errors.push("O valor do deposito nao foi informado")
+    }
+
+    if(deposit<=0){
+        errors.push("valor do deposito invalido");
+    }
+
+    if(!password){
+        errors.push("A senha nao foi informada");
+    }
+
+    if(errors.length!==0){
+        return res.status(401).send({errors});
+    }
+
+    next()
+}
+
+
+const NotAutheticPassword = async (req, res, next) =>{
+    
+    const { id } = req.user;
+    const { password } = req.headers;
+
+    const user = await dbUsers.getUserById({id: id});
+    
+    const passwordPassed = await compare(password, user.password);
+
+    if(!passwordPassed){
+        return res.status(401).send("Senha digitada esta errada")
+    }
+
+    next();
+}
+
 
 const depositUsers = (app) => {
     app.route('/depositUser')
-        .patch(async(req, res)=>{
-            const users = await selectAll();
-            let valueBoolean = await true;
-            await users.map((user, index, array)=>{
-                if(user.username===req.body.username && user.password === req.headers.password){
-                    const deposit = Number(req.body.deposit);
-                    const total = user.saldo+deposit
-                    const desc = `Voce depositou R$${deposit.toFixed(2).replace('.',',')} em ${generatorDate()}`
+        .patch(garantirAuth, verificarDados, NotAutheticPassword, async(req, res)=>{
+            const { deposit } = req.body;
+            const { id } = req.user;
 
-                    const sqlExtrato = ('INSERT INTO extrato(username,date, descricao) VALUES ($1,$2,$3)');
-                    const valuesExtrato = [user.username, date(), desc];
-                    pool.query(sqlExtrato, valuesExtrato);
+            const tipo = "deposito";
+            const data = generatorDate();
 
-                    const sqlUptade = ('UPDATE dadosbanco SET saldo=$1 WHERE username like $2');
-                    const valuesUpdate = [total, user.username];
-                    pool.query(sqlUptade, valuesUpdate);
+            const user = await dbUsers.getUserById({id: id});
 
-                    valueBoolean = false;
-                    res.status(200).send({desc});
-                }
-            })
-            if(valueBoolean){
-                res.status(400).send("Error Deposit");
+            const saldoNovo = user.saldo + deposit;
+            console.log(saldoNovo)
+
+            const name = user.name;
+            const desc = `Voce depositou R$${deposit.toFixed(2).replace('.',',')}`
+
+            const extratoNew = {
+                id_user: id,
+                name: name,
+                tipo: tipo,
+                saldo: deposit,
+                data: data,
+                descricao: desc,
             }
+
+            await dbExtratos.createExtrato(extratoNew)
+            await dbUsers.updateUser({id: id}, {saldo: saldoNovo})
+
+            return res.status(200).send("Deposito efetuado com sucesso");
         })
 }
 
