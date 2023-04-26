@@ -4,7 +4,7 @@
  */
 exports.up = function(knex) {
     knex.schema.createTable('users', function (table) {
-        table.increments('id_user').primary();
+        table.increments('id').primary();
         table.string('name');
         table.string('username');
         table.string('password');
@@ -16,6 +16,10 @@ exports.up = function(knex) {
         table.string('email');
         table.string('cpf');
         table.string('keypix')
+      }).then(function () {
+        console.log('Tabela "users" criada com sucesso!');
+      }).catch(function (error) {
+        console.error('Erro ao criar tabela "users": ', error);
       })
 };
 
