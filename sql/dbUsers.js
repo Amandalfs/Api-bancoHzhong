@@ -1,11 +1,5 @@
-const { config } = require('dotenv');
-const knex = require('knex')
-config()
+const { db } = require('./sqlconfig')
 
-const environment =  process.env.Node_Config || "development"
-const knexConfig = require('../knexfile')[environment]
-
-const db = knex(knexConfig);
 
 module.exports = {
     getAllUsers() {
@@ -27,6 +21,5 @@ module.exports = {
     deleteUser(id) {
         return db('users').where(id).del()
     },
-
 }
 

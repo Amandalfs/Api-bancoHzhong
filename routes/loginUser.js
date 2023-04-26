@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { get } = require('http');
-const pool = require('../sql/sqlconfig');
+const { pool } = require('../sql/sqlconfig');
 const selectAll = require('../utils/selectAll');
 
 const loginUser = (app) => {

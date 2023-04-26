@@ -1,11 +1,4 @@
-const { config } = require('dotenv');
-const knex = require('knex')
-config()
-
-const environment =  process.env.Node_Config || "development"
-const knexConfig = require('../knexfile')[environment]
-
-const db = knex(knexConfig);
+const { db } = require('./sqlconfig')
 
 module.exports = {
     getAllUsers(id_users) {

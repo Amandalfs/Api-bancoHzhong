@@ -4,7 +4,7 @@ const { join } = require('path');
 const { send } = require('process');
 const generatorDate = require('../utils/dateGenerator');
 const date = require('../utils/date');
-const pool = require('../sql/sqlconfig');
+const { pool } = require('../sql/sqlconfig');
 const selectAll = require('../utils/selectAll');
 
 const withdrawUser = (app) => {

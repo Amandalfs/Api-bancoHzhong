@@ -16,7 +16,14 @@ module.exports = {
     },
     production: {
       client: 'pg',
-      connection: process.env.PG_CONNECTION_STRING,
+      connection: {
+        host:process.env.PQ_HOST,
+        port:5432,
+        user:process.env.PQ_NAMEHOST,
+        password:process.env.PQ_PASSWORD,
+        database:process.env.PQ_DATABASE,
+        ssl:false,
+      },
       useNullAsDefault: true,
       migrations: {
         tableName: 'migrations',

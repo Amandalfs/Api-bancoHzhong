@@ -2,7 +2,7 @@ const { patch, get } = require('http');
 const { join } = require('path');
 const dateGenerator = require('../utils/dateGenerator');
 const date = require('../utils/date');
-const pool = require('../sql/sqlconfig')
+const { pool } = require('../sql/sqlconfig')
 const selectAll = require('../utils/selectAll');
 
 const pixKeyTransaction = (app) =>{

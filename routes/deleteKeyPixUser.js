@@ -1,6 +1,6 @@
 const { patch } = require('http');
 const { join } = require('path');
-const pool = require('../sql/sqlconfig');
+const { pool } = require('../sql/sqlconfig');
 const selectAll = require('../utils/selectAll');
 
 

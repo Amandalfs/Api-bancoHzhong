@@ -1,7 +1,7 @@
 const { get } = require('http');
 const { join } = require('path');
 const generatorDate = require('../utils/dateGenerator');
-const pool = require('../sql/sqlconfig');
+const { pool } = require('../sql/sqlconfig');
 const date = require('../utils/date');
 const selectAll = require('../utils/selectAll');
 

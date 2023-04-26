@@ -1,13 +1,21 @@
 const { post } = require('http');
 const { join } = require('path');
-const verifyCpf = require('../utils/verifyCpf');
+
 const verifyAge = require('../utils/verifyAge');
-const checkSizeCpf = require('../utils/checkSizeCpf');
-const pool = require('../sql/sqlconfig');
+
+const { pool } = require('../sql/sqlconfig');
 const selectAll = require('../utils/selectAll');
 
+const dbUsers = require('../sql/dbUsers');
+
+
+
 const validarCPF = (req, res, next)=>{
+    const checkSizeCpf = require('../utils/checkSizeCpf');
+    const verifyCpf = require('../utils/verifyCpf');
+
     const {cpf} = req.body;
+
     const errors = [];
     if(verifyCpf(cpf)){
         errors.push('CPF Invalido');
@@ -25,8 +33,7 @@ const validarCPF = (req, res, next)=>{
 
     next()
 
-}
-
+}   
 
 const createUser = (app) => {
     app.route('/createUser')
