@@ -1,26 +1,72 @@
-const fs = require('fs');
-const { get } = require('http');
-const { pool } = require('../sql/sqlconfig');
-const selectAll = require('../utils/selectAll');
+const authConfig = require('../config/auth');
+const { sign } = require('jsonwebtoken');
+const db = require('../sql/knex/index');
+const { compare } = require('bcrypt');
+
+
+const verificarDados = (req, res, next) => {
+    const {password} = req.headers;
+    const {username} = req.body;
+
+    const errors = [];
+
+    if(!password){
+        errors.push("Campo senha nao foi preenchido");
+    }
+
+    if(!username){
+        errors.push("Campo username nao foi preenchido");
+    }
+
+    if(errors.length!==0){
+        return res.status(401).send({errors});
+    }
+
+    next()
+}
+
+const notExistUsername = async (req, res, next) =>{
+    const { username } = req.body;
+    const isUsername = await db('users').where("username", username).select()
+
+    if(isUsername.length===0){
+        res.status(401).send("O usuario nao possui uma conta")
+    }
+
+    next()
+}
+
+const NotAutheticPassword = async (req, res, next) =>{
+    
+    const {username} = req.body;
+    const {password} = req.headers;
+
+    const user = await db('users').where("username", username).select().first();
+    
+    const passwordPassed = await compare(password, user.password);
+
+    if(!passwordPassed){
+        return res.status(401).send("Senha digita esta errada")
+    }
+
+    next();
+}
 
 const loginUser = (app) => {
     app.route('/loginUser')
-        .get(async(req, res) => {
-            let value = await true;
-            const users = await selectAll();
-            await users.map(async(user) => {
-                if(user.username === req.query.username && user.password ===  req.query.password){
-                    value = false;
-                    const userData = {
-                        "username": user.username,
-                    }
-                    res.status(200).send({userData});
-                }
-            })
-            if(value){
-                res.status(400).send("login error account")
-            }
+        .get(verificarDados, notExistUsername, NotAutheticPassword, async(req, res) => {
+            const {username} = req.body;
+           
+            const user = await db('users').where("username", username).select().first()
 
+            const { secret, expiresIn } = authConfig.jwt;
+
+            const token = sign({}, secret, {
+                subject: String(user.id),
+                expiresIn
+            })
+
+            res.status(201).send({token})
         })
 }
 
