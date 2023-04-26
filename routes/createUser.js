@@ -6,13 +6,34 @@ const checkSizeCpf = require('../utils/checkSizeCpf');
 const pool = require('../sql/sqlconfig');
 const selectAll = require('../utils/selectAll');
 
+const validarCPF = (req, res, next)=>{
+    const {cpf} = req.body;
+    const errors = [];
+    if(verifyCpf(cpf)){
+        errors.push('CPF Invalido');
+    }
+    if(checkSizeCpf(cpf)){
+        errors.push('tamanho do CPF e invalido');
+    }
+    if(!cpf){
+        errors.push('Campo CPF nao foi preenchido');
+    }
+    if(errors.length!==0){
+        res.status(400).send({errors})
+        return
+    }
+
+    next()
+
+}
+
 
 const createUser = (app) => {
     app.route('/createUser')
-        .post(async (req, res) => {
+        .post(validarCPF,async (req, res) => {
             const users = await selectAll();
             let value = true;
-            if(verifyCpf(req.body.cpf) || verifyAge(req.body.nasc) || checkSizeCpf(req.body.cpf) ||( req.headers.password !== req.headers.password2)){
+            if(verifyAge(req.body.nasc)||( req.headers.password !== req.headers.password2)){
                 value = false;
                 return res.status(400).send("error create account")
             }
