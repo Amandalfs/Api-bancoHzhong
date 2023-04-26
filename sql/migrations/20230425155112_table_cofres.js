@@ -4,8 +4,8 @@
  */
 exports.up = function(knex) {
     knex.schema.createTable('cofres', function (table) {
-        table.increments('id_cofre').primary();
-        table.integer('id_user');
+        table.increments('id').primary();
+        table.integer('id_user').references('id').table('users');
         table.string('name');
         table.string('name_cofre')
         table.string('saldo');
