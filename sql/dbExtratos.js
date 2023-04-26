@@ -1,23 +1,23 @@
-const { db } = require('./sqlconfig')
+const db = require('./knex/index');
 
 module.exports = {
-    getAllUsers() {
+    getAllExtratos() {
         return db('extratos')
     },
     
-    getUserById(id) {
+    getExtratoById(id) {
         return db('extratos').where(id).first()
     },
 
-    createUser(user) {
-        return db('extratos').insert(user)
+    createExtrato(dados) {
+        return db('extratos').insert(dados)
     },
 
-    updateUser(id, user) {
-        return db('extratos').where(id).update(user)
+    updateExtrato(id, dados) {
+        return db('extratos').where(id).update(dados)
     },
 
-    deleteUser(id) {
+    deleteExtrato(id) {
         return db('extratos').where(id).del()
     },
 
