@@ -1,6 +1,4 @@
-const { db } = require('./sqlconfig')
-
-
+const db = require('./knex/index')
 module.exports = {
     getAllUsers() {
         return db('users')

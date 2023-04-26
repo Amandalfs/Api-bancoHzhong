@@ -15,9 +15,3 @@ const pool = new Pool({
 
 module.exports = pool;
 
-const environment =  process.env.Node_Config || "development"
-const knexConfig = require('../knexfile')[environment]
-
-const db = knex(knexConfig);
-
-module.exports = db;

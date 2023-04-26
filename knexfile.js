@@ -1,4 +1,7 @@
 const { config } = require('dotenv');
+
+const path = require('path')
+
 config();
 const knex = require('knex');
 
@@ -6,7 +9,7 @@ module.exports = {
     development: {
       client: 'sqlite3',
       connection: {
-        filename: './sql/database.sqlite3'
+        filename: path.resolve(__dirname, "sql", "database.sqlite3")
       },
       useNullAsDefault: true,
       migrations: {

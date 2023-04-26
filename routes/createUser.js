@@ -1,7 +1,7 @@
 const { db } = require('../sql/sqlconfig');
 
 const dbUsers = require('../sql/dbUsers');
-
+const {hash} = require('bcrypt')
 
 const validarCPF = (req, res, next)=>{
     const checkSizeCpf = require('../utils/verify/checkSizeCpf');
@@ -119,7 +119,7 @@ const createUser = (app) => {
         .post(validarCPF, isEmailUsernameCpf, verificarSenha, isMaior, validarDados, async (req, res) => {
             const {username, name, nasc, typeaccont, email} = req.body;
             const { password, cpf } = req.headers
-            
+            const passwordCriptografada = await hash(password, 10);
             const infosDefault = {
                 numero: 153,
                 agencia: "003",
@@ -132,7 +132,7 @@ const createUser = (app) => {
                 nasc: nasc, 
                 typeaccont: typeaccont,
                 email: email,
-                password: password,
+                password: passwordCriptografada,
                 cpf: cpf,
             }
             await dbUsers.createUser(userNew);
