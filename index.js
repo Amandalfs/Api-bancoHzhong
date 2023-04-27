@@ -25,9 +25,9 @@ pixKeyTransaction(app);
 deleteKeyPixUser(app);
 createKeyPixUser(app); 
 extractUser(app);
-depositUser(app);
-createUser(app);
-loginUser(app);
+depositUser(app);// ok
+createUser(app);// ok
+loginUser(app);// ok
 withdrawUser(app);
 
 app.get('/', (req, res) => res.send('funcionou'));

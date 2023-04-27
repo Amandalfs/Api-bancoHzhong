@@ -1,41 +1,68 @@
-const fs = require('fs');
-const { patch } = require('http');
-const { join } = require('path');
-const { send } = require('process');
+const garantirAuth = require('../middlewares/garantirAuth');
+
 const generatorDate = require('../utils/dateGenerator');
 const date = require('../utils/date');
-const { pool } = require('../sql/sqlconfig');
-const selectAll = require('../utils/selectAll');
+
+const dbUsers = require('../sql/dbUsers');
+const dbExtratos = require('../sql/dbExtratos');
+
+const NotAutheticPassword = async (req, res, next) =>{
+    const { compare } = require('bcrypt')
+    
+    const { id } = req.user;
+    const { password } = req.headers;
+
+    const user = await dbUsers.getUserById({id: id});
+    
+    const passwordPassed = await compare(password, user.password);
+
+    if(!passwordPassed){
+        return res.status(401).send("Senha digitada esta errada")
+    }
+
+    next();
+}
+
+
 
 const withdrawUser = (app) => {
-    app.route('/withdrawUser')
-        .patch(async(req, res) => {
-            const users = await selectAll();
-            let valueBoolean = true;
-            await users.map((user, index, array)=>{
-                if(req.body.username === user.username && req.headers.password === user.password){
-                    const withdraw = Number(req.body.valueWithdraw)
-                    if(withdraw < user.saldo ){
-                        const withdrawDate = generatorDate()
-                        const total = user.saldo - withdraw;
-                        const desc = (`Sacou R$${withdraw.toFixed(2).replace('.',',')} em ${withdrawDate}`)
+    app.route('/users/withdraw')
+        .patch(garantirAuth, NotAutheticPassword, async(req, res) => {
 
-                        const sqlUptade = ('UPDATE dadosbanco SET saldo=$1 WHERE username like $2');
-                        const valuesUpdate = [total, user.username];
-                        pool.query(sqlUptade, valuesUpdate);
+            const { valueWithdraw } = req.body;
+            const { id } = req.user
+            const user = await dbUsers.getUserById({id: id});
 
-                        const sqlExtrato = ('INSERT INTO extrato(username,date, descricao) VALUES ($1,$2,$3)');
-                        const valuesExtrato = [user.username, date(), desc];
-                        pool.query(sqlExtrato, valuesExtrato);
-                        
-                        valueBoolean = false;
-                        return res.status(201).send({"msg": "Saque efetuado com sucesso"});
-                    }
-                }
-            })
-            if(valueBoolean){
-                res.status(400).send('Error Withdraw');
+            if(valueWithdraw<0){
+                return res.status(401).send({Error: "Saldo invalido"});
             }
+
+            if(valueWithdraw>user.saldo){
+                return res.status(401).send({Error: "Saldo insuficiente"});
+            }
+            
+            const tipo = "Saque";
+            const data = date();
+
+
+            const saldoNovo = user.saldo - valueWithdraw;
+
+            const desc = `Voce sacou R$${valueWithdraw.toFixed(2).replace('.',',')}`
+
+            const extratoNew = {
+                id_user: id,
+                name: user.name,
+                tipo: tipo,
+                saldo: saldoNovo,
+                data: data,
+                descricao: desc,
+            }
+
+            await dbExtratos.createExtrato(extratoNew)
+            await dbUsers.updateUser({id: id}, {saldo: saldoNovo})
+
+            return res.status(200).send({"Saque efetuado com sucesso":valueWithdraw});
+
         })
 }
 
