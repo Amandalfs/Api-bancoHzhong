@@ -5,7 +5,7 @@ const pool = require('../sql/sqlconfig');
 const selectAll = require('../utils/selectAll');
 
 const createKeyPixUser = (app) =>{
-    app.route('/createKeyPixUser')
+    app.route('/users/createKeyPixUser')
         .patch(async(req, res) =>{
             const users = await selectAll();   
             let valueBoolean = await true;

@@ -5,7 +5,7 @@ const selectAll = require('../utils/selectAll');
 
 
 const deleteKeyPixUser = (app) => {
-    app.route('/deleteKeyPixUser')
+    app.route('/users/deleteKeyPixUser')
         .patch(async(req, res)=>{
             const users = await selectAll();
             let valueBoolean = true;

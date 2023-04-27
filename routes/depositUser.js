@@ -52,7 +52,7 @@ const NotAutheticPassword = async (req, res, next) =>{
 
 
 const depositUsers = (app) => {
-    app.route('/depositUser')
+    app.route('/users/depositUser')
         .patch(garantirAuth, verificarDados, NotAutheticPassword, async(req, res)=>{
             const { deposit } = req.body;
             const { id } = req.user;

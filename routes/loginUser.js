@@ -53,7 +53,7 @@ const NotAutheticPassword = async (req, res, next) =>{
 }
 
 const loginUser = (app) => {
-    app.route('/loginUser')
+    app.route('/users/loginUser')
         .get(verificarDados, notExistUsername, NotAutheticPassword, async(req, res) => {
             const {username} = req.body;
            

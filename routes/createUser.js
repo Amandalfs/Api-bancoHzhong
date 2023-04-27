@@ -115,7 +115,7 @@ const validarDados = (req, res, next) =>{
 }
 
 const createUser = (app) => {
-    app.route('/createUser')
+    app.route('/users/createUser')
         .post(validarCPF, isEmailUsernameCpf, verificarSenha, isMaior, validarDados, async (req, res) => {
             const {username, name, nasc, typeaccont, email} = req.body;
             const { password, cpf } = req.headers

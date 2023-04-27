@@ -8,7 +8,7 @@ async function selectAll(){
 }
 
 const extractUser = (app) =>{
-    app.route('/extractUsers')
+    app.route('/users/extractUsers')
         .get(async(req, res)=>{
             const users = await selectAll();
             const {dateInicial, dateFinal, username} = req.query

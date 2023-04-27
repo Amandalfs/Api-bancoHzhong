@@ -6,7 +6,7 @@ const { pool } = require('../sql/sqlconfig')
 const selectAll = require('../utils/selectAll');
 
 const pixKeyTransaction = (app) =>{
-    app.route('/pixKeyTransaction')
+    app.route('/users/pixKeyTransaction')
         .patch(async(req, res)=>{
                 const users = await selectAll();
                 let valueBoolean = true;
