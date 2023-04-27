@@ -1,32 +1,49 @@
-const { get } = require('http');
-const { join } = require('path');
-const { pool } = require('../sql/sqlconfig');
+const e = require('express');
+const garantirAuth = require('../middlewares/garantirAuth');
+const dbExtratos = require('../sql/dbExtratos');
 
-async function selectAll(){
-    const dados = await pool.query('SELECT * FROM "dadosbanco"');
-    return dados.rows;
+
+const validarDados = (req, res, next) =>{
+    const {dateInicial, dateFinal} = req.body   
+
+    let pattern = /^\d{4}-\d{2}$-\d{2}/;
+    
+
+    const errors = [];
+
+    if(!dateInicial){
+        errors.push("Preencha a data inicial")
+    }
+
+    if(!dateFinal){
+        errors.push("Preencha a data final")
+    }
+
+    if(pattern.test(dateInicial) || !isNaN(dateInicial)){
+        errors.push("Data Inicial invalida")
+    }
+
+    if(pattern.test(dateFinal) || !isNaN(dateFinal)){
+        errors.push("Data Final invalida")
+    }
+
+    if(errors.length!==0){
+       return res.status(401).send(errors);
+    }
+
+    next();
 }
 
 const extractUser = (app) =>{
-    app.route('/users/extractUsers')
-        .get(async(req, res)=>{
-            const users = await selectAll();
-            const {dateInicial, dateFinal, username} = req.query
-            let valueBoolean = true;
+    app.route('/users/extracts')
+        .get(garantirAuth, validarDados, async(req, res)=>{
+            const { id } = req.user
+            const {dateInicial, dateFinal} = req.body
 
-            await users.map(async(user, index)=>{
-                if(username === user.username){
-                    valueBoolean = false;
-                    const sqlEx = await('SELECT * FROM extrato WHERE username like $1 AND date BETWEEN $2 AND $3');
-                    const valuesEx = await[user.username, dateInicial, dateFinal];
-                    const folha = await pool.query(sqlEx, valuesEx)
-                    return res.status(201).send(folha.rows);
-                }
-            })
+            const extratos = await dbExtratos.getAllExtratos({id_user: id},dateInicial, dateFinal)
+            return res.status(201).send(extratos);
 
-            if(valueBoolean){
-                return res.status(400).send("Error Extract");
-            }
+
         })
 }
 

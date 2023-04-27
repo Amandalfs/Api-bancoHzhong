@@ -28,7 +28,7 @@ extractUser(app);
 depositUser(app);// ok
 createUser(app);// ok
 loginUser(app);// ok
-withdrawUser(app);
+withdrawUser(app);// ok
 
 app.get('/', (req, res) => res.send('funcionou'));
 
