@@ -1,9 +1,13 @@
 const db = require('./knex/index');
 
 module.exports = {
-    getAllExtratos() {
+    getAllExtratos(id, dataInicial, dataFinal) {
         return db('extratos')
+            .where(id)
+            .where('data', '>=', dataInicial)
+            .where('data', '<=', dataFinal)
     },
+
     
     getExtratoById(id) {
         return db('extratos').where(id).first()
