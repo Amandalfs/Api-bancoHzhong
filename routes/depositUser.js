@@ -80,7 +80,7 @@ const depositUsers = (app) => {
             await dbExtratos.createExtrato(extratoNew)
             await dbUsers.updateUser({id: id}, {saldo: saldoNovo})
 
-            return res.status(200).send("Deposito efetuado com sucesso");
+            return res.status(202).send("Deposito efetuado com sucesso");
         })
 }
 
