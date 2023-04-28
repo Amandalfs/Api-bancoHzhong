@@ -1,29 +1,60 @@
-const { patch } = require('http');
-const { join } = require('path');
 const keyGenerator = require('../utils/keyGenerator')
 const pool = require('../sql/sqlconfig');
 const selectAll = require('../utils/selectAll');
+const garantirAuth = require('../middlewares/garantirAuth');
+const dbUsers = require('../sql/dbUsers');
+
+const isKeyPix = async(req, res, next) =>{
+    const { id } = req.user;
+
+    const errors = [];
+
+    const user = await dbUsers.getUserById({id: id});
+    if(user.keypix==!null){
+        errors.push("Uma chave pix ja existe")
+    }
+
+    if(errors.length!==0){
+        return res.status(401).send(errors);
+    }
+
+
+    next()
+}
+
+const NotAutheticPassword = async (req, res, next) =>{
+    const { compare } = require('bcrypt')
+    
+    const { id } = req.user;
+    const { password } = req.headers;
+
+    const user = await dbUsers.getUserById({id: id});
+    
+    const passwordPassed = await compare(password, user.password);
+
+    if(!passwordPassed){
+        return res.status(401).send("Senha digitada esta errada")
+    }
+
+    next();
+}
+
 
 const createKeyPixUser = (app) =>{
-    app.route('/users/createKeyPixUser')
-        .patch(async(req, res) =>{
-            const users = await selectAll();   
-            let valueBoolean = await true;
+    app.route('/users/createKey')
+        .patch(garantirAuth, NotAutheticPassword, isKeyPix, async(req, res) =>{
+            const { id } = req.user
 
-            await users.map(async(user, index, array)=>{
-                if(req.body.username === user.username && req.headers.password === user.password && user.keypix === null){
-                    const sqlKey = ('UPDATE dadosbanco SET keypix=$1 WHERE username like $2');
-                    const valuesKey = [`${keyGenerator()}`, user.username];
-                    const key = valuesKey[0];
-                    pool.query(sqlKey, valuesKey);
-    
-                    valueBoolean = false;
-                    return res.status(201).send({key});
-                }
+            const ChaveGerada =  await keyGenerator();
+            console.log(ChaveGerada);
+            await dbUsers.updateUser({id: id}, {
+                keypix: ChaveGerada
             })
-            if(valueBoolean){
-                return res.status(400).send('Error create KEYPIX/existing key')
-            }
+
+            const user = await dbUsers.getUserById({id: id});
+            const { keypix } = user;
+            return res.status(201).send({"key":keypix});
+            
         })
 }
 

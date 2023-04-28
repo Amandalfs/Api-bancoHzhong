@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({ extended: false}));
 userAccont(app);
 pixKeyTransaction(app); 
 deleteKeyPixUser(app);
-createKeyPixUser(app); 
-extractUser(app);
+createKeyPixUser(app);//ok
+extractUser(app);// ok
 depositUser(app);// ok
 createUser(app);// ok
 loginUser(app);// ok
