@@ -4,60 +4,98 @@ const dateGenerator = require('../utils/dateGenerator');
 const date = require('../utils/date');
 const { pool } = require('../sql/sqlconfig')
 const selectAll = require('../utils/selectAll');
+const garantirAuth = require('../middlewares/garantirAuth');
+const dbUsers = require('../sql/dbUsers');
+const { error } = require('console');
+const db = require('../sql/knex/index')
+const dbExtratos = require('../sql/dbExtratos');
+
+const NotAutheticPassword = async (req, res, next) =>{
+    const { compare } = require('bcrypt')
+    
+    const { id } = req.user;
+    const { password } = req.headers;
+
+    const user = await dbUsers.getUserById({id: id});
+    
+    const passwordPassed = await compare(password, user.password);
+
+    if(!passwordPassed){
+        return res.status(401).send("Senha digitada esta errada")
+    }
+
+    next();
+}
+
+const validarKey = async(req, res, next) =>{
+    const { keypix } = req.body;
+
+    const errors = [];
+
+    const user = await db('users').where("keypix", keypix).first();
+    if(!user){
+        errors.push("A Chave pix e invalida");
+    }
+
+    if(errors.length!==0){
+        return res.status(401).send(errors);
+    }
+
+
+    next()
+}
+
+const useCaseTransaction = async(id, valorTransferir, res) =>{
+    const user = await dbUsers.getUserById({id: id})
+    
+    if(user.saldo<valorTransferir){
+        throw new Error("Saldo insuficiente")
+    }
+    
+}
 
 const pixKeyTransaction = (app) =>{
-    app.route('/users/pixKeyTransaction')
-        .patch(async(req, res)=>{
-                const users = await selectAll();
-                let valueBoolean = true;
-                let valueBoolean2 = true;
+    app.route('/users/transaction')
+        .patch(garantirAuth, NotAutheticPassword, validarKey, async(req, res)=>{
+                const { id } = req.user;
+                const {deposit, keypix } = req.body;
 
-                await users.map(async(userSend, indexSend, arraySend)=>{
-                        const depositSend = await Number(req.body.deposit);
-                        if(userSend.username === req.body.username && userSend.password === req.headers.password){
-                            valueBoolean = false;
-                            if(userSend.saldo>depositSend){
-                                valueBoolean2 = false;
-                                await users.map((userReceive, indexReceive, arrayReceive)=>{
-                                    if(userReceive.keypix === req.body.keypix){
-                                        const valueSend = userSend.saldo-depositSend;
-                                        const descSend = (`Voce transferiu R$${depositSend.toFixed(2).replace('.',',')} para @${userReceive.username} ${dateGenerator()}`);
-                                        
-                                        const sqlSendUp = ('UPDATE dadosbanco SET saldo=$1 WHERE username like $2');
-                                        pool.query(sqlSendUp, [valueSend, userSend.username]);
+                useCaseTransaction(id, deposit);
 
-                                        const sqlSendEx = ('INSERT INTO extrato(username,date,descricao) VALUES ($1,$2,$3)');
-                                        const result = pool.query(sqlSendEx, [userSend.username, date(), descSend]);
-                                        
+                const myUser = await dbUsers.getUserById({id:id});
+                const receiveUser = await db('users').where("keypix", keypix).first();
+                
 
-                                        const valueReceive = userReceive.saldo+depositSend;
-                                        const descReceive = (`Voce recebeu R${depositSend.toFixed(2).replace('.',',')} de @${userSend.username} ${dateGenerator()}`);
+                const saldoReceive =  myUser.saldo - deposit;
+                const saldoSend = receiveUser.saldo + deposit;
 
-                                        const sqlReceiveUp = ('UPDATE dadosbanco SET saldo=$1 WHERE username like $2');
-                                        pool.query(sqlReceiveUp, [valueReceive, userReceive.username]);
-
-                                        const sqlReceiveEx = ('INSERT INTO extrato(username, date, descricao) VALUES ($1, $2, $3)');
-                                        pool.query(sqlReceiveEx, [userReceive.username, date(), descReceive]);
-
-
-                                        return res.status(200).send({descSend});
-                                    }
-                                })
-                            }  else {
-                                return res.status(400).send('Error KeyPix invalidate');
-                            }
-
-                        }
-
-                })
-
-                if(valueBoolean){
-                    return res.status(400).send('account does not exist')
+                const extrato = {
+                    send:{
+                        id_user: id,
+                        name: myUser.name,
+                        tipo: "transferencia(envio)",
+                        saldo: deposit,
+                        data: date(),
+                        descricao: `Voce transferiu R$${deposit.toFixed(2).replace('.',',')} para ${receiveUser.name}`,
+                    },
+                    receive: {
+                        id_user: receiveUser.id,
+                        name: receiveUser.name,
+                        tipo: "transferencia(recebido)",
+                        saldo: deposit,
+                        data: date(),
+                        descricao: `Voce recebeu R${deposit.toFixed(2).replace('.',',')} de ${myUser.name}`,
+                    }
+                    
                 }
                 
-                if(valueBoolean2){
-                    return res.status(400).send('insufficient fund')
-                }
+            
+                await dbUsers.updateUser({id:id}, {saldo: saldoSend});
+                await dbUsers.updateUser({id: receiveUser.id}, {saldo: saldoReceive});
+                await dbExtratos.createExtrato(extrato.send);
+                await dbExtratos.createExtrato(extrato.receive);
+             
+               return res.status(201).send({extrato});
         })
 }
 
