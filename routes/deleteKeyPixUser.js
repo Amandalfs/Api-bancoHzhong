@@ -1,28 +1,53 @@
-const { patch } = require('http');
-const { join } = require('path');
-const { pool } = require('../sql/sqlconfig');
-const selectAll = require('../utils/selectAll');
+const dbUsers = require('../sql/dbUsers');
+const garantirAuth = require('../middlewares/garantirAuth');
+
+
+const notIsKeyPix = async(req, res, next) =>{
+    const { id } = req.user;
+
+    const errors = [];
+
+    const user = await dbUsers.getUserById({id: id});
+    if(user.keypix==null){
+        errors.push("Nao existe uma chave para deletar")
+    }
+
+    if(errors.length!==0){
+        return res.status(401).send(errors);
+    }
+
+
+    next()
+}
+
+const NotAutheticPassword = async (req, res, next) =>{
+    const { compare } = require('bcrypt')
+    
+    const { id } = req.user;
+    const { password } = req.headers;
+
+    const user = await dbUsers.getUserById({id: id});
+    
+    const passwordPassed = await compare(password, user.password);
+
+    if(!passwordPassed){
+        return res.status(401).send("Senha digitada esta errada")
+    }
+
+    next();
+}
+
 
 
 const deleteKeyPixUser = (app) => {
-    app.route('/users/deleteKeyPixUser')
-        .patch(async(req, res)=>{
-            const users = await selectAll();
-            let valueBoolean = true;
+    app.route('/users/deleteKeyPix')
+        .patch(garantirAuth, NotAutheticPassword, notIsKeyPix, async(req, res)=>{
+            const { id } = req.user
 
-            await users.map((user, index, array)=>{
-                if(req.body.username === user.username && req.headers.password === user.password && user.keypix !== null){
-
-                    const sql = ('UPDATE dadosbanco SET keypix=null WHERE username like $1');
-                    const values = [user.username];
-                    pool.query(sql, values);
-                    valueBoolean = false;
-                    return res.status(200).send({"msg": "Successfully deleted key"});
-                }
-            })
-            if(valueBoolean){
-                return res.status(400).send('Unable to delete, key does not exist');
-            }
+            await dbUsers.updateUser({ id: id }, { keypix: null });
+            const result = await dbUsers.getUserById({id: id})
+            return res.status(200).send({"msg": "Chave Deletada com sucesso"});
+            
         })
 }
 
