@@ -1,8 +1,8 @@
 const express =  require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
+const routes = require('./routes')
 
-const createUser = require('./routes/createUser');
 const userAccont = require('./routes/users/userAconnt');
 const loginUser = require('./routes/loginUser');
 const withdrawUser = require('./routes/withdrawUser');
@@ -20,13 +20,16 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
+
+app.use(routes);
+
 userAccont(app);
 pixKeyTransaction(app); 
 deleteKeyPixUser(app);
 createKeyPixUser(app);//ok
 extractUser(app);// ok
 depositUser(app);// ok
-createUser(app);// ok
+
 loginUser(app);// ok
 withdrawUser(app);// ok
 

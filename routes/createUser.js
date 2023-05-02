@@ -1,5 +1,8 @@
 const { db } = require('../sql/sqlconfig');
 
+const { Router } = require("express");
+const usersRoutes = Router();
+
 const dbUsers = require('../sql/dbUsers');
 const {hash} = require('bcrypt')
 
@@ -114,9 +117,9 @@ const validarDados = (req, res, next) =>{
     next();
 }
 
-const createUser = (app) => {
-    app.route('/users/createUser')
-        .post(validarCPF, isEmailUsernameCpf, verificarSenha, isMaior, validarDados, async (req, res) => {
+routeCreateUsers.post('/', validarCPF, isEmailUsernameCpf, verificarSenha, isMaior, validarDados, createUser);
+
+async function createUser(req, res){
             const {username, name, nasc, typeaccont, email} = req.body;
             const { password, cpf } = req.headers
             const passwordCriptografada = await hash(password, 10);
@@ -138,7 +141,6 @@ const createUser = (app) => {
             await dbUsers.createUser(userNew);
             return res.status(201).send('Conta no hzhong criada com sucesso');
     
-        })
 }
 
 module.exports = createUser;
