@@ -3,6 +3,14 @@ const { sign } = require('jsonwebtoken');
 const db = require('../sql/knex/index');
 const dbUsers = require('../sql/dbUsers')
 
+const useCaseUsersCreate = (nasc) => {
+    const verifyAge = require('../utils/verify/verifyAge');
+
+    if(verifyAge(nasc)){
+        return res.status(401).send("Usuario e menor de idade");
+    }
+}
+
 class usersController{
     async login(req, res){
         const {username} = req.body;
@@ -20,14 +28,10 @@ class usersController{
         
     }
     async create(req, res){
-        const verifyAge = require('../utils/verify/verifyAge');
-
         const {username, name, nasc, typeaccont, email} = req.body;
-        const { password, cpf } = req.headers
+        const { password, cpf } = req.headers;
 
-        if(verifyAge(nasc)){
-            return res.status(401).send("Usuario e menor de idade");
-        }
+        useCaseUsersCreate(nasc);
 
         const passwordCriptografada = await hash(password, 10);
 
@@ -36,6 +40,7 @@ class usersController{
             agencia: "003",
             saldo: 0            
         }
+        
         const userNew = {
             ...infosDefault,
             username: username,
