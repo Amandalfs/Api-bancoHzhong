@@ -4,13 +4,25 @@ const dbExtratos = require('../sql/dbExtratos');
 const date = require('../utils/date');
 const db = require('../sql/knex');
 
-const useCaseTransaction = async(id, valorTransferir, res) =>{
+const AppError = require('../utils/AppError');
+
+const useCaseTransaction = async(id, valorTransferir) =>{
     const user = await dbUsers.getUserById({id: id})
     
     if(user.saldo<valorTransferir){
-        throw new Error("Saldo insuficiente")
+        throw new AppError("Saldo Invalido para fazer o saque");
     }
     
+}
+
+const useCaseWithdraw = (valueWithdraw, saldo)=>{
+    if(valueWithdraw<0){
+        throw new AppError("Saldo invalido");
+    }
+
+    if(valueWithdraw>saldo){
+        throw new AppError("Saldo insuficiente para fazer saque");
+    }
 }
 
 class TransitionsController{
@@ -45,16 +57,10 @@ class TransitionsController{
 
     async withdraw(req, res){
         const { valueWithdraw } = req.body;
-        const { id } = req.user
+        const { id } = req.user;
         const user = await dbUsers.getUserById({id: id});
 
-        if(valueWithdraw<0){
-            return res.status(401).send({Error: "Saldo invalido"});
-        }
-
-        if(valueWithdraw>user.saldo){
-            return res.status(401).send({Error: "Saldo insuficiente"});
-        }
+        useCaseWithdraw(valueWithdraw, user.saldo);
         
         const tipo = "Saque";
         const data = date();
@@ -83,13 +89,13 @@ class TransitionsController{
         const { id } = req.user;
         const {deposit, keypix } = req.body;
 
-        useCaseTransaction(id, deposit, res);
+        useCaseTransaction(id, deposit);
 
         const myUser = await dbUsers.getUserById({id:id});
         const receiveUser = await db('users').where("keypix", keypix).first();
         
         if(myUser.id === receiveUser.id){
-           return res.status(400).send({message:"voce nao pode enviar dinheiro para voce"})
+            throw new AppError("Voce nao pode enviar dinheiro para voce");
         }
 
         const saldoReceive =  myUser.saldo - deposit;
@@ -121,14 +127,12 @@ class TransitionsController{
         await dbExtratos.createExtrato(extrato.send);
         await dbExtratos.createExtrato(extrato.receive);
      
-       return res.status(201).send({extrato});useCaseTransaction()
+       return res.status(201).send({extrato});
     }
 
     async extract(req, res){
         const { id } = req.user
         const {dateInicial, dateFinal} = req.body
-
-        
 
         const extratos = await dbExtratos.getAllExtratos({id_user: id},dateInicial, dateFinal)
         return res.status(201).send(extratos);
