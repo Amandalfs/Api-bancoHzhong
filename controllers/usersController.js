@@ -1,5 +1,6 @@
 const authConfig = require('../config/auth');
 const { sign } = require('jsonwebtoken');
+const { hash } = require('bcrypt')
 const db = require('../sql/knex/index');
 const dbUsers = require('../sql/dbUsers');
 const AppError = require('../utils/AppError');
