@@ -4,6 +4,8 @@ const { compare } = require('bcrypt');
 const { Router } = require("express");
 const usersRoutes = Router();
 
+const garantirAuth = require('../middlewares/garantirAuth');
+
 const AppError = require('../utils/AppError');
 
 const validarCPF = require('../middlewares/validarCpf')
@@ -105,5 +107,5 @@ const UsersController = new usersController;
 
 usersRoutes.get('/', verificarDadosLogin, notExistUsernameLogin, NotAutheticPasswordLogin, UsersController.login);
 usersRoutes.post('/', validarCPF, verificarSenhaCreate, isEmailUsernameCpfCreate, UsersController.create);
-
+usersRoutes.get('/show', garantirAuth, UsersController.show);
 module.exports = usersRoutes;

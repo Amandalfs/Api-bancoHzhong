@@ -6,8 +6,6 @@ const routes = require('./routes');
 
 const AppError = require('./utils/AppError');
 
-const userAccont = require('./routes/users/userAconnt');
-
 const app = express();
 const port = 8020;
 
@@ -15,8 +13,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use(routes);
-
-userAccont(app);
 
 app.use((error, req, res, next)=>{
     if(error instanceof AppError){

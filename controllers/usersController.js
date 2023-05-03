@@ -56,8 +56,16 @@ class usersController{
         return res.status(201).send('Conta no hzhong criada com sucesso');
     }
 
-    async infos(){
-        
+    async show(req, res){
+        const { id } = req.user;
+        const extracts = await db('extratos').where({id_user: id}).orderBy('data', 'desc').limit(5);
+        const user = await dbUsers.getUserById({ id });
+
+        return res.status(201).json({ 
+            username: user.username,
+            saldo: user.saldo,
+            extracts
+        });
     }
 }
 
