@@ -1,13 +1,14 @@
 const authConfig = require('../config/auth');
 const { sign } = require('jsonwebtoken');
 const db = require('../sql/knex/index');
-const dbUsers = require('../sql/dbUsers')
+const dbUsers = require('../sql/dbUsers');
+const AppError = require('../utils/AppError');
 
 const useCaseUsersCreate = (nasc) => {
     const verifyAge = require('../utils/verify/verifyAge');
 
     if(verifyAge(nasc)){
-        return res.status(401).send("Usuario e menor de idade");
+        throw new AppError("Usuario e menor de idade", 401);
     }
 }
 
@@ -40,7 +41,7 @@ class usersController{
             agencia: "003",
             saldo: 0            
         }
-        
+
         const userNew = {
             ...infosDefault,
             username: username,
