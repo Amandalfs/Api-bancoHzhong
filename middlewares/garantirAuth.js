@@ -1,12 +1,13 @@
 const { verify } = require('jsonwebtoken');
 const authConfig = require('../config/auth');
+const AppError = require('../utils/AppError');
 
 function garantirAuth(req, res, next){
     const authToken = req.headers.authorization?.replace('Bearer ', '');
     
 
     if(!authToken){
-        return res.status(401).send("token nao foi recebido")
+        throw new AppError("Token nao foi recebido");
     }
 
     try {
@@ -17,7 +18,7 @@ function garantirAuth(req, res, next){
         }
 
     } catch (error) {
-        return res.status(401).send(error)
+        throw new AppError(error, 401);
     }
 
     return next()

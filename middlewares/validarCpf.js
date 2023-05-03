@@ -1,3 +1,4 @@
+const AppError = require('../utils/AppError');
 const checkSizeCpf = require('../utils/verify/checkSizeCpf');
 const verifyCpf = require('../utils/verify/verifyCpf');
 
@@ -16,8 +17,7 @@ const validarCPF = (req, res, next)=>{
         errors.push('Campo CPF nao foi preenchido');
     }
     if(errors.length!==0){
-        res.status(400).send({errors})
-        return
+        throw new AppError(errors);
     }
 
     next()

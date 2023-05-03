@@ -6,7 +6,8 @@ const db = require('../sql/knex');
 const { Router } = require("express");
 const transitionsRoutes = Router();
 
-const transitionsController = require('../controllers/transitionsController')
+const transitionsController = require('../controllers/transitionsController');
+const AppError = require('../utils/AppError');
 const TransitionsController = new transitionsController; 
 
 
@@ -29,7 +30,7 @@ const verificarDados = (req, res, next) =>{
     }
 
     if(errors.length!==0){
-        return res.status(401).send({errors});
+        throw new AppError(errors, 401);
     }
 
     next()
@@ -44,7 +45,7 @@ const NotAutheticPassword = async (req, res, next) =>{
     const passwordPassed = await compare(password, user.password);
 
     if(!passwordPassed){
-        return res.status(401).send("Senha digitada esta errada")
+        throw new AppError("Senha digitada esta errada");
     }
 
     next();
@@ -75,7 +76,7 @@ const validarDate = (req, res, next) =>{
     }
 
     if(errors.length!==0){
-       return res.status(401).send(errors);
+       throw new AppError(errors, 401);
     }
 
     next();
@@ -85,17 +86,10 @@ const validarDate = (req, res, next) =>{
 const validarKey = async(req, res, next) =>{
     const { keypix } = req.body;
 
-    const errors = [];
-
     const user = await db('users').where("keypix", keypix).first();
     if(!user){
-        errors.push("A Chave pix e invalida");
+        throw new AppError("A Chave pix e invalida");
     }
-
-    if(errors.length!==0){
-        return res.status(401).send(errors);
-    }
-
 
     next()
 }
