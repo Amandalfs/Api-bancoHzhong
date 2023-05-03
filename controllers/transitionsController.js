@@ -6,11 +6,15 @@ const db = require('../sql/knex');
 
 const AppError = require('../utils/AppError');
 
-const useCaseTransaction = async(id, valorTransferir) =>{
+const useCaseTransaction = async(id, valorTransferir, id_user, id_key) =>{
     const user = await dbUsers.getUserById({id: id})
     
     if(user.saldo<valorTransferir){
         throw new AppError("Saldo Invalido para fazer o saque");
+    }
+    
+    if(id_user === id_key){
+        throw new AppError("Voce nao pode enviar dinheiro para voce");
     }
     
 }
@@ -23,7 +27,10 @@ const useCaseWithdraw = (valueWithdraw, saldo)=>{
     if(valueWithdraw>saldo){
         throw new AppError("Saldo insuficiente para fazer saque");
     }
+
+    
 }
+
 
 class TransitionsController{
     async deposit(req, res){
@@ -89,14 +96,11 @@ class TransitionsController{
         const { id } = req.user;
         const {deposit, keypix } = req.body;
 
-        useCaseTransaction(id, deposit);
-
+        
         const myUser = await dbUsers.getUserById({id:id});
         const receiveUser = await db('users').where("keypix", keypix).first();
         
-        if(myUser.id === receiveUser.id){
-            throw new AppError("Voce nao pode enviar dinheiro para voce");
-        }
+        useCaseTransaction(id, deposit, myUser.id, receiveUser.dateFinal);
 
         const saldoReceive =  myUser.saldo - deposit;
         const saldoSend = receiveUser.saldo + deposit;
