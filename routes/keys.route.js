@@ -3,22 +3,15 @@ const keysRoutes = Router();
 
 const garantirAuth = require('../middlewares/garantirAuth');
 const dbUsers = require('../sql/dbUsers');
-
+const AppError = require('../utils/AppError');
 
 const notIsKeyPix = async(req, res, next) =>{
     const { id } = req.user;
 
-    const errors = [];
-
     const user = await dbUsers.getUserById({id: id});
     if(user.keypix==null){
-        errors.push("Nao existe uma chave para deletar")
+        throw new AppError("Nao existe uma chave para deletar", 401);
     }
-
-    if(errors.length!==0){
-        return res.status(401).send(errors);
-    }
-
 
     next()
 }
@@ -26,17 +19,10 @@ const notIsKeyPix = async(req, res, next) =>{
 const isKeyPix = async(req, res, next) =>{
     const { id } = req.user;
 
-    const errors = [];
-
     const user = await dbUsers.getUserById({id: id});
     if(user.keypix==!null){
-        errors.push("Uma chave pix ja existe")
+        throw new AppError("Uma chave pix ja existe", 401);
     }
-
-    if(errors.length!==0){
-        return res.status(401).send(errors);
-    }
-
 
     next()
 }
@@ -52,7 +38,7 @@ const NotAutheticPassword = async (req, res, next) =>{
     const passwordPassed = await compare(password, user.password);
 
     if(!passwordPassed){
-        return res.status(401).send("Senha digitada esta errada")
+        throw new AppError("Senha digitada esta Errada!!", 401);
     }
 
     next();
