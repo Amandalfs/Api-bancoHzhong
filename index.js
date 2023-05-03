@@ -4,14 +4,6 @@ const cors = require('cors')
 const routes = require('./routes')
 
 const userAccont = require('./routes/users/userAconnt');
-const loginUser = require('./routes/loginUser');
-const withdrawUser = require('./routes/withdrawUser');
-const depositUser = require('./routes/depositUser');
-const extractUser = require('./routes/extractUser');
-const createKeyPixUser = require('./routes/createKeyPixUser');
-const deleteKeyPixUser = require('./routes/deleteKeyPixUser');
-const pixKeyTransaction = require('./routes/pixKeyTransaction');
-
 
 const app = express();
 const port = 8020;
@@ -24,14 +16,6 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(routes);
 
 userAccont(app);
-pixKeyTransaction(app); 
-deleteKeyPixUser(app);
-createKeyPixUser(app);//ok
-extractUser(app);// ok
-depositUser(app);// ok
-
-loginUser(app);// ok
-withdrawUser(app);// ok
 
 app.get('/', (req, res) => res.send('funcionou'));
 
