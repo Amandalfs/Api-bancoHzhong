@@ -1,8 +1,11 @@
+const dbUsers = require('../sql/dbUsers');
+const keyGenerator = require('../utils/keyGenerator');
+
 class keysController{
-    async createKey(req, res){
+    async create(req, res){
         const { id } = req.user
         const ChaveGerada =  await keyGenerator();
-        console.log(ChaveGerada);
+        
         await dbUsers.updateUser({id: id}, {
             keypix: ChaveGerada
         })
@@ -13,7 +16,7 @@ class keysController{
             
     }
 
-    async deleteKey(req, res){
+    async delete(req, res){
         const { id } = req.user
 
         await dbUsers.updateUser({ id: id }, { keypix: null });

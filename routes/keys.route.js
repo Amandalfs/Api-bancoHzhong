@@ -20,7 +20,7 @@ const isKeyPix = async(req, res, next) =>{
     const { id } = req.user;
 
     const user = await dbUsers.getUserById({id: id});
-    if(user.keypix==!null){
+    if(user.keypix){
         throw new AppError("Uma chave pix ja existe", 401);
     }
 
@@ -44,8 +44,10 @@ const NotAutheticPassword = async (req, res, next) =>{
     next();
 }
 
-const KeysController = require('../controllers/KeysController');
-const keysController = new KeysController;
+const KeysControllerClasse = require('../controllers/KeysController');
+const keysController = new KeysControllerClasse;
 
-keysRoutes.post('/keys', garantirAuth, NotAutheticPassword, isKeyPix, keysController.create);
-keysRoutes.delete('/keys',garantirAuth, NotAutheticPassword, notIsKeyPix, keysController.delete);
+keysRoutes.patch('/', garantirAuth, NotAutheticPassword, isKeyPix, keysController.create);
+keysRoutes.delete('/',garantirAuth, NotAutheticPassword, notIsKeyPix, keysController.delete);
+
+module.exports = keysRoutes;
