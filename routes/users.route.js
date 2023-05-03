@@ -4,6 +4,8 @@ const { compare } = require('bcrypt');
 const { Router } = require("express");
 const usersRoutes = Router();
 
+const AppError = require('../utils/AppError');
+
 const validarCPF = require('../middlewares/validarCpf')
 
 const verificarDadosLogin = (req, res, next) => {
@@ -21,7 +23,7 @@ const verificarDadosLogin = (req, res, next) => {
     }
 
     if(errors.length!==0){
-        return res.status(401).send({errors});
+        throw new AppError(errors, 401);
     }
 
     next()
@@ -32,7 +34,7 @@ const notExistUsernameLogin = async (req, res, next) =>{
     const isUsername = await db('users').where("username", username).select()
 
     if(isUsername.length===0){
-        res.status(401).send("O usuario nao possui uma conta")
+        throw new AppError("O usuario nao possui uma conta");
     }
 
     next()
@@ -48,7 +50,7 @@ const NotAutheticPasswordLogin = async (req, res, next) =>{
     const passwordPassed = await compare(password, user.password);
 
     if(!passwordPassed){
-        return res.status(401).send("Senha digita esta errada")
+        throw new AppError("Senha digitada esta errada", 401);
     }
 
     next();
@@ -60,7 +62,7 @@ const verificarSenhaCreate = (req, res, next)=>{
 
     if(password !== password2){
         console.log(password, password2)
-        return res.status(400).send("senhas diferentes");
+        throw new AppError("Senhas Diferentes");
     }
     
     next()
@@ -90,7 +92,7 @@ const isEmailUsernameCpfCreate = async (req, res, next)=>{
     }
 
     if(errors.length!==0){
-        return res.status(401).send({errors})
+        throw new AppError(errors, 401);
     }
 
     next();
