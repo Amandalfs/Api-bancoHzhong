@@ -1,7 +1,7 @@
 const { Router } = require('express')
-const usersRoutes = require('./users.route');
-const transitionsRoutes = require('./transitions.route.js')
-const keysRoutes = require('./keys.route.js');
+const usersRoutes = require('./users.routes');
+const transitionsRoutes = require('./transitions.routes')
+const keysRoutes = require('./keys.routes');
 
 const routes = Router();
 
