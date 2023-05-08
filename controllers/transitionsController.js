@@ -1,93 +1,33 @@
-const generatorDate = require('../utils/dateGenerator');
-const dbUsers = require('../sql/dbUsers');
-const dbExtratos = require('../sql/dbExtratos');
-const date = require('../utils/date');
-const db = require('../sql/knex');
+const UserRepository = require('../repositories/UserRepository');
+const ExtractsRepository = require('../repositories/ExtractsRepository');
 
-const AppError = require('../utils/AppError');
-
-const useCaseTransaction = async(id, valorTransferir, id_user, id_key) =>{
-    const user = await dbUsers.getUserById({id: id})
-    
-    if(user.saldo<valorTransferir){
-        throw new AppError("Saldo Invalido para fazer o saque");
-    }
-    
-    if(id_user === id_key){
-        throw new AppError("Voce nao pode enviar dinheiro para voce");
-    }
-    
-}
-
-const useCaseWithdraw = (valueWithdraw, saldo)=>{
-    if(valueWithdraw<0){
-        throw new AppError("Saldo invalido");
-    }
-
-    if(valueWithdraw>saldo){
-        throw new AppError("Saldo insuficiente para fazer saque");
-    }
-
-    
-}
-
+const DepositTransitionService = require('../services/DepositTransitionService/DepositTransitionService');
+const WithdrawTransitionService = require('../services/WithdrawTransitionService/WithdrawTransitionService');
+const TransitionsUserByUser2Service = require('../services/TransitionsUserByUser2Service/TransitionsUserByUser2Service');
+const ExtractsByDatesService = require('../services/ExtractsByDatesService/ExtractsByDatesService');
 
 class TransitionsController{
     async deposit(req, res){
         const { deposit } = req.body;
         const { id } = req.user;
 
-        const tipo = "deposito";
-        const data = generatorDate();
-
-        const user = await dbUsers.getUserById({id: id});
-
-        const saldoNovo = user.saldo + deposit;
-
-        const name = user.name;
-        const desc = `Voce depositou R$${deposit.toFixed(2).replace('.',',')}`
-
-        const extratoNew = {
-            id_user: id,
-            name: name,
-            tipo: tipo,
-            saldo: deposit,
-            data: data,
-            descricao: desc,
-        }
-
-        await dbExtratos.createExtrato(extratoNew)
-        await dbUsers.updateUser({id: id}, {saldo: saldoNovo})
+        const userRepository = new UserRepository;
+        const extractsRepository = new ExtractsRepository;
+        const depositTransitionService = new DepositTransitionService(userRepository, extractsRepository);
+        await depositTransitionService.execute({id, deposit});
 
         return res.status(202).send("Deposito efetuado com sucesso");
+
     }
 
     async withdraw(req, res){
         const { valueWithdraw } = req.body;
         const { id } = req.user;
-        const user = await dbUsers.getUserById({id: id});
 
-        useCaseWithdraw(valueWithdraw, user.saldo);
-        
-        const tipo = "Saque";
-        const data = date();
-
-
-        const saldoNovo = user.saldo - valueWithdraw;
-
-        const desc = `Voce sacou R$${valueWithdraw.toFixed(2).replace('.',',')}`
-
-        const extratoNew = {
-            id_user: id,
-            name: user.name,
-            tipo: tipo,
-            saldo: saldoNovo,
-            data: data,
-            descricao: desc,
-        }
-
-        await dbExtratos.createExtrato(extratoNew)
-        await dbUsers.updateUser({id: id}, {saldo: saldoNovo})
+        const userRepository = new UserRepository;
+        const extractsRepository = new ExtractsRepository;
+        const withdrawTransitionService = new WithdrawTransitionService(userRepository, extractsRepository);
+        await withdrawTransitionService.execute({valueWithdraw, id});
 
         return res.status(202).send({"Saque efetuado com sucesso":valueWithdraw});
     }
@@ -95,51 +35,24 @@ class TransitionsController{
     async transaction(req, res){
         const { id } = req.user;
         const {deposit, keypix } = req.body;
-
-        
-        const myUser = await dbUsers.getUserById({id:id});
-        const receiveUser = await db('users').where("keypix", keypix).first();
-        
-        useCaseTransaction(id, deposit, myUser.id, receiveUser.dateFinal);
-
-        const saldoReceive =  myUser.saldo - deposit;
-        const saldoSend = receiveUser.saldo + deposit;
-
-        const extrato = {
-            send:{
-                id_user: id,
-                name: myUser.name,
-                tipo: "transferencia(envio)",
-                saldo: deposit,
-                data: date(),
-                descricao: `Voce transferiu R$${deposit.toFixed(2).replace('.',',')} para ${receiveUser.name}`,
-            },
-            receive: {
-                id_user: receiveUser.id,
-                name: receiveUser.name,
-                tipo: "transferencia(recebido)",
-                saldo: deposit,
-                data: date(),
-                descricao: `Voce recebeu R${deposit.toFixed(2).replace('.',',')} de ${myUser.name}`,
-            }
-            
-        }
-        
+      
+        const userRepository = new UserRepository;
+        const extractsRepository = new ExtractsRepository;
+        const transitionsUserByUser2Service = new TransitionsUserByUser2Service(userRepository, extractsRepository);
+        const extracts = await transitionsUserByUser2Service.execute(id, keypix, deposit);
     
-        await dbUsers.updateUser({id:id}, {saldo: saldoSend});
-        await dbUsers.updateUser({id: receiveUser.id}, {saldo: saldoReceive});
-        await dbExtratos.createExtrato(extrato.send);
-        await dbExtratos.createExtrato(extrato.receive);
-     
-       return res.status(201).send({extrato});
+       return res.status(201).send({extracts});
     }
 
     async extract(req, res){
         const { id } = req.user
         const {dateInicial, dateFinal} = req.body
 
-        const extratos = await dbExtratos.getAllExtratos({id_user: id},dateInicial, dateFinal)
-        return res.status(201).send(extratos);
+        const extractsRepository = new ExtractsRepository;
+        const extractsByDatesService = new ExtractsByDatesService(extractsRepository);
+        const extracts = await extractsByDatesService.execute(id, dateInicial, dateFinal);
+
+        return res.status(201).send(extracts);
 
     }
 
