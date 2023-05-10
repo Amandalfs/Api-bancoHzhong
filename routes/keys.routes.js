@@ -5,7 +5,12 @@ const garantirAuth = require('../middlewares/garantirAuth');
 const KeysControllerClasse = require('../controllers/KeysController');
 const keysController = new KeysControllerClasse;
 
-keysRoutes.patch('/', garantirAuth, keysController.create);
+const createKeyController = require('../module/keys/useCase/CreateKey');
+
+keysRoutes.patch('/', garantirAuth, (req, res)=>{
+    return createKeyController.handle(req, res);
+});
+
 keysRoutes.delete('/',garantirAuth, keysController.delete);
 keysRoutes.get('/', garantirAuth, keysController.getKey);
 

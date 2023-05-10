@@ -1,7 +1,7 @@
-const keyGenerator = require("../../utils/keyGenerator");
-const AppError = require('../../utils/AppError');
+const keyGenerator = require("../../../../utils/keyGenerator");
+const AppError = require('../../../../utils/AppError');
 
-module.exports = class CreateKeyService{
+module.exports = class CreateKeyUseCase{
     userRepository
     constructor(UserRepository){
         this.userRepository = UserRepository;
