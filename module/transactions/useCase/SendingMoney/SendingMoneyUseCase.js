@@ -1,5 +1,5 @@
-const AppError = require("../../utils/AppError");
-const date = require("../../utils/date");
+const AppError = require("../../../../utils/AppError");
+const date = require("../../../../utils/date");
 
 module.exports = class TransitionsUserByUser2Service{
 

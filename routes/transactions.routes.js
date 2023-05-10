@@ -1,11 +1,14 @@
 const garantirAuth = require('../middlewares/garantirAuth');
 
 const { Router } = require("express");
-const transitionsRoutes = Router();
+const transactionsRoutes = Router();
 
 const transitionsController = require('../controllers/transitionsController');
 const AppError = require('../utils/AppError');
+
 const depositTransactionsController = require('../module/transactions/useCase/DepositTransactions');
+const withdrawTransactionsController = require('../module/transactions/useCase/WithdrawTransactions');
+const sendingMoneyController = require('../module/transactions/useCase/SendingMoney');
 
 const TransitionsController = new transitionsController; 
 
@@ -41,11 +44,18 @@ const validarDate = (req, res, next) =>{
 }
 
 
-transitionsRoutes.patch('/deposit', garantirAuth, (req, res)=>{
+transactionsRoutes.patch('/deposit', garantirAuth, (req, res)=>{
     return depositTransactionsController.handle(req, res)
 });
-transitionsRoutes.patch('/withdraw', garantirAuth, TransitionsController.withdraw);
-transitionsRoutes.patch('/transition', garantirAuth, TransitionsController.transaction);
-transitionsRoutes.get('/extracts', garantirAuth, validarDate, TransitionsController.extract);
 
-module.exports = transitionsRoutes;
+transactionsRoutes.patch('/withdraw', garantirAuth, (req, res)=>{
+    return withdrawTransactionsController.handle(req, res);
+});
+
+transactionsRoutes.patch('/sendingMoney', garantirAuth, (req, res)=>{
+    return sendingMoneyController.handle(req, res);
+});
+
+transactionsRoutes.get('/extracts', garantirAuth, validarDate, TransitionsController.extract);
+
+module.exports = transactionsRoutes;
