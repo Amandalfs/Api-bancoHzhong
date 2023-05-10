@@ -1,6 +1,6 @@
-const AppError = require('../../utils/AppError');
+const AppError = require('../../../../utils/AppError');
 
-module.exports = class ShowKeyService{
+module.exports = class ShowKeyUseCase{
     userRepository
     constructor(UserRepository){
         this.userRepository = UserRepository;
