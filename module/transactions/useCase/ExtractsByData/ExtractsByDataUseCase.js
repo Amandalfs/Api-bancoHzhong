@@ -1,6 +1,6 @@
-const AppError = require("../../utils/AppError");
+const AppError = require("../../../../utils/AppError");
 
-module.exports = class ExtractsByDatesService{
+module.exports = class ExtractsByDataUseCase{
     extractsRepository;
     constructor(ExtractsRepository){
         this.extractsRepository = ExtractsRepository;

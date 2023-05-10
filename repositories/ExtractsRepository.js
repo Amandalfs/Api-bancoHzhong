@@ -11,7 +11,7 @@ class ExtractsRepository {
     }
 
     async SearchForDataStartAndEndbyId(id, dateStart, dateEnd){
-        return await db('extratos').where("id_user",id).where('data', '>=', dateStart).where('data', '<=', dateEnd);
+        return await db('extratos').select("name", "tipo", "saldo", "data", "descricao").where("id_user",id).where('data', '>=', dateStart).where('data', '<=', dateEnd);
     }
 }
 
