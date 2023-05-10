@@ -5,6 +5,7 @@ const transitionsRoutes = Router();
 
 const transitionsController = require('../controllers/transitionsController');
 const AppError = require('../utils/AppError');
+const depositTransactionsController = require('../module/transactions/useCase/DepositTransactions');
 
 const TransitionsController = new transitionsController; 
 
@@ -40,7 +41,9 @@ const validarDate = (req, res, next) =>{
 }
 
 
-transitionsRoutes.patch('/deposit', garantirAuth, TransitionsController.deposit);
+transitionsRoutes.patch('/deposit', garantirAuth, (req, res)=>{
+    return depositTransactionsController.handle(req, res)
+});
 transitionsRoutes.patch('/withdraw', garantirAuth, TransitionsController.withdraw);
 transitionsRoutes.patch('/transition', garantirAuth, TransitionsController.transaction);
 transitionsRoutes.get('/extracts', garantirAuth, validarDate, TransitionsController.extract);

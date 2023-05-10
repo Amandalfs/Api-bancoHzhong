@@ -1,25 +1,11 @@
 const UserRepository = require('../repositories/UserRepository');
 const ExtractsRepository = require('../repositories/ExtractsRepository');
 
-const DepositTransitionService = require('../services/DepositTransitionService/DepositTransitionService');
 const WithdrawTransitionService = require('../services/WithdrawTransitionService/WithdrawTransitionService');
 const TransitionsUserByUser2Service = require('../services/TransitionsUserByUser2Service/TransitionsUserByUser2Service');
 const ExtractsByDatesService = require('../services/ExtractsByDatesService/ExtractsByDatesService');
 
 class TransitionsController{
-    async deposit(req, res){
-        const { deposit } = req.body;
-        const { id } = req.user;
-
-        const userRepository = new UserRepository;
-        const extractsRepository = new ExtractsRepository;
-        const depositTransitionService = new DepositTransitionService(userRepository, extractsRepository);
-        await depositTransitionService.execute({id, deposit});
-
-        return res.status(202).send("Deposito efetuado com sucesso");
-
-    }
-
     async withdraw(req, res){
         const { valueWithdraw } = req.body;
         const { id } = req.user;

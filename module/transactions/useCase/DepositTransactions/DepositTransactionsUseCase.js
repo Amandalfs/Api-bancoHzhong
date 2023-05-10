@@ -1,7 +1,7 @@
-const AppError = require("../../utils/AppError");
-const generatorDate = require("../../utils/dateGenerator");
+const AppError = require("../../../../utils/AppError");
+const generatorDate = require("../../../../utils/dateGenerator");
 
-module.exports = class DepositTransitionService {
+class DepositTransactionsUseCase {
     userRepository;
     extractsRepository;
     constructor(UserRepository, ExtractsRepository){
@@ -16,7 +16,7 @@ module.exports = class DepositTransitionService {
 
         const user = await this.userRepository.findUserById(id);
 
-        if(deposit<0){
+        if(deposit<=0){
             throw new AppError("Saldo invalido");
         }
     
@@ -39,3 +39,5 @@ module.exports = class DepositTransitionService {
 
     }
 }
+
+module.exports = DepositTransactionsUseCase;
