@@ -1,4 +1,4 @@
-const AppError = require('../../utils/AppError');
+const AppError = require('../../../../utils/AppError');
 
 module.exports = class CreateKeyService{
     userRepository
@@ -10,7 +10,7 @@ module.exports = class CreateKeyService{
         const user = await this.userRepository.findUserById(id);
 
         if(!user.keypix){
-            throw new AppError("Chave pix nao existe")
+            throw new AppError("Chave pix nao existe");
         }
 
         await this.userRepository.deleteKeyPixById(id);
