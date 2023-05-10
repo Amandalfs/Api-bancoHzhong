@@ -13,6 +13,14 @@ class UserRepository {
         return await db('users').where("id",id).first();
     }
 
+    async findUserByCPF(cpf){
+        return await db('users').where("cpf", cpf).first();
+    }
+
+    async findUserByEmail(email){
+        return await db('users').where("email", email).first();
+    }
+
     async findUserByKeyPix(keypix){
         return await db('users').where('keypix', keypix).first();
     }
