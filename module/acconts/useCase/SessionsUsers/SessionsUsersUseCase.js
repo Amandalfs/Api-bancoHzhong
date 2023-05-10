@@ -1,17 +1,16 @@
 const { compare } = require("bcrypt");
-const authConfig = require('../../config/auth');
+const authConfig = require('../../../../config/auth');
 const { sign } = require('jsonwebtoken');
-const AppError = require('../../utils/AppError');
+const AppError = require('../../../../utils/AppError');
 
 
-class SessionsUserService{
+class SessionsUsersUseCase{
     UserRepository
     constructor(UserRepository){
         this.UserRepository = UserRepository;
     }
     
     async execute(username, password){
-        
 
         const user = await this.UserRepository.findUserByUsername(username);
 
@@ -36,4 +35,4 @@ class SessionsUserService{
     }
 }
 
-module.exports = SessionsUserService;
+module.exports = SessionsUsersUseCase;
