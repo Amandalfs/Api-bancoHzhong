@@ -14,7 +14,7 @@ class DepositTransactionsUseCase {
 
         const user = await this.UserRepository.findUserById(id);
 
-        if(deposit<=0){
+        if(deposit<=0 || deposit===null){
             throw new AppError("Saldo invalido");
         }
     
