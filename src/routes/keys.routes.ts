@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 const keysRoutes = Router();
-const garantirAuth = require('../middlewares/garantirAuth');
+import garantirAuth from '../middlewares/garantirAuth';
 
 
 import createKeyController from '../module/keys/useCase/CreateKey';

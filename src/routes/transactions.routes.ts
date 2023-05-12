@@ -1,4 +1,4 @@
-const garantirAuth = require('../middlewares/garantirAuth');
+import garantirAuth from "../middlewares/garantirAuth";
 
 import { NextFunction, Request, Response, Router } from "express";
 const transactionsRoutes = Router();
@@ -35,7 +35,7 @@ const validarDate = (req: Request, res: Response, next: NextFunction) =>{
     }
 
     if(errors.length!==0){
-       throw new AppError(errors, 401);
+       throw new AppError(errors[0], 401);
     }
 
     next();

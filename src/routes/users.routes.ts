@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { Router } from "express";
 const usersRoutes = Router();
 
-const garantirAuth = require('../middlewares/garantirAuth');
+import garantirAuth from "../middlewares/garantirAuth";
 
 import createUserController from '../module/acconts/useCase/CreateUser';
 import sessionsUsersController from '../module/acconts/useCase/SessionsUsers';

@@ -20,10 +20,10 @@ function garantirAuth(req: Request, res: Response, next:NextFunction){
         }
 
     } catch (error) {
-        throw new AppError(error, 401);
+        throw new AppError(error.message, 401);
     }
 
     return next()
 }
 
-module.exports = garantirAuth;
+export default garantirAuth;
