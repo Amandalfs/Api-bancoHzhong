@@ -1,6 +1,6 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
-const {AppError} = require('../../../../utils/AppError');
+import {AppError} from '../../../../utils/AppError';
 
 class ShowKeyUseCase{
     constructor(private UserRepository: IUserRepository){}

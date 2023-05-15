@@ -6,8 +6,6 @@ import { AppError } from "../../../../utils/AppError";
 import { verifyAge } from "../../../../utils/verify/verifyAge";
 import { validarCPF } from "../../../../utils/validarCpf";
 
-AppError
-
 interface IUserRequestDTO {
     username: string, 
     name: string, 
@@ -33,16 +31,16 @@ class CreateUserUseCase {
         const isEmail = await this.UserRepository.findUserByEmail(email);
         const isUsername = await this.UserRepository.findUserByUsername(username);
         const isCpf = await this.UserRepository.findUserByCPF(cpf);
-    
-        if(!isEmail){
+        
+        if(!isEmail && isEmail!== undefined){
             throw new AppError("Ja existente uma conta com esse Email");
         }
     
-        if(!isUsername){
+        if(!isUsername && isUsername!== undefined){
             throw new AppError("Ja existente uma conta com esse CPF");
         }
     
-        if(!isCpf){
+        if(!isCpf && isCpf!== undefined){
             throw new AppError("Ja existente uma conta com esse Username");
         }
 

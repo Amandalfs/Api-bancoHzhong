@@ -1,7 +1,7 @@
 import { Knex } from "knex"
 
 export async function up(knex: Knex): Promise<void> {
-    knex.schema.createTable('cofres', function (table) {
+    knex.schema.createTableIfNotExists('cofres', function (table) {
         table.increments('id').primary();
         table.integer('id_user').references('id').inTable('users');
         table.string('name');

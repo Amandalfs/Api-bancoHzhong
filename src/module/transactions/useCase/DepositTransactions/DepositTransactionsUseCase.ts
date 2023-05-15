@@ -8,7 +8,7 @@ class DepositTransactionsUseCase {
     constructor(private UserRepository: IUserRepository, private ExtractsRepository: IExtracsRepository){}
     
     async execute({deposit, id}){
-
+        
         const tipo = "deposito";
         const data = date();
 

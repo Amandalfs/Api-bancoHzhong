@@ -1,6 +1,6 @@
 import {UserRepository} from '../../../../repositories/UserRepository';
-const {CreateUserUseCase} = require('./CreateUserUseCase');
-const {CreateUserController} = require('./CreateUserController');
+import {CreateUserUseCase} from './CreateUserUseCase';
+import {CreateUserController} from './CreateUserController';
 
 const userRepository = new UserRepository;
 const createUserUseCase = new CreateUserUseCase(userRepository);
