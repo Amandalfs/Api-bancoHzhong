@@ -100,4 +100,37 @@ describe("criacao de usuarios",()=>{
         server.close()
     })
 
+    it("usuario nao poderar cadastrar com um cpf ja existe", async()=>{
+        const server = app.listen(2000,()=>{});
+
+        await request(server)
+            .post("/users")
+            .send({
+                "username": "UsuarioTest",
+                "name": "Usuario Test",
+                "nasc": "02-10-2003",
+                "typeaccont": "poupanca",
+                "email": "usuario57@test.com",
+                "password": "12345678",
+                "password2": "12345678",
+                "cpf": "56711478088"
+            })
+
+        const result = await request(server)
+            .post("/users")
+            .send({
+                "username": "UsuarioTest2",
+                "name": "Usuario Test2",
+                "nasc": "02-10-2003",
+                "typeaccont": "poupanca",
+                "email": "usuario58@test.com",
+                "password": "12345678",
+                "password2": "12345678",
+                "cpf": "56711478088"
+            })
+        const dados = JSON.parse(result.text)
+        console.log(dados.message)
+        expect(dados.message).toEqual("Ja existente uma conta com esse Cpf");
+        server.close()
+    })
 })
