@@ -31,17 +31,16 @@ class CreateUserUseCase {
         const isEmail = await this.UserRepository.findUserByEmail(email);
         const isUsername = await this.UserRepository.findUserByUsername(username);
         const isCpf = await this.UserRepository.findUserByCPF(cpf);
-        
-        if(!isEmail && isEmail!== undefined){
-            throw new AppError("Ja existente uma conta com esse Email");
+        if(isEmail){
+            throw new AppError(`Ja existente uma conta com esse Email`);
         }
     
-        if(!isUsername && isUsername!== undefined){
-            throw new AppError("Ja existente uma conta com esse CPF");
+        if(isUsername){
+            throw new AppError(`Ja existente uma conta com esse Username`);
         }
     
-        if(!isCpf && isCpf!== undefined){
-            throw new AppError("Ja existente uma conta com esse Username");
+        if(isCpf){
+            throw new AppError("Ja existente uma conta com esse Cpf");
         }
 
         if(password !== password2){
