@@ -1,4 +1,4 @@
-import { app } from "../../../../app";
+import { app } from "../../../../../app";
 import { describe, beforeEach, afterEach, it, expect } from "vitest"
 import request from "supertest"
 import {execSync} from "child_process";
@@ -13,7 +13,7 @@ describe("criacao de usuarios",()=>{
     })
 
     it("Deverar criar um usuario",async()=>{
-        const server = app.listen(2000,()=>{});
+        const server = app.listen(()=>{});
         await request(server)
             .post("/users")
             .send({
@@ -26,7 +26,6 @@ describe("criacao de usuarios",()=>{
                 "password2": "12345678",
                 "cpf": "12603863096"
             })
-        
         .expect(201)
 
         server.close()
