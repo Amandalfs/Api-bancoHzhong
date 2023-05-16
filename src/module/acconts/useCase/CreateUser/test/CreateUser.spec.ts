@@ -1,5 +1,5 @@
 import { app } from "../../../../../app";
-import { describe, beforeEach, afterEach, it, expect } from "vitest"
+import { describe, beforeEach, afterEach, it, expect, beforeAll } from "vitest"
 import request from "supertest"
 import {execSync} from "child_process";
 
