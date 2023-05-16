@@ -13,7 +13,7 @@ describe("criacao de usuarios",()=>{
     })
 
     it("Deverar criar um usuario",async()=>{
-        const server = app.listen(()=>{});
+        const server = app.listen();
         await request(server)
             .post("/users")
             .send({
@@ -32,7 +32,7 @@ describe("criacao de usuarios",()=>{
     })
 
     it("Um usario nao deve conseguir criar uma conta com um email ja existente", async()=>{
-        const server = app.listen(2000,()=>{});
+        const server = app.listen();
 
         await request(server)
             .post("/users")
@@ -66,7 +66,7 @@ describe("criacao de usuarios",()=>{
     })
         
     it("Deve nao pode cadastrar com um username ja existente", async()=>{
-        const server = app.listen(2000,()=>{});
+        const server = app.listen(()=>{});
 
         await request(server)
             .post("/users")
@@ -100,7 +100,7 @@ describe("criacao de usuarios",()=>{
     })
 
     it("usuario nao poderar cadastrar com um cpf ja existe", async()=>{
-        const server = app.listen(2000,()=>{});
+        const server = app.listen(()=>{});
 
         await request(server)
             .post("/users")
@@ -134,7 +134,7 @@ describe("criacao de usuarios",()=>{
     })
 
     it("usuario noa poderar cadastar com as senhas diferentes", async()=>{
-        const server = app.listen(2000,()=>{});
+        const server = app.listen(()=>{});
 
         await request(server)
             .post("/users")

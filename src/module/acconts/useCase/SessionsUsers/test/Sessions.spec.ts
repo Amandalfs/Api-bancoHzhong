@@ -14,7 +14,7 @@ describe('Testando Login de usuario',()=>{
     })
 
     it("usuario nao deve conseguir logar com um a senha errada", async()=>{
-        const server = app.listen(2000,()=>{});
+        const server = app.listen();
         await request(server)
             .post("/users")
             .send({
@@ -35,6 +35,19 @@ describe('Testando Login de usuario',()=>{
             })  
         const result = JSON.parse(response.text)
         console.log(result.message)
+        expect(result.message).toEqual("Senha Ou Username digitada esta errada")
+        server.close()
+    })
+
+    it("Usuario nao pode logar com uma conta que nao existe", async ()=>{
+        const server = app.listen();
+        const response = await request(server)
+            .get("/users")
+            .send({
+                "username": "UsarioTest",
+                "password": "524545"
+            })
+        const result = JSON.parse(response.text)
         expect(result.message).toEqual("Senha Ou Username digitada esta errada")
         server.close()
     })
