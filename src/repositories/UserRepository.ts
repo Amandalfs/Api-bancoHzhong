@@ -5,7 +5,7 @@ import { IUser } from "./modal/IUser";
 
 class UserRepository implements IUserRepository {
     async createUser(data: IUser){
-        await db('users').insert(data);        
+        await db('users').insert(data);   
     }
 
     async findUserByUsername(username:string){

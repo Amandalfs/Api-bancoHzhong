@@ -64,6 +64,9 @@ class CreateUserUseCase {
 
         await this.UserRepository.createUser(newUser);
 
+        return {
+            user: "created"
+        }
     }
 }
 

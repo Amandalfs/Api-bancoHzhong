@@ -11,4 +11,6 @@ export interface IUser {
     email:string,
     password: string,
     cpf: string,
+    id?:number,
+    keypix?: string | null
 }

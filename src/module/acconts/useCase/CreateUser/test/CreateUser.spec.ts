@@ -1,169 +1,160 @@
-import { app } from "../../../../../app";
 import { describe, beforeEach, afterEach, it, expect, beforeAll } from "vitest"
-import request from "supertest"
-import {execSync} from "child_process";
+import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository"
+import { CreateUserUseCase } from "../CreateUserUseCase";
+import { AppError } from "../../../../../utils/AppError";
 
-describe("criacao de usuarios",()=>{
+describe.only("criacao de usuarios",()=>{
 
-    beforeEach(()=>{
-        execSync("npm run knex -- migrate:latest")
+    it("Usuario deve conseguir criar uma conta", async ()=>{
+        const usersRepository = new InMemoryUsersRepository;
+        const createUserUseCase = new CreateUserUseCase(usersRepository);
+
+        const usuario = {
+            "username": "UsuarioTest",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": "12345678",
+            "password2": "12345678",
+            "cpf": "12603863096"
+        }
+
+        const user = await createUserUseCase.execute(usuario);
+        expect(user.user).toEqual('created')
     })
-    afterEach(()=>{
-        execSync("npm run knex -- migrate:rollback --all")
-    })
+    
+    it("Nao deve conseguir criar uma conta com um email ja existente", async ()=>{
+        const usersRepository = new InMemoryUsersRepository;
+        const createUserUseCase = new CreateUserUseCase(usersRepository);
 
-    it("Deverar criar um usuario",async()=>{
-        const server = app.listen();
-        await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest",
-                "name": "Usuario Test",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario57@test.com",
-                "password": "12345678",
-                "password2": "12345678",
-                "cpf": "12603863096"
-            })
-        .expect(201)
-
-        server.close()
-    })
-
-    it("Um usario nao deve conseguir criar uma conta com um email ja existente", async()=>{
-        const server = app.listen();
-
-        await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest",
-                "name": "Usuario Test",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario57@test.com",
-                "password": "12345678",
-                "password2": "12345678",
-                "cpf": "12603863096"
-            })
-
-        const result = await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest2",
-                "name": "Usuario Test2",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario57@test.com",
-                "password": "12345678",
-                "password2": "12345678",
-                "cpf": "56711478088"
-            })
-        const dados = JSON.parse(result.text)
-        console.log(dados.message)
-        expect(dados.message).toEqual("Ja existente uma conta com esse Email");
-        server.close()
-    })
+        const usuario = {
+            "username": "Usuario Test",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": "12345678",
+            "password2": "12345678",
+            "cpf": "12603863096"
+        }
         
-    it("Deve nao pode cadastrar com um username ja existente", async()=>{
-        const server = app.listen(()=>{});
+        const usuario2 = {
+            "username": "Usuario Test2",
+            "name": "Usuario Test2",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": "12345678",
+            "password2": "12345678",
+            "cpf": "18349814098"
+        }
 
-        await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest",
-                "name": "Usuario Test",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario57@test.com",
-                "password": "12345678",
-                "password2": "12345678",
-                "cpf": "12603863096"
-            })
+        await createUserUseCase.execute(usuario)
 
-        const result = await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest",
-                "name": "Usuario Test2",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario58@test.com",
-                "password": "12345678",
-                "password2": "12345678",
-                "cpf": "56711478088"
-            })
-        const dados = JSON.parse(result.text)
-        console.log(dados.message)
-        expect(dados.message).toEqual("Ja existente uma conta com esse Username");
-        server.close()
+        await expect(createUserUseCase.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Email"))
+     
+
     })
 
-    it("usuario nao poderar cadastrar com um cpf ja existe", async()=>{
-        const server = app.listen(()=>{});
+     
+    it("Nao deve conseguir criar uma conta com um cpf ja existente", async ()=>{
+        const usersRepository = new InMemoryUsersRepository;
+        const createUserUseCase = new CreateUserUseCase(usersRepository);
 
-        await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest",
-                "name": "Usuario Test",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario57@test.com",
-                "password": "12345678",
-                "password2": "12345678",
-                "cpf": "56711478088"
-            })
+        const usuario = {
+            "username": "Usuario Test",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": "12345678",
+            "password2": "12345678",
+            "cpf": "12603863096"
+        }
+        
+        const usuario2 = {
+            "username": "Usuario Test2",
+            "name": "Usuario Test2",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario58@test.com",
+            "password": "12345678",
+            "password2": "12345678",
+            "cpf": "12603863096"
+        }
 
-        const result = await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest2",
-                "name": "Usuario Test2",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario58@test.com",
-                "password": "12345678",
-                "password2": "12345678",
-                "cpf": "56711478088"
-            })
-        const dados = JSON.parse(result.text)
-        console.log(dados.message)
-        expect(dados.message).toEqual("Ja existente uma conta com esse Cpf");
-        server.close()
+        await createUserUseCase.execute(usuario)
+
+        await expect(createUserUseCase.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Cpf"))
+     
+
     })
 
-    it("usuario noa poderar cadastar com as senhas diferentes", async()=>{
-        const server = app.listen(()=>{});
+    it("Nao deve conseguir criar uma conta com um username ja existente", async ()=>{
+        const usersRepository = new InMemoryUsersRepository;
+        const createUserUseCase = new CreateUserUseCase(usersRepository);
 
-        await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest",
-                "name": "Usuario Test",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario57@test.com",
-                "password": "12345678",
-                "password2": "12345678",
-                "cpf": "12603863096"
-            })
+        const usuario = {
+            "username": "Usuario Test",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": "12345678",
+            "password2": "12345678",
+            "cpf": "12603863096"
+        }
+        
+        const usuario2 = {
+            "username": "Usuario Test",
+            "name": "Usuario Test2",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario58@test.com",
+            "password": "12345678",
+            "password2": "12345678",
+            "cpf": "18349814098"
+        }
 
-        const result = await request(server)
-            .post("/users")
-            .send({
-                "username": "UsuarioTest2",
-                "name": "Usuario Test2",
-                "nasc": "02-10-2003",
-                "typeaccont": "poupanca",
-                "email": "usuario58@test.com",
-                "password": "123456715",
-                "password2": "12345678",
-                "cpf": "56711478088"
-            })
-        const dados = JSON.parse(result.text)
-        console.log(dados.message)
-        expect(dados.message).toEqual("Senhas Diferentes");
-        server.close()
+        await createUserUseCase.execute(usuario)
+
+        await expect(createUserUseCase.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Username"))
+     
+
     })
+
+    it("Nao deve conseguir criar uma conta senhas diferentes", async ()=>{
+        const usersRepository = new InMemoryUsersRepository;
+        const createUserUseCase = new CreateUserUseCase(usersRepository);
+
+        const usuario = {
+            "username": "Usuario Test",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": "12345678",
+            "password2": "12345678",
+            "cpf": "12603863096"
+        }
+        
+        const usuario2 = {
+            "username": "Usuario Test2",
+            "name": "Usuario Test2",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario58@test.com",
+            "password": "12345678",
+            "password2": "123456jivjoasdfbvas",
+            "cpf": "18349814098"
+        }
+
+        await createUserUseCase.execute(usuario)
+
+        await expect(createUserUseCase.execute(usuario2)).rejects.toEqual(new AppError("Senhas Diferentes"))
+     
+
+    })
+
 })

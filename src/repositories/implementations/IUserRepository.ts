@@ -1,6 +1,6 @@
 import { IUser } from "../modal/IUser"
 
-interface  IReponseUser {
+export interface  IReponseUser {
      id?: number, 
      name: string,
      username: string,
