@@ -31,4 +31,26 @@ describe("Teste de create key", ()=>{
 
         await expect(createKeyUseCase.execute(1)).rejects.toEqual(new AppError("Chave pix Ja existe"))
     })
+
+    it("Usuario deve conseguir criar uma chave", async ()=>{
+        const usersRepository = new InMemoryUsersRepository;
+        const createKeyUseCase = new CreateKeyUseCase(usersRepository);
+
+        const senhaCriptografada = await hash("12345678", 8)
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 0, 
+            "username": "UsuarioTest",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": senhaCriptografada,
+            "cpf": "12603863096"
+        }) 
+        
+        const key = await createKeyUseCase.execute(1)
+        expect(key).toEqual(expect.any(String))
+    })
 })
