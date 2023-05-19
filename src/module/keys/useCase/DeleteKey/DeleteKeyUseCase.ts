@@ -15,6 +15,10 @@ class DeleteKeyUseCase{
         }
 
         await this.UserRepository.deleteKeyPixById(id);
+
+        return {
+            msg: "key delete success"
+        }
     }
 }
 
