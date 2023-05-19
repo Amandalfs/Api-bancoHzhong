@@ -6,3 +6,4 @@
 - [x] Criacao dos testes do UseCase ShowUsers e Testes Executados com status de sucesso
 - [x] Criacao dos testes do UseCase CreateKey e Testes Executados com status de sucesso
 - [x] Criacao dos testes do UseCase DeleteKey e Testes Executados com status de sucesso
+- [x] Criacao dos testes do UseCase ShowKey e Testes Executados com status de sucesso
