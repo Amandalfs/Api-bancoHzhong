@@ -1,6 +1,6 @@
 # API-bancoHzhong
 
-# Projeto feita para o banco Hzhong funcional corretamente
+# Projeto feita para o banco Hzhong funciona corretamente
 
 - Cadastro de novo usuário.
 - Login do usuário.
