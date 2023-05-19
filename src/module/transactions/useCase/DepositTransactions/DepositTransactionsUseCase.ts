@@ -35,6 +35,9 @@ class DepositTransactionsUseCase {
         await this.ExtractsRepository.createExtracts(extratoNew);
         await this.UserRepository.updateBalanceById(id, saldoNovo);
 
+        return {
+            extratoNew,
+        }
     }
 }
 
