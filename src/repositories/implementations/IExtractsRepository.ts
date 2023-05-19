@@ -1,3 +1,4 @@
+import { IExtracts } from "../modal/IExtracts"
 
 export interface IReponseExtracs {
     tipo: string,
@@ -9,7 +10,7 @@ export interface IReponseExtracs {
 export interface IExtracsRepository {
     SearchForMoreRecentExtractsById(id_user:number): Promise<IReponseExtracs[]>
 
-    createExtracts(data): Promise<void>
+    createExtracts(data: IExtracts): Promise<void>
 
     SearchForDataStartAndEndbyId(id:number, dateStart:string, dateEnd:string): Promise<IReponseExtracs[]>
 }
