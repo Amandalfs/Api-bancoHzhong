@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "tsx --watch ./src/server",
     "knex": "node --no-warnings --loader tsx ./node_modules/knex/bin/cli.js",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   },
   "homepage": "https://github.com/Amandalfs/CRUD-bancoHzhong#readme",
   "dependencies": {
+    "@vitest/coverage-c8": "^0.31.1",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
