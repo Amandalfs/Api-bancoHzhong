@@ -32,7 +32,6 @@
     "sqlite": "^4.2.0",
     "sqlite3": "^5.1.6",
     "supertest": "^6.3.3",
-    "vitest": "^0.31.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -42,6 +41,7 @@
     "@types/node": "^20.1.5",
     "@types/supertest": "^2.0.12",
     "tsx": "^3.12.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.1"
   }
 }

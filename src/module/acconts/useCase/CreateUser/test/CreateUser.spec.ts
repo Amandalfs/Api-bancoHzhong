@@ -3,7 +3,7 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { CreateUserUseCase } from "../CreateUserUseCase";
 import { AppError } from "../../../../../utils/AppError";
 
-describe.only("criacao de usuarios",()=>{
+describe("criacao de usuarios",()=>{
 
     it("Usuario deve conseguir criar uma conta", async ()=>{
         const usersRepository = new InMemoryUsersRepository;
