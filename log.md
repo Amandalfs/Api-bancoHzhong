@@ -8,3 +8,4 @@
 - [x] Criacao dos testes do UseCase DeleteKey e Testes Executados com status de sucesso
 - [x] Criacao dos testes do UseCase ShowKey e Testes Executados com status de sucesso
 - [x] Criacao dos testes do UseCase DepositTransactions e Testes Executados com status de sucesso
+- [x] Criacao dos testes do UseCase ExtractsByDateTransactions e Testes Executados com status de sucesso
