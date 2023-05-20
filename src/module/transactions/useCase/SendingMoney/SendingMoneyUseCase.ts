@@ -17,6 +17,10 @@ class SendingMoneyUseCase{
                 throw new AppError("Saldo Invalido para fazer o saque");
             }
             
+            if(value<=0){
+                throw new AppError("Saldo Invalido, voce so pode mandar valores positivos");
+            }
+
             if(user.keypix === keyPix){
                 throw new AppError("Voce nao pode enviar dinheiro para voce");
             }

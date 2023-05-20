@@ -9,3 +9,5 @@
 - [x] Criacao dos testes do UseCase ShowKey e Testes Executados com status de sucesso
 - [x] Criacao dos testes do UseCase DepositTransactions e Testes Executados com status de sucesso
 - [x] Criacao dos testes do UseCase ExtractsByDateTransactions e Testes Executados com status de sucesso
+- [x] Adicionado uma verificao no envio de dinheiro para usuario nao enviar dinheiro negativo
+- [x] Criacao dos testes do UseCase SendingMoney e Testes Executados com status de sucesso
