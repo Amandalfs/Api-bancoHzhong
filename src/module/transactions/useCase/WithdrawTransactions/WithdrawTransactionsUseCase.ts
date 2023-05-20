@@ -41,6 +41,9 @@ class WithdrawTransactionsUseCase {
             await this.ExtractsRepository.createExtracts(extratoNew);
             await this.UserRepository.updateBalanceById(id, saldoNovo);
 
+            return {
+                extratoNew,
+            }
         } catch (error) {
             throw new AppError(error.message);
         }

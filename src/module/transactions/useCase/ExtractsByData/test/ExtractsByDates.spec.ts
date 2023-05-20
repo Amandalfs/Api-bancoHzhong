@@ -25,10 +25,9 @@ describe("testando useCase de estrato", ()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         });
-        const id_user = 1, dateStart = "02-02-2023", dateEnd = "02-04-2023"
+        const id_user = 1, dateStart = "02-02-2023", dateEnd = "02-04-2023";
 
-        const extratos = await extractsByDate.execute(id_user, dateStart, dateEnd)
-        console.log("Ola mundo", extratos)
+        const extratos = await extractsByDate.execute(id_user, dateStart, dateEnd);
         expect(extratos).toEqual(expect.any(Array))
     })
 })
