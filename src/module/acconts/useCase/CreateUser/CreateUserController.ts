@@ -6,7 +6,8 @@ class CreateUserController {
     constructor(private CreateUserUseCase: CreateUserUseCase){}
 
     async handle(req: Request, res: Response){
-        const {username, name, nasc, typeaccont, email, password, password2, cpf } = req.body;
+        const {username, name, nasc, typeaccont, email} = req.body;
+        const { password, password2, cpf } = req.headers;
         
         await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2, cpf});
 

@@ -6,7 +6,12 @@ import { routes } from "./routes";
 
 import { AppError } from './utils/AppError';
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger.json';
+
 const app = express();
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors());
 

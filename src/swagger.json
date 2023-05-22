@@ -1,0 +1,90 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Banco Hzhong Documetancao",
+        "description": "Api Banco Hzhong",
+        "version": "2.0.0",
+        "contact": {
+            "email": "newlabshzhong@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post":{
+                "tags": ["users"],
+                "sumary": "criacao usuarios",
+                "description": "Criacao de um novo usuario",
+                "requestBody": {
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"    
+                                    },
+                                    "name": {
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type": "string"
+                                    },
+                                    "nasc": {
+                                        "type":"string"
+                                    }
+                                },
+                                "example":{
+                                    "name": "userTest",
+                                    "email": "user@test.com",
+                                    "senha": "user#123.Test",
+                                    "typeaccont": "poupanca"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name":"password",
+                        "in": "header",
+                        "description": "primeira senha",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "12345678"
+                    },
+                    {
+                        "name":"password2",
+                        "in": "header",
+                        "description": "repita a senha",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "12345678"
+                    },
+                    {
+                        "name":"cpf",
+                        "in": "header",
+                        "description": "coloque o cpf valido",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "88888888808"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                      "description": "Ja existente uma conta"
+                    },
+                    "201": {
+                        "description": "conta criada"
+                    }
+                  }
+            }
+        }
+
+    }
+}
