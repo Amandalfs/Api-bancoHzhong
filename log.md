@@ -1,6 +1,11 @@
 # Log de Atualizacoes da api Hzhong
 
-# 19/05/2023 
+## 22/05/2023
+
+- [x] trocado a rota de login que estava na localhost:8888/users para localhost:8888/users/sessions
+- [x] trocado o jeito de conseguir a requisicao do extracts show que estava no body para query
+
+## 19/05/2023 
 
 - [x] Criacao do Repository InMemory do extracts
 - [x] Criacao dos testes do UseCase ShowUsers e Testes Executados com status de sucesso

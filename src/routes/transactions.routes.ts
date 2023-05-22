@@ -11,7 +11,7 @@ import sendingMoneyController from '../module/transactions/useCase/SendingMoney'
 import extractsByDataController from '../module/transactions/useCase/ExtractsByData';
 
 const validarDate = (req: Request, res: Response, next: NextFunction) =>{
-    const {dateInicial, dateFinal} = req.body   
+    const {dateInicial, dateFinal} = req.query;
 
     let pattern = /^\d{4}-\d{2}$-\d{2}/;
     
