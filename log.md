@@ -5,6 +5,7 @@
 - [x] trocado a rota de login que estava na localhost:8888/users para localhost:8888/users/sessions
 - [x] trocado o jeito de conseguir a requisicao do extracts show que estava no body para query
 - [x] dependencia vitest ui para visualizacao para mais uma opcao de visualizacao dos testes
+- [x] concertado o bug que estava acontecendo de os testes pararem depois que tudo desse sucesso mesmo no modo de watch
 
 ## 19/05/2023 
 

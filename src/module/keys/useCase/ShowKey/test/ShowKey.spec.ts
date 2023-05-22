@@ -12,7 +12,7 @@ describe("Testando o show users", ()=>{
         const usersRepository = new InMemoryUsersRepository;
         const showKeyUseCase =  new ShowKeyUseCase(usersRepository);
         
-        const senhaCriptografada = hash("12345678", 8)
+        const senhaCriptografada = await hash("12345678", 8)
 
         await usersRepository.createUser({
             numero: 153,
@@ -34,7 +34,7 @@ describe("Testando o show users", ()=>{
         const usersRepository = new InMemoryUsersRepository;
         const showKeyUseCase = new ShowKeyUseCase(usersRepository);
 
-        const senhaCriptografada = hash("12345678", 8)
+        const senhaCriptografada = await hash("12345678", 8)
 
         await usersRepository.createUser({
             numero: 153,
@@ -49,7 +49,7 @@ describe("Testando o show users", ()=>{
             "cpf": "12603863096"
         });
 
-        const chave = await keyGenerator();
+        const chave = keyGenerator();
         await usersRepository.createKeyPixById(1, chave);
 
         const key = await showKeyUseCase.execute(1);
