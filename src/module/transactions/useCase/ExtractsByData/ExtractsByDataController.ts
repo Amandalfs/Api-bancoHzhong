@@ -11,7 +11,7 @@ class ExtractsByDataController {
 
         const extracts = await this.ExtractsByDataUseCase.execute(id, dateInicial, dateFinal);
 
-        return res.status(201).json(extracts);
+        return res.status(200).json(extracts);
     }
 }
 

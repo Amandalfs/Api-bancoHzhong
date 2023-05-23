@@ -3,7 +3,8 @@
 ## 23/05/2023
 - [x] criado a documentacao da rota show user.
 - [x] criado a documentacao da rota sessions user.
-- [x] criado a documentacao da rota de sendingMoney user.
+- [x] criado a documentacao da rota de sendingMoney.
+- [x] criado a documentacao da rota de extractsByDate.
 
 ## 22/05/2023
 
