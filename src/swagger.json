@@ -457,6 +457,50 @@
                     }
                 }
             }
+        },
+        "users/deposit": {
+            "patch": {
+                "tags":["transactions"],
+                "sumary":"deposito de dinheiro",
+                "description":"Deposito de dinheiro",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "deposit": {
+                                        "type":"number"
+                                    }
+                                },
+                                "example": {
+                                    "deposit": 58
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name":"Authorization",
+                        "in": "header",
+                        "description": "authorization token",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description":"saldo invalido"
+                    },
+                    "202": {
+                        "description":"Deposito efetuado com sucesso"
+                    }
+                }
+            }
         }
     }
 }

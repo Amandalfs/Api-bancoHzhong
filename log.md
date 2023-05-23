@@ -5,6 +5,7 @@
 - [x] criado a documentacao da rota sessions user.
 - [x] criado a documentacao da rota de sendingMoney.
 - [x] criado a documentacao da rota de extractsByDate.
+- [x] criado a documentacao da rota de deposit.
 
 ## 22/05/2023
 
