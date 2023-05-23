@@ -11,7 +11,7 @@
     "paths": {
         "/users": {
             "post":{
-                "tags": ["users"],
+                "tags": ["acconts"],
                 "sumary": "criacao usuarios",
                 "description": "Criacao de um novo usuario",
                 "requestBody": {
@@ -83,8 +83,121 @@
                         "description": "conta criada"
                     }
                   }
+            }      
+        },
+        "/users/show": {
+            "get": {
+                "tags": ["acconts"],
+                "sumary": "infos de usuario",
+                "description": "pegar infos de usuario",
+                "requestBody": {
+                    "content":{
+                        "application/json":{
+                           
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name":"Authorization",
+                        "in": "header",
+                        "description": "authorization token",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                      "description": "usuario nao encontrado"
+                    },
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties": {
+                                        "userSend": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type":"string"
+                                                },
+                                                "username": {
+                                                    "type":"string"
+                                                }, 
+                                                "saldo": {
+                                                    "type":"number"
+                                                },
+                                                "typeaccont": {
+                                                    "type":"string"
+                                                },
+                                                "keypix": {
+                                                    "type":"string"
+                                                }
+                                            }    
+                                        },
+                                        "extracts": {
+                                            "type":"array",
+                                            "properties": {
+                                                "type":"object",
+                                                "properties": {
+                                                    "tipo": {
+                                                        "type":"string"
+                                                    },
+                                                    "saldo": {
+                                                        "type":"number"
+                                                    },
+                                                    "data": {
+                                                        "type":"date"
+                                                    },
+                                                    "descricao": {
+                                                        "type":"string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "example":{
+                                        "dados": {
+                                            "userSend": {
+                                                "name": "user Test",
+                                                "username":"userTestSuper",
+                                                "saldo": 5000,
+                                                "typeaccont": "poupanca",
+                                                "keypix": null
+                                            },
+                                            "extracts": [
+                                                {
+                                                    "tipo":"saque",
+                                                    "saldo": 258,
+                                                    "data": "05/05/2023",
+                                                    "descricao": "Voce sacou R$258,00"
+                                                },
+                                                {
+                                                    "tipo":"saque",
+                                                    "saldo": 258,
+                                                    "data": "05/05/2023",
+                                                    "descricao": "Voce sacou R$258,00"
+                                                },
+                                                {
+                                                    "tipo":"saque",
+                                                    "saldo": 258,
+                                                    "data": "05/05/2023",
+                                                    "descricao": "Voce sacou R$258,00"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                                }
+                            }
+                        }
+                  }
             }
-        }
 
+    }
     }
 }

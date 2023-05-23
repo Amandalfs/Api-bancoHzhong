@@ -1,5 +1,8 @@
 # Log de Atualizacoes da api Hzhong
 
+## 23/05/2023
+- [x] criado a documentacao da rota show user.
+
 ## 22/05/2023
 
 - [x] trocado a rota de login que estava na localhost:8888/users para localhost:8888/users/sessions.
