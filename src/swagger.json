@@ -501,6 +501,50 @@
                     }
                 }
             }
+        },
+        "users/withdraw": {
+            "patch": {
+                "tags":["transactions"],
+                "sumary":"saque de dinheiro",
+                "description": "saque de dinheiro do usuario",
+                "requestBody": {
+                    "content":{
+                        "application/json": {
+                            "schema":{
+                                "type":"object",
+                                "properties": {
+                                    "valueWithdraw":  {
+                                        "type":"number"
+                                    }
+                                },
+                                "example": {
+                                    "valueWithdraw": 50
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name":"Authorization",
+                        "in": "header",
+                        "description": "authorization token",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Saque efetuado com sucesso"
+                    },
+                    "400":{
+                        "description": "saldo invalido"
+                    }
+                }
+            }
         }
     }
 }
