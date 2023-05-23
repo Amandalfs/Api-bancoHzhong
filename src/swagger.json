@@ -247,6 +247,133 @@
                 }            
             }
             
+        },
+        "users/sendingMoney": {
+            "patch": {
+                "tags": ["transactions"],
+                "sumary": "envio de dinheiro",
+                "description": "envio de dinheiro para outro usuario",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                           "schema": {
+                                "type":"object",
+                                "properties": {
+                                    "deposit": {
+                                        "type":"number"
+                                    },
+                                    "keypix": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "deposit": 50,
+                                    "keypix": "vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
+                                }
+                           }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name":"Authorization",
+                        "in": "header",
+                        "description": "authorization token",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description":"saldo invalido"
+                    },
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "properties": {
+                                        "extratos": {
+                                            "type": "object",
+                                            "properties": {
+                                                "send": {
+                                                    "type":"object",
+                                                    "properties": {
+                                                        "id_user": {
+                                                            "type":"number"
+                                                        },
+                                                        "name": {
+                                                            "type":"string"
+                                                        },
+                                                        "tipo": {
+                                                            "type":"string"
+                                                        },
+                                                        "saldo": {
+                                                            "type":"number"
+                                                        },
+                                                        "data": {
+                                                            "type":"date"
+                                                        },
+                                                        "descricao": {
+                                                            "type":"string"
+                                                        }
+                                                    }
+                                                },
+                                                "receive": {
+                                                    "type":"object",
+                                                    "properties": {
+                                                        "id_user": {
+                                                            "type":"number"
+                                                        },
+                                                        "name": {
+                                                            "type":"string"
+                                                        },
+                                                        "tipo": {
+                                                            "type":"string"
+                                                        },
+                                                        "saldo": {
+                                                            "type":"number"
+                                                        },
+                                                        "data": {
+                                                            "type":"date"
+                                                        },
+                                                        "descricao": {
+                                                            "type":"string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        },
+                                        "example":{
+                                            "extracts": {
+                                                "send": {
+                                                    "id_user": 1,
+                                                    "name": "user Test",
+                                                    "tipo": "transaferencia(envio)",
+                                                    "saldo": 50,
+                                                    "data": "05/05/2023",
+                                                    "descricao": "Voce transaferiu R$50,00 para test2"
+                                                },
+                                                "receive": {
+                                                    "id_user": 2,
+                                                    "name": "user Test2",
+                                                    "tipo": "transaferencia(recebido)",
+                                                    "saldo": 50,
+                                                    "data": "05/05/2023",
+                                                    "descricao": "Voce recebeu R$50,00 de test"
+                                                }
+                                            }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }   
+            }
         }
     }
 }
