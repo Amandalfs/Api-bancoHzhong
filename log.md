@@ -1,5 +1,10 @@
 # Log de Atualizacoes da api Hzhong
 
+## Versão 2.0.3 - 24/05/2023
+
+## Adicionado 
+- criado a documentação  da rota show keypix.
+
 
 ## Versão 2.0.2 - 23/05/2023
 ### Adicionado
