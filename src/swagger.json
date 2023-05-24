@@ -620,6 +620,31 @@
                         "description": "Voce nao tem uma chave pix"
                     }
                 }
+            },
+            "delete": {
+                "tags": ["keys"],
+                "sumary": "Excluir chave pix",
+                "description": "exlusao de chave pix da conta",
+                "parameters": [
+                    {
+                        "name":"Authorization",
+                        "in": "header",
+                        "description": "authorization token",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Chave pix deletada com sucesso"
+                    },
+                    "400": {
+                        "description":"Impossivel deletar uma chave que não existe"
+                    }
+                }
             }
            
         }

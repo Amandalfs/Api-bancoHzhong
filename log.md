@@ -5,6 +5,7 @@
 ## Adicionado 
 - criado a documentação  da rota show keypix.
 - criado a documentação  da rota create keypix.
+- criado a documentação da rota delete keypix.
 
 <br>
 <br>
