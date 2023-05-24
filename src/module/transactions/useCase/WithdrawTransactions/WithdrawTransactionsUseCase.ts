@@ -33,6 +33,10 @@ class WithdrawTransactionsUseCase {
                 throw new AppError("O seu limite por saque é de R$800");
             }
 
+            if(user.typeaccont === "universitaria" && valueWithdraw>450) {
+                throw new AppError("O seu limite por saque é de R$450");
+            }
+
             
             const tipo = "Saque";
             const data = date();
