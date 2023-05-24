@@ -82,4 +82,29 @@ describe("Testando saque do usaurio", ()=>{
 
     })
 
+    it("usuario do tipo poupanca nao deve conseguir sacar um valor maior que seu limite de saque por veza", async()=>{
+        const usersRepository = new InMemoryUsersRepository;
+        const extractsRepository = new InMemoryExtractsRepository;
+
+        const withdrawTransactionsUseCase = new WithdrawTransactionsUseCase(usersRepository, extractsRepository);
+
+        const senhaCriptografada = await hash("12345678", 8)
+
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 500, 
+            "username": "UsuarioTest",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": senhaCriptografada,
+            "cpf": "12603863096",
+        });
+
+        await expect(withdrawTransactionsUseCase.execute(350, 1)).rejects.toEqual(new AppError("O seu limite por saque é de R$300")) // valor, id        
+
+    })
+
 })

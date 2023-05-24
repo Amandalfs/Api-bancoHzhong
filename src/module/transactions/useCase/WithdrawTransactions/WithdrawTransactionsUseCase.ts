@@ -12,6 +12,10 @@ class WithdrawTransactionsUseCase {
         try {
             
             const user = await this.UserRepository.findUserById(id);
+            
+            if(!user){
+                throw new AppError("Recurso nao encontrado");
+            }
 
             if(valueWithdraw<=0){
                 throw new AppError("Saldo invalido");
@@ -20,6 +24,11 @@ class WithdrawTransactionsUseCase {
             if(valueWithdraw>user.saldo){
                 throw new AppError("Saldo insuficiente para fazer saque");
             }
+
+            if(user.typeaccont === "poupanca" && valueWithdraw>300) {
+                throw new AppError("O seu limite por saque é de R$300");
+            }
+
             
             const tipo = "Saque";
             const data = date();

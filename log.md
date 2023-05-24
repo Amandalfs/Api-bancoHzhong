@@ -7,6 +7,9 @@
 - criado a documentação  da rota create keypix.
 - criado a documentação da rota delete keypix.
 
+## Alterado
+- mudado o useCaseWithdraw colocando um limite de R$300 por saque para contas do tipo poupanca.
+
 <br>
 <br>
 <br>
