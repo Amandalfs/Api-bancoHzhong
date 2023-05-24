@@ -9,6 +9,7 @@
 
 ## Alterado
 - mudado o useCaseWithdraw colocando um limite de R$300 por saque para contas do tipo poupanca.
+- mudado o useCaseWithdraw colocando um limite de R$800 por saque para contas do tipo corrente.
 
 <br>
 <br>
