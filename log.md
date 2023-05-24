@@ -4,7 +4,11 @@
 
 ## Adicionado 
 - criado a documentação  da rota show keypix.
+- criado a documentação  da rota create keypix.
 
+<br>
+<br>
+<br>
 
 ## Versão 2.0.2 - 23/05/2023
 ### Adicionado

@@ -3,7 +3,7 @@
     "info": {
         "title": "Api Banco Hzhong Documetancao",
         "description": "Api Banco Hzhong",
-        "version": "2.0.0",
+        "version": "2.0.3",
         "contact": {
             "email": "newlabshzhong@gmail.com"
         }
@@ -547,6 +547,43 @@
             }
         },
         "users/keys": {
+            "post": {
+                "tags":["keys"],
+                "sumary": "Criacao de chave",
+                "description": "criacao de uma chave",
+                "parameters": [
+                    {
+                        "name":"Authorization",
+                        "in": "header",
+                        "description": "authorization token",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "schema": {
+                                "type":"object",
+                                "properties":{
+                                    "keypix": {
+                                        "type":"string"
+                                    }
+                                },
+                                "example": {
+                                    "keypix":"vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
+                                }
+                            }
+                        }
+                    }, 
+                    "400": {
+                        "description": "Voce ja possui uma chave pix"
+                    }
+                }
+            },
             "get": {
                 "tags":["keys"],
                 "sumary": "Monstrar keypix",
