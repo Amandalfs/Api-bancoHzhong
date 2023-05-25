@@ -2,7 +2,12 @@
 
 ## Versão 2.0.4 - 25/05/2023
 ### Alterado
-- mudado o useCaseSendingMoney colocando um limite  de R$300 por envio para outro usuario com o tipo de conta poupanca
+- mudado o useCaseSendingMoney colocando um limite  de R$300 por envio para outro usuario com o tipo de conta poupanca.
+- mudado o useCaseSendingMoney colocando um limite  de R$800 por envio para outro usuario com o tipo de conta corrente.
+
+<br>
+<br>
+<br>
 
 ## Versão 2.0.3 - 24/05/2023
 
