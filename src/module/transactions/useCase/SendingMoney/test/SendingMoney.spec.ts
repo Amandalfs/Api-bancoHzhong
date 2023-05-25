@@ -188,4 +188,44 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         const response = await sendingMoneyUseCase.execute(id, keypix, 50);
         expect(response).toEqual(expect.any(Object));
     })
+
+    it("usuarios com conta poupanca nao deve conseguir fazer um envio maior que R$300", async()=>{
+        const usersRepository = new InMemoryUsersRepository;
+        const extractsRepository = new InMemoryExtractsRepository;
+        const sendingMoneyUseCase = new SendingMoneyUseCase(usersRepository, extractsRepository);
+
+        const senhaCriptografada = await hash("12345678", 8)
+
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 500, 
+            "username": "UsuarioTest",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": senhaCriptografada,
+            "cpf": "12603863096",
+        });
+
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 0, 
+            "username": "UsuarioTest2",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario58@test.com",
+            "password": senhaCriptografada,
+            "cpf": "48786518062", 
+            "keypix": "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        });
+
+        const id = 1
+        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+
+        await expect(sendingMoneyUseCase.execute(id, keypix, 350)).rejects.toEqual(new AppError("O limite da conta poupança é de R$300 por envio"));
+    })
 })

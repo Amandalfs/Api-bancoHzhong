@@ -28,6 +28,10 @@ class SendingMoneyUseCase{
             if(!receiveUser){
                 throw new AppError("A Chave pix e invalida");
             }
+
+            if(user.typeaccont === "poupanca" && value>300){
+                throw new AppError("O limite da conta poupança é de R$300 por envio");
+            }
     
             const saldoReceive =  user.saldo - value;
             const saldoSend = receiveUser.saldo + value;

@@ -1,13 +1,17 @@
 # Log de Atualizacoes da api Hzhong
 
+## Versão 2.0.4 - 25/05/2023
+### Alterado
+- mudado o useCaseSendingMoney colocando um limite  de R$300 por envio para outro usuario com o tipo de conta poupanca
+
 ## Versão 2.0.3 - 24/05/2023
 
-## Adicionado 
+### Adicionado 
 - criado a documentação  da rota show keypix.
 - criado a documentação  da rota create keypix.
 - criado a documentação da rota delete keypix.
 
-## Alterado
+### Alterado
 - mudado o useCaseWithdraw colocando um limite de R$300 por saque para contas do tipo poupanca.
 - mudado o useCaseWithdraw colocando um limite de R$800 por saque para contas do tipo corrente.
 - mudado o useCaseWithdraw colocando um limite de R$450 por saque para contas do tipo universitaria.
