@@ -36,6 +36,10 @@ class SendingMoneyUseCase{
             if(user.typeaccont === "corrente" && value>800){
                 throw new AppError("O limite da conta corrente é de R$800 por envio");
             }
+
+            if(user.typeaccont === "universitaria" && value>450){
+                throw new AppError("O limite da conta universitaria é de R$450 por envio");
+            }
     
             const saldoReceive =  user.saldo - value;
             const saldoSend = receiveUser.saldo + value;
