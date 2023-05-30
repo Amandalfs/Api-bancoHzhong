@@ -3,6 +3,7 @@
 ## Versão 2.0.5 - 30/05/2023
 ## Alterado
 - mudado o useCaseWithdraw colocando um limite diario de saque para contas poupancas de 1500.
+- mudado o useCaseWithdraw colocando um limite diario de saque para contas corrente de 4000.
 
 ### Adicionado 
 - adicionado uma funcao para retornar o valor total de saque do usuario naquele dia.

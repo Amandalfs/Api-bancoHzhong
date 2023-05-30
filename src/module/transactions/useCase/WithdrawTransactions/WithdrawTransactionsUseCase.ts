@@ -41,7 +41,12 @@ class WithdrawTransactionsUseCase {
             const tipo = "Saque";
 
             const totalDiario = await this.ExtractsRepository.CountByWithdraw(data, data, user.id)
-            if(tipo==="Saque" && totalDiario+valueWithdraw > 1500){
+
+            if(user.typeaccont==="poupanca" && totalDiario+valueWithdraw > 1500){
+                throw new AppError("Voce atingiu seu limite diario!")
+            }
+
+            if(user.typeaccont==="corrente" && totalDiario+valueWithdraw > 4000){
                 throw new AppError("Voce atingiu seu limite diario!")
             }
 

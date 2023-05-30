@@ -170,4 +170,31 @@ describe("Testando saque do usaurio", ()=>{
 
     })
 
+    it("usuarios do tipo de conta corrente nao poderar sacar mais que o seu limite diario", async()=>{
+        const senhaCriptografada = await hash("12345678", 8)
+        // Limite de conta diaria: 1500
+
+        vi.setSystemTime(new Date(2023, 4, 30, 10));
+
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 5000, 
+            "username": "UsuarioTest",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "corrente",
+            "email": "usuario57@test.com",
+            "password": senhaCriptografada,
+            "cpf": "12603863096",
+        });
+
+        for (let index = 0; index < 5; index++) {
+            await sut.execute(800, 1);
+        }
+
+        await expect(sut.execute(280, 1)).rejects.toEqual(new AppError("Voce atingiu seu limite diario!")) // valor, id        
+
+    })
+
 })
