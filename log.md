@@ -4,6 +4,7 @@
 ## Alterado
 - mudado o useCaseWithdraw colocando um limite diario de saque para contas poupancas de 1500.
 - mudado o useCaseWithdraw colocando um limite diario de saque para contas corrente de 4000.
+- mudado o useCaseWithdraw colocando um limite diario de saque para contas universitaria de 2250.
 
 ### Adicionado 
 - adicionado uma funcao para retornar o valor total de saque do usuario naquele dia.

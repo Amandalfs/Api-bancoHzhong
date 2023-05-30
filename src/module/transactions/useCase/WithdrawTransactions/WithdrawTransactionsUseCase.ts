@@ -50,6 +50,10 @@ class WithdrawTransactionsUseCase {
                 throw new AppError("Voce atingiu seu limite diario!")
             }
 
+            if(user.typeaccont==="universitaria" && totalDiario+valueWithdraw > 2250){
+                throw new AppError("Voce atingiu seu limite diario!")
+            }
+
             const saldoNovo = user.saldo - valueWithdraw;
 
             const desc = `Voce sacou R$${valueWithdraw.toFixed(2).replace('.',',')}`
