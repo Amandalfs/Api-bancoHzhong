@@ -1,10 +1,22 @@
 # Log de Atualizacoes da api Hzhong
 
+## Versão 2.0.5 - 30/05/2023
+## Alterado
+- mudado o useCaseWithdraw colocando um limite diario de saque para contas poupancas de 1500.
+
+### Adicionado 
+- adicionado uma funcao para retornar o valor total de saque do usuario naquele dia.
+- adicionado uma fucnao para retornar o valor total de envio do usuario naquele dia.
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.4 - 25/05/2023
 ### Alterado
 - mudado o useCaseSendingMoney colocando um limite  de envio de R$300 para contas poupancas.
 - mudado o useCaseSendingMoney colocando um limite  de envio de R$800 para contas correntes.
-- mudado o useCaseSendingMoney colocando um limite  de envio de R$450 para contas universitarias.
+- mudado o useCaseSendingMoney colocando um limite  de envio de R$450 clearpara contas universitarias.
 
 <br>
 <br>

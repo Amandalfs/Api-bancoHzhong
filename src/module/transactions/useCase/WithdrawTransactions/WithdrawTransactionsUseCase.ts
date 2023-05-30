@@ -36,11 +36,14 @@ class WithdrawTransactionsUseCase {
             if(user.typeaccont === "universitaria" && valueWithdraw>450) {
                 throw new AppError("O seu limite por saque é de R$450");
             }
-
             
-            const tipo = "Saque";
             const data = date();
+            const tipo = "Saque";
 
+            const totalDiario = await this.ExtractsRepository.CountByWithdraw(data, data, user.id)
+            if(tipo==="Saque" && totalDiario+valueWithdraw > 1500){
+                throw new AppError("Voce atingiu seu limite diario!")
+            }
 
             const saldoNovo = user.saldo - valueWithdraw;
 
@@ -50,7 +53,7 @@ class WithdrawTransactionsUseCase {
                 id_user: id,
                 name: user.name,
                 tipo: tipo,
-                saldo: saldoNovo,
+                saldo: valueWithdraw,
                 data: data,
                 descricao: desc,
             }

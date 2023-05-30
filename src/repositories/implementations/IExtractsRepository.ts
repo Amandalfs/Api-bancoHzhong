@@ -13,4 +13,8 @@ export interface IExtracsRepository {
     createExtracts(data: IExtracts): Promise<void>
 
     SearchForDataStartAndEndbyId(id:number, dateStart:string, dateEnd:string): Promise<IReponseExtracs[]>
+
+    CountByWithdraw(dateStart: string, dateEnd: string, UserId: number): Promise<number>
+
+    CountBySending(dateStart: string, dateEnd: string, UserId: number): Promise<number>
 }
