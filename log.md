@@ -9,7 +9,7 @@
 - Refatorado todos os testes adicionado e aplicando o pattern Sut para nao ter que instanciar tudo e ficar claro de quem esta sendo testado naquele switch de teste.
 
 ### Corrigido
-- Corrigidp um erro que não estava previsto no teste do useCase dos Extratos com data inicial e final. Esse erro ocorria porque o array estava sendo retornado sem a devida filtragem das datas, resultando em um array vazio. <br>
+- Corrigido um erro que não estava previsto no teste do useCase dos Extratos com data inicial e final. Esse erro ocorria porque o array estava sendo retornado sem a devida filtragem das datas, resultando em um array vazio. <br>
 Melhorei a lógica utilizando a biblioteca date-fns para realizar comparações precisas com as funções isAfter, isBefore e isEqual. Também adicionei um teste com mocks, criando uma data fora do intervalo para verificar se ela está sendo excluída corretamente. Além disso, criei 5 datas dentro do intervalo especificado.
 
 <br>
@@ -25,7 +25,7 @@ Melhorei a lógica utilizando a biblioteca date-fns para realizar comparações 
 
 ### Adicionado 
 - adicionado uma funcao para retornar o valor total de saque do usuario naquele dia.
-- adicionado uma fucnao para retornar o valor total de envio do usuario naquele dia.
+- adicionado uma funcao para retornar o valor total de envio do usuario naquele dia.
 
 <br>
 <br>
@@ -78,7 +78,7 @@ Melhorei a lógica utilizando a biblioteca date-fns para realizar comparações 
 ### Alterado
 - trocado a rota de login que estava na localhost:8888/users para localhost:8888/users/sessions.
 - trocado o jeito de conseguir a requisicao do extracts show que estava no body para query.
-### Corrijido
+### Corrigido
 - concertado o bug que estava acontecendo de os testes pararem depois que tudo desse sucesso mesmo no modo de watch.
 
 <br>
