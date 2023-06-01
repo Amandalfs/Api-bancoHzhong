@@ -3,11 +3,18 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { CreateUserUseCase } from "../CreateUserUseCase";
 import { AppError } from "../../../../../utils/AppError";
 
+let usersRepository: InMemoryUsersRepository;
+let sut: CreateUserUseCase;
+
+
 describe("criacao de usuarios",()=>{
+    beforeEach(()=>{
+        usersRepository = new InMemoryUsersRepository;
+        sut = new CreateUserUseCase(usersRepository);
+    })
 
     it("Usuario deve conseguir criar uma conta", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const createUserUseCase = new CreateUserUseCase(usersRepository);
+        
 
         const usuario = {
             "username": "UsuarioTest",
@@ -20,14 +27,11 @@ describe("criacao de usuarios",()=>{
             "cpf": "12603863096"
         }
 
-        const user = await createUserUseCase.execute(usuario);
+        const user = await sut.execute(usuario);
         expect(user.user).toEqual('created')
     })
     
     it("Nao deve conseguir criar uma conta com um email ja existente", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const createUserUseCase = new CreateUserUseCase(usersRepository);
-
         const usuario = {
             "username": "Usuario Test",
             "name": "Usuario Test",
@@ -50,18 +54,15 @@ describe("criacao de usuarios",()=>{
             "cpf": "18349814098"
         }
 
-        await createUserUseCase.execute(usuario)
+        await sut.execute(usuario)
 
-        await expect(createUserUseCase.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Email"))
+        await expect(sut.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Email"))
      
 
     })
 
      
     it("Nao deve conseguir criar uma conta com um cpf ja existente", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const createUserUseCase = new CreateUserUseCase(usersRepository);
-
         const usuario = {
             "username": "Usuario Test",
             "name": "Usuario Test",
@@ -84,17 +85,14 @@ describe("criacao de usuarios",()=>{
             "cpf": "12603863096"
         }
 
-        await createUserUseCase.execute(usuario)
+        await sut.execute(usuario)
 
-        await expect(createUserUseCase.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Cpf"))
+        await expect(sut.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Cpf"))
      
 
     })
 
     it("Nao deve conseguir criar uma conta com um username ja existente", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const createUserUseCase = new CreateUserUseCase(usersRepository);
-
         const usuario = {
             "username": "Usuario Test",
             "name": "Usuario Test",
@@ -117,17 +115,13 @@ describe("criacao de usuarios",()=>{
             "cpf": "18349814098"
         }
 
-        await createUserUseCase.execute(usuario)
+        await sut.execute(usuario)
 
-        await expect(createUserUseCase.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Username"))
+        await expect(sut.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Username"))
      
-
     })
 
     it("Nao deve conseguir criar uma conta senhas diferentes", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const createUserUseCase = new CreateUserUseCase(usersRepository);
-
         const usuario = {
             "username": "Usuario Test",
             "name": "Usuario Test",
@@ -150,9 +144,9 @@ describe("criacao de usuarios",()=>{
             "cpf": "18349814098"
         }
 
-        await createUserUseCase.execute(usuario)
+        await sut.execute(usuario)
 
-        await expect(createUserUseCase.execute(usuario2)).rejects.toEqual(new AppError("Senhas Diferentes"))
+        await expect(sut.execute(usuario2)).rejects.toEqual(new AppError("Senhas Diferentes"))
      
 
     })

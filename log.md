@@ -1,7 +1,24 @@
 # Log de Atualizacoes da api Hzhong
 
+## Versão 2.0.6 - 01/06/2023
+
+### Adicionado
+- Adicionado uma configuracao de banco de dados docker-compose para no futuro fazer os testes E2E por motivos do postgres ter os schemas dentro dele e pode criar e deletar varios.
+
+### Refactor
+- Refatorado todos os testes adicionado e aplicando o pattern Sut para nao ter que instanciar tudo e ficar claro de quem esta sendo testado naquele switch de teste.
+
+### Corrigido
+- Corrigidp um erro que não estava previsto no teste do useCase dos Extratos com data inicial e final. Esse erro ocorria porque o array estava sendo retornado sem a devida filtragem das datas, resultando em um array vazio. <br>
+Melhorei a lógica utilizando a biblioteca date-fns para realizar comparações precisas com as funções isAfter, isBefore e isEqual. Também adicionei um teste com mocks, criando uma data fora do intervalo para verificar se ela está sendo excluída corretamente. Além disso, criei 5 datas dentro do intervalo especificado.
+
+<br>
+<br>
+<br>
+
+
 ## Versão 2.0.5 - 30/05/2023
-## Alterado
+### Alterado
 - mudado o useCaseWithdraw colocando um limite diario de saque para contas poupancas de 1500.
 - mudado o useCaseWithdraw colocando um limite diario de saque para contas corrente de 4000.
 - mudado o useCaseWithdraw colocando um limite diario de saque para contas universitaria de 2250.

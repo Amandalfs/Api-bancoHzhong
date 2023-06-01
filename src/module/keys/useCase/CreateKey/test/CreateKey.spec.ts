@@ -1,17 +1,20 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it,  beforeEach } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { CreateKeyUseCase } from "../CreateKeyUseCase";
 import { hash } from 'bcrypt';
 import { keyGenerator } from "../../../../../utils/keyGenerator";
 import { AppError } from "../../../../../utils/AppError";
 
-describe("Teste de create key", ()=>{
+let usersRepository: InMemoryUsersRepository;
+let sut: CreateKeyUseCase;
 
+describe("Teste de create key", ()=>{
+    beforeEach(()=>{
+        usersRepository = new InMemoryUsersRepository;
+        sut = new CreateKeyUseCase(usersRepository);
+    })
 
     it("Usuario nao pode criar uma chave se ele ja estiver uma", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const createKeyUseCase = new CreateKeyUseCase(usersRepository);
-
         const senhaCriptografada = await hash("12345678", 8)
         await usersRepository.createUser({
             numero: 153,
@@ -29,13 +32,10 @@ describe("Teste de create key", ()=>{
         const ChaveGerada =  await keyGenerator()
         await usersRepository.createKeyPixById(1, ChaveGerada);
 
-        await expect(createKeyUseCase.execute(1)).rejects.toEqual(new AppError("Chave pix Ja existe"))
+        await expect(sut.execute(1)).rejects.toEqual(new AppError("Chave pix Ja existe"));
     })
 
     it("Usuario deve conseguir criar uma chave", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const createKeyUseCase = new CreateKeyUseCase(usersRepository);
-
         const senhaCriptografada = await hash("12345678", 8)
         await usersRepository.createUser({
             numero: 153,
@@ -50,7 +50,7 @@ describe("Teste de create key", ()=>{
             "cpf": "12603863096"
         }) 
         
-        const key = await createKeyUseCase.execute(1)
+        const key = await sut.execute(1)
         expect(key).toEqual(expect.any(String))
     })
 })

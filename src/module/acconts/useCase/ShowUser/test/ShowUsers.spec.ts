@@ -1,25 +1,28 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
 import { ShowUserUseCase } from "../ShowUserUseCase";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { AppError } from "../../../../../utils/AppError";
 import { hash } from 'bcrypt';
 
+let usersRepository: InMemoryUsersRepository;
+let extractsRepository: InMemoryExtractsRepository;
+let sut: ShowUserUseCase;
 
 describe("Testando a funcionalidade show users", ()=>{
+    beforeEach(()=>{
+        usersRepository = new InMemoryUsersRepository;
+        extractsRepository = new InMemoryExtractsRepository;
+        sut = new ShowUserUseCase(usersRepository, extractsRepository);
+    })
 
     it("Usuario nao deve conseguir usar show sem uma conta", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const extractsRepository = new InMemoryExtractsRepository;
-        const showUserUseCase = new ShowUserUseCase(usersRepository, extractsRepository);
-        await expect(showUserUseCase.execute(515)).rejects.toEqual(new AppError("Usuario nao encontrado"))
+      
+        await expect(sut.execute(515)).rejects.toEqual(new AppError("Usuario nao encontrado"))
     })
 
     
     it("Usuario deve conseguir usar show com uma conta existente", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const extractsRepository = new InMemoryExtractsRepository;
-
         const senhaCriptografada = await hash("12345678", 8)
         await usersRepository.createUser({
             numero: 153,
@@ -34,8 +37,8 @@ describe("Testando a funcionalidade show users", ()=>{
             "cpf": "12603863096"
         })
 
-        const showUserUseCase = new ShowUserUseCase(usersRepository, extractsRepository);
-        const response = await showUserUseCase.execute(1)
+
+        const response = await sut.execute(1)
         expect(response).toEqual(expect.any(Object))
     })
 })

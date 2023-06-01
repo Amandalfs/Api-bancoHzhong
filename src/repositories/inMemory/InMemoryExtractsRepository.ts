@@ -1,6 +1,6 @@
 import { IExtracsRepository, IReponseExtracs } from "../implementations/IExtractsRepository";
 import { IExtracts } from "../modal/IExtracts";
-import { compareAsc } from 'date-fns';
+import { compareAsc, isAfter, isBefore, isEqual, parseISO } from 'date-fns';
 
 // "tipo", "saldo", "data", "descricao"
 
@@ -29,7 +29,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
         return extractsFive.slice(0,5);
     }
 
-    async createExtracts(data): Promise<void> {
+    async createExtracts(data: IExtracts): Promise<void> {
         const id = this.items.length+1;
 
         const extract = {
@@ -44,9 +44,16 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
         const extracts = this.items.filter((item)=> {
             return item.id_user = id;
         })
+
         const extractsFilter = extracts.filter((item)=>{
-            if( ( new Date(dateStart) >= new Date(item.data)) && ( new Date(dateEnd) <= new Date(item.data)) ){
-                return item;
+
+            const dateIso = parseISO(item.data);
+            const dateStartISO = new Date(dateStart);
+            const dateEndISO = new Date(dateEnd);
+            
+            if( ( isAfter(dateStartISO, dateIso) ||  isEqual(dateIso, dateStartISO)) && 
+                ( isBefore(dateIso, dateEndISO) || isEqual(dateIso, dateEndISO))){
+                    return item;
             }
         })
 

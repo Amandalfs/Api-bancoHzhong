@@ -1,16 +1,20 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { DeleteKeyUseCase } from "../DeleteKeyUseCase";
 import { hash } from 'bcrypt';
 import { AppError } from "../../../../../utils/AppError";
 import { keyGenerator } from "../../../../../utils/keyGenerator";
 
+let usersRepository: InMemoryUsersRepository;
+let sut: DeleteKeyUseCase;
+
 describe("Testando o DeleteUser", ()=>{
+    beforeEach(()=>{
+        usersRepository = new InMemoryUsersRepository;
+        sut = new DeleteKeyUseCase(usersRepository);
+    })
 
     it("Usuario nao deve conseguir deleta a chave dele que nao existe", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const deleteKeyUseCase = new DeleteKeyUseCase(usersRepository);
-
         const senhaCriptografada = await hash("12345678", 8);
         await usersRepository.createUser({
             numero: 153,
@@ -25,13 +29,10 @@ describe("Testando o DeleteUser", ()=>{
             "cpf": "12603863096"
         })
 
-        await expect(deleteKeyUseCase.execute(1)).rejects.toEqual(new AppError("Chave pix nao existe"))
+        await expect(sut.execute(1)).rejects.toEqual(new AppError("Chave pix nao existe"))
     })
 
     it("Usuario deve conseguir deleta a chave dele que existe", async ()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const deleteKeyUseCase = new DeleteKeyUseCase(usersRepository);
-
         const senhaCriptografada = await hash("12345678", 8);
         await usersRepository.createUser({
             numero: 153,
@@ -44,12 +45,12 @@ describe("Testando o DeleteUser", ()=>{
             "email": "usuario57@test.com",
             "password": senhaCriptografada,
             "cpf": "12603863096"
-        })
+        });
 
         const keyDelete = await keyGenerator();
         await usersRepository.createKeyPixById(1, keyDelete);
     
-        const response = deleteKeyUseCase.execute(1)
-        await expect(response).toEqual(expect.any(Object))
+        const response = sut.execute(1);
+        await expect(response).toEqual(expect.any(Object));
     })
 })

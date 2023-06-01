@@ -1,17 +1,21 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { ShowKeyUseCase } from "../ShowKeyUseCase";
 import { hash } from 'bcrypt';
 import { AppError } from "../../../../../utils/AppError";
 import { keyGenerator } from "../../../../../utils/keyGenerator";
 
+let usersRepository: InMemoryUsersRepository;
+let sut: ShowKeyUseCase;
 
 describe("Testando o show users", ()=>{
     
+    beforeEach(()=>{
+        usersRepository = new InMemoryUsersRepository;
+        sut =  new ShowKeyUseCase(usersRepository);
+    })
+
     it("usuario nao deve consegui usar o show que a ckey dele nao existir", async()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const showKeyUseCase =  new ShowKeyUseCase(usersRepository);
-        
         const senhaCriptografada = await hash("12345678", 8)
 
         await usersRepository.createUser({
@@ -27,13 +31,10 @@ describe("Testando o show users", ()=>{
             "cpf": "12603863096"
         });
 
-        await expect(showKeyUseCase.execute(1)).rejects.toEqual(new AppError("Chave pix nao existe"))
+        await expect(sut.execute(1)).rejects.toEqual(new AppError("Chave pix nao existe"))
     })
 
     it("usuario deve conseguir usar o show para monstrar a key existente", async()=>{
-        const usersRepository = new InMemoryUsersRepository;
-        const showKeyUseCase = new ShowKeyUseCase(usersRepository);
-
         const senhaCriptografada = await hash("12345678", 8)
 
         await usersRepository.createUser({
@@ -52,7 +53,7 @@ describe("Testando o show users", ()=>{
         const chave = keyGenerator();
         await usersRepository.createKeyPixById(1, chave);
 
-        const key = await showKeyUseCase.execute(1);
+        const key = await sut.execute(1);
         expect(key).toEqual(expect.any(String))
     })
 })
