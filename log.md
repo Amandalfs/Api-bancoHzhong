@@ -22,6 +22,9 @@
 - Criado um erro especifico para recurso nao encontrado. 
 - Criado um erro especifico para usuario nao authorizado.
 
+## alterado 
+- alterado o nome da classe de erro de recurso nao encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
+
 ### Refactor
 - Refatorado todos os testes adicionado e aplicando o pattern Sut para nao ter que instanciar tudo e ficar claro de quem esta sendo testado naquele switch de teste.
 
