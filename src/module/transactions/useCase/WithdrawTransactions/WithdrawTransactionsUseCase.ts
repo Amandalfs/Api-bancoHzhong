@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { LimitError } from "../../errors/LimitError";
 
 
 class WithdrawTransactionsUseCase {
@@ -9,8 +10,6 @@ class WithdrawTransactionsUseCase {
 
     async execute(valueWithdraw:number, id:number){
 
-        try {
-            
             const user = await this.UserRepository.findUserById(id);
             
             if(!user){
@@ -20,21 +19,30 @@ class WithdrawTransactionsUseCase {
             if(valueWithdraw<=0){
                 throw new AppError("Saldo invalido");
             }
-        
+
             if(valueWithdraw>user.saldo){
                 throw new AppError("Saldo insuficiente para fazer saque");
             }
 
-            if(user.typeaccont === "poupanca" && valueWithdraw>300) {
-                throw new AppError("O seu limite por saque é de R$300");
-            }
+            const Limits = [
+                {
+                    type: "poupanca",
+                    value: 300
+                },
+                {
+                    type: "corrente",
+                    value: 800
+                },
+                {
+                    type: "universitaria",
+                    value: 450
+                }
+            ]
 
-            if(user.typeaccont === "corrente" && valueWithdraw>800) {
-                throw new AppError("O seu limite por saque é de R$800");
-            }
-
-            if(user.typeaccont === "universitaria" && valueWithdraw>450) {
-                throw new AppError("O seu limite por saque é de R$450");
+            for (const limit of Limits) {
+                if(limit.type===user.typeaccont && valueWithdraw>limit.value) {
+                    throw new LimitError(limit.value, limit.type);
+                }                
             }
             
             const data = date();
@@ -73,10 +81,7 @@ class WithdrawTransactionsUseCase {
             return {
                 extratoNew,
             }
-        } catch (error) {
-            throw new AppError(error.message);
-        }
-        
+
     }
 }
 

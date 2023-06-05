@@ -16,6 +16,7 @@
 ### Refatoracao
 - tirado o CreateUserUseCase do CreateUserController para colocar a interface do UseCase assim ele nao tera ligacao direta com o useCase.
 - adicionado o ResourceNotFound para padrazinhacao do erro no  ShowUseCase.
+- refatoracao feita no useCase para ter um for com os limites.
 
 <br>
 <br>

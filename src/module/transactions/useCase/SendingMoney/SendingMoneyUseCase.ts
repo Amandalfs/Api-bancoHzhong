@@ -7,9 +7,6 @@ class SendingMoneyUseCase{
     constructor(private UserRepository: IUserRepository, private ExtractsRepository:IExtracsRepository){}
 
     async execute(id:number, keyPix:string, value:number){
-            
-        try {
-            
             const user = await this.UserRepository.findUserById(id);
             const receiveUser = await this.UserRepository.findUserByKeyPix(keyPix);
             
@@ -70,11 +67,6 @@ class SendingMoneyUseCase{
             await this.UserRepository.updateBalanceById(user.id, saldoSend);
             await this.UserRepository.updateBalanceById(receiveUser.id, saldoReceive);
             return extratos;
-
-        } catch (error) {
-            throw new AppError(error.message);
-        }
-
        
     }
 }

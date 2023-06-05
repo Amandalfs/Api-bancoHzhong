@@ -4,6 +4,7 @@ import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory
 import { WithdrawTransactionsUseCase } from "../WithdrawTransactionsUseCase";
 import { hash } from 'bcrypt';
 import { AppError } from "../../../../../utils/AppError";
+import { LimitError } from "../../../errors/LimitError";
 
 let usersRepository:  InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -98,8 +99,7 @@ describe("Testando saque do usaurio", ()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096",
         });
-
-        await expect(sut.execute(350, 1)).rejects.toEqual(new AppError("O seu limite por saque é de R$300")) // valor, id        
+        await expect(sut.execute(350, 1)).rejects.toEqual(new LimitError(300, "poupanca")) // valor, id        
 
     })
 
@@ -119,7 +119,7 @@ describe("Testando saque do usaurio", ()=>{
             "cpf": "12603863096",
         });
 
-        await expect(sut.execute(900, 1)).rejects.toEqual(new AppError("O seu limite por saque é de R$800")) // valor, id        
+        await expect(sut.execute(900, 1)).rejects.toEqual(new LimitError(800, "corrente")) // valor, id        
 
     })
 
@@ -138,8 +138,7 @@ describe("Testando saque do usaurio", ()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096",
         });
-
-        await expect(sut.execute(600, 1)).rejects.toEqual(new AppError("O seu limite por saque é de R$450")) // valor, id        
+        await expect(sut.execute(600, 1)).rejects.toEqual(new LimitError(450, "universitaria")) // valor, id        
 
     })
 
