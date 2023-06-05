@@ -5,6 +5,7 @@ import { WithdrawTransactionsUseCase } from "../WithdrawTransactionsUseCase";
 import { hash } from 'bcrypt';
 import { AppError } from "../../../../../utils/AppError";
 import { LimitError } from "../../../errors/LimitError";
+import { LimitDayError } from "../../../errors/LimitDayError";
 
 let usersRepository:  InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -165,7 +166,7 @@ describe("Testando saque do usaurio", ()=>{
             await sut.execute(300, 1);
         }
 
-        await expect(sut.execute(280, 1)).rejects.toEqual(new AppError("Voce atingiu seu limite diario!")) // valor, id        
+        await expect(sut.execute(280, 1)).rejects.toEqual(new LimitDayError(1500, "poupanca")) // valor, id        
 
     })
 
@@ -193,7 +194,7 @@ describe("Testando saque do usaurio", ()=>{
             await sut.execute(800, 1);
         }
 
-        await expect(sut.execute(280, 1)).rejects.toEqual(new AppError("Voce atingiu seu limite diario!")) // valor, id        
+        await expect(sut.execute(280, 1)).rejects.toEqual(new LimitDayError(4000, "corrente")) // valor, id        
 
     })
 
@@ -221,7 +222,7 @@ describe("Testando saque do usaurio", ()=>{
             await sut.execute(450, 1);
         }
 
-        await expect(sut.execute(280, 1)).rejects.toEqual(new AppError("Voce atingiu seu limite diario!")) // valor, id        
+        await expect(sut.execute(280, 1)).rejects.toEqual(new LimitDayError(2250, "universitaria")) // valor, id        
 
     })
 })

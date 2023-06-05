@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
 
 
@@ -50,16 +51,25 @@ class WithdrawTransactionsUseCase {
 
             const totalDiario = await this.ExtractsRepository.CountByWithdraw(data, data, user.id)
 
-            if(user.typeaccont==="poupanca" && totalDiario+valueWithdraw > 1500){
-                throw new AppError("Voce atingiu seu limite diario!")
-            }
+            const limitsDay = [
+                {
+                    type: "poupanca",
+                    value: 1500
+                },
+                {
+                    type: "corrente",
+                    value: 4000
+                },
+                {
+                    type: "universitaria",
+                    value: 2250
+                }
+            ]
 
-            if(user.typeaccont==="corrente" && totalDiario+valueWithdraw > 4000){
-                throw new AppError("Voce atingiu seu limite diario!")
-            }
-
-            if(user.typeaccont==="universitaria" && totalDiario+valueWithdraw > 2250){
-                throw new AppError("Voce atingiu seu limite diario!")
+            for (const limitDay of limitsDay) {
+                if(user.typeaccont === limitDay.type && totalDiario+valueWithdraw > limitDay.value){
+                    throw new LimitDayError(limitDay.value, limitDay.type);
+                }
             }
 
             const saldoNovo = user.saldo - valueWithdraw;
