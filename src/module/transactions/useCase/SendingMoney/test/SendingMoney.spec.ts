@@ -378,4 +378,48 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
 
     })
 
+    it("usuarios do tipo de conta universitaria nao poderar enviar mais que o seu limite diario", async()=>{
+        const senhaCriptografada = await hash("12345678", 8)
+
+        vi.setSystemTime(new Date(2023, 4, 30, 10));
+        const tipoDeConta = "universitaria"
+
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 2000, 
+            "username": "UsuarioTest",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": tipoDeConta,
+            "email": "usuario57@test.com",
+            "password": senhaCriptografada,
+            "cpf": "12603863096",
+        });
+
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 0, 
+            "username": "UsuarioTest2",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario58@test.com",
+            "password": senhaCriptografada,
+            "cpf": "48786518062", 
+            "keypix": "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        });
+
+        const id = 1
+        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+
+        for (let index = 0; index < 5; index++) {
+            await sut.execute(id, keypix, 450);
+        }
+
+        await expect(sut.execute(id, keypix, 440)).rejects.toEqual(new LimitDayError(2250, "universitaria")) // valor, id        
+
+    })
+
 })

@@ -11,6 +11,7 @@
 - Criado um erro especifico de limite.
 - Verificacao do useCaseSendingMoney a onde o usuario com o tipo de conta poupanca so pode sacar ate 1500 por dia no envio de dinheiro.
 - Verificacao do useCaseSendingMoney a onde o usuario com o tipo de conta corrente so pode sacar ate 4000 por dia no envio de dinheiro.
+- Verificacao do useCaseSendingMoney a onde o usuario com o tipo de conta universitaria so pode sacar ate 2250 por dia no envio de dinheiro.
 
 ### alterado 
 - alterado o nome da classe de erro de recurso nao encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
