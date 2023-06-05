@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
 
 class SendingMoneyUseCase{
@@ -47,7 +48,30 @@ class SendingMoneyUseCase{
                     throw new LimitError(limit.value, limit.type);
                 }                
             }
-    
+            
+            const limitsDay = [
+                {
+                    type: "poupanca",
+                    value: 1500
+                },
+                {
+                    type: "corrente",
+                    value: 4000
+                },
+                {
+                    type: "universitaria",
+                    value: 2250
+                }
+            ]
+            const dateNew = date();
+
+            const totalDiario = await this.ExtractsRepository.CountBySending(dateNew, dateNew, user.id);
+            for (const limitDay of limitsDay) {
+                if(user.typeaccont === limitDay.type && totalDiario+value > limitDay.value){
+                    throw new LimitDayError(limitDay.value, limitDay.type);
+                }
+            }
+
             const saldoReceive =  user.saldo - value;
             const saldoSend = receiveUser.saldo + value;
     
@@ -55,7 +79,7 @@ class SendingMoneyUseCase{
                 send:{
                     id_user: id,
                     name: user.name,
-                    tipo: "transferencia(envio)",
+                    tipo: "envio",
                     saldo: value,
                     data: date(),
                     descricao: `Voce transferiu R$${value.toFixed(2).replace('.',',')} para ${user.name}`,
@@ -63,7 +87,7 @@ class SendingMoneyUseCase{
                 receive: {
                     id_user: receiveUser.id,
                     name: receiveUser.name,
-                    tipo: "transferencia(recebido)",
+                    tipo: "recebido",
                     saldo: value,
                     data: date(),
                     descricao: `Voce recebeu R${value.toFixed(2).replace('.',',')} de ${receiveUser.name}`,

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
 import { AppError } from "../../../../../utils/AppError";
 
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
@@ -8,6 +8,7 @@ import { SendingMoneyUseCase } from "../SendingMoneyUseCase";
 
 import { hash } from 'bcrypt';
 import { LimitError } from "../../../errors/LimitError";
+import { LimitDayError } from "../../../errors/LimitDayError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -19,6 +20,11 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         usersRepository = new InMemoryUsersRepository;
         extractsRepository = new InMemoryExtractsRepository;
         sut = new SendingMoneyUseCase(usersRepository, extractsRepository);
+        vi.useFakeTimers();
+    })
+
+    afterEach(()=>{
+        vi.useRealTimers();
     })
 
     it("usaurio nao pode enviar dinheiro maior que seu saldo", async()=>{
@@ -282,6 +288,50 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
         await expect(sut.execute(id, keypix, 500)).rejects.toEqual(new LimitError(450, "universitaria"));
+    })
+
+    it("usuarios do tipo de conta poupanca nao poderar enviar mais que o seu limite diario", async()=>{
+        const senhaCriptografada = await hash("12345678", 8)
+
+        vi.setSystemTime(new Date(2023, 4, 30, 10));
+        const tipoDeConta = "poupanca"
+
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 2000, 
+            "username": "UsuarioTest",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": tipoDeConta,
+            "email": "usuario57@test.com",
+            "password": senhaCriptografada,
+            "cpf": "12603863096",
+        });
+
+        await usersRepository.createUser({
+            numero: 153,
+            agencia: "003",
+            saldo: 0, 
+            "username": "UsuarioTest2",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario58@test.com",
+            "password": senhaCriptografada,
+            "cpf": "48786518062", 
+            "keypix": "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        });
+
+        const id = 1
+        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+
+        for (let index = 0; index < 5; index++) {
+            await sut.execute(id, keypix, 290);
+        }
+
+        await expect(sut.execute(id, keypix, 290)).rejects.toEqual(new LimitDayError(1500, "poupanca")) // valor, id        
+
     })
 
 })

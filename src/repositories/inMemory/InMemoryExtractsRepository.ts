@@ -74,7 +74,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
         const extracts = this.items.filter((item)=> {
             return item.id_user = UserId;
         })
-
+        
         const extractsFilter = extracts.filter((item)=>{
             if( ( new Date(dateStart) >= new Date(item.data)) && ( new Date(dateEnd) <= new Date(item.data)) ){
                 return item;
@@ -100,11 +100,12 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
         })
 
         const some =  extractsFilter.reduce((acumulador, extrato)=>{
+            let some = acumulador
             if(extrato.tipo === "envio"){
-                return acumulador += extrato.saldo;
+                some += extrato.saldo;
             }
+            return some;
         },0)
-        
         return some;
     }
 }
