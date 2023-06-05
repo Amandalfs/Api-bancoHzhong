@@ -1,5 +1,16 @@
 # Log de Atualizacoes da api Hzhong
 
+## Versão 2.0.7 - 05/06/2023
+
+### Adicionado
+- dentro do app na captura de erros foi adicionado a captura de erros que sao filhos do AppError para criacao de erros especificos na facilitacao de leitura dos erros.
+
+### Alterado 
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.6 - 01/06/2023
 
 ### Adicionado
