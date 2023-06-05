@@ -9,5 +9,5 @@
 - [x] Usuario com o tipo de conta corrente so pode enviar ate 800 por vez.
 - [x] Usuario com o tipo de conta universitaria so pode enviar ate 450 por vez.
 - [x] Usuario com o tipo de conta poupanca so pode sacar ate 1500 por dia.
-- [ ] Usuario com o tipo de conta corrente so pode sacar ate 4000 por dia.
+- [x] Usuario com o tipo de conta corrente so pode sacar ate 4000 por dia.
 - [ ] Usuario com o tipo de conta universitaria so pode sacar ate 2250 por dia.
