@@ -9,6 +9,7 @@
 ### Alterado 
 
 ### Refatoracao
+- tirado o CreateUserUseCase do CreateUserController para colocar a interface do UseCase assim ele nao tera ligacao direta com o useCase.
 
 <br>
 <br>

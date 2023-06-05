@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { CreateUserUseCase } from "./CreateUserUseCase";
-
+import { ICreateUserUseCase } from "./CreateUserUseCase";
 class CreateUserController {
 
-    constructor(private CreateUserUseCase: CreateUserUseCase){}
+    constructor(private CreateUserUseCase: ICreateUserUseCase){}
 
     async handle(req: Request, res: Response){
         const {username, name, nasc, typeaccont, email} = req.body;
