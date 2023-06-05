@@ -6,7 +6,7 @@ import { AppError } from "../../../../utils/AppError";
 import { verifyAge } from "../../../../utils/verify/verifyAge";
 import { validarCPF } from "../../../../utils/validarCpf";
 
-interface IUserRequestDTO {
+interface ICreateUserRequestDTO {
     username: string, 
     name: string, 
     nasc: string, 
@@ -17,10 +17,18 @@ interface IUserRequestDTO {
     cpf: string
 }
 
-class CreateUserUseCase {
+interface ICreateUserResponseDTO {
+    user: string,
+}
+
+interface ICreateUserUseCase {
+    execute(data: ICreateUserRequestDTO): Promise<ICreateUserResponseDTO>
+}
+
+class CreateUserUseCase implements ICreateUserUseCase {
     constructor(private UserRepository:IUserRepository){}
 
-    async execute({username, name, nasc, typeaccont, email,  password, password2, cpf}: IUserRequestDTO){
+    async execute({username, name, nasc, typeaccont, email,  password, password2, cpf}: ICreateUserRequestDTO){
 
         if(verifyAge(nasc)){
             throw new AppError("Usuario e menor de idade", 401);
@@ -70,4 +78,4 @@ class CreateUserUseCase {
     }
 }
 
-export {CreateUserUseCase};
+export {CreateUserUseCase, ICreateUserUseCase};

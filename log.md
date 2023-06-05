@@ -4,8 +4,11 @@
 
 ### Adicionado
 - dentro do app na captura de erros foi adicionado a captura de erros que sao filhos do AppError para criacao de erros especificos na facilitacao de leitura dos erros.
+- Interfaces novas para o CreateUserUseCase sendo elas o ICreateReponseDTO e o ICreateUserUseCase para implementacao do useCase.
 
 ### Alterado 
+
+### Refatoracao
 
 <br>
 <br>
