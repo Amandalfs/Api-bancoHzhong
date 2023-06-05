@@ -12,13 +12,14 @@
 
 ### alterado 
 - alterado o nome da classe de erro de recurso nao encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
+- tirado os try catchs do useCase e agora e so ficara no controller para pegar erros desconhecidos.
 
 ### Refatoracao
 - tirado o CreateUserUseCase do CreateUserController para colocar a interface do UseCase assim ele nao tera ligacao direta com o useCase.
 - adicionado o ResourceNotFound para padrazinhacao do erro no  ShowUseCase.
-- refatoracao feita no useCase de Saque para ter um for com os limites.
-- tirado os try catchs do useCase e agora e so ficara no controller para pegar erros desconhecidos.
-- refatoracao feita no useCase de Saque para ter um for com os limites diarios.
+- refatoracao feita no useCase de Saque para ter um array com os limites de saque verificar se o usuario atingiu o seu limite de acordo com o array.
+- refatoracao feita no useCase de Saque para ter um array com os limites de saque verificar se o usuario atingiu o seu limite diario de acordo com o array.
+- refatoracao feita no useCase De envio para ter somente um array com os limites de cada tipo usado um for para percorrer o array e verificar se o usuario esta envia um valor maior que seu limite. 
 
 <br>
 <br>

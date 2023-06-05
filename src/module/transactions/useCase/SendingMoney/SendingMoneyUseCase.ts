@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { LimitError } from "../../errors/LimitError";
 
 class SendingMoneyUseCase{
     constructor(private UserRepository: IUserRepository, private ExtractsRepository:IExtracsRepository){}
@@ -26,16 +27,25 @@ class SendingMoneyUseCase{
                 throw new AppError("A Chave pix e invalida");
             }
 
-            if(user.typeaccont === "poupanca" && value>300){
-                throw new AppError("O limite da conta poupança é de R$300 por envio");
-            }
+            const Limits = [
+                {
+                    type: "poupanca",
+                    value: 300
+                },
+                {
+                    type: "corrente",
+                    value: 800
+                },
+                {
+                    type: "universitaria",
+                    value: 450
+                }
+            ]
 
-            if(user.typeaccont === "corrente" && value>800){
-                throw new AppError("O limite da conta corrente é de R$800 por envio");
-            }
-
-            if(user.typeaccont === "universitaria" && value>450){
-                throw new AppError("O limite da conta universitaria é de R$450 por envio");
+            for (const limit of Limits) {
+                if(limit.type===user.typeaccont && value>limit.value) {
+                    throw new LimitError(limit.value, limit.type);
+                }                
             }
     
             const saldoReceive =  user.saldo - value;

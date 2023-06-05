@@ -7,6 +7,7 @@ import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory
 import { SendingMoneyUseCase } from "../SendingMoneyUseCase";
 
 import { hash } from 'bcrypt';
+import { LimitError } from "../../../errors/LimitError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -208,7 +209,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         const id = 1
         const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 350)).rejects.toEqual(new AppError("O limite da conta poupança é de R$300 por envio"));
+        await expect(sut.execute(id, keypix, 350)).rejects.toEqual(new LimitError(300, "poupanca"));
     })
 
     it("usuarios com conta corrente nao deve conseguir fazer um envio maior que R$800", async()=>{
@@ -244,7 +245,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         const id = 1
         const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 850)).rejects.toEqual(new AppError("O limite da conta corrente é de R$800 por envio"));
+        await expect(sut.execute(id, keypix, 850)).rejects.toEqual(new LimitError(800, "corrente"));
     })
 
     it("usuarios com conta universitaria nao deve conseguir fazer um envio maior que R$450", async()=>{
@@ -280,7 +281,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         const id = 1
         const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 500)).rejects.toEqual(new AppError("O limite da conta universitaria é de R$450 por envio"));
+        await expect(sut.execute(id, keypix, 500)).rejects.toEqual(new LimitError(450, "universitaria"));
     })
 
 })
