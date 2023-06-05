@@ -5,11 +5,15 @@
 ### Adicionado
 - dentro do app na captura de erros foi adicionado a captura de erros que sao filhos do AppError para criacao de erros especificos na facilitacao de leitura dos erros.
 - Interfaces novas para o CreateUserUseCase sendo elas o ICreateReponseDTO e o ICreateUserUseCase para implementacao do useCase.
+- Criado um erro especifico para recurso nao encontrado. 
+- Criado um erro especifico para usuario nao authorizado.
 
-### Alterado 
+### alterado 
+- alterado o nome da classe de erro de recurso nao encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
 
 ### Refatoracao
 - tirado o CreateUserUseCase do CreateUserController para colocar a interface do UseCase assim ele nao tera ligacao direta com o useCase.
+- adicionado o ResourceNotFound para padrazinhacao do erro no  ShowUseCase.
 
 <br>
 <br>
@@ -19,11 +23,7 @@
 
 ### Adicionado
 - Adicionado uma configuracao de banco de dados docker-compose para no futuro fazer os testes E2E por motivos do postgres ter os schemas dentro dele e pode criar e deletar varios.
-- Criado um erro especifico para recurso nao encontrado. 
-- Criado um erro especifico para usuario nao authorizado.
 
-## alterado 
-- alterado o nome da classe de erro de recurso nao encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
 
 ### Refactor
 - Refatorado todos os testes adicionado e aplicando o pattern Sut para nao ter que instanciar tudo e ficar claro de quem esta sendo testado naquele switch de teste.
@@ -31,6 +31,7 @@
 ### Corrigido
 - Corrigido um erro que não estava previsto no teste do useCase dos Extratos com data inicial e final. Esse erro ocorria porque o array estava sendo retornado sem a devida filtragem das datas, resultando em um array vazio. <br>
 Melhorei a lógica utilizando a biblioteca date-fns para realizar comparações precisas com as funções isAfter, isBefore e isEqual. Também adicionei um teste com mocks, criando uma data fora do intervalo para verificar se ela está sendo excluída corretamente. Além disso, criei 5 datas dentro do intervalo especificado.
+
 
 <br>
 <br>

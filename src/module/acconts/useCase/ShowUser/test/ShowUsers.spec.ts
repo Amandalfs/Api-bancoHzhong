@@ -4,6 +4,7 @@ import { ShowUserUseCase } from "../ShowUserUseCase";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { AppError } from "../../../../../utils/AppError";
 import { hash } from 'bcrypt';
+import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -18,7 +19,7 @@ describe("Testando a funcionalidade show users", ()=>{
 
     it("Usuario nao deve conseguir usar show sem uma conta", async ()=>{
       
-        await expect(sut.execute(515)).rejects.toEqual(new AppError("Usuario nao encontrado"))
+        await expect(sut.execute(515)).rejects.toEqual(new ResourceNotFoundError())
     })
 
     
