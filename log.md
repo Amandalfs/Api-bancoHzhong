@@ -7,6 +7,7 @@
 - Interfaces novas para o CreateUserUseCase sendo elas o ICreateReponseDTO e o ICreateUserUseCase para implementacao do useCase.
 - Criado um erro especifico para recurso nao encontrado. 
 - Criado um erro especifico para usuario nao authorizado.
+- Criado um erro especifico de limite diario.
 
 ### alterado 
 - alterado o nome da classe de erro de recurso nao encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
