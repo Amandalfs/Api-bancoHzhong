@@ -19,6 +19,7 @@
 
 ### Adicionado
 - Adicionado uma configuracao de banco de dados docker-compose para no futuro fazer os testes E2E por motivos do postgres ter os schemas dentro dele e pode criar e deletar varios.
+- Criado um erro especifico para recurso nao encontrado. 
 
 ### Refactor
 - Refatorado todos os testes adicionado e aplicando o pattern Sut para nao ter que instanciar tudo e ficar claro de quem esta sendo testado naquele switch de teste.
