@@ -1,8 +1,8 @@
-import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { SessionsUsersUseCase } from "../SessionsUsersUseCase";
 import { hash } from 'bcrypt';
-import { AppError } from "../../../../../utils/AppError";
+import { PassordOrUsernameInvalidError } from "../errors/PassordOrUsernameInvalidError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: SessionsUsersUseCase;
@@ -30,7 +30,7 @@ describe('Testando Login de usuario',()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         })
-        await expect(sut.execute("UsarioTest", "524545")).rejects.toEqual(new AppError("Senha Ou Username digitada esta errada", 401))
+        await expect(sut.execute("UsarioTest", "524545")).rejects.toEqual(new PassordOrUsernameInvalidError());
 
         
 
@@ -51,7 +51,7 @@ describe('Testando Login de usuario',()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         })
-        await expect(sut.execute("Uggbfri0bnaeipbijrth", "12345678")).rejects.toEqual(new AppError("Senha Ou Username digitada esta errada", 401))
+        await expect(sut.execute("Uggbfri0bnaeipbijrth", "12345678")).rejects.toEqual(new PassordOrUsernameInvalidError());
     })
 
     it("Usuario deve conseguir iniciar uma sessao com username e senha certa", async()=>{

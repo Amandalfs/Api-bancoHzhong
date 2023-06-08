@@ -4,6 +4,7 @@ import { compare } from 'bcrypt';
 import authConfig from "../../../../config/auth"
 import { sign } from "jsonwebtoken" 
 import { AppError } from "../../../../utils/AppError"; 
+import { PassordOrUsernameInvalidError } from "./errors/PassordOrUsernameInvalidError";
 
 
 class SessionsUsersUseCase{
@@ -15,13 +16,13 @@ class SessionsUsersUseCase{
         const user = await this.UserRepository.findUserByUsername(username);
 
         if(!user){
-            throw new AppError("Senha Ou Username digitada esta errada", 401);
+            throw new PassordOrUsernameInvalidError();
         }
 
         const passwordPassed = await compare(password, user.password);
         
         if(!passwordPassed){
-            throw new AppError("Senha Ou Username digitada esta errada", 401);
+            throw new PassordOrUsernameInvalidError();
         }
 
         const { secret, expiresIn } = authConfig.jwt;

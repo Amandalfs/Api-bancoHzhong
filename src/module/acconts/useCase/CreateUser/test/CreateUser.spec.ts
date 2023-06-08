@@ -1,13 +1,11 @@
-import { describe, beforeEach, afterEach, it, expect, beforeAll } from "vitest"
+import { describe, beforeEach, it, expect } from "vitest"
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository"
 import { CreateUserUseCase } from "../CreateUserUseCase";
-import { AppError } from "../../../../../utils/AppError";
 import { AccontExistsError } from "../errors/AccontExistsError";
 import { ConfirmationPasswordInvalidError } from "../errors/ConfirmationPasswordInvalidError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: CreateUserUseCase;
-
 
 describe("criacao de usuarios",()=>{
     beforeEach(()=>{
