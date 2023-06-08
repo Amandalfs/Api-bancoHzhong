@@ -7,6 +7,7 @@ import { verifyAge } from "../../../../utils/verify/verifyAge";
 import { validarCPF } from "../../../../utils/validarCpf";
 import { AccontExistsError } from "./errors/AccontExistsError";
 import { ConfirmationPasswordInvalidError } from "./errors/ConfirmationPasswordInvalidError";
+import { UserUnder18YearsOldError } from "./errors/UserUnder18YearsOldError";
 
 interface ICreateUserRequestDTO {
     username: string, 
@@ -33,7 +34,7 @@ class CreateUserUseCase implements ICreateUserUseCase {
     async execute({username, name, nasc, typeaccont, email,  password, password2, cpf}: ICreateUserRequestDTO){
 
         if(verifyAge(nasc)){
-            throw new AppError("Usuario e menor de idade", 401);
+            throw new UserUnder18YearsOldError();
         }
 
         validarCPF(cpf);
