@@ -5,6 +5,7 @@ import { hash } from 'bcrypt';
 import { AppError } from "../../../../../utils/AppError";
 import { keyGenerator } from "../../../../../utils/keyGenerator";
 import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
+import { KeyDoesNotExistError } from "../../errors/KeyDoesNotExistError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: ShowKeyUseCase;
@@ -16,7 +17,7 @@ describe("Testando o show users", ()=>{
         sut =  new ShowKeyUseCase(usersRepository);
     })
 
-    it("usuario nao deve consegui usar o show que a ckey dele nao existir", async()=>{
+    it("usuario nao deve consegui usar o show que a key dele nao existir", async()=>{
         const senhaCriptografada = await hash("12345678", 8)
 
         await usersRepository.createUser({
@@ -32,7 +33,7 @@ describe("Testando o show users", ()=>{
             "cpf": "12603863096"
         });
 
-        await expect(sut.execute(1)).rejects.toEqual(new AppError("Chave pix nao existe"))
+        await expect(sut.execute(1)).rejects.toEqual(new KeyDoesNotExistError());
     })
 
     it("usuario deve conseguir usar o show para monstrar a key existente", async()=>{

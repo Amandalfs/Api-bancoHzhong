@@ -1,6 +1,6 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { AppError } from "../../../../utils/AppError";
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
+import { KeyDoesNotExistError } from "../errors/KeyDoesNotExistError";
 
 
 class DeleteKeyUseCase{
@@ -16,7 +16,7 @@ class DeleteKeyUseCase{
         }
 
         if(!user.keypix){
-            throw new AppError("Chave pix nao existe");
+            throw new KeyDoesNotExistError();
         }
 
         await this.UserRepository.deleteKeyPixById(id);

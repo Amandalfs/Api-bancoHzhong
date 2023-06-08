@@ -8,15 +8,17 @@
 - Error Confirmation Password Invalid.
 - Error Password Or Username Invalid.
 - Error Key Already Exists.
+- Error Key Does Not Exist.
 - Validando se o usuario ja existe no UseCase CreateKey
 - Validando se o usuario ja existe no UseCase DeleteKey
 - Validando se o usuario ja existe no UseCase ShowKey
 
 ### Refatoracao
-- alterado um erros globais sobre conta ja existente criado com o AppError para um erro especifico a onde vai facilitar a leitura.
-- alterado o erro de senhas direntes criado com o AppError para um erro criado com uma classe com seu nome para maior facilidade de entendimento na hora da manutenção.  
-- alterado o erro de senha ou username invalidos criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
-- alterado o erro Chave ja existente criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
+- alterado um erros globais sobre ```conta ja existente``` criado com o AppError para um erro especifico a onde vai facilitar a leitura.
+- alterado o erro de ```senhas direntes``` criado com o AppError para um erro criado com uma classe com seu nome para maior facilidade de entendimento na hora da manutenção.  
+- alterado o erro de ```senha ou username invalidos``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
+- alterado o erro ```Chave ja existente``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
+- alterado o erro ```Chave não Existe``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 
 <br>
 <br>
