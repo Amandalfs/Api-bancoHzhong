@@ -4,6 +4,7 @@ import { DeleteKeyUseCase } from "../DeleteKeyUseCase";
 import { hash } from 'bcrypt';
 import { AppError } from "../../../../../utils/AppError";
 import { keyGenerator } from "../../../../../utils/keyGenerator";
+import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: DeleteKeyUseCase;
@@ -52,5 +53,10 @@ describe("Testando o DeleteUser", ()=>{
     
         const response = sut.execute(1);
         await expect(response).toEqual(expect.any(Object));
+    })
+
+    
+    it("Usuario sem Id existe nao poderar deletar uma chave", async ()=>{
+        await expect(sut.execute(1)).rejects.toEqual(new ResourceNotFoundError());
     })
 })
