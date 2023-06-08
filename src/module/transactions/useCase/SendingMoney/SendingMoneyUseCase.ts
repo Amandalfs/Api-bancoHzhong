@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
 
@@ -17,7 +18,7 @@ class SendingMoneyUseCase{
             }
             
             if(value<=0){
-                throw new AppError("Saldo Invalido, voce so pode mandar valores positivos");
+                throw new InvalidValueError();
             }
 
             if(user.keypix === keyPix){

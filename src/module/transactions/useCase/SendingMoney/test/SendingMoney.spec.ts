@@ -9,6 +9,7 @@ import { SendingMoneyUseCase } from "../SendingMoneyUseCase";
 import { hash } from 'bcrypt';
 import { LimitError } from "../../../errors/LimitError";
 import { LimitDayError } from "../../../errors/LimitDayError";
+import { InvalidValueError } from "../../../errors/InvalidValueError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -142,7 +143,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         const id = 1
         const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, -15)).rejects.toEqual(new AppError("Saldo Invalido, voce so pode mandar valores positivos"))
+        await expect(sut.execute(id, keypix, -15)).rejects.toEqual(new InvalidValueError())
     })
 
     it("usuario deve conseguir enviar o dinheiro para outro usuario", async()=>{

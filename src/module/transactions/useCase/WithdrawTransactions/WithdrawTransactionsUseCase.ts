@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
 
@@ -18,7 +19,7 @@ class WithdrawTransactionsUseCase {
             }
 
             if(valueWithdraw<=0){
-                throw new AppError("Saldo invalido");
+                throw new InvalidValueError();
             }
 
             if(valueWithdraw>user.saldo){
