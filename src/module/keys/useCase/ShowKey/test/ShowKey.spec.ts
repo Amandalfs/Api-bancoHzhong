@@ -4,6 +4,7 @@ import { ShowKeyUseCase } from "../ShowKeyUseCase";
 import { hash } from 'bcrypt';
 import { AppError } from "../../../../../utils/AppError";
 import { keyGenerator } from "../../../../../utils/keyGenerator";
+import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: ShowKeyUseCase;
@@ -55,5 +56,9 @@ describe("Testando o show users", ()=>{
 
         const key = await sut.execute(1);
         expect(key).toEqual(expect.any(String))
+    })
+
+    it("Usuario sem Id existe nao poderar deletar uma chave", async ()=>{
+        await expect(sut.execute(1)).rejects.toEqual(new ResourceNotFoundError());
     })
 })

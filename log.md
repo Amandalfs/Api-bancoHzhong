@@ -9,6 +9,7 @@
 - Error Password Or Username Invalid.
 - Validando se o usuario ja existe no UseCase CreateKey
 - Validando se o usuario ja existe no UseCase DeleteKey
+- Validando se o usuario ja existe no UseCase ShowKey
 
 ### Refatoracao
 - alterado um erros globais sobre conta ja existente criado com o AppError para um erro especifico a onde vai facilitar a leitura.
