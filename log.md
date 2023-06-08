@@ -7,6 +7,7 @@
 - Error Accont Exists.
 - Error Confirmation Password Invalid.
 - Error Password Or Username Invalid.
+- Error Key Already Exists.
 - Validando se o usuario ja existe no UseCase CreateKey
 - Validando se o usuario ja existe no UseCase DeleteKey
 - Validando se o usuario ja existe no UseCase ShowKey
@@ -15,6 +16,7 @@
 - alterado um erros globais sobre conta ja existente criado com o AppError para um erro especifico a onde vai facilitar a leitura.
 - alterado o erro de senhas direntes criado com o AppError para um erro criado com uma classe com seu nome para maior facilidade de entendimento na hora da manutenção.  
 - alterado o erro de senha ou username invalidos criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
+- alterado o erro Chave ja existente criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 
 <br>
 <br>
@@ -54,7 +56,7 @@
 - Adicionado uma configuracao de banco de dados docker-compose para no futuro fazer os testes E2E por motivos do postgres ter os schemas dentro dele e pode criar e deletar varios.
 
 
-### Refactor
+### Refactoracao
 - Refatorado todos os testes adicionado e aplicando o pattern Sut para nao ter que instanciar tudo e ficar claro de quem esta sendo testado naquele switch de teste.
 
 ### Corrigido

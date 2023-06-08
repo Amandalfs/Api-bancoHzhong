@@ -1,8 +1,8 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
 import {keyGenerator} from "../../../../utils/keyGenerator";
-import {AppError} from '../../../../utils/AppError';
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
+import { KeyAlreadyExistsError } from "./errors/KeyAlreadyExistsError";
 
 class CreateKeyUseCase{
 
@@ -16,7 +16,7 @@ class CreateKeyUseCase{
         }
 
         if(user.keypix){
-            throw new AppError("Chave pix Ja existe")
+            throw new KeyAlreadyExistsError();
         }
 
         const ChaveGerada =  await keyGenerator();

@@ -5,6 +5,7 @@ import { hash } from 'bcrypt';
 import { keyGenerator } from "../../../../../utils/keyGenerator";
 import { AppError } from "../../../../../utils/AppError";
 import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
+import { KeyAlreadyExistsError } from "../errors/KeyAlreadyExistsError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: CreateKeyUseCase;
@@ -33,7 +34,7 @@ describe("Teste de create key", ()=>{
         const ChaveGerada =  await keyGenerator()
         await usersRepository.createKeyPixById(1, ChaveGerada);
 
-        await expect(sut.execute(1)).rejects.toEqual(new AppError("Chave pix Ja existe"));
+        await expect(sut.execute(1)).rejects.toEqual(new KeyAlreadyExistsError());
     })
 
     it("Usuario deve conseguir criar uma chave", async ()=>{
