@@ -40,13 +40,13 @@ class CreateUserUseCase implements ICreateUserUseCase {
         const isEmail = await this.UserRepository.findUserByEmail(email);
         const isUsername = await this.UserRepository.findUserByUsername(username);
         const isCpf = await this.UserRepository.findUserByCPF(cpf);
-        
+
         if(isEmail){
             throw new AccontExistsError("Email");
         }
     
         if(isUsername){
-            throw new AppError(`Ja existente uma conta com esse Username`);
+            throw new AccontExistsError("Username");
         }
     
         if(isCpf){
