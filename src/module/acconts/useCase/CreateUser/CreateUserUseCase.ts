@@ -50,7 +50,7 @@ class CreateUserUseCase implements ICreateUserUseCase {
         }
     
         if(isCpf){
-            throw new AppError("Ja existente uma conta com esse Cpf");
+            throw new AccontExistsError("Cpf");
         }
 
         if(password !== password2){

@@ -88,7 +88,7 @@ describe("criacao de usuarios",()=>{
 
         await sut.execute(usuario)
 
-        await expect(sut.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Cpf"))
+        await expect(sut.execute(usuario2)).rejects.toEqual(new AccontExistsError("Cpf"))
      
 
     })
