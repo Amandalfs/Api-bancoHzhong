@@ -6,6 +6,7 @@ import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
 import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
+import { CannotSendMoneyToYourAccountError } from "./errors/CannotSendMoneyToYourAccountError";
 import { InvalidPixKeyError } from "./errors/InvalidPixKeyError";
 
 class SendingMoneyUseCase{
@@ -24,7 +25,7 @@ class SendingMoneyUseCase{
             }
 
             if(user.keypix === keyPix){
-                throw new AppError("Voce nao pode enviar dinheiro para voce");
+                throw new CannotSendMoneyToYourAccountError();
             }
 
             if(!receiveUser){

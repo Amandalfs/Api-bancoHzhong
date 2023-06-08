@@ -10,6 +10,9 @@
 - Error Key Already Exists.
 - Error Key Does Not Exist.
 - Error Invalid Value.
+- Error Balance Insuficient.
+- Error Invalid Pix Key.
+- Error Cannot Send Money To Your Account.
 - Validando se o usuario ja existe no UseCase CreateKey
 - Validando se o usuario ja existe no UseCase DeleteKey
 - Validando se o usuario ja existe no UseCase ShowKey
@@ -23,7 +26,7 @@
 - alterado o erro ```Valor Invalido``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 - alterado o erro ```Saldo Insuficiente``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 - alterado o erro ```Chave Pix Inválida``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
-
+- alterado o erro ```Voce não pode enviar dinheiro para voce``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 
 <br>
 <br>

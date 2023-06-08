@@ -12,6 +12,7 @@ import { LimitDayError } from "../../../errors/LimitDayError";
 import { InvalidValueError } from "../../../errors/InvalidValueError";
 import { BalanceInsuficientError } from "../../../errors/BalanceInsuficientError";
 import { InvalidPixKeyError } from "../errors/InvalidPixKeyError";
+import { CannotSendMoneyToYourAccountError } from "../errors/CannotSendMoneyToYourAccountError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -108,7 +109,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         const id = 1
         const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 50)).rejects.toEqual(new AppError("Voce nao pode enviar dinheiro para voce"))
+        await expect(sut.execute(id, keypix, 50)).rejects.toEqual(new CannotSendMoneyToYourAccountError())
 
     })
 
