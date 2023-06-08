@@ -7,6 +7,7 @@ import { AppError } from "../../../../../utils/AppError";
 import { LimitError } from "../../../errors/LimitError";
 import { LimitDayError } from "../../../errors/LimitDayError";
 import { InvalidValueError } from "../../../errors/InvalidValueError";
+import { BalanceInsuficientError } from "../../../errors/BalanceInsuficientError";
 
 let usersRepository:  InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -61,7 +62,7 @@ describe("Testando saque do usaurio", ()=>{
             "cpf": "12603863096",
         });
 
-        await expect(sut.execute(900, 1)).rejects.toEqual(new AppError("Saldo insuficiente para fazer saque"))
+        await expect(sut.execute(900, 1)).rejects.toEqual(new BalanceInsuficientError())
 
     })
 

@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
 import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
@@ -23,7 +24,7 @@ class WithdrawTransactionsUseCase {
             }
 
             if(valueWithdraw>user.saldo){
-                throw new AppError("Saldo insuficiente para fazer saque");
+                throw new BalanceInsuficientError();
             }
 
             const Limits = [

@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
 import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
@@ -14,7 +15,7 @@ class SendingMoneyUseCase{
             const receiveUser = await this.UserRepository.findUserByKeyPix(keyPix);
             
             if(user.saldo<value){
-                throw new AppError("Saldo Invalido para fazer o saque");
+                throw new BalanceInsuficientError();
             }
             
             if(value<=0){

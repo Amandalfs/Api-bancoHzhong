@@ -10,6 +10,7 @@ import { hash } from 'bcrypt';
 import { LimitError } from "../../../errors/LimitError";
 import { LimitDayError } from "../../../errors/LimitDayError";
 import { InvalidValueError } from "../../../errors/InvalidValueError";
+import { BalanceInsuficientError } from "../../../errors/BalanceInsuficientError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -61,7 +62,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         const id = 1
         const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 15)).rejects.toEqual(new AppError("Saldo Invalido para fazer o saque"))
+        await expect(sut.execute(id, keypix, 15)).rejects.toEqual(new BalanceInsuficientError());
     })
 
     it("usaurio nao pode mandar dinheiro para um conta que nao existe", async ()=>{        
