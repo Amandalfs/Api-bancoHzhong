@@ -3,13 +3,14 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from 'jsonwebtoken';
 import authConfig from '../config/auth';
 import { AppError } from "../utils/AppError";
+import { TokenNotSentError } from "./errors/TokenNotSentError";
 
 function garantirAuth(req: Request, res: Response, next:NextFunction){
     const authToken = req.headers.authorization?.replace('Bearer ', '');
     
 
     if(!authToken){
-        throw new AppError("Token nao foi recebido");
+        throw new TokenNotSentError();
     }
 
     try {
