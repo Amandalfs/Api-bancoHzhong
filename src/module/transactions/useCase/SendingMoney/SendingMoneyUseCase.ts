@@ -6,6 +6,7 @@ import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
 import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
+import { InvalidPixKeyError } from "./errors/InvalidPixKeyError";
 
 class SendingMoneyUseCase{
     constructor(private UserRepository: IUserRepository, private ExtractsRepository:IExtracsRepository){}
@@ -27,7 +28,7 @@ class SendingMoneyUseCase{
             }
 
             if(!receiveUser){
-                throw new AppError("A Chave pix e invalida");
+                throw new InvalidPixKeyError();
             }
 
             const Limits = [

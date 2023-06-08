@@ -11,6 +11,7 @@ import { LimitError } from "../../../errors/LimitError";
 import { LimitDayError } from "../../../errors/LimitDayError";
 import { InvalidValueError } from "../../../errors/InvalidValueError";
 import { BalanceInsuficientError } from "../../../errors/BalanceInsuficientError";
+import { InvalidPixKeyError } from "../errors/InvalidPixKeyError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -83,7 +84,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
 
         const id = 1
         const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
-        await expect(sut.execute(id, keypix, 25)).rejects.toEqual(new AppError("A Chave pix e invalida"))
+        await expect(sut.execute(id, keypix, 25)).rejects.toEqual(new InvalidPixKeyError())
     })
 
     it("usuario nao poderar enviar dinheiro para ele mesmo", async ()=>{
