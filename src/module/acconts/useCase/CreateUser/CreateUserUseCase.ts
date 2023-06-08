@@ -5,6 +5,7 @@ import { hash } from "bcrypt";
 import { AppError } from "../../../../utils/AppError"; 
 import { verifyAge } from "../../../../utils/verify/verifyAge";
 import { validarCPF } from "../../../../utils/validarCpf";
+import { AccontExistsError } from "./errors/AccontExistsError";
 
 interface ICreateUserRequestDTO {
     username: string, 
@@ -39,8 +40,9 @@ class CreateUserUseCase implements ICreateUserUseCase {
         const isEmail = await this.UserRepository.findUserByEmail(email);
         const isUsername = await this.UserRepository.findUserByUsername(username);
         const isCpf = await this.UserRepository.findUserByCPF(cpf);
+        
         if(isEmail){
-            throw new AppError(`Ja existente uma conta com esse Email`);
+            throw new AccontExistsError("Email");
         }
     
         if(isUsername){

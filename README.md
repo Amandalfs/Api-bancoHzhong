@@ -17,43 +17,32 @@
  <a href="#user-content--licença">Licença</a>
 </p>
 
+<br>
 
 ## 💻 Sobre o projeto
 Api para o banco hzhong a onde usuário poderar gerenciar suas financias e fazer pagamentos. <br>
 Hzhong o banco que facilita sua vida.
+
+<br>
 
 ---
 
 ## ⚙️ Funcionalidades
 
 - Criar Conta:
-  - Entidades:
-    - Usuário.
 - Fazer login:
-  - Entidades:
-    - Usuário.
 - Monstrar Infos do usuario:
-  - Entidades:
-    - Usuário.
-    - Extrato.
 - Sacar dinheiro:
-  - Entidades:
-    - Usuário.
-    - Extrato.
 - Transferir dinheiro:
-  - Entidades:
-    - Usuário.
-    - Extrato.
 - Depositar dinheiro:
-  - Entidades:
-    - Usuário.
-    - Extrato.
 - Monstrar Extrato:
-  - Entidades:
-    - Usuário.
-    - Extrato.
+- Entidades:
+  - Usuário.
+  - Extrato.
 
 ---
+
+<br>
 
 ## 📉 Arquitetura
 

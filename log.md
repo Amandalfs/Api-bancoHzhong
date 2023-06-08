@@ -1,5 +1,18 @@
 # Log de Atualizacoes da api Hzhong
 
+
+## Versão 2.0.8 - 08/06/2023
+
+### Adicionado
+- Error Accont Exists.
+
+### Refatoracao
+- alterado um erros globais sobre conta ja existente criado com o AppError para um erro especifico a onde vai facilitar a leitura.
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.7 - 05/06/2023
 
 ### Adicionado

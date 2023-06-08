@@ -2,6 +2,7 @@ import { describe, beforeEach, afterEach, it, expect, beforeAll } from "vitest"
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository"
 import { CreateUserUseCase } from "../CreateUserUseCase";
 import { AppError } from "../../../../../utils/AppError";
+import { AccontExistsError } from "../errors/AccontExistsError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: CreateUserUseCase;
@@ -56,7 +57,7 @@ describe("criacao de usuarios",()=>{
 
         await sut.execute(usuario)
 
-        await expect(sut.execute(usuario2)).rejects.toEqual(new AppError("Ja existente uma conta com esse Email"))
+        await expect(sut.execute(usuario2)).rejects.toEqual(new AccontExistsError("Email"))
      
 
     })
