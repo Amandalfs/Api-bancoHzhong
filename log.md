@@ -5,9 +5,11 @@
 
 ### Adicionado
 - Error Accont Exists.
+- Error Confirmation Password Invalid.
 
 ### Refatoracao
 - alterado um erros globais sobre conta ja existente criado com o AppError para um erro especifico a onde vai facilitar a leitura.
+- alterado o erro de senhas direntes criado com o AppError para um erro criado com classe com seu nome para maior facilidade de entendimento na hora da manutenção.  
 
 <br>
 <br>

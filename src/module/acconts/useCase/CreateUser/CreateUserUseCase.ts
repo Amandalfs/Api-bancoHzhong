@@ -6,6 +6,7 @@ import { AppError } from "../../../../utils/AppError";
 import { verifyAge } from "../../../../utils/verify/verifyAge";
 import { validarCPF } from "../../../../utils/validarCpf";
 import { AccontExistsError } from "./errors/AccontExistsError";
+import { ConfirmationPasswordInvalidError } from "./errors/ConfirmationPasswordInvalidError";
 
 interface ICreateUserRequestDTO {
     username: string, 
@@ -54,7 +55,7 @@ class CreateUserUseCase implements ICreateUserUseCase {
         }
 
         if(password !== password2){
-            throw new AppError("Senhas Diferentes");
+            throw new ConfirmationPasswordInvalidError();
         }
 
         const passwordCriptografada = await hash(password, 10);

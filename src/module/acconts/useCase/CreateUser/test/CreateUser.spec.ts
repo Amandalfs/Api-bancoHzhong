@@ -3,6 +3,7 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { CreateUserUseCase } from "../CreateUserUseCase";
 import { AppError } from "../../../../../utils/AppError";
 import { AccontExistsError } from "../errors/AccontExistsError";
+import { ConfirmationPasswordInvalidError } from "../errors/ConfirmationPasswordInvalidError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: CreateUserUseCase;
@@ -147,7 +148,7 @@ describe("criacao de usuarios",()=>{
 
         await sut.execute(usuario)
 
-        await expect(sut.execute(usuario2)).rejects.toEqual(new AppError("Senhas Diferentes"))
+        await expect(sut.execute(usuario2)).rejects.toEqual(new ConfirmationPasswordInvalidError())
      
 
     })
