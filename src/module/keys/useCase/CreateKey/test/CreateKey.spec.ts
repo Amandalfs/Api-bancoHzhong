@@ -4,6 +4,7 @@ import { CreateKeyUseCase } from "../CreateKeyUseCase";
 import { hash } from 'bcrypt';
 import { keyGenerator } from "../../../../../utils/keyGenerator";
 import { AppError } from "../../../../../utils/AppError";
+import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: CreateKeyUseCase;
@@ -52,5 +53,9 @@ describe("Teste de create key", ()=>{
         
         const key = await sut.execute(1)
         expect(key).toEqual(expect.any(String))
+    })
+
+    it("Nao poderar acessar esse recurso se o ID nao existir", async ()=>{
+        await expect(sut.execute(1)).rejects.toEqual(new ResourceNotFoundError());
     })
 })

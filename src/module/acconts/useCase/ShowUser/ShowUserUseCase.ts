@@ -1,6 +1,5 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { AppError } from "../../../../utils/AppError";
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 
 class ShowUserUseCase {

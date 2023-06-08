@@ -2,6 +2,7 @@ import { IUserRepository } from "../../../../repositories/implementations/IUserR
 
 import {keyGenerator} from "../../../../utils/keyGenerator";
 import {AppError} from '../../../../utils/AppError';
+import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 
 class CreateKeyUseCase{
 
@@ -9,6 +10,10 @@ class CreateKeyUseCase{
 
     async execute(id:number){
         const user = await this.UserRepository.findUserById(id);
+
+        if(!user){
+            throw new ResourceNotFoundError();
+        }
 
         if(user.keypix){
             throw new AppError("Chave pix Ja existe")
