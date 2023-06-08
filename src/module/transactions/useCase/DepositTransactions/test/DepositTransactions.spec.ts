@@ -3,7 +3,7 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
 import { DepositTransactionsUseCase } from "../DepositTransactionsUseCase";
 import { hash } from 'bcrypt';
-import { AppError } from "../../../../../utils/AppError";
+import { InvalidValueError } from "../../../errors/InvalidValueError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -34,7 +34,7 @@ describe("Testando o useCase DepositTransactions", ()=>{
             "cpf": "12603863096"
         });
 
-        await expect(sut.execute({deposit: -50, id:1})).rejects.toEqual(new AppError("Saldo invalido"))
+        await expect(sut.execute({deposit: -50, id:1})).rejects.toEqual(new InvalidValueError())
     })
 
     it("Usuario deve conseguir depositar um valor valido na sua conta", async()=>{      

@@ -1,8 +1,8 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
-import { AppError } from "../../../../utils/AppError";
 import {date} from "../../../../utils/date";
+import { InvalidValueError } from "../../errors/InvalidValueError";
 
 class DepositTransactionsUseCase {
     constructor(private UserRepository: IUserRepository, private ExtractsRepository: IExtracsRepository){}
@@ -15,7 +15,7 @@ class DepositTransactionsUseCase {
         const user = await this.UserRepository.findUserById(id);
 
         if(deposit<=0 || deposit===null){
-            throw new AppError("Saldo invalido");
+            throw new InvalidValueError();
         }
     
         const saldoNovo = user.saldo + deposit;
