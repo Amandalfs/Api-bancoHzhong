@@ -13,6 +13,7 @@ import { InvalidValueError } from "../../../errors/InvalidValueError";
 import { BalanceInsuficientError } from "../../../errors/BalanceInsuficientError";
 import { InvalidPixKeyError } from "../errors/InvalidPixKeyError";
 import { CannotSendMoneyToYourAccountError } from "../errors/CannotSendMoneyToYourAccountError";
+import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -426,4 +427,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
 
     })
 
+    it("usuario nao encontrado", async ()=>{
+        await expect(sut.execute(1, "ndfsvubssbpvbspi", 50)).rejects.toEqual(new ResourceNotFoundError());
+    })
 })
