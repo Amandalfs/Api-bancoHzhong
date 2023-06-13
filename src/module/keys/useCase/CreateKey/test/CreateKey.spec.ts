@@ -3,7 +3,6 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { CreateKeyUseCase } from "../CreateKeyUseCase";
 import { hash } from 'bcrypt';
 import { keyGenerator } from "../../../../../utils/keyGenerator";
-import { AppError } from "../../../../../utils/AppError";
 import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
 import { KeyAlreadyExistsError } from "../errors/KeyAlreadyExistsError";
 
@@ -34,7 +33,7 @@ describe("Teste de create key", ()=>{
         const ChaveGerada =  await keyGenerator()
         await usersRepository.createKeyPixById(1, ChaveGerada);
 
-        await expect(sut.execute(1)).rejects.toEqual(new KeyAlreadyExistsError());
+        await expect(sut.execute({id:1})).rejects.toEqual(new KeyAlreadyExistsError());
     })
 
     it("Usuario deve conseguir criar uma chave", async ()=>{
@@ -52,11 +51,11 @@ describe("Teste de create key", ()=>{
             "cpf": "12603863096"
         }) 
         
-        const key = await sut.execute(1)
+        const {key} = await sut.execute({id:1})
         expect(key).toEqual(expect.any(String))
     })
 
     it("Nao poderar acessar esse recurso se o ID nao existir", async ()=>{
-        await expect(sut.execute(1)).rejects.toEqual(new ResourceNotFoundError());
+        await expect(sut.execute({id:1})).rejects.toEqual(new ResourceNotFoundError());
     })
 })
