@@ -4,6 +4,7 @@ import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory
 import { DepositTransactionsUseCase } from "../DepositTransactionsUseCase";
 import { hash } from 'bcrypt';
 import { InvalidValueError } from "../../../errors/InvalidValueError";
+import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -56,5 +57,9 @@ describe("Testando o useCase DepositTransactions", ()=>{
         const response = await sut.execute({deposit: 15, id:1});
         expect(response).toEqual(expect.any(Object));
         expect(response.extratoNew.saldo).toEqual(15);
+    })
+
+    it("Usuario nao encontrado", async ()=>{
+        await expect(sut.execute({deposit: -50, id:1})).rejects.toEqual(new ResourceNotFoundError())
     })
 })
