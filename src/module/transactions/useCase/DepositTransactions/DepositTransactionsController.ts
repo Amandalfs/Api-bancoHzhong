@@ -1,8 +1,7 @@
+import { IDepositTransactionsUseCase } from "./DepositTransactionsUseCase";
+
 class DepositTransactionsController{
-    depositTransactionsUseCase;
-    constructor(depositTransactionsUseCase){
-        this.depositTransactionsUseCase = depositTransactionsUseCase;
-    }
+    constructor(private depositTransactionsUseCase: IDepositTransactionsUseCase){}
 
     async handle(req, res){
         const { deposit } = req.body;

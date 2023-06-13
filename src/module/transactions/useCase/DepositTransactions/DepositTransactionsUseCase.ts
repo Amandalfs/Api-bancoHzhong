@@ -5,10 +5,30 @@ import {date} from "../../../../utils/date";
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { InvalidValueError } from "../../errors/InvalidValueError";
 
-class DepositTransactionsUseCase {
+export interface DTORequestDepositTransactionsUseCase {
+    deposit: number
+    id: number
+}
+
+export interface DTOResponseDepositTransactionsUseCase {
+    extratoNew: {
+        id_user: number,
+        name: string,
+        tipo: string,
+        saldo: number,
+        data: string,
+        descricao: string,
+    }
+}
+
+export interface IDepositTransactionsUseCase {
+    execute(data: DTORequestDepositTransactionsUseCase): Promise<DTOResponseDepositTransactionsUseCase>    
+}
+
+class DepositTransactionsUseCase implements IDepositTransactionsUseCase {
     constructor(private UserRepository: IUserRepository, private ExtractsRepository: IExtracsRepository){}
     
-    async execute({deposit, id}){
+    async execute({deposit, id}: DTORequestDepositTransactionsUseCase){
         
         const tipo = "deposito";
         const data = date();
