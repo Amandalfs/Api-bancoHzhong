@@ -63,9 +63,9 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 15)).rejects.toEqual(new BalanceInsuficientError());
+        await expect(sut.execute({id, keyPix, value:15})).rejects.toEqual(new BalanceInsuficientError());
     })
 
     it("usaurio nao pode mandar dinheiro para um conta que nao existe", async ()=>{        
@@ -85,8 +85,8 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
-        await expect(sut.execute(id, keypix, 25)).rejects.toEqual(new InvalidPixKeyError())
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        await expect(sut.execute({id, keyPix, value:25})).rejects.toEqual(new InvalidPixKeyError())
     })
 
     it("usuario nao poderar enviar dinheiro para ele mesmo", async ()=>{
@@ -108,9 +108,9 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
 
         
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 50)).rejects.toEqual(new CannotSendMoneyToYourAccountError())
+        await expect(sut.execute({id, keyPix, value:50})).rejects.toEqual(new CannotSendMoneyToYourAccountError())
 
     })
 
@@ -145,9 +145,9 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, -15)).rejects.toEqual(new InvalidValueError())
+        await expect(sut.execute({id, keyPix, value:-15})).rejects.toEqual(new InvalidValueError())
     })
 
     it("usuario deve conseguir enviar o dinheiro para outro usuario", async()=>{
@@ -181,9 +181,9 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        const response = await sut.execute(id, keypix, 50);
+        const response = await sut.execute({id, keyPix, value:50});
         expect(response).toEqual(expect.any(Object));
     })
 
@@ -218,9 +218,9 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 350)).rejects.toEqual(new LimitError(300, "poupanca"));
+        await expect(sut.execute({id, keyPix, value:350})).rejects.toEqual(new LimitError(300, "poupanca"));
     })
 
     it("usuarios com conta corrente nao deve conseguir fazer um envio maior que R$800", async()=>{
@@ -254,9 +254,9 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 850)).rejects.toEqual(new LimitError(800, "corrente"));
+        await expect(sut.execute({id, keyPix, value:850})).rejects.toEqual(new LimitError(800, "corrente"));
     })
 
     it("usuarios com conta universitaria nao deve conseguir fazer um envio maior que R$450", async()=>{
@@ -290,9 +290,9 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
-        await expect(sut.execute(id, keypix, 500)).rejects.toEqual(new LimitError(450, "universitaria"));
+        await expect(sut.execute({id, keyPix, value:500})).rejects.toEqual(new LimitError(450, "universitaria"));
     })
 
     it("usuarios do tipo de conta poupanca nao poderar enviar mais que o seu limite diario", async()=>{
@@ -329,13 +329,13 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
         for (let index = 0; index < 5; index++) {
-            await sut.execute(id, keypix, 290);
+            await sut.execute({id, keyPix, value:290});
         }
 
-        await expect(sut.execute(id, keypix, 290)).rejects.toEqual(new LimitDayError(1500, "poupanca")) // valor, id        
+        await expect(sut.execute({id, keyPix, value:290})).rejects.toEqual(new LimitDayError(1500, "poupanca")) // valor, id        
 
     })
 
@@ -373,13 +373,13 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
         for (let index = 0; index < 5; index++) {
-            await sut.execute(id, keypix, 800);
+            await sut.execute({id, keyPix, value:800});
         }
 
-        await expect(sut.execute(id, keypix, 790)).rejects.toEqual(new LimitDayError(4000, "corrente")) // valor, id        
+        await expect(sut.execute({id, keyPix, value:790})).rejects.toEqual(new LimitDayError(4000, "corrente")) // valor, id        
 
     })
 
@@ -417,17 +417,17 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         });
 
         const id = 1
-        const keypix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
+        const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
 
         for (let index = 0; index < 5; index++) {
-            await sut.execute(id, keypix, 450);
+            await sut.execute({id, keyPix, value:450});
         }
 
-        await expect(sut.execute(id, keypix, 440)).rejects.toEqual(new LimitDayError(2250, "universitaria")) // valor, id        
+        await expect(sut.execute({id, keyPix, value:440})).rejects.toEqual(new LimitDayError(2250, "universitaria")) // valor, id        
 
     })
 
     it("usuario nao encontrado", async ()=>{
-        await expect(sut.execute(1, "ndfsvubssbpvbspi", 50)).rejects.toEqual(new ResourceNotFoundError());
+        await expect(sut.execute({id:1, keyPix:"ndfsvubssbpvbspi", value:50})).rejects.toEqual(new ResourceNotFoundError());
     })
 })
