@@ -3,7 +3,6 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
 import { WithdrawTransactionsUseCase } from "../WithdrawTransactionsUseCase";
 import { hash } from 'bcrypt';
-import { AppError } from "../../../../../utils/AppError";
 import { LimitError } from "../../../errors/LimitError";
 import { LimitDayError } from "../../../errors/LimitDayError";
 import { InvalidValueError } from "../../../errors/InvalidValueError";
@@ -44,7 +43,7 @@ describe("Testando saque do usaurio", ()=>{
             "cpf": "12603863096",
         });
 
-        await expect(sut.execute(-50, 1)).rejects.toEqual(new InvalidValueError())
+        await expect(sut.execute({valueWithdraw:-50, id:1})).rejects.toEqual(new InvalidValueError())
     })
 
     it("Usuario nao pode sacar um valor maior que seu saldo", async ()=>{
@@ -63,7 +62,7 @@ describe("Testando saque do usaurio", ()=>{
             "cpf": "12603863096",
         });
 
-        await expect(sut.execute(900, 1)).rejects.toEqual(new BalanceInsuficientError())
+        await expect(sut.execute({valueWithdraw:900, id:1})).rejects.toEqual(new BalanceInsuficientError())
 
     })
 
@@ -83,7 +82,7 @@ describe("Testando saque do usaurio", ()=>{
             "cpf": "12603863096",
         });
 
-        const response = await sut.execute(200, 1) // valor, id
+        const response = await sut.execute({valueWithdraw:200, id:1}) // valor, id
         expect(response).toEqual(expect.any(Object));        
 
     })
@@ -103,7 +102,7 @@ describe("Testando saque do usaurio", ()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096",
         });
-        await expect(sut.execute(350, 1)).rejects.toEqual(new LimitError(300, "poupanca")) // valor, id        
+        await expect(sut.execute({valueWithdraw:350, id:1})).rejects.toEqual(new LimitError(300, "poupanca")) // valor, id        
 
     })
 
@@ -123,7 +122,7 @@ describe("Testando saque do usaurio", ()=>{
             "cpf": "12603863096",
         });
 
-        await expect(sut.execute(900, 1)).rejects.toEqual(new LimitError(800, "corrente")) // valor, id        
+        await expect(sut.execute({valueWithdraw:900, id:1})).rejects.toEqual(new LimitError(800, "corrente")) // valor, id        
 
     })
 
@@ -142,7 +141,7 @@ describe("Testando saque do usaurio", ()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096",
         });
-        await expect(sut.execute(600, 1)).rejects.toEqual(new LimitError(450, "universitaria")) // valor, id        
+        await expect(sut.execute({valueWithdraw:600, id:1})).rejects.toEqual(new LimitError(450, "universitaria")) // valor, id        
 
     })
 
@@ -166,10 +165,10 @@ describe("Testando saque do usaurio", ()=>{
         });
 
         for (let index = 0; index < 5; index++) {
-            await sut.execute(300, 1);
+            await sut.execute({valueWithdraw:300, id:1});
         }
 
-        await expect(sut.execute(280, 1)).rejects.toEqual(new LimitDayError(1500, "poupanca")) // valor, id        
+        await expect(sut.execute({valueWithdraw:280, id:1})).rejects.toEqual(new LimitDayError(1500, "poupanca")) // valor, id        
 
     })
 
@@ -194,10 +193,10 @@ describe("Testando saque do usaurio", ()=>{
         });
 
         for (let index = 0; index < 5; index++) {
-            await sut.execute(800, 1);
+            await sut.execute({valueWithdraw:800, id:1});
         }
 
-        await expect(sut.execute(280, 1)).rejects.toEqual(new LimitDayError(4000, "corrente")) // valor, id        
+        await expect(sut.execute({valueWithdraw:280, id:1})).rejects.toEqual(new LimitDayError(4000, "corrente")) // valor, id        
 
     })
 
@@ -222,15 +221,15 @@ describe("Testando saque do usaurio", ()=>{
         });
 
         for (let index = 0; index < 5; index++) {
-            await sut.execute(450, 1);
+            await sut.execute({valueWithdraw:450, id:1});
         }
 
-        await expect(sut.execute(280, 1)).rejects.toEqual(new LimitDayError(2250, "universitaria")) // valor, id        
+        await expect(sut.execute({valueWithdraw:280, id:1})).rejects.toEqual(new LimitDayError(2250, "universitaria")) // valor, id        
 
     })
 
     it("usuario nao encontrado", async()=>{
-        await expect(sut.execute(-50, 1)).rejects.toEqual(new ResourceNotFoundError());
+        await expect(sut.execute({valueWithdraw:50, id:1})).rejects.toEqual(new ResourceNotFoundError());
     })
 
 })
