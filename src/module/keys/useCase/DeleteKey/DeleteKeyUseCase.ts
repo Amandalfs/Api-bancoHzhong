@@ -2,13 +2,24 @@ import { IUserRepository } from "../../../../repositories/implementations/IUserR
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { KeyDoesNotExistError } from "../errors/KeyDoesNotExistError";
 
+export interface DTORequestDeleteKeyUseCase {
+    id: number
+}
 
-class DeleteKeyUseCase{
+export interface DTOResponseDeleteKeyUseCase {
+    msg: string
+}
+
+export interface IDeleteKeyUseCase{
+    execute(data: DTORequestDeleteKeyUseCase): Promise<DTOResponseDeleteKeyUseCase>
+}
+
+class DeleteKeyUseCase implements IDeleteKeyUseCase{
 
     constructor(private UserRepository: IUserRepository){
     }
 
-    async execute(id:number){
+    async execute({id}: DTORequestDeleteKeyUseCase){
         const user = await this.UserRepository.findUserById(id);
 
         if(!user){

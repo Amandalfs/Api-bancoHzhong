@@ -7,7 +7,7 @@ class DeleteKeyController {
     async handle(req: Request, res: Response){
         const { id } = req.user
 
-        await this.DeleteKeyUseCase.execute(id);
+        await this.DeleteKeyUseCase.execute({id});
 
         return res.status(200).send({"msg": "Chave Deletada com sucesso"});
     }

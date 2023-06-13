@@ -11,6 +11,7 @@
 - Mudado a implementacao do useCase Sessions para implementar o IUseCaseSessions tornando mais legivel e tipado.
 - Mudado a implementacao do useCase Show para implementar o IUseCaseShow tornando mais legivel e tipado.
 - Mudado a implementacao do useCase CreateKey para implementar o IUseCaseCreateKey tornando mais legivel e tipado.
+- Mudado a implementacao do useCase deleteKey para implementar o IUseCaseDeleteKey tornando mais legivel e tipado.
 
 <br>
 <br>
