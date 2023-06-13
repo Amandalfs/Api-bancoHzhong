@@ -15,7 +15,8 @@
 - Mudado a implementacao do useCase ShowKey para implementar o IUseCaseShowKey tornando mais legivel e tipado.
 - Mudado a implementacao do useCase DepositTransactions para implementar o IUseCaseDepositTransactions tornando mais legivel e tipado.
 - Mudado a implementacao do useCase ExtractsByDate para implementar o IUseCaseExtractsByDate tornando mais legivel e tipado.
-- Mudado a implementacao do useCase SendingMoneyTransactions para implementar o IUseCas SendingMoneyTransactions tornando mais legivel e tipado.
+- Mudado a implementacao do useCase SendingMoneyTransactions para implementar o IUseCase SendingMoneyTransactions tornando mais legivel e tipado.
+- Mudado a implementacao do useCase WithdrawTransactions para implementar o IUseCase tornando mais legivel e tipado.
 
 
 <br>

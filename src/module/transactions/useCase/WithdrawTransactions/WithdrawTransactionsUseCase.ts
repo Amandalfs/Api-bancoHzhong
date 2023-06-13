@@ -1,6 +1,5 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
@@ -8,11 +7,30 @@ import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
 import { LimitError } from "../../errors/LimitError";
 
+export interface DTORequestWithdrawTransctionsUseCase {
+    valueWithdraw: number
+    id: number
+}
 
-class WithdrawTransactionsUseCase {
+export interface DTOResponseWithdrawTransctionsUseCase {
+    extratoNew: {
+        id_user: number,
+        name: string,
+        tipo: string,
+        saldo: number,
+        data: string,
+        descricao: string,
+    }
+}
+
+export interface IWithdrawTransctionsUseCase {
+    execute(data: DTORequestWithdrawTransctionsUseCase): Promise<DTOResponseWithdrawTransctionsUseCase>    
+}
+
+class WithdrawTransactionsUseCase implements IWithdrawTransctionsUseCase{
     constructor(private UserRepository:IUserRepository, private ExtractsRepository:IExtracsRepository){}
 
-    async execute(valueWithdraw:number, id:number){
+    async execute({valueWithdraw, id}){
 
             const user = await this.UserRepository.findUserById(id);
             
