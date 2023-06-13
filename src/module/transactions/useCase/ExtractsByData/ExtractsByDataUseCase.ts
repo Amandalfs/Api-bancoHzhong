@@ -1,4 +1,4 @@
-import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
+import { IExtracsRepository, IReponseExtracs } from "../../../../repositories/implementations/IExtractsRepository";
 
 export interface DTORequestExtractsByDateUseCase {
     id_user: number,
@@ -7,19 +7,19 @@ export interface DTORequestExtractsByDateUseCase {
 }
 
 export interface DTOResponseExtractsByDateUseCase {
-    
+    extracts: IReponseExtracs[]
 }
 
 export interface IExtractsByDateUseCase {
-    
+    execute(data: DTORequestExtractsByDateUseCase): Promise<DTOResponseExtractsByDateUseCase>
 }
 
-class ExtractsByDataUseCase{
+class ExtractsByDataUseCase implements IExtractsByDateUseCase{
     constructor(private ExtractsRepository: IExtracsRepository){} 
 
-    async execute(id_user:number, dateStart:string, dateEnd:string){
+    async execute({id_user, dateStart, dateEnd}: DTORequestExtractsByDateUseCase){
         const extracts = await this.ExtractsRepository.SearchForDataStartAndEndbyId(id_user, dateStart, dateEnd);
-        return extracts;
+        return {extracts};
     }
 }
 
