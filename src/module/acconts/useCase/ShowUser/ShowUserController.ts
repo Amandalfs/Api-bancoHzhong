@@ -10,7 +10,7 @@ class ShowUserController{
     async handle(req, res){
         const { id } = req.user;
         
-        const dados = await this.showUserUseCase.execute(id);
+        const dados = await this.showUserUseCase.execute({id_user:id});
 
         return res.status(201).json({dados});
     }

@@ -11,6 +11,7 @@
 ### Refatoracao
 - Mudado o erro de Resource not Found que foi criado com AppError no WithdrawUseCase para a classe Resource not Found
 - Mudado a implementacao do useCase Sessions para implementar o IUseCaseSessions tornando mais legivel e tipado.
+- Mudado a implementacao do useCase Show para implementar o IUseCaseShow tornando mais legivel e tipado.
 
 <br>
 <br>
