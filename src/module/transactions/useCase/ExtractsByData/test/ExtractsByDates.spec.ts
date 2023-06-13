@@ -67,8 +67,8 @@ describe("testando useCase de estrato", ()=>{
   
         const id_user = 1, dateStart = "02-02-2023", dateEnd = "02-04-2023";
 
-        const extratos = await sut.execute(id_user, dateStart, dateEnd);
-        expect(extratos).toEqual(expect.any(Array))
-        expect(extratos).toHaveLength(5);
+        const { extracts } = await sut.execute({id_user, dateStart, dateEnd});
+        expect(extracts).toEqual(expect.any(Array))
+        expect(extracts).toHaveLength(5);
     })
 })
