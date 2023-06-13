@@ -3,10 +3,22 @@ import { IUserRepository } from "../../../../repositories/implementations/IUserR
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { KeyDoesNotExistError } from "../errors/KeyDoesNotExistError";
 
-class ShowKeyUseCase{
+export interface DTORequestShowKeyUseCase{
+    id: number
+}
+
+export interface DTOResponseShowKeyUseCase{
+    key: string
+}
+
+export interface IShowKeyUseCase{
+    execute(data: DTORequestShowKeyUseCase): Promise<DTOResponseShowKeyUseCase>
+}
+
+class ShowKeyUseCase implements IShowKeyUseCase{
     constructor(private UserRepository: IUserRepository){}
 
-    async execute(id:number){
+    async execute({id}: DTORequestShowKeyUseCase){
         const user = await this.UserRepository.findUserById(id);
 
         if(!user){
@@ -17,7 +29,7 @@ class ShowKeyUseCase{
             throw new KeyDoesNotExistError();
         }
 
-        return user.keypix;
+        return {key:user.keypix};
     }
 }
 
