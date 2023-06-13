@@ -30,7 +30,7 @@ describe('Testando Login de usuario',()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         })
-        await expect(sut.execute("UsarioTest", "524545")).rejects.toEqual(new PassordOrUsernameInvalidError());
+        await expect(sut.execute({username:"UsarioTest", password:"524545"})).rejects.toEqual(new PassordOrUsernameInvalidError());
 
         
 
@@ -51,7 +51,7 @@ describe('Testando Login de usuario',()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         })
-        await expect(sut.execute("Uggbfri0bnaeipbijrth", "12345678")).rejects.toEqual(new PassordOrUsernameInvalidError());
+        await expect(sut.execute({username:"Uggbfri0bnaeipbijrth", password:"12345678"})).rejects.toEqual(new PassordOrUsernameInvalidError());
     })
 
     it("Usuario deve conseguir iniciar uma sessao com username e senha certa", async()=>{
@@ -69,8 +69,12 @@ describe('Testando Login de usuario',()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         })
+        const user = {
+            username: "UsuarioTest",
+            password:"12345678"
+        }
 
-        const token = await sut.execute("UsuarioTest", "12345678")
+        const token = await sut.execute(user);
 
         expect(token).toEqual(expect.any(String))
 
