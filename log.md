@@ -8,9 +8,8 @@
 - Adicionado de erro de recurso nao encontrado no UseCaseDeposit
 - Adicionado de erro de recurso nao encontrado no UseCaseSending
 
-
 ### Refatoracao
-
+- Mudado o erro de Resource not Found que foi criado com AppError no WithdrawUseCase para a classe Resource not Found
 
 <br>
 <br>

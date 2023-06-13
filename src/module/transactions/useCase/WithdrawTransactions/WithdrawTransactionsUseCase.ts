@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
 import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
@@ -16,7 +17,7 @@ class WithdrawTransactionsUseCase {
             const user = await this.UserRepository.findUserById(id);
             
             if(!user){
-                throw new AppError("Recurso nao encontrado");
+                throw new ResourceNotFoundError();
             }
 
             if(valueWithdraw<=0){
