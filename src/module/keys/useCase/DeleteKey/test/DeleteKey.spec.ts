@@ -31,7 +31,7 @@ describe("Testando o DeleteUser", ()=>{
             "cpf": "12603863096"
         })
 
-        await expect(sut.execute(1)).rejects.toEqual(new KeyDoesNotExistError());
+        await expect(sut.execute({id:1})).rejects.toEqual(new KeyDoesNotExistError());
     })
 
     it("Usuario deve conseguir deleta a chave dele que existe", async ()=>{
@@ -52,12 +52,12 @@ describe("Testando o DeleteUser", ()=>{
         const keyDelete = await keyGenerator();
         await usersRepository.createKeyPixById(1, keyDelete);
     
-        const response = sut.execute(1);
+        const response = sut.execute({id: 1});
         await expect(response).toEqual(expect.any(Object));
     })
 
     
     it("Usuario sem Id existe nao poderar deletar uma chave", async ()=>{
-        await expect(sut.execute(1)).rejects.toEqual(new ResourceNotFoundError());
+        await expect(sut.execute({id: 1})).rejects.toEqual(new ResourceNotFoundError());
     })
 })
