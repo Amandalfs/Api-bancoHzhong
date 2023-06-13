@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
+import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
 import { InvalidValueError } from "../../errors/InvalidValueError";
 import { LimitDayError } from "../../errors/LimitDayError";
@@ -15,6 +16,10 @@ class SendingMoneyUseCase{
     async execute(id:number, keyPix:string, value:number){
             const user = await this.UserRepository.findUserById(id);
             const receiveUser = await this.UserRepository.findUserByKeyPix(keyPix);
+
+            if(!user){
+                throw new ResourceNotFoundError();
+            }
             
             if(user.saldo<value){
                 throw new BalanceInsuficientError();

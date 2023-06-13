@@ -6,6 +6,8 @@
 
 ### Adicionado
 - Adicionado de erro de recurso nao encontrado no UseCaseDeposit
+- Adicionado de erro de recurso nao encontrado no UseCaseSending
+
 
 ### Refatoracao
 
