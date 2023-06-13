@@ -1,5 +1,19 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 
+export interface DTORequestExtractsByDateUseCase {
+    id_user: number,
+    dateStart: string,
+    dateEnd: string
+}
+
+export interface DTOResponseExtractsByDateUseCase {
+    
+}
+
+export interface IExtractsByDateUseCase {
+    
+}
+
 class ExtractsByDataUseCase{
     constructor(private ExtractsRepository: IExtracsRepository){} 
 
