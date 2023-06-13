@@ -7,7 +7,7 @@ class CreateKeyController {
     async handle(req: Request, res: Response){
         const { id } = req.user;
 
-        const keypix = await this.CreateKeyUseCase.execute(id);
+        const keypix = await this.CreateKeyUseCase.execute({id});
 
         return res.status(201).send({"key":keypix});
     }

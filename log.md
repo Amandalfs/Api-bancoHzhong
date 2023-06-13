@@ -1,7 +1,5 @@
 # Log de Atualizacoes da api Hzhong
 
-
-
 ## Versão 2.0.9 - 13/06/2023
 
 ### Adicionado
@@ -12,6 +10,7 @@
 - Mudado o erro de Resource not Found que foi criado com AppError no WithdrawUseCase para a classe Resource not Found
 - Mudado a implementacao do useCase Sessions para implementar o IUseCaseSessions tornando mais legivel e tipado.
 - Mudado a implementacao do useCase Show para implementar o IUseCaseShow tornando mais legivel e tipado.
+- Mudado a implementacao do useCase CreateKey para implementar o IUseCaseCreateKey tornando mais legivel e tipado.
 
 <br>
 <br>

@@ -4,11 +4,24 @@ import {keyGenerator} from "../../../../utils/keyGenerator";
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { KeyAlreadyExistsError } from "./errors/KeyAlreadyExistsError";
 
-class CreateKeyUseCase{
+export interface DTORequestCreatekeyUseCase {
+    id:number
+}
+
+export interface DTOResponseCreatekeyUseCase {
+    key: string
+}
+
+export interface ICreatekeyUseCase {
+    execute(data:DTORequestCreatekeyUseCase): Promise<DTOResponseCreatekeyUseCase>
+}
+
+
+class CreateKeyUseCase implements ICreatekeyUseCase{
 
     constructor(private UserRepository: IUserRepository){}
 
-    async execute(id:number){
+    async execute({id}: DTORequestCreatekeyUseCase){
         const user = await this.UserRepository.findUserById(id);
 
         if(!user){
@@ -19,10 +32,10 @@ class CreateKeyUseCase{
             throw new KeyAlreadyExistsError();
         }
 
-        const ChaveGerada =  await keyGenerator();
-        await this.UserRepository.createKeyPixById(id, ChaveGerada)
+        const key =  await keyGenerator();
+        await this.UserRepository.createKeyPixById(id, key)
 
-        return ChaveGerada;
+        return {key};
     }
 }
 
