@@ -19,7 +19,7 @@ describe("Testando a funcionalidade show users", ()=>{
 
     it("Usuario nao deve conseguir usar show sem uma conta", async ()=>{
       
-        await expect(sut.execute(515)).rejects.toEqual(new ResourceNotFoundError())
+        await expect(sut.execute({id_user:515})).rejects.toEqual(new ResourceNotFoundError())
     })
 
     
@@ -39,7 +39,7 @@ describe("Testando a funcionalidade show users", ()=>{
         })
 
 
-        const response = await sut.execute(1)
+        const response = await sut.execute({id_user:1})
         expect(response).toEqual(expect.any(Object))
     })
 })
