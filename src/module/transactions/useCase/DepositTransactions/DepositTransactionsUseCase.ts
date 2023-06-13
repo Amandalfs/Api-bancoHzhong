@@ -2,6 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
 import {date} from "../../../../utils/date";
+import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { InvalidValueError } from "../../errors/InvalidValueError";
 
 class DepositTransactionsUseCase {
@@ -13,6 +14,10 @@ class DepositTransactionsUseCase {
         const data = date();
 
         const user = await this.UserRepository.findUserById(id);
+
+        if(!user){
+            throw new ResourceNotFoundError()
+        }
 
         if(deposit<=0 || deposit===null){
             throw new InvalidValueError();

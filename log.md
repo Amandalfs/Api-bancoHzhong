@@ -1,6 +1,19 @@
 # Log de Atualizacoes da api Hzhong
 
 
+
+## Versão 2.0.9 - 13/06/2023
+
+### Adicionado
+- Adicionado de erro de recurso nao encontrado no UseCaseDeposit
+
+### Refatoracao
+
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.8 - 08/06/2023
 
 ### Adicionado
