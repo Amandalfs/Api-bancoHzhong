@@ -8,6 +8,7 @@ import { LimitError } from "../../../errors/LimitError";
 import { LimitDayError } from "../../../errors/LimitDayError";
 import { InvalidValueError } from "../../../errors/InvalidValueError";
 import { BalanceInsuficientError } from "../../../errors/BalanceInsuficientError";
+import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
 
 let usersRepository:  InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -227,4 +228,9 @@ describe("Testando saque do usaurio", ()=>{
         await expect(sut.execute(280, 1)).rejects.toEqual(new LimitDayError(2250, "universitaria")) // valor, id        
 
     })
+
+    it("usuario nao encontrado", async()=>{
+        await expect(sut.execute(-50, 1)).rejects.toEqual(new ResourceNotFoundError());
+    })
+
 })
