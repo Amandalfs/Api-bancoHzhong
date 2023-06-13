@@ -8,9 +8,9 @@ class SendingMoneyController {
         const { id } = req.user;
         const {deposit, keypix } = req.body;
       
-        const extracts = await this.SendingMoneyUseCase.execute(id, keypix, deposit);
+        const {extratos} = await this.SendingMoneyUseCase.execute({id, keyPix: keypix, value: deposit});
     
-        return res.status(201).send({extracts});
+        return res.status(201).send({extratos});
     }
 
 }

@@ -1,6 +1,5 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { AppError } from "../../../../utils/AppError";
 import { date } from "../../../../utils/date";
 import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
 import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
@@ -10,10 +9,41 @@ import { LimitError } from "../../errors/LimitError";
 import { CannotSendMoneyToYourAccountError } from "./errors/CannotSendMoneyToYourAccountError";
 import { InvalidPixKeyError } from "./errors/InvalidPixKeyError";
 
-class SendingMoneyUseCase{
+export interface DTORequestSendingMoneyUseCase {
+    id: number,
+    keyPix: string,
+    value: number
+}
+
+export interface DTOResponsetSendingMoneyUseCase {
+    extratos: {
+        send:{
+            id_user: number
+            name: string
+            tipo: string
+            saldo: number
+            data: string
+            descricao: string
+        },
+        receive: {
+            id_user: number
+            name: string
+            tipo: string
+            saldo: number
+            data: string
+            descricao: string
+        }
+    }
+}
+
+export interface ISendingMoneyUseCase {
+    execute(data:DTORequestSendingMoneyUseCase): Promise<DTOResponsetSendingMoneyUseCase>
+}
+
+class SendingMoneyUseCase implements ISendingMoneyUseCase{
     constructor(private UserRepository: IUserRepository, private ExtractsRepository:IExtracsRepository){}
 
-    async execute(id:number, keyPix:string, value:number){
+    async execute({id, keyPix, value}:DTORequestSendingMoneyUseCase){
             const user = await this.UserRepository.findUserById(id);
             const receiveUser = await this.UserRepository.findUserByKeyPix(keyPix);
 
@@ -109,7 +139,7 @@ class SendingMoneyUseCase{
     
             await this.UserRepository.updateBalanceById(user.id, saldoSend);
             await this.UserRepository.updateBalanceById(receiveUser.id, saldoReceive);
-            return extratos;
+            return {extratos};
        
     }
 }
