@@ -3,15 +3,27 @@ import { IUserRepository } from "../../../../repositories/implementations/IUserR
 import { compare } from 'bcrypt';
 import authConfig from "../../../../config/auth"
 import { sign } from "jsonwebtoken" 
-import { AppError } from "../../../../utils/AppError"; 
 import { PassordOrUsernameInvalidError } from "./errors/PassordOrUsernameInvalidError";
 
+export interface DTORequestSessionsUseCase {
+    username: string
+    password: string
+}
 
-class SessionsUsersUseCase{
+export interface DTOResponseSessionsUseCase {
+    token: string
+}
+
+export interface ISessionsUsersUseCase {
+    execute(data: DTORequestSessionsUseCase): Promise<DTOResponseSessionsUseCase>
+}
+
+
+class SessionsUsersUseCase implements ISessionsUsersUseCase{
 
     constructor(private UserRepository: IUserRepository){}
     
-    async execute(username:string, password:string): Promise<string>{
+    async execute({username, password}:DTORequestSessionsUseCase){
 
         const user = await this.UserRepository.findUserByUsername(username);
 

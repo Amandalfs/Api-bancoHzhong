@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { SessionsUsersUseCase } from "./SessionsUsersUseCase";
+import { ISessionsUsersUseCase } from "./SessionsUsersUseCase";
 
 
 class SessionsUsersController{
-    constructor(private SessionsUsersUseCase: SessionsUsersUseCase){}
+    constructor(private SessionsUsersUseCase: ISessionsUsersUseCase){}
 
     async handle(req: Request, res: Response){
         const { username, password } = req.body;
         
-        const token = await this.SessionsUsersUseCase.execute(username, password);
+        const token = await this.SessionsUsersUseCase.execute({username, password});
 
         return  res.status(202).send({token});
     }
