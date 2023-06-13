@@ -33,7 +33,7 @@ describe("Testando o show users", ()=>{
             "cpf": "12603863096"
         });
 
-        await expect(sut.execute(1)).rejects.toEqual(new KeyDoesNotExistError());
+        await expect(sut.execute({id: 1})).rejects.toEqual(new KeyDoesNotExistError());
     })
 
     it("usuario deve conseguir usar o show para monstrar a key existente", async()=>{
@@ -55,11 +55,12 @@ describe("Testando o show users", ()=>{
         const chave = keyGenerator();
         await usersRepository.createKeyPixById(1, chave);
 
-        const key = await sut.execute(1);
-        expect(key).toEqual(expect.any(String))
+        const {key} = await sut.execute({id:1});
+        expect(key).toEqual(expect.any(String));
+        expect(key).toEqual(chave);
     })
 
     it("Usuario sem Id existe nao poderar deletar uma chave", async ()=>{
-        await expect(sut.execute(1)).rejects.toEqual(new ResourceNotFoundError());
+        await expect(sut.execute({id:1})).rejects.toEqual(new ResourceNotFoundError());
     })
 })
