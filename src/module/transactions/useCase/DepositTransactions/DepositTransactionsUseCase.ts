@@ -2,8 +2,7 @@ import { IExtracsRepository } from "../../../../repositories/implementations/IEx
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
 import {date} from "../../../../utils/date";
-import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
-import { InvalidValueError } from "../../errors/InvalidValueError";
+import { InvalidValueError, ResourceNotFoundError } from "./errors";
 
 export interface DTORequestDepositTransactionsUseCase {
     deposit: number
