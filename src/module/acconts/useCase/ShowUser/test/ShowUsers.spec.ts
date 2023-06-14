@@ -2,9 +2,8 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
 import { ShowUserUseCase } from "../ShowUserUseCase";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
-import { AppError } from "../../../../../utils/AppError";
 import { hash } from 'bcrypt';
-import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
+import { ResourceNotFoundError } from "../errors";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
