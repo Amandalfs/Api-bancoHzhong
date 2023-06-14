@@ -1,7 +1,6 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
-import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
-import { KeyDoesNotExistError } from "../errors/KeyDoesNotExistError";
+import { KeyDoesNotExistError, ResourceNotFoundError } from "./errors";
 
 export interface DTORequestShowKeyUseCase{
     id: number

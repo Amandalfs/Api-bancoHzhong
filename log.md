@@ -9,7 +9,8 @@
 - substituido a importacao de erros do useCaseShow para um index principal
 
 - substituido varias importacao de erros do useCaseCreateKey para um index principal
-- substituido varias importacao de erros do useCaseCreateDelete para um index principal
+- substituido varias importacao de erros do useCaseDelete para um index principal
+- substituido varias importacao de erros do useCaseShow para um index principal
 
 
 <br>
