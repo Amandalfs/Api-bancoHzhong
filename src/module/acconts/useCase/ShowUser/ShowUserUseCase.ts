@@ -1,6 +1,6 @@
 import { IExtracsRepository, IReponseExtracs } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
+import { ResourceNotFoundError } from "./errors";
 
 export interface DTORequestShowUserUseCase {
     id_user: number
