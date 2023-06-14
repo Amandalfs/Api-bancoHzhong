@@ -5,6 +5,8 @@
 
 ### Refatoracao
 - substituido varias importacao de erros do useCaseCreate para um index principal
+- substituido a importacao de erros do useCaseSessions para um index principal
+
 
 <br>
 <br>
