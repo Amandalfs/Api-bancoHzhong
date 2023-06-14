@@ -1,13 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
+
 import { WithdrawTransactionsUseCase } from "../WithdrawTransactionsUseCase";
+
 import { hash } from 'bcrypt';
-import { LimitError } from "../../../errors/LimitError";
-import { LimitDayError } from "../../../errors/LimitDayError";
-import { InvalidValueError } from "../../../errors/InvalidValueError";
-import { BalanceInsuficientError } from "../../../errors/BalanceInsuficientError";
-import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
+
+import {BalanceInsuficientError,InvalidValueError,LimitDayError,LimitError,ResourceNotFoundError} from "../errors"
 
 let usersRepository:  InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
