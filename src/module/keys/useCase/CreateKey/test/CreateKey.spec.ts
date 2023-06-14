@@ -3,8 +3,7 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { CreateKeyUseCase } from "../CreateKeyUseCase";
 import { hash } from 'bcrypt';
 import { keyGenerator } from "../../../../../utils/keyGenerator";
-import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
-import { KeyAlreadyExistsError } from "../errors/KeyAlreadyExistsError";
+import { KeyAlreadyExistsError, ResourceNotFoundError } from "../errors";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: CreateKeyUseCase;
