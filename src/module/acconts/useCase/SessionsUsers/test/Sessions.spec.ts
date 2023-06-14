@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { SessionsUsersUseCase } from "../SessionsUsersUseCase";
 import { hash } from 'bcrypt';
-import { PassordOrUsernameInvalidError } from "../errors/PassordOrUsernameInvalidError";
+import { PassordOrUsernameInvalidError } from "../errors";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: SessionsUsersUseCase;
