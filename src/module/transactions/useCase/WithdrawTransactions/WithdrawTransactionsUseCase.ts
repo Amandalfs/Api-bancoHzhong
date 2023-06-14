@@ -1,11 +1,8 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { date } from "../../../../utils/date";
-import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
-import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
-import { InvalidValueError } from "../../errors/InvalidValueError";
-import { LimitDayError } from "../../errors/LimitDayError";
-import { LimitError } from "../../errors/LimitError";
+
+import {BalanceInsuficientError,InvalidValueError,LimitDayError,LimitError,ResourceNotFoundError} from "./errors"
 
 export interface DTORequestWithdrawTransctionsUseCase {
     valueWithdraw: number

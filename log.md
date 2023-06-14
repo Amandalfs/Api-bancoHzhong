@@ -14,6 +14,7 @@
 
 - substituido varias importacao de erros do useCaseDepositTransactions para um index principal
 - substituido varias importacao de erros do useCaseSendingTransactions para um index principal
+- substituido varias importacao de erros do useCaseWithdrawTransactions para um index principal
 
 <br>
 <br>
