@@ -1,5 +1,15 @@
 # Log de Atualizacoes da api Hzhong
 
+
+## Versão 2.0.9 - 13/06/2023
+
+### Refatoracao
+- substituido varias importacao de erros do useCaseCreate para um index principal
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.9 - 13/06/2023
 
 ### Adicionado

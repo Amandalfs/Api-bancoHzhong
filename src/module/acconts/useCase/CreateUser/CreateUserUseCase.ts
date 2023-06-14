@@ -2,12 +2,10 @@ import { IUserRepository } from "../../../../repositories/implementations/IUserR
 import { IUser } from "../../../../repositories/modal/IUser";
 
 import { hash } from "bcrypt";
-import { AppError } from "../../../../utils/AppError"; 
 import { verifyAge } from "../../../../utils/verify/verifyAge";
 import { validarCPF } from "../../../../utils/validarCpf";
-import { AccontExistsError } from "./errors/AccontExistsError";
-import { ConfirmationPasswordInvalidError } from "./errors/ConfirmationPasswordInvalidError";
-import { UserUnder18YearsOldError } from "./errors/UserUnder18YearsOldError";
+
+import { AccontExistsError, ConfirmationPasswordInvalidError, UserUnder18YearsOldError } from "./errors";
 
 interface ICreateUserRequestDTO {
     username: string, 
