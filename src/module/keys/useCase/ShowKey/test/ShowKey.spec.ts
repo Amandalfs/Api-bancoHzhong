@@ -2,10 +2,10 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { ShowKeyUseCase } from "../ShowKeyUseCase";
 import { hash } from 'bcrypt';
-import { AppError } from "../../../../../utils/AppError";
+
 import { keyGenerator } from "../../../../../utils/keyGenerator";
-import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
-import { KeyDoesNotExistError } from "../../errors/KeyDoesNotExistError";
+
+import { KeyDoesNotExistError,  ResourceNotFoundError} from "../errors";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: ShowKeyUseCase;
