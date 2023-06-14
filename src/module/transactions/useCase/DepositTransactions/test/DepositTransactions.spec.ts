@@ -3,8 +3,8 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
 import { DepositTransactionsUseCase } from "../DepositTransactionsUseCase";
 import { hash } from 'bcrypt';
-import { InvalidValueError } from "../../../errors/InvalidValueError";
-import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
+
+import { InvalidValueError, ResourceNotFoundError } from "../errors";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
