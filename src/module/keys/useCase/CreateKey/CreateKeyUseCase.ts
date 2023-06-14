@@ -1,8 +1,7 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
 import {keyGenerator} from "../../../../utils/keyGenerator";
-import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
-import { KeyAlreadyExistsError } from "./errors/KeyAlreadyExistsError";
+import { KeyAlreadyExistsError, ResourceNotFoundError } from "./errors";
 
 export interface DTORequestCreatekeyUseCase {
     id:number

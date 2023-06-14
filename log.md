@@ -4,9 +4,12 @@
 ## Versão 2.0.9 - 13/06/2023
 
 ### Refatoracao
-- substituido varias importacao de erros do useCaseCreate para um index principal
+- substituido varias importacao de erros do useCaseCreateUsers para um index principal
 - substituido a importacao de erros do useCaseSessions para um index principal
 - substituido a importacao de erros do useCaseShow para um index principal
+
+- substituido varias importacao de erros do useCaseCreateKey para um index principal
+
 
 <br>
 <br>
