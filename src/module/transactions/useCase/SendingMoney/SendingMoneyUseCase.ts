@@ -1,13 +1,9 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 import { date } from "../../../../utils/date";
-import { ResourceNotFoundError } from "../../../../utils/errors/ResourceNotFoundError";
-import { BalanceInsuficientError } from "../../errors/BalanceInsuficientError";
-import { InvalidValueError } from "../../errors/InvalidValueError";
-import { LimitDayError } from "../../errors/LimitDayError";
-import { LimitError } from "../../errors/LimitError";
-import { CannotSendMoneyToYourAccountError } from "./errors/CannotSendMoneyToYourAccountError";
-import { InvalidPixKeyError } from "./errors/InvalidPixKeyError";
+
+import { CannotSendMoneyToYourAccountError, InvalidPixKeyError, BalanceInsuficientError, 
+    InvalidValueError, LimitDayError, LimitError, ResourceNotFoundError } from "./errors"
 
 export interface DTORequestSendingMoneyUseCase {
     id: number,
