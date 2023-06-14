@@ -1,5 +1,4 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { AppError } from "../../../../../utils/AppError";
 
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
@@ -7,13 +6,9 @@ import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory
 import { SendingMoneyUseCase } from "../SendingMoneyUseCase";
 
 import { hash } from 'bcrypt';
-import { LimitError } from "../../../errors/LimitError";
-import { LimitDayError } from "../../../errors/LimitDayError";
-import { InvalidValueError } from "../../../errors/InvalidValueError";
-import { BalanceInsuficientError } from "../../../errors/BalanceInsuficientError";
-import { InvalidPixKeyError } from "../errors/InvalidPixKeyError";
-import { CannotSendMoneyToYourAccountError } from "../errors/CannotSendMoneyToYourAccountError";
-import { ResourceNotFoundError } from "../../../../../utils/errors/ResourceNotFoundError";
+
+import { CannotSendMoneyToYourAccountError, InvalidPixKeyError, BalanceInsuficientError, 
+        InvalidValueError, LimitDayError, LimitError, ResourceNotFoundError } from "../errors"
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
