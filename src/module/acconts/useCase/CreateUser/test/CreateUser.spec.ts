@@ -1,9 +1,7 @@
 import { describe, beforeEach, it, expect, vi, afterEach } from "vitest"
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository"
 import { CreateUserUseCase } from "../CreateUserUseCase";
-import { AccontExistsError } from "../errors/AccontExistsError";
-import { ConfirmationPasswordInvalidError } from "../errors/ConfirmationPasswordInvalidError";
-import { UserUnder18YearsOldError } from "../errors/UserUnder18YearsOldError";
+import { AccontExistsError , ConfirmationPasswordInvalidError, UserUnder18YearsOldError} from "../errors";
 
 let usersRepository: InMemoryUsersRepository;
 let sut: CreateUserUseCase;
