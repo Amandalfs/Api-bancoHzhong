@@ -4,6 +4,7 @@ import { sign } from "jsonwebtoken"
 import { PassordOrUsernameInvalidError } from "./errors";
 import { Codificador } from "../../../../utils/Codificador/Codificador";
 import { AuthConfigToken } from "../../../../config/auth";
+import { GerenciadorDeToken } from "../../../../utils/GerenciadorDeToken/GerenciadorDeToken";
 
 export interface DTORequestSessionsUseCase {
     username: string
@@ -25,6 +26,7 @@ class SessionsUsersUseCase implements ISessionsUsersUseCase{
         private UserRepository: IUserRepository,
         private codificador: Codificador,
         private authConfig: AuthConfigToken,
+        private gerenciadorDeToken: GerenciadorDeToken,
     ){}
     
     async execute({username, password}:DTORequestSessionsUseCase){
@@ -43,12 +45,12 @@ class SessionsUsersUseCase implements ISessionsUsersUseCase{
 
         const { secret, expiresIn } = this.authConfig.jwt;
 
-        const token = sign({}, secret, {
+        const token = this.gerenciadorDeToken.createToken({}, secret, {
             subject: String(user.id),
             expiresIn
         })
 
-        return token;
+        return {token};
     }
 }
 
