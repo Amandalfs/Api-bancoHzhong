@@ -1,6 +1,5 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { date } from "../../../../utils/date";
 
 import { CannotSendMoneyToYourAccountError, InvalidPixKeyError, BalanceInsuficientError, 
     InvalidValueError, LimitDayError, LimitError, ResourceNotFoundError } from "./errors"
@@ -98,7 +97,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     value: 2250
                 }
             ]
-            const dateNew = date();
+            const dateNew = `${new Date()}`
 
             const totalDiario = await this.ExtractsRepository.CountBySending(dateNew, dateNew, user.id);
             for (const limitDay of limitsDay) {
@@ -116,7 +115,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     name: user.name,
                     tipo: "envio",
                     saldo: value,
-                    data: date(),
+                    data: `${new Date()}`,
                     descricao: `Voce transferiu R$${value.toFixed(2).replace('.',',')} para ${user.name}`,
                 },
                 receive: {
@@ -124,7 +123,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     name: receiveUser.name,
                     tipo: "recebido",
                     saldo: value,
-                    data: date(),
+                    data: `${new Date()}`,
                     descricao: `Voce recebeu R${value.toFixed(2).replace('.',',')} de ${receiveUser.name}`,
                 }
                 

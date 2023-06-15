@@ -1,7 +1,6 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
-import {date} from "../../../../utils/date";
 import { InvalidValueError, ResourceNotFoundError } from "./errors";
 
 export interface DTORequestDepositTransactionsUseCase {
@@ -30,7 +29,6 @@ class DepositTransactionsUseCase implements IDepositTransactionsUseCase {
     async execute({deposit, id}: DTORequestDepositTransactionsUseCase){
         
         const tipo = "deposito";
-        const data = date();
 
         const user = await this.UserRepository.findUserById(id);
 
@@ -52,7 +50,7 @@ class DepositTransactionsUseCase implements IDepositTransactionsUseCase {
             name: name,
             tipo: tipo,
             saldo: deposit,
-            data: data,
+            data: `${new Date()}`,
             descricao: desc,
         }
 

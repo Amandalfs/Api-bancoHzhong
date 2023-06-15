@@ -1,6 +1,5 @@
 import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { date } from "../../../../utils/date";
 
 import {BalanceInsuficientError,InvalidValueError,LimitDayError,LimitError,ResourceNotFoundError} from "./errors"
 
@@ -64,7 +63,7 @@ class WithdrawTransactionsUseCase implements IWithdrawTransctionsUseCase{
                 }                
             }
             
-            const data = date();
+            const data = `${new Date()}`;
             const tipo = "Saque";
 
             const totalDiario = await this.ExtractsRepository.CountByWithdraw(data, data, user.id)
