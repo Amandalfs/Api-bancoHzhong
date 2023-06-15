@@ -2,17 +2,20 @@ import { describe, beforeEach, it, expect, vi, afterEach } from "vitest"
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository"
 import { CreateUserUseCase } from "../CreateUserUseCase";
 import { AccontExistsError , ConfirmationPasswordInvalidError, UserUnder18YearsOldError} from "../errors";
-import { IVerifyAge, verifyAge } from "../../../../../utils/verify/verifyAge";
+import { verifyAge } from "../../../../../utils/verify/verifyAge";
+import { ValidarCpf } from "../../../../../utils/verify/validarCpf";
 
 let usersRepository: InMemoryUsersRepository;
-let VerifyAge: IVerifyAge;
+let VerifyAge: verifyAge;
+let validarCpf: ValidarCpf;
 let sut: CreateUserUseCase;
 
 describe("criacao de usuarios",()=>{
     beforeEach(()=>{
         usersRepository = new InMemoryUsersRepository;
-        VerifyAge = new verifyAge
-        sut = new CreateUserUseCase(usersRepository, VerifyAge);
+        VerifyAge = new verifyAge;
+        validarCpf = new ValidarCpf;
+        sut = new CreateUserUseCase(usersRepository, VerifyAge, validarCpf);
         vi.useFakeTimers();
     })
 
