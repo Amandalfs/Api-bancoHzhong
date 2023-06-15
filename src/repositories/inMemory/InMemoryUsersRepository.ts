@@ -1,5 +1,5 @@
 import { IReponseUser, IUserRepository } from "../implementations/IUserRepository";
-import { IUser } from "../modal/IUser";
+import { IUser } from "../model/IUser";
 
 export class InMemoryUsersRepository implements IUserRepository{
     public users: IUser[] = [];

@@ -1,4 +1,4 @@
-import { IExtracts } from "../modal/IExtracts"
+import { IExtracts } from "../model/IExtracts"
 
 export interface IReponseExtracs {
     tipo: string,

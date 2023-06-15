@@ -1,6 +1,5 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
-import { compare } from 'bcrypt';
 import authConfig from "../../../../config/auth"
 import { sign } from "jsonwebtoken" 
 import { PassordOrUsernameInvalidError } from "./errors";

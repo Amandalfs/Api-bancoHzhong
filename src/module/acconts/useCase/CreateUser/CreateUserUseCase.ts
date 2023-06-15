@@ -1,7 +1,6 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { IUser } from "../../../../repositories/modal/IUser";
+import { IUser } from "../../../../repositories/model/IUser";
 
-import { hash } from "bcrypt";
 import { IVerifyAge } from "../../../../utils/verify/verifyAge";
 import { IValidarCpf } from "../../../../utils/verify/validarCpf";
 

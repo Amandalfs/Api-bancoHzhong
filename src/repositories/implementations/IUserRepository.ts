@@ -1,4 +1,4 @@
-import { IUser } from "../modal/IUser"
+import { IUser } from "../model/IUser"
 
 export interface  IReponseUser {
      id?: number, 

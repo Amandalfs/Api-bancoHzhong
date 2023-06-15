@@ -1,6 +1,6 @@
 import { db } from "../../sql/knex";
 import { IExtracsRepository, IRequestCountBySending, IRequestCountByWithdraw, IRequestSearchForDataStartAndEndbyId } from "../implementations/IExtractsRepository";
-import {IExtracts} from "../modal/IExtracts";
+import {IExtracts} from "../model/IExtracts";
 
 class ExtractsRepository implements IExtracsRepository {
     async SearchForMoreRecentExtractsById(id_user: number){

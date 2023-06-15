@@ -1,6 +1,6 @@
 import { db } from "../../sql/knex";
 import { IUserRepository } from "../implementations/IUserRepository";
-import { IUser } from "../modal/IUser";
+import { IUser } from "../model/IUser";
 
 
 class UserRepository implements IUserRepository {

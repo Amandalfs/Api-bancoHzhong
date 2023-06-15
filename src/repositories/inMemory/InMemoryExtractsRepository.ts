@@ -1,5 +1,5 @@
 import { IExtracsRepository, IReponseExtracs, IRequestCountBySending, IRequestCountByWithdraw, IRequestSearchForDataStartAndEndbyId } from "../implementations/IExtractsRepository";
-import { IExtracts } from "../modal/IExtracts";
+import { IExtracts } from "../model/IExtracts";
 import { compareAsc, isAfter, isBefore, isEqual, parseISO } from 'date-fns';
 
 // "tipo", "saldo", "data", "descricao"
