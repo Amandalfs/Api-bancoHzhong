@@ -9,6 +9,7 @@
 - modificado o erro de cpf invalido para uma classe de InvalidCpfError.
 - excluido a funcao de gerar data para uma uam funcao propria do javascript.
 - desacoplado a funcao de keyGenerator para uma classe com uma interface IKeyGenerator e invertido a dependencia.
+- Criado uma interface para o contador de saque por dia e substituido todos parametros para um unico objeto.
 
 <br>
 <br>

@@ -1,5 +1,5 @@
 import { db } from "../../sql/knex";
-import { IExtracsRepository } from "../implementations/IExtractsRepository";
+import { IExtracsRepository, IRequestCountByWithdraw } from "../implementations/IExtractsRepository";
 import {IExtracts} from "../modal/IExtracts";
 
 class ExtractsRepository implements IExtracsRepository {
@@ -21,7 +21,7 @@ class ExtractsRepository implements IExtracsRepository {
         .where('data', '<=', dateEnd);
     }
 
-    async CountByWithdraw(dateStart: string, dateEnd: string, UserId: number): Promise<number> {
+    async CountByWithdraw({dateStart, dateEnd, UserId}: IRequestCountByWithdraw): Promise<number> {
         return await db("extratos")
         .where("id_user", UserId)
         .where('tipo','saque')
