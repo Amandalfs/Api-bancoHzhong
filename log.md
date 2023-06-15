@@ -12,6 +12,7 @@
 - Criado uma interface para o contador de saque por dia e substituido todos parametros para um unico objeto.
 - Criado uma interface para o contador de envio para usuario por dia e substituido todos parametros para um unico objeto.
 - Criado uma interface para o metodo para procurar os extratos de acordo com a data definida e substituido todos parametros para um unico objeto.
+- trocado a comparação dentro da funcao de somatorio de envio e saque para comparação com date-fns
 
 <br>
 <br>

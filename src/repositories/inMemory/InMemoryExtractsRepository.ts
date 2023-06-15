@@ -1,6 +1,6 @@
 import { IExtracsRepository, IReponseExtracs, IRequestCountBySending, IRequestCountByWithdraw, IRequestSearchForDataStartAndEndbyId } from "../implementations/IExtractsRepository";
 import { IExtracts } from "../modal/IExtracts";
-import { compareAsc, isAfter, isBefore, isEqual } from 'date-fns';
+import { compareAsc, isAfter, isBefore, isEqual, parseISO } from 'date-fns';
 
 // "tipo", "saldo", "data", "descricao"
 
@@ -76,8 +76,13 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
         })
         
         const extractsFilter = extracts.filter((item)=>{
-            if( ( new Date(dateStart) >= new Date(item.data)) && ( new Date(dateEnd) <= new Date(item.data)) ){
-                return item;
+            const dateIso = new Date(item.data);
+            const dateStartISO = new Date(dateStart);
+            const dateEndISO = new Date(dateEnd);
+            
+            if( ( isAfter(dateStartISO, dateIso) ||  isEqual(dateIso, dateStartISO)) && 
+                ( isBefore(dateIso, dateEndISO) || isEqual(dateIso, dateEndISO))){
+                    return item;
             }
         })
         const some =  extractsFilter.reduce((acumulador, extrato)=>{
@@ -94,8 +99,13 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
         })
 
         const extractsFilter = extracts.filter((item)=>{
-            if( ( new Date(dateStart) >= new Date(item.data)) && ( new Date(dateEnd) <= new Date(item.data)) ){
-                return item;
+            const dateIso = new Date(item.data);
+            const dateStartISO = new Date(dateStart);
+            const dateEndISO = new Date(dateEnd);
+            
+            if( ( isAfter(dateStartISO, dateIso) ||  isEqual(dateIso, dateStartISO)) && 
+                ( isBefore(dateIso, dateEndISO) || isEqual(dateIso, dateEndISO))){
+                    return item;
             }
         })
 
