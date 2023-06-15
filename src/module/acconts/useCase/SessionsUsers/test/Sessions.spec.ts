@@ -5,18 +5,21 @@ import { hash } from 'bcrypt';
 import { PassordOrUsernameInvalidError } from "../errors";
 import { CodificadorAdapterCrypto } from "../../../../../utils/Codificador/CodificadorAdapterCrypto";
 import { AuthConfig, AuthConfigToken } from './../../../../../config/auth';
+import { GerenciadorDeTokenAdaptarJsonWebToken } from "../../../../../utils/GerenciadorDeToken/GerenciadorDeTokenAdaptarJsonWebToken";
 
 let usersRepository: InMemoryUsersRepository;
 let codificador: CodificadorAdapterCrypto;
 let authConfig: AuthConfigToken;
+let gerenciadorDeToken: GerenciadorDeTokenAdaptarJsonWebToken;
 let sut: SessionsUsersUseCase;
 
 describe('Testando Login de usuario',()=>{
     beforeEach(()=>{
         usersRepository = new InMemoryUsersRepository;
         codificador = new CodificadorAdapterCrypto;
+        gerenciadorDeToken = new GerenciadorDeTokenAdaptarJsonWebToken;
         authConfig = AuthConfig;
-        sut = new SessionsUsersUseCase(usersRepository, codificador, authConfig);
+        sut = new SessionsUsersUseCase(usersRepository, codificador, authConfig, gerenciadorDeToken);
 
     })
 
@@ -80,7 +83,7 @@ describe('Testando Login de usuario',()=>{
             password:"12345678"
         }
 
-        const token = await sut.execute(user);
+        const {token} = await sut.execute(user);
 
         expect(token).toEqual(expect.any(String))
 
