@@ -5,8 +5,7 @@ import { hash } from "bcrypt";
 import { IVerifyAge } from "../../../../utils/verify/verifyAge";
 import { IValidarCpf } from "../../../../utils/verify/validarCpf";
 
-import { AccontExistsError, ConfirmationPasswordInvalidError, UserUnder18YearsOldError } from "./errors";
-import { AppError } from "../../../../utils/AppError";
+import { AccontExistsError, ConfirmationPasswordInvalidError, InvalidCpfError, UserUnder18YearsOldError } from "./errors";
 
 interface ICreateUserRequestDTO {
     username: string, 
@@ -39,7 +38,7 @@ class CreateUserUseCase implements ICreateUserUseCase {
         }
 
         if(this.validarCpf.execute(cpf)){
-            throw new AppError("cpf invalido");
+            throw new InvalidCpfError();
         }
 
         const isEmail = await this.UserRepository.findUserByEmail(email);

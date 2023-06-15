@@ -1,12 +1,12 @@
 # Log de Atualizacoes da api Hzhong
 
-## Versão 2.0.9 - 13/06/2023
+## Versão 2.0.10 - 13/06/2023
 
 # Refatoracao
 - desacoplado a funcao de verificar idade para uma classe com uma interface IVerifyAge e invertido a dependencia.
 - desacoplado a funcao de validar o cpf para uma classe com uma interface IValidarCpf e invertido a dependencia.
 - Mudado os arquivos de repositorio de conexao com banco de dados com knex para uma pasta a nivel mais a baixo para chamado KnexRepositories.
-
+- modificado o erro de cpf invalido para uma classe de InvalidCpfError.
 
 <br>
 <br>
