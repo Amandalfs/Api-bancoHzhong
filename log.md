@@ -4,6 +4,7 @@
 
 # Refatoracao
 - desacoplado a funcao de verificar idade para uma classe com uma interface IVerifyAge e invertido a dependencia.
+- desacoplado a funcao de validar o cpf para uma classe com uma interface IValidarCpf e invertido a dependencia.
 
 <br>
 <br>

@@ -3,9 +3,10 @@ import { IUser } from "../../../../repositories/modal/IUser";
 
 import { hash } from "bcrypt";
 import { IVerifyAge } from "../../../../utils/verify/verifyAge";
-import { validarCPF } from "../../../../utils/validarCpf";
+import { IValidarCpf } from "../../../../utils/verify/validarCpf";
 
 import { AccontExistsError, ConfirmationPasswordInvalidError, UserUnder18YearsOldError } from "./errors";
+import { AppError } from "../../../../utils/AppError";
 
 interface ICreateUserRequestDTO {
     username: string, 
@@ -27,7 +28,9 @@ interface ICreateUserUseCase {
 }
 
 class CreateUserUseCase implements ICreateUserUseCase {
-    constructor(private UserRepository:IUserRepository, private verifyAge: IVerifyAge){}
+    constructor(private UserRepository:IUserRepository, 
+        private verifyAge: IVerifyAge, 
+        private validarCpf: IValidarCpf ){}
 
     async execute({username, name, nasc, typeaccont, email,  password, password2, cpf}: ICreateUserRequestDTO){
 
@@ -35,7 +38,9 @@ class CreateUserUseCase implements ICreateUserUseCase {
             throw new UserUnder18YearsOldError();
         }
 
-        validarCPF(cpf);
+        if(this.validarCpf.execute(cpf)){
+            throw new AppError("cpf invalido");
+        }
 
         const isEmail = await this.UserRepository.findUserByEmail(email);
         const isUsername = await this.UserRepository.findUserByUsername(username);
