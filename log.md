@@ -15,6 +15,7 @@
 - trocado a comparação dentro da funcao de somatorio de envio e saque para comparação com date-fns
 - desacoplado a funcao de criptografar a senha para uma classe com uma interface Codificador que tem um metodo de crptografia e invertido a dependencia.
 - desacoplado a funcao de comparar senha criptografada para uma classe com uma interface Codificador que tem um metodo de comparação de senha criptografada e invertido a dependencia.
+- desacoplado o objeto de configuracao de token para uma interface AuthConfigToken.
 
 <br>
 <br>
