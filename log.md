@@ -3,7 +3,7 @@
 ## Versão 2.0.9 - 13/06/2023
 
 # Refatoracao
-- desacoplado a funcao de verificar idade para uma classe com uma interface IVerifyAge.
+- desacoplado a funcao de verificar idade para uma classe com uma interface IVerifyAge e invertido a dependencia.
 
 <br>
 <br>
