@@ -3,14 +3,17 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { SessionsUsersUseCase } from "../SessionsUsersUseCase";
 import { hash } from 'bcrypt';
 import { PassordOrUsernameInvalidError } from "../errors";
+import { CodificadorAdapterCrypto } from "../../../../../utils/Codificador/CodificadorAdapterCrypto";
 
 let usersRepository: InMemoryUsersRepository;
+let codificador: CodificadorAdapterCrypto;
 let sut: SessionsUsersUseCase;
 
 describe('Testando Login de usuario',()=>{
     beforeEach(()=>{
         usersRepository = new InMemoryUsersRepository;
-        sut = new SessionsUsersUseCase(usersRepository);
+        codificador = new CodificadorAdapterCrypto;
+        sut = new SessionsUsersUseCase(usersRepository, codificador);
 
     })
 
