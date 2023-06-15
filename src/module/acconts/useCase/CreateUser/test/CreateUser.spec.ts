@@ -4,10 +4,12 @@ import { CreateUserUseCase } from "../CreateUserUseCase";
 import { AccontExistsError , ConfirmationPasswordInvalidError, InvalidCpfError, UserUnder18YearsOldError} from "../errors";
 import { verifyAge } from "../../../../../utils/verify/verifyAge";
 import { ValidarCpf } from "../../../../../utils/verify/validarCpf";
+import { CodificadorAdapterCrypto } from './../../../../../utils/Codificador/CodificadorAdapterCrypto';
 
 let usersRepository: InMemoryUsersRepository;
 let VerifyAge: verifyAge;
 let validarCpf: ValidarCpf;
+let codificador: CodificadorAdapterCrypto; 
 let sut: CreateUserUseCase;
 
 describe("criacao de usuarios",()=>{
@@ -15,7 +17,8 @@ describe("criacao de usuarios",()=>{
         usersRepository = new InMemoryUsersRepository;
         VerifyAge = new verifyAge;
         validarCpf = new ValidarCpf;
-        sut = new CreateUserUseCase(usersRepository, VerifyAge, validarCpf);
+        codificador = new CodificadorAdapterCrypto;
+        sut = new CreateUserUseCase(usersRepository, VerifyAge, validarCpf, codificador);
         vi.useFakeTimers();
     })
 
