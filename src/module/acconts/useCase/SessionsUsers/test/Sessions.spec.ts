@@ -4,16 +4,19 @@ import { SessionsUsersUseCase } from "../SessionsUsersUseCase";
 import { hash } from 'bcrypt';
 import { PassordOrUsernameInvalidError } from "../errors";
 import { CodificadorAdapterCrypto } from "../../../../../utils/Codificador/CodificadorAdapterCrypto";
+import { AuthConfig, AuthConfigToken } from './../../../../../config/auth';
 
 let usersRepository: InMemoryUsersRepository;
 let codificador: CodificadorAdapterCrypto;
+let authConfig: AuthConfigToken;
 let sut: SessionsUsersUseCase;
 
 describe('Testando Login de usuario',()=>{
     beforeEach(()=>{
         usersRepository = new InMemoryUsersRepository;
         codificador = new CodificadorAdapterCrypto;
-        sut = new SessionsUsersUseCase(usersRepository, codificador);
+        authConfig = AuthConfig;
+        sut = new SessionsUsersUseCase(usersRepository, codificador, authConfig);
 
     })
 

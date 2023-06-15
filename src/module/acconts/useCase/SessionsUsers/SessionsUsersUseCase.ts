@@ -1,9 +1,9 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
-import authConfig from "../../../../config/auth"
 import { sign } from "jsonwebtoken" 
 import { PassordOrUsernameInvalidError } from "./errors";
 import { Codificador } from "../../../../utils/Codificador/Codificador";
+import { AuthConfigToken } from "../../../../config/auth";
 
 export interface DTORequestSessionsUseCase {
     username: string
@@ -24,6 +24,7 @@ class SessionsUsersUseCase implements ISessionsUsersUseCase{
     constructor(
         private UserRepository: IUserRepository,
         private codificador: Codificador,
+        private authConfig: AuthConfigToken,
     ){}
     
     async execute({username, password}:DTORequestSessionsUseCase){
@@ -40,7 +41,7 @@ class SessionsUsersUseCase implements ISessionsUsersUseCase{
             throw new PassordOrUsernameInvalidError();
         }
 
-        const { secret, expiresIn } = authConfig.jwt;
+        const { secret, expiresIn } = this.authConfig.jwt;
 
         const token = sign({}, secret, {
             subject: String(user.id),
