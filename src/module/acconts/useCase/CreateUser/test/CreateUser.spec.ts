@@ -1,7 +1,7 @@
 import { describe, beforeEach, it, expect, vi, afterEach } from "vitest"
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository"
 import { CreateUserUseCase } from "../CreateUserUseCase";
-import { AccontExistsError , ConfirmationPasswordInvalidError, UserUnder18YearsOldError} from "../errors";
+import { AccontExistsError , ConfirmationPasswordInvalidError, InvalidCpfError, UserUnder18YearsOldError} from "../errors";
 import { verifyAge } from "../../../../../utils/verify/verifyAge";
 import { ValidarCpf } from "../../../../../utils/verify/validarCpf";
 
@@ -146,6 +146,21 @@ describe("criacao de usuarios",()=>{
         await expect(sut.execute(usuario2)).rejects.toEqual(new ConfirmationPasswordInvalidError());
      
 
+    })
+
+    it("Nao deve conseguir criar uma conta cpf invalido", async ()=>{
+        const usuario2 = {
+            "username": "Usuario Test2",
+            "name": "Usuario Test2",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario58@test.com",
+            "password": "12345678",
+            "password2": "12345678rwthfnr",
+            "cpf": "1111111111"
+        }
+                
+        await expect(sut.execute(usuario2)).rejects.toEqual(new InvalidCpfError());
     })
 
     it("Nao deve conseguir criar uma conta sendo menor de idade", async ()=>{
