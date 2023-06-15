@@ -1,4 +1,4 @@
-import {UserRepository} from '../../../../repositories/UserRepository';
+import {UserRepository} from '../../../../repositories/knexRepositories/UserRepository';
 import {CreateUserUseCase} from './CreateUserUseCase';
 import {CreateUserController} from './CreateUserController';
 import { verifyAge } from '../../../../utils/verify/verifyAge';

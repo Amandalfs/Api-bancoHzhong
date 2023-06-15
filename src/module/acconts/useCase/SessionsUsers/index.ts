@@ -1,4 +1,4 @@
-import  {UserRepository} from "../../../../repositories/UserRepository";
+import  {UserRepository} from "../../../../repositories/knexRepositories/UserRepository";
 import  {SessionsUsersUseCase} from "./SessionsUsersUseCase"; 
 import {SessionsUsersController} from "./SessionsUsersController"; 
 

@@ -1,4 +1,4 @@
-import {ExtractsRepository} from "../../../../repositories/ExtractsRepository";
+import {ExtractsRepository} from "../../../../repositories/knexRepositories/ExtractsRepository";
 import {ExtractsByDataController} from "./ExtractsByDataController";
 import {ExtractsByDataUseCase }from "./ExtractsByDataUseCase";
 

@@ -1,4 +1,4 @@
-import {UserRepository} from '../../../../repositories/UserRepository';
+import {UserRepository} from '../../../../repositories/knexRepositories/UserRepository';
 import {DeleteKeyUseCase} from './DeleteKeyUseCase';
 import {DeleteKeyController} from './DeleteKeyController';
 

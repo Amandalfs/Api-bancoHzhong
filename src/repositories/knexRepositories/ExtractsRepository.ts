@@ -1,6 +1,6 @@
-import { db } from "../sql/knex";
-import { IExtracsRepository } from "./implementations/IExtractsRepository";
-import {IExtracts} from "./modal/IExtracts";
+import { db } from "../../sql/knex";
+import { IExtracsRepository } from "../implementations/IExtractsRepository";
+import {IExtracts} from "../modal/IExtracts";
 
 class ExtractsRepository implements IExtracsRepository {
     async SearchForMoreRecentExtractsById(id_user: number){

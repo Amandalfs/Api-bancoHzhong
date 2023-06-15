@@ -1,5 +1,5 @@
-import {ExtractsRepository} from '../../../../repositories/ExtractsRepository';
-import {UserRepository} from '../../../../repositories/UserRepository';
+import {ExtractsRepository} from '../../../../repositories/knexRepositories/ExtractsRepository';
+import {UserRepository} from '../../../../repositories/knexRepositories/UserRepository';
 
 import {DepositTransactionsUseCase} from './DepositTransactionsUseCase';
 import {DepositTransactionsController} from './DepositTransactionsController';

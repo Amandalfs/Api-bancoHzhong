@@ -1,4 +1,4 @@
-import {UserRepository} from '../../../../repositories/UserRepository';
+import {UserRepository} from '../../../../repositories/knexRepositories/UserRepository';
 import {ShowKeyUseCase} from './ShowKeyUseCase';
 import {ShowKeyController} from './ShowKeyController';
 

@@ -5,6 +5,8 @@
 # Refatoracao
 - desacoplado a funcao de verificar idade para uma classe com uma interface IVerifyAge e invertido a dependencia.
 - desacoplado a funcao de validar o cpf para uma classe com uma interface IValidarCpf e invertido a dependencia.
+- Mudado os arquivos de repositorio de conexao com banco de dados com knex para uma pasta a nivel mais a baixo para chamado KnexRepositories.
+
 
 <br>
 <br>
