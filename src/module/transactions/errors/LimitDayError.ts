@@ -1,4 +1,4 @@
-import { AppError } from "../../../utils/AppError";
+import { AppError } from "../../../utils/errors/AppError";
 
 export class LimitDayError extends AppError{
     constructor (private limit: number, private type: string){

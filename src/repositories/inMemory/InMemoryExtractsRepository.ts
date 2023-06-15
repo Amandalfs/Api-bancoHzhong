@@ -47,7 +47,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
 
         const extractsFilter = extracts.filter((item)=>{
 
-            const dateIso = parseISO(item.data);
+            const dateIso = new Date(item.data);
             const dateStartISO = new Date(dateStart);
             const dateEndISO = new Date(dateEnd);
             

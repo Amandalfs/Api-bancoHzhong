@@ -8,6 +8,7 @@
 - Mudado os arquivos de repositorio de conexao com banco de dados com knex para uma pasta a nivel mais a baixo para chamado KnexRepositories.
 - modificado o erro de cpf invalido para uma classe de InvalidCpfError.
 - excluido a funcao de gerar data para uma uam funcao propria do javascript.
+- desacoplado a funcao de keyGenerator para uma classe com uma interface IKeyGenerator e invertido a dependencia.
 
 <br>
 <br>

@@ -1,6 +1,6 @@
 import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
 
-import {keyGenerator} from "../../../../utils/keyGenerator";
+import {IKeyGenerator } from "../../../../utils/keyGenerator";
 import { KeyAlreadyExistsError, ResourceNotFoundError } from "./errors";
 
 export interface DTORequestCreatekeyUseCase {
@@ -18,7 +18,7 @@ export interface ICreatekeyUseCase {
 
 class CreateKeyUseCase implements ICreatekeyUseCase{
 
-    constructor(private UserRepository: IUserRepository){}
+    constructor(private UserRepository: IUserRepository, private keyGenerator: IKeyGenerator){}
 
     async execute({id}: DTORequestCreatekeyUseCase){
         const user = await this.UserRepository.findUserById(id);
@@ -31,8 +31,8 @@ class CreateKeyUseCase implements ICreatekeyUseCase{
             throw new KeyAlreadyExistsError();
         }
 
-        const key =  await keyGenerator();
-        await this.UserRepository.createKeyPixById(id, key)
+        const key = this.keyGenerator.execute();
+        await this.UserRepository.createKeyPixById(id, key);
 
         return {key};
     }

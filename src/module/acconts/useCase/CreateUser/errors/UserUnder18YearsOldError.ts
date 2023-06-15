@@ -1,4 +1,4 @@
-import { AppError } from "../../../../../utils/AppError";
+import { AppError } from "../../../../../utils/errors/AppError";
 
 export class UserUnder18YearsOldError extends AppError {
     constructor(){

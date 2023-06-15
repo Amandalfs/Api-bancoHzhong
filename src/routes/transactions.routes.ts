@@ -3,7 +3,7 @@ import garantirAuth from "../middlewares/garantirAuth";
 import { NextFunction, Request, Response, Router } from "express";
 const transactionsRoutes = Router();
 
-import { AppError } from "../utils/AppError";
+import { AppError } from "../utils/errors/AppError";
 
 import depositTransactionsController from '../module/transactions/useCase/DepositTransactions';
 import withdrawTransactionsController from '../module/transactions/useCase/WithdrawTransactions';
