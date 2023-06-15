@@ -2,7 +2,7 @@ import { IUserRepository } from "../../../../repositories/implementations/IUserR
 import { IUser } from "../../../../repositories/modal/IUser";
 
 import { hash } from "bcrypt";
-import { verifyAge } from "../../../../utils/verify/verifyAge";
+import { IVerifyAge } from "../../../../utils/verify/verifyAge";
 import { validarCPF } from "../../../../utils/validarCpf";
 
 import { AccontExistsError, ConfirmationPasswordInvalidError, UserUnder18YearsOldError } from "./errors";
@@ -27,11 +27,11 @@ interface ICreateUserUseCase {
 }
 
 class CreateUserUseCase implements ICreateUserUseCase {
-    constructor(private UserRepository:IUserRepository){}
+    constructor(private UserRepository:IUserRepository, private verifyAge: IVerifyAge){}
 
     async execute({username, name, nasc, typeaccont, email,  password, password2, cpf}: ICreateUserRequestDTO){
 
-        if(verifyAge(nasc)){
+        if(this.verifyAge.execute(nasc)){
             throw new UserUnder18YearsOldError();
         }
 
