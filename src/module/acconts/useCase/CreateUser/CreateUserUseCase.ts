@@ -6,6 +6,7 @@ import { IVerifyAge } from "../../../../utils/verify/verifyAge";
 import { IValidarCpf } from "../../../../utils/verify/validarCpf";
 
 import { AccontExistsError, ConfirmationPasswordInvalidError, InvalidCpfError, UserUnder18YearsOldError } from "./errors";
+import { Codificador } from "../../../../utils/Codificador/Codificador";
 
 interface ICreateUserRequestDTO {
     username: string, 
@@ -29,7 +30,9 @@ interface ICreateUserUseCase {
 class CreateUserUseCase implements ICreateUserUseCase {
     constructor(private UserRepository:IUserRepository, 
         private verifyAge: IVerifyAge, 
-        private validarCpf: IValidarCpf ){}
+        private validarCpf: IValidarCpf,
+        private codificador: Codificador,
+        ){}
 
     async execute({username, name, nasc, typeaccont, email,  password, password2, cpf}: ICreateUserRequestDTO){
 
@@ -61,7 +64,7 @@ class CreateUserUseCase implements ICreateUserUseCase {
             throw new ConfirmationPasswordInvalidError();
         }
 
-        const passwordCriptografada = await hash(password, 10);
+        const passwordCriptografada = await this.codificador.criptografia(password, 10);
 
         const newUser:IUser = {
             numero: 153,
