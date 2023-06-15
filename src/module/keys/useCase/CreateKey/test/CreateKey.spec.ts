@@ -2,16 +2,18 @@ import { describe, expect, it,  beforeEach } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { CreateKeyUseCase } from "../CreateKeyUseCase";
 import { hash } from 'bcrypt';
-import { keyGenerator } from "../../../../../utils/keyGenerator";
+import { KeyGeneratorAdapterCrypto } from "../../../../../utils/keyGenerator";
 import { KeyAlreadyExistsError, ResourceNotFoundError } from "../errors";
 
 let usersRepository: InMemoryUsersRepository;
+let keyGenerator: KeyGeneratorAdapterCrypto;
 let sut: CreateKeyUseCase;
 
 describe("Teste de create key", ()=>{
     beforeEach(()=>{
         usersRepository = new InMemoryUsersRepository;
-        sut = new CreateKeyUseCase(usersRepository);
+        keyGenerator = new KeyGeneratorAdapterCrypto;
+        sut = new CreateKeyUseCase(usersRepository, keyGenerator);
     })
 
     it("Usuario nao pode criar uma chave se ele ja estiver uma", async ()=>{
@@ -29,7 +31,7 @@ describe("Teste de create key", ()=>{
             "cpf": "12603863096"
         })
 
-        const ChaveGerada =  await keyGenerator()
+        const ChaveGerada =  await keyGenerator.execute();
         await usersRepository.createKeyPixById(1, ChaveGerada);
 
         await expect(sut.execute({id:1})).rejects.toEqual(new KeyAlreadyExistsError());

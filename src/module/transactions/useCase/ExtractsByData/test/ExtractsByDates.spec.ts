@@ -3,7 +3,6 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
 import { hash } from 'bcrypt';
 import { ExtractsByDataUseCase } from "../ExtractsByDataUseCase";
-import { date } from "../../../../../utils/date";
 
 let usersRepository: InMemoryUsersRepository;
 let extractsRepository: InMemoryExtractsRepository;
@@ -47,7 +46,7 @@ describe("testando useCase de estrato", ()=>{
             name: "Usuario Test",
             tipo: "deposito",
             saldo: 50,
-            data: date(),
+            data: `${new Date()}`,
             descricao: "",
         })
 
@@ -59,7 +58,7 @@ describe("testando useCase de estrato", ()=>{
                 name: "Usuario Test",
                 tipo: "deposito",
                 saldo: 50,
-                data: date(),
+                data: `${new Date()}`,
                 descricao: "",
             })
             

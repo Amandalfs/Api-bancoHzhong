@@ -3,7 +3,7 @@ import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/In
 import { ShowKeyUseCase } from "../ShowKeyUseCase";
 import { hash } from 'bcrypt';
 
-import { keyGenerator } from "../../../../../utils/keyGenerator";
+import { KeyGeneratorAdapterCrypto } from "../../../../../utils/keyGenerator";
 
 import { KeyDoesNotExistError,  ResourceNotFoundError} from "../errors";
 
@@ -51,8 +51,9 @@ describe("Testando o show users", ()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         });
-
-        const chave = keyGenerator();
+        
+        const keyGenerator = new KeyGeneratorAdapterCrypto();
+        const chave = keyGenerator.execute();
         await usersRepository.createKeyPixById(1, chave);
 
         const {key} = await sut.execute({id:1});

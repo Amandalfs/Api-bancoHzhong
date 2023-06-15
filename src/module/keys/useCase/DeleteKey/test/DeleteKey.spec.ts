@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { DeleteKeyUseCase } from "../DeleteKeyUseCase";
 import { hash } from 'bcrypt';
-import { keyGenerator } from "../../../../../utils/keyGenerator";
+import { KeyGeneratorAdapterCrypto } from "../../../../../utils/keyGenerator";
 import { KeyDoesNotExistError, ResourceNotFoundError } from "../errors";
 
 let usersRepository: InMemoryUsersRepository;
@@ -33,6 +33,7 @@ describe("Testando o DeleteUser", ()=>{
     })
 
     it("Usuario deve conseguir deleta a chave dele que existe", async ()=>{
+        let keyGenerator = new KeyGeneratorAdapterCrypto();
         const senhaCriptografada = await hash("12345678", 8);
         await usersRepository.createUser({
             numero: 153,
@@ -47,7 +48,7 @@ describe("Testando o DeleteUser", ()=>{
             "cpf": "12603863096"
         });
 
-        const keyDelete = await keyGenerator();
+        const keyDelete = await keyGenerator.execute();
         await usersRepository.createKeyPixById(1, keyDelete);
     
         const response = sut.execute({id: 1});
