@@ -4,6 +4,7 @@ import { compare } from 'bcrypt';
 import authConfig from "../../../../config/auth"
 import { sign } from "jsonwebtoken" 
 import { PassordOrUsernameInvalidError } from "./errors";
+import { Codificador } from "../../../../utils/Codificador/Codificador";
 
 export interface DTORequestSessionsUseCase {
     username: string
@@ -21,7 +22,10 @@ export interface ISessionsUsersUseCase {
 
 class SessionsUsersUseCase implements ISessionsUsersUseCase{
 
-    constructor(private UserRepository: IUserRepository){}
+    constructor(
+        private UserRepository: IUserRepository,
+        private codificador: Codificador,
+    ){}
     
     async execute({username, password}:DTORequestSessionsUseCase){
 
@@ -31,7 +35,7 @@ class SessionsUsersUseCase implements ISessionsUsersUseCase{
             throw new PassordOrUsernameInvalidError();
         }
 
-        const passwordPassed = await compare(password, user.password);
+        const passwordPassed = await this.codificador.comparador(password, user.password);
         
         if(!passwordPassed){
             throw new PassordOrUsernameInvalidError();

@@ -13,7 +13,8 @@
 - Criado uma interface para o contador de envio para usuario por dia e substituido todos parametros para um unico objeto.
 - Criado uma interface para o metodo para procurar os extratos de acordo com a data definida e substituido todos parametros para um unico objeto.
 - trocado a comparação dentro da funcao de somatorio de envio e saque para comparação com date-fns
-- desacoplado a funcao de crptografar a senha para uma classe com uma interface Codificador que tem um metodo de crptografia e invertido a dependencia.
+- desacoplado a funcao de criptografar a senha para uma classe com uma interface Codificador que tem um metodo de crptografia e invertido a dependencia.
+- desacoplado a funcao de comparar senha criptografada para uma classe com uma interface Codificador que tem um metodo de comparação de senha criptografada e invertido a dependencia.
 
 <br>
 <br>

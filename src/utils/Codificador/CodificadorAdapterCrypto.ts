@@ -8,7 +8,7 @@ export class CodificadorAdapterCrypto implements Codificador {
         return passwordCriptograda;
     }
 
-    async comparador(passwordCriptogrado: any, password: any): Promise<boolean> {
+    async comparador(password: string, passwordCriptogrado: string): Promise<boolean> {
         const isTrue = await compare(password, passwordCriptogrado);
         return isTrue; 
     }
