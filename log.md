@@ -1,6 +1,6 @@
 # Log de Atualizacoes da api Hzhong
 
-## Versão 2.0.10 - 13/06/2023
+## Versão 2.0.11 - 15/06/2023
 
 # Refatoracao
 - desacoplado a funcao de verificar idade para uma classe com uma interface IVerifyAge e invertido a dependencia.
@@ -12,7 +12,7 @@
 <br>
 <br>
 
-## Versão 2.0.9 - 13/06/2023
+## Versão 2.0.10 - 14/06/2023
 
 ### Refatoracao
 - substituido varias importacao de erros do useCaseCreateUsers para um index principal
