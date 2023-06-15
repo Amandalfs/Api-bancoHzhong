@@ -18,7 +18,7 @@ class ExtractsByDataUseCase implements IExtractsByDateUseCase{
     constructor(private ExtractsRepository: IExtracsRepository){} 
 
     async execute({id_user, dateStart, dateEnd}: DTORequestExtractsByDateUseCase){
-        const extracts = await this.ExtractsRepository.SearchForDataStartAndEndbyId(id_user, dateStart, dateEnd);
+        const extracts = await this.ExtractsRepository.SearchForDataStartAndEndbyId({id:id_user, dateStart, dateEnd});
         return {extracts};
     }
 }

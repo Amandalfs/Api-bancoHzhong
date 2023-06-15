@@ -1,6 +1,6 @@
-import { IExtracsRepository, IReponseExtracs, IRequestCountBySending, IRequestCountByWithdraw } from "../implementations/IExtractsRepository";
+import { IExtracsRepository, IReponseExtracs, IRequestCountBySending, IRequestCountByWithdraw, IRequestSearchForDataStartAndEndbyId } from "../implementations/IExtractsRepository";
 import { IExtracts } from "../modal/IExtracts";
-import { compareAsc, isAfter, isBefore, isEqual, parseISO } from 'date-fns';
+import { compareAsc, isAfter, isBefore, isEqual } from 'date-fns';
 
 // "tipo", "saldo", "data", "descricao"
 
@@ -40,7 +40,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
         await  this.items.push(extract);
     }
 
-    async SearchForDataStartAndEndbyId(id: number, dateStart: string, dateEnd: string): Promise<IReponseExtracs[]> {
+    async SearchForDataStartAndEndbyId({id, dateStart, dateEnd}: IRequestSearchForDataStartAndEndbyId): Promise<IReponseExtracs[]> {
         const extracts = this.items.filter((item)=> {
             return item.id_user = id;
         })

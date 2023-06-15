@@ -19,13 +19,19 @@ export interface IRequestCountBySending {
     UserId: number
 }
 
+export interface IRequestSearchForDataStartAndEndbyId {
+    id: number
+    dateStart: string,
+    dateEnd: string,
+}
+
 
 export interface IExtracsRepository {
     SearchForMoreRecentExtractsById(id_user:number): Promise<IReponseExtracs[]>
 
     createExtracts(data: IExtracts): Promise<void>
 
-    SearchForDataStartAndEndbyId(id:number, dateStart:string, dateEnd:string): Promise<IReponseExtracs[]>
+    SearchForDataStartAndEndbyId({id, dateStart, dateEnd}:IRequestSearchForDataStartAndEndbyId): Promise<IReponseExtracs[]>
 
     CountByWithdraw(data: IRequestCountByWithdraw): Promise<number>
 

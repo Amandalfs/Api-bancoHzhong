@@ -1,5 +1,5 @@
 import { db } from "../../sql/knex";
-import { IExtracsRepository, IRequestCountBySending, IRequestCountByWithdraw } from "../implementations/IExtractsRepository";
+import { IExtracsRepository, IRequestCountBySending, IRequestCountByWithdraw, IRequestSearchForDataStartAndEndbyId } from "../implementations/IExtractsRepository";
 import {IExtracts} from "../modal/IExtracts";
 
 class ExtractsRepository implements IExtracsRepository {
@@ -14,7 +14,7 @@ class ExtractsRepository implements IExtracsRepository {
         await  db('extratos').insert(data);
     }
 
-    async SearchForDataStartAndEndbyId(id:number, dateStart:string, dateEnd:string){
+    async SearchForDataStartAndEndbyId({id, dateStart, dateEnd}: IRequestSearchForDataStartAndEndbyId){
         return await db('extratos')
         .select("tipo", "saldo", "data", "descricao")
         .where("id_user",id).where('data', '>=', dateStart)
