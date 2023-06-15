@@ -13,6 +13,13 @@ export interface IRequestCountByWithdraw {
     UserId: number
 }
 
+export interface IRequestCountBySending {
+    dateStart: string
+    dateEnd: string
+    UserId: number
+}
+
+
 export interface IExtracsRepository {
     SearchForMoreRecentExtractsById(id_user:number): Promise<IReponseExtracs[]>
 
@@ -22,5 +29,5 @@ export interface IExtracsRepository {
 
     CountByWithdraw(data: IRequestCountByWithdraw): Promise<number>
 
-    CountBySending(dateStart: string, dateEnd: string, UserId: number): Promise<number>
+    CountBySending(data: IRequestCountBySending): Promise<number>
 }

@@ -1,4 +1,4 @@
-import { IExtracsRepository, IReponseExtracs, IRequestCountByWithdraw } from "../implementations/IExtractsRepository";
+import { IExtracsRepository, IReponseExtracs, IRequestCountBySending, IRequestCountByWithdraw } from "../implementations/IExtractsRepository";
 import { IExtracts } from "../modal/IExtracts";
 import { compareAsc, isAfter, isBefore, isEqual, parseISO } from 'date-fns';
 
@@ -88,7 +88,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
         return some;
     }
 
-    async CountBySending(dateStart: string, dateEnd: string, UserId: number): Promise<number> {
+    async CountBySending({dateStart, dateEnd, UserId}: IRequestCountBySending): Promise<number> {
         const extracts = this.items.filter((item)=> {
             return item.id_user = UserId;
         })

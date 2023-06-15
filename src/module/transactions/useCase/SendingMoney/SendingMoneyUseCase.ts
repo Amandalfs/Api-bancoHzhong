@@ -99,7 +99,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
             ]
             const dateNew = `${new Date()}`
 
-            const totalDiario = await this.ExtractsRepository.CountBySending(dateNew, dateNew, user.id);
+            const totalDiario = await this.ExtractsRepository.CountBySending({dateStart: dateNew, dateEnd: dateNew, UserId: user.id});
             for (const limitDay of limitsDay) {
                 if(user.typeaccont === limitDay.type && totalDiario+value > limitDay.value){
                     throw new LimitDayError(limitDay.value, limitDay.type);
