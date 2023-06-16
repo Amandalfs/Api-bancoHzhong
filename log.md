@@ -2,6 +2,9 @@
 
 ## Versão 2.0.12 - 16/06/2023
 
+### Adicionado
+- Criado um metodo de verificar token no gerenciador de token.
+
 ### Refatoração
 - movido as importações de protocolos do useCaseCreateAccont para uma unico aqui index na pasta de protocolos.
 - movido as importações de protocolos do useCaseSessions para uma unico aqui index na pasta de protocolos.
