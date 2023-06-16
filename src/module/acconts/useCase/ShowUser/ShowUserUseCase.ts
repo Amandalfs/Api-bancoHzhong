@@ -1,5 +1,4 @@
-import { IExtracsRepository, IReponseExtracs } from "../../../../repositories/implementations/IExtractsRepository";
-import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
+import { IExtracsRepository, IReponseExtracs, IUserRepository} from "./protocols"
 import { ResourceNotFoundError } from "./errors";
 
 export interface DTORequestShowUserUseCase {

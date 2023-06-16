@@ -5,6 +5,7 @@
 ### Refatoração
 - movido as importações de protocolos do useCaseCreateAccont para uma unico aqui index na pasta de protocolos.
 - movido as importações de protocolos do useCaseSessions para uma unico aqui index na pasta de protocolos.
+- movido as importações de protocolos do useCaseShow para uma unico aqui index na pasta de protocolos.
 
 ### Corrigido
 - arrumado a importação da configuração do jsonWebToken no middlewere de authenticação. 
