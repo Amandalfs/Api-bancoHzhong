@@ -1,4 +1,4 @@
-import { IExtracsRepository, IReponseExtracs } from "../../../../repositories/implementations/IExtractsRepository";
+import { IExtracsRepository, IReponseExtracs } from "./protocols";
 
 export interface DTORequestExtractsByDateUseCase {
     id_user: number,
