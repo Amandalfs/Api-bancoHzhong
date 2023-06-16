@@ -1,11 +1,5 @@
-import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-import { IUser } from "../../../../repositories/model/IUser";
-
-import { IVerifyAge } from "../../../../utils/verify/verifyAge";
-import { IValidarCpf } from "../../../../utils/verify/validarCpf";
-
+import { Codificador, IUser, IUserRepository, IValidarCpf, IVerifyAge } from "./protocols"
 import { AccontExistsError, ConfirmationPasswordInvalidError, InvalidCpfError, UserUnder18YearsOldError } from "./errors";
-import { Codificador } from "../../../../utils/Codificador/Codificador";
 
 interface ICreateUserRequestDTO {
     username: string, 

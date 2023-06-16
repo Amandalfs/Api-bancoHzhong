@@ -1,22 +1,31 @@
 # Log de Atualizacoes da api Hzhong
 
+## Versão 2.0.12 - 16/06/2023
+
+### Refatoração
+- movido as importacoes de protocolos do useCaseCreateAccont para uma unico aqui index na pasta de protocolos.
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.11 - 15/06/2023
 
-# Refatoracao
-- desacoplado a funcao de verificar idade para uma classe com uma interface IVerifyAge e invertido a dependencia.
-- desacoplado a funcao de validar o cpf para uma classe com uma interface IValidarCpf e invertido a dependencia.
+### Refatoração
+- desacoplado a função de verificar idade para uma classe com uma interface IVerifyAge e invertido a dependencia.
+- desacoplado a função de validar o cpf para uma classe com uma interface IValidarCpf e invertido a dependencia.
 - Mudado os arquivos de repositorio de conexao com banco de dados com knex para uma pasta a nivel mais a baixo para chamado KnexRepositories.
 - modificado o erro de cpf invalido para uma classe de InvalidCpfError.
-- excluido a funcao de gerar data para uma uam funcao propria do javascript.
-- desacoplado a funcao de keyGenerator para uma classe com uma interface IKeyGenerator e invertido a dependencia.
+- excluido a função de gerar data para uma uam função propria do javascript.
+- desacoplado a função de keyGenerator para uma classe com uma interface IKeyGenerator e invertido a dependencia.
 - Criado uma interface para o contador de saque por dia e substituido todos parametros para um unico objeto.
 - Criado uma interface para o contador de envio para usuario por dia e substituido todos parametros para um unico objeto.
 - Criado uma interface para o metodo para procurar os extratos de acordo com a data definida e substituido todos parametros para um unico objeto.
-- trocado a comparação dentro da funcao de somatorio de envio e saque para comparação com date-fns
-- desacoplado a funcao de criptografar a senha para uma classe com uma interface Codificador que tem um metodo de crptografia e invertido a dependencia.
-- desacoplado a funcao de comparar senha criptografada para uma classe com uma interface Codificador que tem um metodo de comparação de senha criptografada e invertido a dependencia.
+- trocado a comparação dentro da função de somatorio de envio e saque para comparação com date-fns
+- desacoplado a função de criptografar a senha para uma classe com uma interface Codificador que tem um metodo de crptografia e invertido a dependencia.
+- desacoplado a função de comparar senha criptografada para uma classe com uma interface Codificador que tem um metodo de comparação de senha criptografada e invertido a dependencia.
 - desacoplado o objeto de configuracao de token para uma interface AuthConfigToken.
-- desacoplado a funcao de criar um token para uma classe com uma interface gerenciador de token que tem um metodo de criar token assim invertido a do de criar token assim invertido a dependencia.
+- desacoplado a função de criar um token para uma classe com uma interface gerenciador de token que tem um metodo de criar token assim invertido a do de criar token assim invertido a dependencia.
 - mudado a jeito de testar se esta validando cpf mocando o metodo de validar e retornando o falso.
 
 <br>
@@ -25,7 +34,7 @@
 
 ## Versão 2.0.10 - 14/06/2023
 
-### Refatoracao
+### Refatoração
 - substituido varias importacao de erros do useCaseCreateUsers para um index principal
 - substituido a importacao de erros do useCaseSessions para um index principal
 - substituido a importacao de erros do useCaseShow para um index principal
@@ -48,7 +57,7 @@
 - Adicionado de erro de recurso nao encontrado no UseCaseDeposit
 - Adicionado de erro de recurso nao encontrado no UseCaseSending
 
-### Refatoracao
+### Refatoração
 - Mudado o erro de Resource not Found que foi criado com AppError no WithdrawUseCase para a classe Resource not Found
 - Mudado a implementacao do useCase Sessions para implementar o IUseCaseSessions tornando mais legivel e tipado.
 - Mudado a implementacao do useCase Show para implementar o IUseCaseShow tornando mais legivel e tipado.
@@ -83,7 +92,7 @@
 - Validando se o usuario ja existe no UseCase DeleteKey
 - Validando se o usuario ja existe no UseCase ShowKey
 
-### Refatoracao
+### Refatoração
 - alterado um erros globais sobre ```conta ja existente``` criado com o AppError para um erro especifico a onde vai facilitar a leitura.
 - alterado o erro de ```senhas direntes``` criado com o AppError para um erro criado com uma classe com seu nome para maior facilidade de entendimento na hora da manutenção.  
 - alterado o erro de ```senha ou username invalidos``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
@@ -118,7 +127,7 @@
 - alterado o nome da classe de erro de recurso nao encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
 - tirado os try catchs do useCase e agora e so ficara no controller para pegar erros desconhecidos.
 
-### Refatoracao
+### Refatoração
 - tirado o CreateUserUseCase do CreateUserController para colocar a interface do UseCase assim ele nao tera ligacao direta com o useCase.
 - adicionado o ResourceNotFound para padrazinhacao do erro no  ShowUseCase.
 - refatoracao feita no useCase de Saque para ter um array com os limites de saque verificar se o usuario atingiu o seu limite de acordo com o array.
@@ -155,8 +164,8 @@ Melhorei a lógica utilizando a biblioteca date-fns para realizar comparações 
 - mudado o useCaseWithdraw colocando um limite diario de saque para contas universitaria de 2250.
 
 ### Adicionado 
-- adicionado uma funcao para retornar o valor total de saque do usuario naquele dia.
-- adicionado uma funcao para retornar o valor total de envio do usuario naquele dia.
+- adicionado uma função para retornar o valor total de saque do usuario naquele dia.
+- adicionado uma função para retornar o valor total de envio do usuario naquele dia.
 
 <br>
 <br>
