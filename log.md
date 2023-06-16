@@ -7,6 +7,7 @@
 - movido as importações de protocolos do useCaseSessions para uma unico aqui index na pasta de protocolos.
 - movido as importações de protocolos do useCaseUserShow para uma unico aqui index na pasta de protocolos.
 - movido as importações de protocolos do useCaseCreateKey para uma unico aqui index na pasta de protocolos.
+- movido a importação de protocolos do useCaseDeleteKey para uma unico aqui index na pasta de protocolos.
 
 
 ### Corrigido
