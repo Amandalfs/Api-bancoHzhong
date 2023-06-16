@@ -17,6 +17,7 @@
 - desacoplado a funcao de comparar senha criptografada para uma classe com uma interface Codificador que tem um metodo de comparação de senha criptografada e invertido a dependencia.
 - desacoplado o objeto de configuracao de token para uma interface AuthConfigToken.
 - desacoplado a funcao de criar um token para uma classe com uma interface gerenciador de token que tem um metodo de criar token assim invertido a do de criar token assim invertido a dependencia.
+- mudado a jeito de testar se esta validando cpf mocando o metodo de validar e retornando o falso.
 
 <br>
 <br>

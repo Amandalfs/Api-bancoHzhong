@@ -160,8 +160,9 @@ describe("criacao de usuarios",()=>{
             "email": "usuario58@test.com",
             "password": "12345678",
             "password2": "12345678rwthfnr",
-            "cpf": "1111111111"
+            "cpf": "invalid_cpf"
         }
+        vi.spyOn(validarCpf, "execute").mockResolvedValue(false);
                 
         await expect(sut.execute(usuario2)).rejects.toEqual(new InvalidCpfError());
     })
