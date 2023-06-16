@@ -1,4 +1,4 @@
-import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
+import { IUserRepository } from "./protocols";
 
 import { KeyDoesNotExistError, ResourceNotFoundError } from "./errors";
 
