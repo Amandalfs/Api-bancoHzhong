@@ -3,7 +3,10 @@
 ## Versão 2.0.12 - 16/06/2023
 
 ### Refatoração
-- movido as importacoes de protocolos do useCaseCreateAccont para uma unico aqui index na pasta de protocolos.
+- movido as importações de protocolos do useCaseCreateAccont para uma unico aqui index na pasta de protocolos.
+
+### Corrigido
+- arrumado a importação da configuração do jsonWebToken no middlewere de authenticação. 
 
 <br>
 <br>
@@ -35,17 +38,17 @@
 ## Versão 2.0.10 - 14/06/2023
 
 ### Refatoração
-- substituido varias importacao de erros do useCaseCreateUsers para um index principal
-- substituido a importacao de erros do useCaseSessions para um index principal
-- substituido a importacao de erros do useCaseShow para um index principal
+- substituido varias importação de erros do useCaseCreateUsers para um index principal
+- substituido a importação de erros do useCaseSessions para um index principal
+- substituido a importação de erros do useCaseShow para um index principal
 
-- substituido varias importacao de erros do useCaseCreateKey para um index principal
-- substituido varias importacao de erros do useCaseDelete para um index principal
-- substituido varias importacao de erros do useCaseShow para um index principal
+- substituido varias importação de erros do useCaseCreateKey para um index principal
+- substituido varias importação de erros do useCaseDelete para um index principal
+- substituido varias importação de erros do useCaseShow para um index principal
 
-- substituido varias importacao de erros do useCaseDepositTransactions para um index principal
-- substituido varias importacao de erros do useCaseSendingTransactions para um index principal
-- substituido varias importacao de erros do useCaseWithdrawTransactions para um index principal
+- substituido varias importação de erros do useCaseDepositTransactions para um index principal
+- substituido varias importação de erros do useCaseSendingTransactions para um index principal
+- substituido varias importação de erros do useCaseWithdrawTransactions para um index principal
 
 <br>
 <br>
@@ -54,20 +57,20 @@
 ## Versão 2.0.9 - 13/06/2023
 
 ### Adicionado
-- Adicionado de erro de recurso nao encontrado no UseCaseDeposit
-- Adicionado de erro de recurso nao encontrado no UseCaseSending
+- Adicionado de erro de recurso não encontrado no UseCaseDeposit
+- Adicionado de erro de recurso não encontrado no UseCaseSending
 
 ### Refatoração
 - Mudado o erro de Resource not Found que foi criado com AppError no WithdrawUseCase para a classe Resource not Found
-- Mudado a implementacao do useCase Sessions para implementar o IUseCaseSessions tornando mais legivel e tipado.
-- Mudado a implementacao do useCase Show para implementar o IUseCaseShow tornando mais legivel e tipado.
-- Mudado a implementacao do useCase CreateKey para implementar o IUseCaseCreateKey tornando mais legivel e tipado.
-- Mudado a implementacao do useCase deleteKey para implementar o IUseCaseDeleteKey tornando mais legivel e tipado.
-- Mudado a implementacao do useCase ShowKey para implementar o IUseCaseShowKey tornando mais legivel e tipado.
-- Mudado a implementacao do useCase DepositTransactions para implementar o IUseCaseDepositTransactions tornando mais legivel e tipado.
-- Mudado a implementacao do useCase ExtractsByDate para implementar o IUseCaseExtractsByDate tornando mais legivel e tipado.
-- Mudado a implementacao do useCase SendingMoneyTransactions para implementar o IUseCase SendingMoneyTransactions tornando mais legivel e tipado.
-- Mudado a implementacao do useCase WithdrawTransactions para implementar o IUseCase tornando mais legivel e tipado.
+- Mudado a implementação do useCase Sessions para implementar o IUseCaseSessions tornando mais legivel e tipado.
+- Mudado a implementação do useCase Show para implementar o IUseCaseShow tornando mais legivel e tipado.
+- Mudado a implementação do useCase CreateKey para implementar o IUseCaseCreateKey tornando mais legivel e tipado.
+- Mudado a implementação do useCase deleteKey para implementar o IUseCaseDeleteKey tornando mais legivel e tipado.
+- Mudado a implementação do useCase ShowKey para implementar o IUseCaseShowKey tornando mais legivel e tipado.
+- Mudado a implementação do useCase DepositTransactions para implementar o IUseCaseDepositTransactions tornando mais legivel e tipado.
+- Mudado a implementação do useCase ExtractsByDate para implementar o IUseCaseExtractsByDate tornando mais legivel e tipado.
+- Mudado a implementação do useCase SendingMoneyTransactions para implementar o IUseCase SendingMoneyTransactions tornando mais legivel e tipado.
+- Mudado a implementação do useCase WithdrawTransactions para implementar o IUseCase tornando mais legivel e tipado.
 
 
 <br>
@@ -102,7 +105,7 @@
 - alterado o erro ```Saldo Insuficiente``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 - alterado o erro ```Chave Pix Inválida``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 - alterado o erro ```Voce não pode enviar dinheiro para voce``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
-- alterado o erro ```Token nao recebido``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
+- alterado o erro ```Token não recebido``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 - alterado o erro ```Usuario menor de idade``` criado com o AppError para um erro criado com uma classe do nome do erro para maior entendimento e facilidade na hora da manutenção.  
 
 
@@ -114,21 +117,21 @@
 
 ### Adicionado
 - dentro do app na captura de erros foi adicionado a captura de erros que sao filhos do AppError para criacao de erros especificos na facilitacao de leitura dos erros.
-- Interfaces novas para o CreateUserUseCase sendo elas o ICreateReponseDTO e o ICreateUserUseCase para implementacao do useCase.
-- Criado um erro especifico para recurso nao encontrado. 
-- Criado um erro especifico para usuario nao authorizado.
+- Interfaces novas para o CreateUserUseCase sendo elas o ICreateReponseDTO e o ICreateUserUseCase para implementação do useCase.
+- Criado um erro especifico para recurso não encontrado. 
+- Criado um erro especifico para usuario não authorizado.
 - Criado um erro especifico de limite diario.
 - Criado um erro especifico de limite.
 - Verificacao do useCaseSendingMoney a onde o usuario com o tipo de conta poupanca so pode sacar ate 1500 por dia no envio de dinheiro.
 - Verificacao do useCaseSendingMoney a onde o usuario com o tipo de conta corrente so pode sacar ate 4000 por dia no envio de dinheiro.
 - Verificacao do useCaseSendingMoney a onde o usuario com o tipo de conta universitaria so pode sacar ate 2250 por dia no envio de dinheiro.
 
-### alterado 
-- alterado o nome da classe de erro de recurso nao encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
+### Alterado 
+- alterado o nome da classe de erro de recurso não encontrado para ResourceNotFoundError para ficar um nome mais claro dizendo que aquela classe é sobre um erro.
 - tirado os try catchs do useCase e agora e so ficara no controller para pegar erros desconhecidos.
 
 ### Refatoração
-- tirado o CreateUserUseCase do CreateUserController para colocar a interface do UseCase assim ele nao tera ligacao direta com o useCase.
+- tirado o CreateUserUseCase do CreateUserController para colocar a interface do UseCase assim ele não tera ligacao direta com o useCase.
 - adicionado o ResourceNotFound para padrazinhacao do erro no  ShowUseCase.
 - refatoracao feita no useCase de Saque para ter um array com os limites de saque verificar se o usuario atingiu o seu limite de acordo com o array.
 - refatoracao feita no useCase de Saque para ter um array com os limites de saque verificar se o usuario atingiu o seu limite diario de acordo com o array.
@@ -145,7 +148,7 @@
 
 
 ### Refactoracao
-- Refatorado todos os testes adicionado e aplicando o pattern Sut para nao ter que instanciar tudo e ficar claro de quem esta sendo testado naquele switch de teste.
+- Refatorado todos os testes adicionado e aplicando o pattern Sut para não ter que instanciar tudo e ficar claro de quem esta sendo testado naquele switch de teste.
 
 ### Corrigido
 - Corrigido um erro que não estava previsto no teste do useCase dos Extratos com data inicial e final. Esse erro ocorria porque o array estava sendo retornado sem a devida filtragem das datas, resultando em um array vazio. <br>
@@ -175,7 +178,7 @@ Melhorei a lógica utilizando a biblioteca date-fns para realizar comparações 
 ### Alterado
 - mudado o useCaseSendingMoney colocando um limite  de envio de R$300 para contas poupancas.
 - mudado o useCaseSendingMoney colocando um limite  de envio de R$800 para contas correntes.
-- mudado o useCaseSendingMoney colocando um limite  de envio de R$450 clearpara contas universitarias.
+- mudado o useCaseSendingMoney colocando um limite  de envio de R$450 para contas universitarias.
 
 <br>
 <br>
@@ -234,6 +237,6 @@ Melhorei a lógica utilizando a biblioteca date-fns para realizar comparações 
 - Criacao dos testes do UseCase ShowKey e Testes Executados com status de sucesso.
 - Criacao dos testes do UseCase DepositTransactions e Testes Executados com status de sucesso.
 - Criacao dos testes do UseCase ExtractsByDateTransactions e Testes Executados com status de sucesso.
-- Adicionado uma verificao no envio de dinheiro para usuario nao enviar dinheiro negativo.
+- Adicionado uma verificao no envio de dinheiro para usuario não enviar dinheiro negativo.
 - Criacao dos testes do UseCase SendingMoney e Testes Executados com status de sucesso.
 - Criacao dos testes do UseCase WithdrawMoney e Testes Executados com status de sucesso.

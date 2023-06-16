@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { verify } from 'jsonwebtoken';
-import authConfig from '../config/auth';
+import {AuthConfig} from '../config/auth';
 import { AppError } from "../utils/errors/AppError";
 import { TokenNotSentError } from "./errors/TokenNotSentError";
 
@@ -14,7 +14,7 @@ function garantirAuth(req: Request, res: Response, next:NextFunction){
     }
 
     try {
-        const { sub: user_id} = verify(authToken, authConfig.jwt.secret)
+        const { sub: user_id} = verify(authToken, AuthConfig.jwt.secret)
         
         req.user = {
             id: Number(user_id)
