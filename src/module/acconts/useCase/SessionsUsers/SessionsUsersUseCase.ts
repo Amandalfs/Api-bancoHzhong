@@ -1,10 +1,5 @@
-import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
-
-import { sign } from "jsonwebtoken" 
 import { PassordOrUsernameInvalidError } from "./errors";
-import { Codificador } from "../../../../utils/Codificador/Codificador";
-import { AuthConfigToken } from "../../../../config/auth";
-import { GerenciadorDeToken } from "../../../../utils/GerenciadorDeToken/GerenciadorDeToken";
+import { AuthConfigToken, Codificador, GerenciadorDeToken, IUserRepository} from "./protocols"
 
 export interface DTORequestSessionsUseCase {
     username: string
