@@ -162,8 +162,8 @@ describe("criacao de usuarios",()=>{
             "password2": "12345678rwthfnr",
             "cpf": "invalid_cpf"
         }
-        vi.spyOn(validarCpf, "execute").mockResolvedValue(false);
-                
+        vi.spyOn(validarCpf, "execute").mockReturnValue(true);
+
         await expect(sut.execute(usuario2)).rejects.toEqual(new InvalidCpfError());
     })
 
