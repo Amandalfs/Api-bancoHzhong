@@ -108,3 +108,5 @@ dist
 
 # users
 users.json
+
+.husky
