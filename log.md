@@ -11,8 +11,8 @@
 - movido a importação de protocolos do useCaseShowKey para uma unico aqui index na pasta de protocolos.
 - movido as importações de protocolos do useCaseDepositTransactions para uma unico aqui index na pasta de protocolos.
 - movido as importações de protocolos do useCaseExtractsByDataUseCase para uma unico aqui index na pasta de protocolos.
-- movido as importações de protocolos do useCaseSendingMoney para uma unico aqui index na pasta de protocolos.
-
+- movido as importações de protocolos do useCaseSendingMoneyTransactions para uma unico aqui index na pasta de protocolos.
+- movido as importações de protocolos do useCaseWithdrawTransactions para uma unico aqui index na pasta de protocolos.
 
 
 ### Corrigido
