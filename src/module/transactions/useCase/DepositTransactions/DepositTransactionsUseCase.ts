@@ -1,5 +1,4 @@
-import { IExtracsRepository } from "../../../../repositories/implementations/IExtractsRepository";
-import { IUserRepository } from "../../../../repositories/implementations/IUserRepository";
+import { IExtracsRepository, IUserRepository} from "./protocols"
 
 import { InvalidValueError, ResourceNotFoundError } from "./errors";
 
