@@ -271,6 +271,27 @@ describe("Testando o controllador de criacao de conta", ()=>{
         expect(body.msg).toEqual("Invalid param:PasswordConfirmation")
     })
 
+    it("esperado que o controlador retorne erro para Cpf nao enviado",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "ErrorCpf",
+                name: "ErrorCpf", 
+                nasc: "ErrorCpf", 
+                typeaccont: "ErrorCpf", 
+                email: "ErrorCpf"
+            },
+            headers: {
+                password: "ErrorCpf",
+                passwordConfirmation: "ErrorCpf", 
+                cpf: ""
+            }
+        }
+        const {statusCode, body} = await sut.handle(request);
+        expect(statusCode).toEqual(400);
+        expect(body.msg).toEqual("Invalid param:Cpf")
+    })
+
 
 
 })

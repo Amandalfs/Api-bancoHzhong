@@ -17,6 +17,7 @@
 - Criado o tratamento de erro 400 para Email nao enviado no controlador CreateUser.
 - Criado o tratamento de erro 400 para Password nao enviado no controlador CreateUser.
 - Criado o tratamento de erro 400 para PasswordConfirmation nao enviado no controlador CreateUser.
+- Criado o tratamento de erro 400 para Cpf nao enviado no controlador CreateUser.
 
 ### Refatoracao 
 - mudado as importacoes de varios arquivos no controlador de criacao de usuario para um unico arquivo.

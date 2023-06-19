@@ -9,6 +9,7 @@ export class CreateUserController implements HttpController{
         try {
             const {username, name, nasc, typeaccont, email} = req.body;
             const { password, passwordConfirmation, cpf } = req.headers;
+            
             if(!username){
                 throw new InvalidParams("Username");
             }
@@ -37,6 +38,9 @@ export class CreateUserController implements HttpController{
                 throw new InvalidParams("PasswordConfirmation");
             }
 
+            if(!cpf){
+                throw new InvalidParams("Cpf")
+            }
             const { user } = await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2: passwordConfirmation, cpf});
             
             return Created(user);
