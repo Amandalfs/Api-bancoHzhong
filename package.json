@@ -3,6 +3,7 @@
   "version": "2.0.13",
   "description": "",
   "main": "index.js",
+ 
   "scripts": {
     "dev": "tsx ./src/server",
     "knex": "node --no-warnings --loader tsx ./node_modules/knex/bin/cli.js",
@@ -13,6 +14,9 @@
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "prepare": "husky install"
+  },
+  "huscky": {
+    "pre-commit": "npm run test"
   },
   "repository": {
     "type": "git",
