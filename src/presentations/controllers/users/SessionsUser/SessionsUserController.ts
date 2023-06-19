@@ -18,7 +18,7 @@ export class SessionsUserController implements HttpController {
                 throw new InvalidParams("Password");
             }
 
-            await this.useCaseSessions.execute({username, password});
+            const { token } = await this.useCaseSessions.execute({username, password});
 
         } catch (error) {
             if(!error.statusCode){
