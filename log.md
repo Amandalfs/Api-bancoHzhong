@@ -12,6 +12,7 @@
 - criado o envio da resposta de conta criada com sucesso no controlador do createUser.
 - Criado o tratamento de erro 400 para username nao enviado no controlador CreateUseCase.
 - Criado o tratamento de erro 400 para name nao enviado no controlador CreateUseCase.
+- Criado o tratamento de erro 400 para Nascimento nao enviado no controlador CreateUseCase.
 
 
 ### Refatoracao 
