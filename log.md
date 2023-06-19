@@ -13,6 +13,7 @@
 - Criado o tratamento de erro 400 para username nao enviado no controlador CreateUseCase.
 - Criado o tratamento de erro 400 para name nao enviado no controlador CreateUseCase.
 - Criado o tratamento de erro 400 para Nascimento nao enviado no controlador CreateUseCase.
+- Criado o tratamento de erro 400 para Tipo da conta nao enviado no controlador CreateUseCase.
 
 
 ### Refatoracao 
