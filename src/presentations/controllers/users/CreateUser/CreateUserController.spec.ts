@@ -212,21 +212,21 @@ describe("Testando o controllador de criacao de conta", ()=>{
         const { sut } = makeSut();
         const request: HttpRequest = {
             body: {
-                username: "ErrorTypeAccont",
-                name: "ErrorTypeAccont", 
-                nasc: "ErrorTypeAccont", 
-                typeaccont: "", 
-                email: "ErrorTypeAccont"
+                username: "ErrorEmail",
+                name: "ErrorEmail", 
+                nasc: "ErrorEmail", 
+                typeaccont: "ErrorEmail", 
+                email: ""
             },
             headers: {
-                password: "ErrorTypeAccont",
-                password2: "ErrorTypeAccont", 
-                cpf: "ErrorTypeAccont"
+                password: "ErrorEmail",
+                password2: "ErrorEmail", 
+                cpf: "ErrorEmail"
             }
         }
         const {statusCode, body} = await sut.handle(request);
         expect(statusCode).toEqual(400);
-        expect(body.msg).toEqual("Invalid param:TypeAccont")
+        expect(body.msg).toEqual("Invalid param:Email")
     })
 
 
