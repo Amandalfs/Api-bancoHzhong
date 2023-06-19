@@ -8,6 +8,9 @@
 - Criado o tratamento de erro 400 no controlador CreateUseCase.
 - Criado o tratamento de erro 401 no controlador CreateUseCase.
 
+### Refatoracao 
+- mudado as importacoes de varios arquivos no controlador de criacao de usuario para um unico arquivo.
+
 ## Versão 2.0.12 - 16/06/2023
 
 ### Adicionado

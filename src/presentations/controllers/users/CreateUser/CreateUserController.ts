@@ -1,8 +1,5 @@
 
-import { ICreateUserUseCase } from '../../../../module/acconts/useCase/CreateUser/CreateUserUseCase';
-import { BadRequest, ServerError, Unauthorized } from '../../../helpers';
-import { HttpRequest, HttpResponse } from '../../../protocols/http';
-import { HttpController } from './../../../protocols/Controller';
+import { HttpController, HttpRequest, HttpResponse, BadRequest, ServerError, Unauthorized, ICreateUserUseCase } from './CreateUserControllerProtocols';
 
 export class CreateUserController implements HttpController{
     constructor(private CreateUserUseCase: ICreateUserUseCase){}
