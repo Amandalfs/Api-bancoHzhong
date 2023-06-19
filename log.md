@@ -22,6 +22,7 @@
 - Criado o tratamento de erro 400 no controlador SessionsUser.
 - Criado o tratamento de erro 401 no controlador SessionsUser.
 - Criado o tratamento de erro 400 para username nao enviado no controlador SessionsUser.
+- Criado o tratamento de erro 400 para Password nao enviado no controlador SessionsUser.
 
 ### Refatoracao 
 - mudado as importacoes de varios arquivos no controlador de criacao de usuario para um unico arquivo.

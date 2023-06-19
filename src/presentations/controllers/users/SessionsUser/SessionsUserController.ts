@@ -13,6 +13,11 @@ export class SessionsUserController implements HttpController {
                 throw new InvalidParams("Username");
             }
 
+            
+            if(!password){
+                throw new InvalidParams("Password");
+            }
+
             await this.useCaseSessions.execute({username, password});
 
         } catch (error) {
