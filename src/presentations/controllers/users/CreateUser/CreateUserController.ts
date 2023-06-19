@@ -1,5 +1,6 @@
 
 import { HttpController, HttpRequest, HttpResponse, BadRequest, ServerError, Unauthorized, ICreateUserUseCase, Created } from './CreateUserControllerProtocols';
+import { InvalidParams } from './errors/InvalidParams';
 
 export class CreateUserController implements HttpController{
     constructor(private CreateUserUseCase: ICreateUserUseCase){}
@@ -8,6 +9,10 @@ export class CreateUserController implements HttpController{
         try {
             const {username, name, nasc, typeaccont, email} = req.body;
             const { password, password2, cpf } = req.headers;
+
+            if(!username){
+                throw new InvalidParams("Username");
+            }
 
             const { user } = await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2, cpf});
             
