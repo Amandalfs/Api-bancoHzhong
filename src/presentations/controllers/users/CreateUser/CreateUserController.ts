@@ -8,8 +8,7 @@ export class CreateUserController implements HttpController{
     async handle(req: HttpRequest): Promise<HttpResponse> {
         try {
             const {username, name, nasc, typeaccont, email} = req.body;
-            const { password, password2, cpf } = req.headers;
-
+            const { password, passwordConfirmation, cpf } = req.headers;
             if(!username){
                 throw new InvalidParams("Username");
             }
@@ -34,7 +33,11 @@ export class CreateUserController implements HttpController{
                 throw new InvalidParams("Password");
             }
 
-            const { user } = await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2, cpf});
+            if(!passwordConfirmation){
+                throw new InvalidParams("PasswordConfirmation");
+            }
+
+            const { user } = await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2: passwordConfirmation, cpf});
             
             return Created(user);
         } catch (error) {
