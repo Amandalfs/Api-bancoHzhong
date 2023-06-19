@@ -123,6 +123,28 @@ describe("Testando o controllador de criacao de conta", ()=>{
           })
     })
 
+    it("esperado que receba o controller mande status 201 de create",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "Error400",
+                name: "Error400Name", 
+                nasc: "400", 
+                typeaccont: "400", 
+                email: "400"
+            },
+            headers: {
+                password: "400",
+                password2: "400", 
+                cpf: "400"
+            }
+        }
+        const {statusCode, body} = await sut.handle(request);
+        expect(statusCode).toEqual(201);
+        expect(body).toEqual(expect.any(Object));
+        expect(body.msg).toEqual("created")
+    })
+
 
 
 })
