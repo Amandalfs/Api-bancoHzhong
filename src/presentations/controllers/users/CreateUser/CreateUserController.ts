@@ -1,6 +1,6 @@
 
 import { ICreateUserUseCase } from '../../../../module/acconts/useCase/CreateUser/CreateUserUseCase';
-import { ServerError } from '../../../helpers';
+import { BadRequest, ServerError } from '../../../helpers';
 import { HttpRequest, HttpResponse } from '../../../protocols/http';
 import { HttpController } from './../../../protocols/Controller';
 
@@ -15,8 +15,13 @@ export class CreateUserController implements HttpController{
             await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2, cpf});
 
         } catch (error) {
+
             if(!error.statusCode){
                 return ServerError();
+            }
+
+            if(error.statusCode === 400){
+                return BadRequest(error.message);
             }
         }
     }

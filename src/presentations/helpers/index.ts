@@ -10,11 +10,20 @@ export const ServerError = (): HttpResponse => {
 }
 
 
-export const BadRequest = (params): HttpResponse => {
+export const BadRequest = (params: any): HttpResponse => {
     return {
         statusCode: 400,
         body: {
             msg: params
+        }
+    }
+}
+
+export const Unauthorized = (params: any): HttpResponse => {
+    return {
+        statusCode: 401,
+        body: {
+            msg: params,
         }
     }
 }

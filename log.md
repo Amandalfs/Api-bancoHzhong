@@ -5,6 +5,7 @@
 
 ### Adicionado
 - Criado o primeiro contralador de createUseCase e adicionado o tratamento de erro desconhecido.
+- Criado o tratamento de erro 400 no controador CreateUseCase
 
 ## Versão 2.0.12 - 16/06/2023
 
