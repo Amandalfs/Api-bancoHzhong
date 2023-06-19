@@ -1,6 +1,6 @@
 
 import { HttpController, HttpRequest, HttpResponse, BadRequest, ServerError, Unauthorized, ICreateUserUseCase, Created } from './CreateUserControllerProtocols';
-import { InvalidParams } from './errors/InvalidParams';
+import { InvalidParams } from '../../errors/InvalidParams';
 
 export class CreateUserController implements HttpController{
     constructor(private CreateUserUseCase: ICreateUserUseCase){}

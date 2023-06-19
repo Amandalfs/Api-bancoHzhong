@@ -1,4 +1,5 @@
 import { ISessionsUsersUseCase } from "../../../../module/acconts/useCase/SessionsUsers/SessionsUsersUseCase";
+import { InvalidParams } from "../../errors/InvalidParams";
 import { BadRequest, HttpController, HttpRequest, HttpResponse, ServerError, Unauthorized } from "../CreateUser/CreateUserControllerProtocols";
 
 export class SessionsUserController implements HttpController {
@@ -6,7 +7,11 @@ export class SessionsUserController implements HttpController {
 
     async handle(req: HttpRequest): Promise<HttpResponse> {
         try {
-            const { password, username } = req.body;
+            const { password, username } = req.body;    
+
+            if(!username){
+                throw new InvalidParams("Username");
+            }
 
             await this.useCaseSessions.execute({username, password});
 
