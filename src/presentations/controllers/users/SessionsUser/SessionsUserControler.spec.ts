@@ -94,5 +94,20 @@ describe("Testando o controllador de criar sessao", ()=>{
         expect(response.body.msg).toEqual("Invalid param:Password");
     })
  
+    it("esperado que o controlador envie os dados corretos para o useCase",async ()=>{
+        const { sut, useCase } = makeSut();
+        const useCaseSpy = vi.spyOn(useCase, "execute").mock.calls
+        const request: HttpRequest = {
+            body: {
+                username: "ValidUsername",
+                password: "ValidPassword", 
+            }
+        }
+        await sut.handle(request);
+        expect(useCaseSpy[0][0]).toEqual({
+            username: "ValidUsername",
+            password: "ValidPassword", 
+        })
+    })
 
 })
