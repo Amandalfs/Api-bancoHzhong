@@ -10,12 +10,12 @@
 - criado o test para ver se os parametros estao sendo enviado corratamento para o useCase.
 - criado o helper de created.
 - criado o envio da resposta de conta criada com sucesso no controlador do createUser.
-- Criado o tratamento de erro 400 para username nao enviado no controlador CreateUseCase.
-- Criado o tratamento de erro 400 para name nao enviado no controlador CreateUseCase.
-- Criado o tratamento de erro 400 para Nascimento nao enviado no controlador CreateUseCase.
-- Criado o tratamento de erro 400 para Tipo da conta nao enviado no controlador CreateUseCase.
-- Criado o tratamento de erro 400 para Email nao enviado no controlador CreateUseCase.
-
+- Criado o tratamento de erro 400 para username nao enviado no controlador CreateUser.
+- Criado o tratamento de erro 400 para name nao enviado no controlador CreateUser.
+- Criado o tratamento de erro 400 para Nascimento nao enviado no controlador CreateUser.
+- Criado o tratamento de erro 400 para Tipo da conta nao enviado no controlador CreateUser.
+- Criado o tratamento de erro 400 para Email nao enviado no controlador CreateUser.
+- Criado o tratamento de erro 400 para Password nao enviado no controlador CreateUser.
 
 ### Refatoracao 
 - mudado as importacoes de varios arquivos no controlador de criacao de usuario para um unico arquivo.
