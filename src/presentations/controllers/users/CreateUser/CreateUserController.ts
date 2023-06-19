@@ -9,38 +9,25 @@ export class CreateUserController implements HttpController{
         try {
             const {username, name, nasc, typeaccont, email} = req.body;
             const { password, passwordConfirmation, cpf } = req.headers;
+
+            const params =  [
+                {param: username, error:"Username"},
+                {param: name, error:"Name"},
+                {param: nasc, error:"Nasc"},
+                {param: typeaccont, error:"TypeAccont"},
+                {param: email, error:"Email"},
+                {param: password, error:"Password"},
+                {param: passwordConfirmation, error:"PasswordConfirmation"},
+                {param: cpf, error:"Cpf"},
+
+            ]
+
+            params.map((item)=>{
+                if(!item.param){
+                    throw new InvalidParams(item.error);
+                }
+            })
             
-            if(!username){
-                throw new InvalidParams("Username");
-            }
-
-            if(!name){
-                throw new InvalidParams("Name");
-            }
-
-            if(!nasc){
-                throw new InvalidParams("Nasc");
-            }
-
-            if(!typeaccont){
-                throw new InvalidParams("TypeAccont");
-            }
-            
-            if(!email){
-                throw new InvalidParams("Email");
-            }
-
-            if(!password){
-                throw new InvalidParams("Password");
-            }
-
-            if(!passwordConfirmation){
-                throw new InvalidParams("PasswordConfirmation");
-            }
-
-            if(!cpf){
-                throw new InvalidParams("Cpf")
-            }
             const { user } = await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2: passwordConfirmation, cpf});
             
             return Created(user);

@@ -21,6 +21,7 @@
 
 ### Refatoracao 
 - mudado as importacoes de varios arquivos no controlador de criacao de usuario para um unico arquivo.
+- mudados varios if com todos validacao de parametros no controlador de createUser para um array com o objeto com o param e o erro caso nao tenha.
 
 <br>
 <br>
