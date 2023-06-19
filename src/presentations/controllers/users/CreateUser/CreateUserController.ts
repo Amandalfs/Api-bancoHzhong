@@ -1,6 +1,6 @@
 
 import { ICreateUserUseCase } from '../../../../module/acconts/useCase/CreateUser/CreateUserUseCase';
-import { BadRequest, ServerError } from '../../../helpers';
+import { BadRequest, ServerError, Unauthorized } from '../../../helpers';
 import { HttpRequest, HttpResponse } from '../../../protocols/http';
 import { HttpController } from './../../../protocols/Controller';
 
@@ -22,6 +22,10 @@ export class CreateUserController implements HttpController{
 
             if(error.statusCode === 400){
                 return BadRequest(error.message);
+            }
+
+            if(error.statusCode === 401){
+                return Unauthorized(error.message);
             }
         }
     }
