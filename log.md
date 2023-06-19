@@ -8,9 +8,15 @@
 - Criado o tratamento de erro 400 no controlador CreateUseCase.
 - Criado o tratamento de erro 401 no controlador CreateUseCase.
 - criado o test para ver se os parametros estao sendo enviado corratamento para o useCase.
+- criado o helper de created.
+- criado o envio da resposta de conta criada com sucesso no controlador do createUser.
 
 ### Refatoracao 
 - mudado as importacoes de varios arquivos no controlador de criacao de usuario para um unico arquivo.
+
+<br>
+<br>
+<br>
 
 ## Versão 2.0.12 - 16/06/2023
 

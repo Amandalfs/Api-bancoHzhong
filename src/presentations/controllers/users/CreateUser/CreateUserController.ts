@@ -1,5 +1,5 @@
 
-import { HttpController, HttpRequest, HttpResponse, BadRequest, ServerError, Unauthorized, ICreateUserUseCase } from './CreateUserControllerProtocols';
+import { HttpController, HttpRequest, HttpResponse, BadRequest, ServerError, Unauthorized, ICreateUserUseCase, Created } from './CreateUserControllerProtocols';
 
 export class CreateUserController implements HttpController{
     constructor(private CreateUserUseCase: ICreateUserUseCase){}
@@ -9,8 +9,9 @@ export class CreateUserController implements HttpController{
             const {username, name, nasc, typeaccont, email} = req.body;
             const { password, password2, cpf } = req.headers;
 
-            await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2, cpf});
-
+            const { user } = await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2, cpf});
+            
+            return Created(user);
         } catch (error) {
 
             if(!error.statusCode){
