@@ -53,6 +53,20 @@ describe("Testando o controllador de criar sessao", ()=>{
         expect(response.statusCode).toEqual(400);
         expect(response.body.msg).toEqual("Bad Request");
     })
+
+    it("esperado que receba o controller consiga tratar erros 401",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 401, message:"Unauthorized"});
+        const request: HttpRequest = {
+            body: {
+                username: "Error400",
+                password: "Error400", 
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(401);
+        expect(response.body.msg).toEqual("Unauthorized");
+    })
  
 
 })
