@@ -166,7 +166,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
         expect(body.msg).toEqual("Invalid param:Username")
     })
 
-    it("esperado que o controlador retorne erro para username nao enviado",async ()=>{
+    it("esperado que o controlador retorne erro para name nao enviado",async ()=>{
         const { sut } = makeSut();
         const request: HttpRequest = {
             body: {
@@ -186,5 +186,27 @@ describe("Testando o controllador de criacao de conta", ()=>{
         expect(statusCode).toEqual(400);
         expect(body.msg).toEqual("Invalid param:Name")
     })
+
+    it("esperado que o controlador retorne erro para nascimento nao enviado",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "ErrorNasc",
+                name: "ErrorNasc", 
+                nasc: "", 
+                typeaccont: "ErrorNasc", 
+                email: "ErrorNasc"
+            },
+            headers: {
+                password: "ErrorNasc",
+                password2: "ErrorNasc", 
+                cpf: "ErrorNasc"
+            }
+        }
+        const {statusCode, body} = await sut.handle(request);
+        expect(statusCode).toEqual(400);
+        expect(body.msg).toEqual("Invalid param:Nasc")
+    })
+
 
 })
