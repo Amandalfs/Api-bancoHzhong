@@ -77,9 +77,21 @@ describe("Testando o controllador de criar sessao", ()=>{
             }
         }
         const response = await sut.handle(request);
-        console.log(response)
         expect(response.statusCode).toEqual(400);
         expect(response.body.msg).toEqual("Invalid param:Username");
+    })
+
+    it("esperado que o controlador envie um erro quando nao envia o password",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "PasswordError",
+                password: "", 
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Invalid param:Password");
     })
  
 
