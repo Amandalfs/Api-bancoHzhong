@@ -1,5 +1,5 @@
 import { ISessionsUsersUseCase } from "../../../../module/acconts/useCase/SessionsUsers/SessionsUsersUseCase";
-import { HttpController, HttpRequest, HttpResponse, ServerError } from "../CreateUser/CreateUserControllerProtocols";
+import { BadRequest, HttpController, HttpRequest, HttpResponse, ServerError } from "../CreateUser/CreateUserControllerProtocols";
 
 export class SessionsUserController implements HttpController {
     constructor(private useCaseSessions: ISessionsUsersUseCase){}
@@ -13,6 +13,10 @@ export class SessionsUserController implements HttpController {
         } catch (error) {
             if(!error.statusCode){
                 return ServerError();
+            }
+
+            if(error.statusCode === 400){
+                return BadRequest(error.message);
             }
         }
     }

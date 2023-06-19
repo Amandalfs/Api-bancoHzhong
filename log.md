@@ -5,8 +5,8 @@
 
 ### Adicionado
 - Criado o contralador de createUser e adicionado o tratamento de erro desconhecido.
-- Criado o tratamento de erro 400 no controlador CreateUseCase.
-- Criado o tratamento de erro 401 no controlador CreateUseCase.
+- Criado o tratamento de erro 400 no controlador CreateUser.
+- Criado o tratamento de erro 401 no controlador CreateUser.
 - criado o test para ver se os parametros estao sendo enviado corratamento para o useCase.
 - criado o helper de created.
 - criado o envio da resposta de conta criada com sucesso no controlador do createUser.
@@ -19,6 +19,7 @@
 - Criado o tratamento de erro 400 para PasswordConfirmation nao enviado no controlador CreateUser.
 - Criado o tratamento de erro 400 para Cpf nao enviado no controlador CreateUser.
 - Criado o primeiro contralador de SessionsUser e adicionado o tratamento de erro desconhecido.
+- Criado o tratamento de erro 400 no controlador SessionsUser.
 
 ### Refatoracao 
 - mudado as importacoes de varios arquivos no controlador de criacao de usuario para um unico arquivo.
