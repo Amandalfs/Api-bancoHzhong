@@ -93,5 +93,36 @@ describe("Testando o controllador de criacao de conta", ()=>{
         expect(response.body.msg).toEqual("Unauthorized");
     })
 
+    it("esperado que receba o controller mande os dados corretos para o useCase",async ()=>{
+        const { sut, useCase } = makeSut();
+        const useCaseSpy = vi.spyOn(useCase, "execute");
+        const request: HttpRequest = {
+            body: {
+                username: "Error400",
+                name: "Error400Name", 
+                nasc: "400", 
+                typeaccont: "400", 
+                email: "400"
+            },
+            headers: {
+                password: "400",
+                password2: "400", 
+                cpf: "400"
+            }
+        }
+        await sut.handle(request);
+        expect(useCaseSpy.mock.calls[0][0]).toEqual({
+            username: 'Error400',
+            name: 'Error400Name',
+            nasc: '400',
+            typeaccont: '400',
+            email: '400',
+            password: '400',
+            password2: '400',
+            cpf: '400'
+          })
+    })
+
+
 
 })
