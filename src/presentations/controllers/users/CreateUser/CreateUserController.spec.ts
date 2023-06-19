@@ -208,5 +208,26 @@ describe("Testando o controllador de criacao de conta", ()=>{
         expect(body.msg).toEqual("Invalid param:Nasc")
     })
 
+    it("esperado que o controlador retorne erro para tipo da conta nao enviado",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "ErrorTypeAccont",
+                name: "ErrorTypeAccont", 
+                nasc: "ErrorTypeAccont", 
+                typeaccont: "", 
+                email: "ErrorTypeAccont"
+            },
+            headers: {
+                password: "ErrorTypeAccont",
+                password2: "ErrorTypeAccont", 
+                cpf: "ErrorTypeAccont"
+            }
+        }
+        const {statusCode, body} = await sut.handle(request);
+        expect(statusCode).toEqual(400);
+        expect(body.msg).toEqual("Invalid param:TypeAccont")
+    })
+
 
 })
