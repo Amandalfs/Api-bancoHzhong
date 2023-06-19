@@ -1,6 +1,6 @@
 import { ISessionsUsersUseCase } from "../../../../module/acconts/useCase/SessionsUsers/SessionsUsersUseCase";
 import { InvalidParams } from "../../errors/InvalidParams";
-import { BadRequest, HttpController, HttpRequest, HttpResponse, ServerError, Unauthorized } from "../CreateUser/CreateUserControllerProtocols";
+import { BadRequest, HttpController, HttpRequest, HttpResponse, ServerError, Success, Unauthorized } from "../CreateUser/CreateUserControllerProtocols";
 
 export class SessionsUserController implements HttpController {
     constructor(private useCaseSessions: ISessionsUsersUseCase){}
@@ -19,6 +19,8 @@ export class SessionsUserController implements HttpController {
             }
 
             const { token } = await this.useCaseSessions.execute({username, password});
+
+            return Success({token});
 
         } catch (error) {
             if(!error.statusCode){

@@ -36,3 +36,12 @@ export const Created = (params): HttpResponse => {
         }
     }
 }
+
+export const Success = (params): HttpResponse => {
+    return {
+        statusCode: 200,
+        body: {
+            params
+        }
+    }
+}
