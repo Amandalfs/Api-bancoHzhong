@@ -38,7 +38,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "500",
-                password2: "500", 
+                passwordConfirmation: "500", 
                 cpf: "500"
             }
         }
@@ -61,7 +61,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "400",
-                password2: "400", 
+                passwordConfirmation: "400", 
                 cpf: "400"
             }
         }
@@ -84,7 +84,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "400",
-                password2: "400", 
+                passwordConfirmation: "400", 
                 cpf: "400"
             }
         }
@@ -106,7 +106,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "400",
-                password2: "400", 
+                passwordConfirmation: "400", 
                 cpf: "400"
             }
         }
@@ -135,7 +135,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "400",
-                password2: "400", 
+                passwordConfirmation: "400", 
                 cpf: "400"
             }
         }
@@ -157,7 +157,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "ErrorUsername",
-                password2: "ErrorUsername", 
+                passwordConfirmation: "ErrorUsername", 
                 cpf: "ErrorUsername"
             }
         }
@@ -178,7 +178,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "ErrorName",
-                password2: "ErrorName", 
+                passwordConfirmation: "ErrorName", 
                 cpf: "ErrorName"
             }
         }
@@ -199,7 +199,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "ErrorNasc",
-                password2: "ErrorNasc", 
+                passwordConfirmation: "ErrorNasc", 
                 cpf: "ErrorNasc"
             }
         }
@@ -208,7 +208,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
         expect(body.msg).toEqual("Invalid param:Nasc")
     })
 
-    it("esperado que o controlador retorne erro para tipo da conta nao enviado",async ()=>{
+    it("esperado que o controlador retorne erro para email nao enviado",async ()=>{
         const { sut } = makeSut();
         const request: HttpRequest = {
             body: {
@@ -220,7 +220,7 @@ describe("Testando o controllador de criacao de conta", ()=>{
             },
             headers: {
                 password: "ErrorEmail",
-                password2: "ErrorEmail", 
+                passwordConfirmation: "ErrorEmail", 
                 cpf: "ErrorEmail"
             }
         }
@@ -228,6 +228,49 @@ describe("Testando o controllador de criacao de conta", ()=>{
         expect(statusCode).toEqual(400);
         expect(body.msg).toEqual("Invalid param:Email")
     })
+
+    it("esperado que o controlador retorne erro para password nao enviado",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "ErrorPassword",
+                name: "ErrorPassword", 
+                nasc: "ErrorPassword", 
+                typeaccont: "ErrorPassword", 
+                email: "ErrorPassword"
+            },
+            headers: {
+                password: "",
+                passwordConfirmation: "ErrorPassword", 
+                cpf: "ErrorPassword"
+            }
+        }
+        const {statusCode, body} = await sut.handle(request);
+        expect(statusCode).toEqual(400);
+        expect(body.msg).toEqual("Invalid param:Password")
+    })
+
+    it("esperado que o controlador retorne erro para passwordConfirmation nao enviado",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "ErrorPasswordConfirmation",
+                name: "ErrorPasswordConfirmation", 
+                nasc: "ErrorPasswordConfirmation", 
+                typeaccont: "ErrorPasswordConfirmation", 
+                email: "ErrorPasswordConfirmation"
+            },
+            headers: {
+                password: "ErrorPasswordConfirmation",
+                passwordConfirmation: "", 
+                cpf: "ErrorPasswordConfirmation"
+            }
+        }
+        const {statusCode, body} = await sut.handle(request);
+        expect(statusCode).toEqual(400);
+        expect(body.msg).toEqual("Invalid param:PasswordConfirmation")
+    })
+
 
 
 })
