@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "huscky": {
-    "pre-commit": "npm run test"
+    "pre-commit": "npm run prepare && run test"
   },
   "repository": {
     "type": "git",
