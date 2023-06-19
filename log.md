@@ -11,6 +11,9 @@
 - criado o helper de created.
 - criado o envio da resposta de conta criada com sucesso no controlador do createUser.
 - Criado o tratamento de erro 400 para username nao enviado no controlador CreateUseCase.
+- Criado o tratamento de erro 400 para name nao enviado no controlador CreateUseCase.
+
+
 ### Refatoracao 
 - mudado as importacoes de varios arquivos no controlador de criacao de usuario para um unico arquivo.
 

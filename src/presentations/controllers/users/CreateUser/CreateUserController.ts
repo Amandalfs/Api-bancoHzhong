@@ -14,6 +14,11 @@ export class CreateUserController implements HttpController{
                 throw new InvalidParams("Username");
             }
 
+            if(!name){
+                throw new InvalidParams("Name");
+            }
+
+
             const { user } = await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2, cpf});
             
             return Created(user);
