@@ -1,4 +1,4 @@
-import { HttpResponse } from "../protocols/http"
+import { HttpResponse } from './../protocols/http';
 
 export const ServerError = (): HttpResponse => {
     return {
@@ -24,6 +24,15 @@ export const Unauthorized = (params: any): HttpResponse => {
         statusCode: 401,
         body: {
             msg: params,
+        }
+    }
+}
+
+export const Created = (params): HttpResponse => {
+    return {
+        statusCode: 201,
+        body: {
+            msg: params
         }
     }
 }
