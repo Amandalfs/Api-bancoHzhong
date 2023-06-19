@@ -15,8 +15,10 @@
     "test:ui": "vitest --ui",
     "prepare": "husky install"
   },
-  "huscky": {
-    "pre-commit": "npm run prepare && run test"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test"
+    } 
   },
   "repository": {
     "type": "git",
