@@ -11,7 +11,7 @@ interface TypesSut {
 const makeSut = ():TypesSut =>{
     const useCaseSessionsMock = new class CreateUserUseCase implements ISessionsUsersUseCase {
         execute(data: DTORequestSessionsUseCase): Promise<DTOResponseSessionsUseCase> {
-            return new Promise(resolve => resolve({token: "jdibgvjgodfsbovudibospbpis"}))
+            return new Promise(resolve => resolve({token: "TokenValidoGerado"}))
         }
         
     }
@@ -108,6 +108,18 @@ describe("Testando o controllador de criar sessao", ()=>{
             username: "ValidUsername",
             password: "ValidPassword", 
         })
+    })
+
+    it("esperado que o controlador enviar a resposta de sucesso com o token",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "ValidUsername",
+                password: "ValidPassword", 
+            }
+        }
+        const { body} = await sut.handle(request);
+        expect(body.params.token).toEqual("TokenValidoGerado");
     })
 
 })
