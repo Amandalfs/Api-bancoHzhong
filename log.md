@@ -1,5 +1,11 @@
 # Log de Atualizacoes da api Hzhong
 
+
+## Versão 2.0.13 - 19/06/2023
+
+### Adicionado
+- Criado o primeiro contralador de createUseCase e adicionado o tratamento de erro desconhecido.
+
 ## Versão 2.0.12 - 16/06/2023
 
 ### Adicionado

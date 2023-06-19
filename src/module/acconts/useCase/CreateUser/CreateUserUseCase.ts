@@ -80,4 +80,4 @@ class CreateUserUseCase implements ICreateUserUseCase {
     }
 }
 
-export {CreateUserUseCase, ICreateUserUseCase};
+export {CreateUserUseCase, ICreateUserUseCase, ICreateUserRequestDTO, ICreateUserResponseDTO};
