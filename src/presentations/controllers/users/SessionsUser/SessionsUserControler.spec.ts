@@ -40,6 +40,19 @@ describe("Testando o controllador de criar sessao", ()=>{
         expect(response.body.msg).toEqual("Server Internal Error");
     })
 
+    it("esperado que receba o controller consiga tratar erros 400",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 400, message:"Bad Request"});
+        const request: HttpRequest = {
+            body: {
+                username: "Error400",
+                password: "Error400", 
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Bad Request");
+    })
  
 
 })
