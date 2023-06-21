@@ -2,19 +2,37 @@ import { IExtracsRepository, IUserRepository} from "./protocols"
 
 import { InvalidValueError, ResourceNotFoundError } from "./errors";
 
-export interface DTORequestDepositTransactionsUseCase {
-    deposit: number
-    id: number
+export class DTORequestDepositTransactionsUseCase {
+    public deposit: number
+    public id: number
+    constructor(deposit: number, id: number){
+        this.deposit = deposit;
+        this.id = id;
+    }
 }
 
-export interface DTOResponseDepositTransactionsUseCase {
-    extratoNew: {
-        id_user: number,
-        name: string,
-        tipo: string,
-        saldo: number,
-        data: string,
-        descricao: string,
+interface ExtractNew{
+    id_user: number
+    name: string
+    tipo: string
+    saldo: number
+    data: string
+    descricao: string
+}
+export class DTOResponseDepositTransactionsUseCase {
+    public id_user: number
+    public name: string
+    public tipo: string
+    public saldo: number
+    public data: string
+    public descricao: string
+    constructor({id_user, name, tipo, saldo, data, descricao}: ExtractNew){
+        this.id_user = id_user;
+        this.name = name;
+        this.tipo = tipo;
+        this.saldo = saldo;
+        this.data = data; 
+        this.descricao = descricao;
     }
 }
 
@@ -56,9 +74,7 @@ class DepositTransactionsUseCase implements IDepositTransactionsUseCase {
         await this.ExtractsRepository.createExtracts(extratoNew);
         await this.UserRepository.updateBalanceById(id, saldoNovo);
 
-        return {
-            extratoNew,
-        }
+        return new DTOResponseDepositTransactionsUseCase(extratoNew);
     }
 }
 
