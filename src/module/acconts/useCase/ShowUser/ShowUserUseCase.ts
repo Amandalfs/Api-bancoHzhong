@@ -1,19 +1,36 @@
 import { IExtracsRepository, IReponseExtracs, IUserRepository} from "./protocols"
 import { ResourceNotFoundError } from "./errors";
 
-export interface DTORequestShowUserUseCase {
-    id_user: number
+export class DTORequestShowUserUseCase {
+    public id_user: number
+    constructor(id_user){
+        this.id_user = id_user;
+    }
 }
 
-export interface DTOResponseShowUserUseCase {
-    userSend: {
+interface UserSend {
+    name: string;
+    username: string;
+    saldo: number;
+    typeaccont: string;
+    keypix: string;
+}
+
+type Extracts = IReponseExtracs[]
+
+export class DTOResponseShowUserUseCase {
+    public userSend: {
         name: string;
         username: string;
         saldo: number;
         typeaccont: string;
         keypix: string;
     };
-    extracts: IReponseExtracs[];
+    public extracts: IReponseExtracs[];
+    constructor(userSend: UserSend, extracts: Extracts){
+        this.userSend = userSend;
+        this.extracts = extracts
+    }
 }
 
 export interface IShowUserUseCase {
@@ -40,12 +57,7 @@ class ShowUserUseCase implements IShowUserUseCase{
 
         }
         const extracts = await this.ExtractRepository.SearchForMoreRecentExtractsById(id_user);
-        const joinData = {
-            userSend,
-            extracts
-        }
-
-        return joinData;
+        return new DTOResponseShowUserUseCase(userSend, extracts);
 
     }
 }
