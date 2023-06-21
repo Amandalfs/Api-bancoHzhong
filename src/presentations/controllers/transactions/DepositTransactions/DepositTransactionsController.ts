@@ -1,5 +1,5 @@
 import { DTORequestDepositTransactionsUseCase, IDepositTransactionsUseCase } from "../../../../module/transactions/useCase/DepositTransactions/DepositTransactionsUseCase";
-import { ServerError } from "../../../helpers";
+import { BadRequest, ServerError } from "../../../helpers";
 import { HttpController } from "../../../protocols/Controller";
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
 
@@ -14,7 +14,10 @@ export class DepositTransactionsController implements HttpController {
             await this.depositTransactionsUseCase.execute(input);
         } catch (error) {
             if(!error.statusCode){
-                return ServerError()
+                return ServerError();
+            }
+            if(error.statusCode === 400){
+                return BadRequest(error.message);
             }
         }
     }
