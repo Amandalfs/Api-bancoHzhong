@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryUsersRepository } from "../../../../../repositories/inMemory/InMemoryUsersRepository";
 import { InMemoryExtractsRepository } from "../../../../../repositories/inMemory/InMemoryExtractsRepository";
-import { DepositTransactionsUseCase } from "../DepositTransactionsUseCase";
+import { DTORequestDepositTransactionsUseCase, DepositTransactionsUseCase } from "../DepositTransactionsUseCase";
 import { hash } from 'bcrypt';
 
 import { InvalidValueError, ResourceNotFoundError } from "../errors";
@@ -34,8 +34,8 @@ describe("Testando o useCase DepositTransactions", ()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         });
-
-        await expect(sut.execute({deposit: -50, id:1})).rejects.toEqual(new InvalidValueError())
+        const input = new DTORequestDepositTransactionsUseCase(-50, 1);
+        await expect(sut.execute(input)).rejects.toEqual(new InvalidValueError())
     })
 
     it("Usuario deve conseguir depositar um valor valido na sua conta", async()=>{      
@@ -53,13 +53,14 @@ describe("Testando o useCase DepositTransactions", ()=>{
             "password": senhaCriptografada,
             "cpf": "12603863096"
         });
-
-        const response = await sut.execute({deposit: 15, id:1});
+        const input = new DTORequestDepositTransactionsUseCase(15, 1);
+        const response = await sut.execute(input);
         expect(response).toEqual(expect.any(Object));
-        expect(response.extratoNew.saldo).toEqual(15);
+        expect(response.saldo).toEqual(15);
     })
 
     it("Usuario nao encontrado", async ()=>{
-        await expect(sut.execute({deposit: -50, id:1})).rejects.toEqual(new ResourceNotFoundError())
+        const input = new DTORequestDepositTransactionsUseCase(-50, 1);
+        await expect(sut.execute(input)).rejects.toEqual(new ResourceNotFoundError())
     })
 })
