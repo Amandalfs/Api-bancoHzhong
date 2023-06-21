@@ -34,7 +34,7 @@ const makeSut = ():TypesSut =>{
     }
 }
 
-describe("Testando o controllador de criar sessao", ()=>{
+describe("Testando o controllador de monstrar dados do usuario", ()=>{
 
     it("esperado que receba o controller consiga tratar erros desconhecido",async ()=>{
         const { sut, useCase } = makeSut();
