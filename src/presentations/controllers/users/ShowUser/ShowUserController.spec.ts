@@ -19,7 +19,7 @@ const makeSut = ():TypesSut =>{
                 keypix: "null",
             },[{
                 tipo: "saque",
-                data: `${new Date}`,
+                data: `000000`,
                 descricao: "saque efetuado",
                 saldo: 500,
             }])))
@@ -42,7 +42,7 @@ describe("Testando o controllador de criar sessao", ()=>{
         vi.spyOn(useCase, "execute").mockRejectedValue(new Error);
         const request: HttpRequest = {
             user: {
-                id: 404,    
+                id: 500,    
             }
         }
         const response = await sut.handle(request);
@@ -76,5 +76,32 @@ describe("Testando o controllador de criar sessao", ()=>{
             id_user: 200
         })
     })
+
+    it("Mandar Status de sucesso e os dados do usuario que estiver ok",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            user: {
+                id: 200
+            }
+        }
+        const { body } = await sut.handle(request);
+        expect(body.params).toEqual({
+            userSend: {
+              name: 'test',
+              username: 'test01',
+              saldo: 200,
+              typeaccont: 'poupanca',
+              keypix: 'null'
+            },
+            extracts: [
+              {
+                tipo: 'saque',
+                data: '000000',
+                descricao: 'saque efetuado',
+                saldo: 500
+              }
+            ]
+          })
+        })
 
 })
