@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { HttpRequest } from './../../../protocols/http'
-import { IShowUserUseCase,DTORequestShowUserUseCase, DTOResponseShowUserUseCase } from "../../../../module/acconts/useCase/ShowUser/ShowUserUseCase"
+import { HttpRequest, DTORequestShowUserUseCase, IShowUserUseCase, DTOResponseShowUserUseCase } from "./ShowUserControllersProtocols";
 import { ShowUserController } from "./ShowUserController";
 
 interface TypesSut {
