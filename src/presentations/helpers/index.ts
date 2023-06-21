@@ -28,7 +28,16 @@ export const Unauthorized = (params: any): HttpResponse => {
     }
 }
 
-export const Created = (params): HttpResponse => {
+export const NotFound = (params: any): HttpResponse =>{
+    return {
+        statusCode: 404,
+        body: {
+            msg: params
+        }
+    }
+}
+
+export const Created = (params: any): HttpResponse => {
     return {
         statusCode: 201,
         body: {
@@ -37,7 +46,7 @@ export const Created = (params): HttpResponse => {
     }
 }
 
-export const Success = (params): HttpResponse => {
+export const Success = (params: any): HttpResponse => {
     return {
         statusCode: 200,
         body: {
