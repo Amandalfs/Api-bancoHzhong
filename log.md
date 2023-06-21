@@ -5,9 +5,12 @@
 
 ### Adicionado
 - Criado o controlador independente de ShowUser e criado o tratamento de erros desconhecidos.
+- Criado o tratamento de erro 404 no controlador ShowUser.
+- Criado o protocolo do Not Found no helpers de protocols.
 
 ### Refatoracao
 - Melhorado os DTOs do useCaseSessions, agora o useCase recebe e  envia um novo objeto criado no formado DTOs. 
+- Mudado a tipagem do user adicionando uma propriedade id do tipo number para a ide pegar melhor os valores.
 
 <br>
 <br>
