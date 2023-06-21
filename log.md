@@ -9,6 +9,8 @@
 - Criado o protocolo do Not Found no helpers de protocols.
 - Criado o protocolo do Forbidden no helpers de protocols.
 - garantindo que o controlador do ShowUser esta enviado os dados corretos.
+- garantindo que o controlador do ShowUser esta enviado os status 200 com os dados certos.
+
 
 ### Refatoracao
 - Melhorado os DTOs do useCaseSessions, agora o useCase recebe e  envia um novo objeto criado no formado DTOs. 
