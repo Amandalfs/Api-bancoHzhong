@@ -41,6 +41,9 @@ describe("Testando o controllador de criar sessao", ()=>{
         const { sut, useCase } = makeSut();
         vi.spyOn(useCase, "execute").mockRejectedValue(new Error);
         const request: HttpRequest = {
+            user: {
+                id: 404,    
+            },
             body: {
                 username: "Error500",
                 password: "Error500", 
@@ -51,21 +54,22 @@ describe("Testando o controllador de criar sessao", ()=>{
         expect(response.body.msg).toEqual("Server Internal Error");
     })
  
-    // it("esperado que o controlador envie os dados corretos para o useCase",async ()=>{
-    //     const { sut, useCase } = makeSut();
-    //     const useCaseSpy = vi.spyOn(useCase, "execute").mock.calls
-    //     const request: HttpRequest = {
-    //         body: {
-    //             username: "ValidUsername",
-    //             password: "ValidPassword", 
-    //         }
-    //     }
-    //     await sut.handle(request);
-    //     expect(useCaseSpy[0][0]).toEqual({
-    //         username: "ValidUsername",
-    //         password: "ValidPassword", 
-    //     })
-    // })
+    it("esperado que receba o controller consiga tratar erros 404",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 404, message: "Not Found"});
+        const request: HttpRequest = {
+            user: {
+                id: 404,    
+            },
+            body: {
+                username: "Error404",
+                password: "Error404", 
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(404);
+        expect(response.body.msg).toEqual("Not Found");
+    })
 
     // it("esperado que o controlador enviar a resposta de sucesso com o token",async ()=>{
     //     const { sut } = makeSut();
