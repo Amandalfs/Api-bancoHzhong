@@ -13,6 +13,7 @@
 - Criado o controlador independente DepositTransactions e criado o tratamento de erros desconhecidos.
 - Criado o tratamento de erro 400 no controlador DepositTransactions.
 - Criado o tratamento de erro 404 no controlador DepositTransactions.
+- garantindo que o controlador do DepositTransactions esta enviado os dados corretos.
 
 
 
