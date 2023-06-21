@@ -12,6 +12,7 @@
 - garantindo que o controlador do ShowUser esta enviado os status 200 com os dados certos.
 - Criado o controlador independente DepositTransactions e criado o tratamento de erros desconhecidos.
 - Criado o tratamento de erro 400 no controlador DepositTransactions.
+- Criado o tratamento de erro 404 no controlador DepositTransactions.
 
 
 
