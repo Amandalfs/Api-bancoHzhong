@@ -43,10 +43,6 @@ describe("Testando o controllador de criar sessao", ()=>{
         const request: HttpRequest = {
             user: {
                 id: 404,    
-            },
-            body: {
-                username: "Error500",
-                password: "Error500", 
             }
         }
         const response = await sut.handle(request);
@@ -60,10 +56,6 @@ describe("Testando o controllador de criar sessao", ()=>{
         const request: HttpRequest = {
             user: {
                 id: 404,    
-            },
-            body: {
-                username: "Error404",
-                password: "Error404", 
             }
         }
         const response = await sut.handle(request);
@@ -71,16 +63,18 @@ describe("Testando o controllador de criar sessao", ()=>{
         expect(response.body.msg).toEqual("Not Found");
     })
 
-    // it("esperado que o controlador enviar a resposta de sucesso com o token",async ()=>{
-    //     const { sut } = makeSut();
-    //     const request: HttpRequest = {
-    //         body: {
-    //             username: "ValidUsername",
-    //             password: "ValidPassword", 
-    //         }
-    //     }
-    //     const { body} = await sut.handle(request);
-    //     expect(body.params.token).toEqual("TokenValidoGerado");
-    // })
+    it("esperado que o controlador consiga enviar os dados corretos no useCase",async ()=>{
+        const { sut, useCase } = makeSut();
+        const useCaseSpy = vi.spyOn(useCase, "execute").mock.calls
+        const request: HttpRequest = {
+            user: {
+                id: 200,    
+            }
+        }
+        await sut.handle(request);
+        expect(useCaseSpy[0][0]).toEqual({
+            id_user: 200
+        })
+    })
 
 })
