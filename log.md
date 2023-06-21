@@ -15,6 +15,7 @@
 ### Refatoracao
 - Melhorado os DTOs do useCaseSessions, agora o useCase recebe e  envia um novo objeto criado no formado DTOs. 
 - Mudado a tipagem do user adicionando uma propriedade id do tipo number para a ide pegar melhor os valores.
+- substituido todas as importações de protocolos dos arquivos para um único arquivos chamado ShowUserControllerProtocols.
 
 <br>
 <br>

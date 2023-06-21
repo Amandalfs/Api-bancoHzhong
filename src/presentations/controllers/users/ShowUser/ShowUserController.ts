@@ -1,6 +1,8 @@
-import { DTORequestShowUserUseCase, IShowUserUseCase } from "../../../../module/acconts/useCase/ShowUser/ShowUserUseCase";
-import { NotAuthorizationError } from "../../../../utils/errors/NotAuthorizationError";
-import { HttpController, HttpRequest, HttpResponse, NotFound, ServerError, Success, Unauthorized } from "../CreateUser/CreateUserControllerProtocols";
+import { 
+    HttpController, HttpRequest, HttpResponse, 
+    NotFound, ServerError, Success,
+    DTORequestShowUserUseCase, IShowUserUseCase
+} from "./ShowUserControllersProtocols";
 
 export class ShowUserController implements HttpController {
     constructor(private useCaseShowUser: IShowUserUseCase){}
