@@ -1,5 +1,5 @@
 
-import { HttpController, HttpRequest, HttpResponse, BadRequest, ServerError, Unauthorized, ICreateUserUseCase, Created } from './CreateUserControllerProtocols';
+import { HttpController, HttpRequest, HttpResponse, BadRequest, ServerError, Unauthorized, ICreateUserUseCase, Created, ICreateUserRequestDTO } from './CreateUserControllerProtocols';
 import { InvalidParams } from '../../errors/InvalidParams';
 
 export class CreateUserController implements HttpController{
@@ -26,7 +26,7 @@ export class CreateUserController implements HttpController{
                 if(!item.param){
                     throw new InvalidParams(item.error);
                 }
-            })
+            })   
             
             const { user } = await this.CreateUserUseCase.execute({username, name, nasc, typeaccont, email,  password, password2: passwordConfirmation, cpf});
             

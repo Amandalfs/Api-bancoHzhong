@@ -1,6 +1,18 @@
 # Log de Atualizacoes da api Hzhong
 
 
+## Versão 2.0.14 - 21/06/2023
+
+### Adicionado
+- Criado o controlador independente de ShowUser e criado o tratamento de erros desconhecidos.
+
+### Refatoracao
+- Melhorado os DTOs do useCaseSessions, agora o useCase recebe e  envia um novo objeto criado no formado DTOs. 
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.13 - 19/06/2023
 
 ### Adicionado
