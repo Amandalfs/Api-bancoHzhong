@@ -87,9 +87,8 @@ describe("Testando o controllador de Deposito", ()=>{
         expect(response.body.msg).toEqual("Not Found");
     })
 
-    it("esperado que receba o controller consiga enviar os dados certos para o useCase",async ()=>{
-        const { sut, useCase } = makeSut();
-        const useCaseSpy = vi.spyOn(useCase, "execute").mock.calls;
+    it("esperado que receba o controller mandar os status de 200 e os dados corretos para usuario se tudo estiver ok",async ()=>{
+        const { sut } = makeSut();
         const request: HttpRequest = {
             user: {
                 id: 1,    
@@ -98,9 +97,17 @@ describe("Testando o controllador de Deposito", ()=>{
                 deposit: 50
             }
         }
-        await sut.handle(request);
-        const input = new DTORequestDepositTransactionsUseCase(1, 50);
-        expect(useCaseSpy[0][0]).toEqual(input);
+        const { body, statusCode } = await sut.handle(request);
+        const output = new DTOResponseDepositTransactionsUseCase({
+            id_user: 1,
+            name: "TEST",
+            tipo: "Test",
+            saldo: 50,
+            data: "00000",
+            descricao: "Test",
+        })
+        expect(statusCode).toEqual(200);
+        expect(body.params).toEqual(output);
     })
 
 })
