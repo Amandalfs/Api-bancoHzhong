@@ -4,12 +4,13 @@
 ## Versão 2.0.14 - 21/06/2023
 
 ### Adicionado
-- Criado o controlador independente de ShowUser e criado o tratamento de erros desconhecidos.
+- Criado o controlador independente ShowUser e criado o tratamento de erros desconhecidos.
 - Criado o tratamento de erro 404 no controlador ShowUser.
 - Criado o protocolo do Not Found no helpers de protocols.
 - Criado o protocolo do Forbidden no helpers de protocols.
 - garantindo que o controlador do ShowUser esta enviado os dados corretos.
 - garantindo que o controlador do ShowUser esta enviado os status 200 com os dados certos.
+- Criado o controlador independente DepositTransactions e criado o tratamento de erros desconhecidos.
 
 
 ### Refatoracao
@@ -17,6 +18,9 @@
 - Mudado a tipagem do user adicionando uma propriedade id do tipo number para a ide pegar melhor os valores.
 - substituido todas as importações de protocolos dos arquivos para um único arquivos chamado ShowUserControllerProtocols.
 - Substituido as interfaces DTOs do useCase DepositTransactions para classes DTOs.
+
+### Corrigido
+- Arrrumado o nome da descricao do teste do controlador de amostra dos dados do usuario.
 
 <br>
 <br>
