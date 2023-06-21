@@ -37,6 +37,15 @@ export const NotFound = (params: any): HttpResponse =>{
     }
 }
 
+export const Forbidden = (params: any): HttpResponse => {
+    return {
+        statusCode: 403,
+        body: {
+            msg: params
+        }
+    }
+}
+
 export const Created = (params: any): HttpResponse => {
     return {
         statusCode: 201,
@@ -54,3 +63,4 @@ export const Success = (params: any): HttpResponse => {
         }
     }
 }
+

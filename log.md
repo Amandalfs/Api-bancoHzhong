@@ -7,6 +7,7 @@
 - Criado o controlador independente de ShowUser e criado o tratamento de erros desconhecidos.
 - Criado o tratamento de erro 404 no controlador ShowUser.
 - Criado o protocolo do Not Found no helpers de protocols.
+- Criado o protocolo do Forbidden no helpers de protocols.
 - garantindo que o controlador do ShowUser esta enviado os dados corretos.
 
 ### Refatoracao
