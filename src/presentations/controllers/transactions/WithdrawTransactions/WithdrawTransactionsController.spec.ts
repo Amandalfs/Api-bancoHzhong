@@ -99,7 +99,7 @@ describe("Testando o controllador de saque", ()=>{
     })
 
     it("esperado que receba o controller retorne um erro se nao mandar o valor do saque",async ()=>{
-        const { sut, useCase } = makeSut();
+        const { sut } = makeSut();
         const request: HttpRequest = {
             user: {
                 id: 404,    
@@ -113,6 +113,20 @@ describe("Testando o controllador de saque", ()=>{
         expect(response.body.msg).toEqual("Invalid param:withdraw");
     })
 
+    it("esperado que receba o controller consiga enviar os dados corretos para o useCase",async ()=>{
+        const { sut, useCase } = makeSut();
+        const useCaseSpy = vi.spyOn(useCase, "execute").mock.calls
+        const request: HttpRequest = {
+            user: {
+                id: 200,    
+            },
+            body: {
+                withdraw: 50
+            }
+        }
+        await sut.handle(request);
+        expect(useCaseSpy[0][0]).toEqual({ valueWithdraw: 50, id: 200})
+    })
 
 
 })
