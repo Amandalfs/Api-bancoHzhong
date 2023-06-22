@@ -2,7 +2,7 @@
 import { DTORequestWithdrawTransctionsUseCase, IWithdrawTransctionsUseCase } from '../../../../module/transactions/useCase/WithdrawTransactions/WithdrawTransactionsUseCase';
 import { HttpRequest, HttpResponse } from '../../../protocols/http';
 import { HttpController } from './../../../protocols/Controller';
-import { BadRequest, NotFound, ServerError, Unauthorized } from './../../../helpers';
+import { BadRequest, NotFound, ServerError, Success, Unauthorized } from './../../../helpers';
 import { InvalidParams } from '../../errors/InvalidParams';
 
 export class WithdrawTransactionsController implements HttpController {
@@ -19,7 +19,7 @@ export class WithdrawTransactionsController implements HttpController {
 
             const input = new DTORequestWithdrawTransctionsUseCase(withdraw, id);
             const output = await this.withdrawTransctionsUseCase.execute(input);
-
+            return Success(output);
         } catch (error) {
             if(!error.statusCode){
                 return ServerError();

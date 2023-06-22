@@ -9,6 +9,7 @@
 - Criado o tratamento de erro 404 no controlador WithdrawTransactions.
 - Criado o teste para ver que o usuario deixou de enviar os parametros no controlador WithdrawTransactions.
 - Criado o teste para ver que o controlador WithdrawTransctions esta enviando os dados corretos para o useCase.
+- Criado a resposta de status 200 e o envio dos dados que o useCase envia para o WithdrawTransactionsController.
 
 ### Refatoracao
 - trocado a importacao de varios arquivos para um unico no controlador de Deposit Transactions.
