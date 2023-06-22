@@ -2,19 +2,28 @@ import { IExtracsRepository, IUserRepository} from "./protocols"
 
 import {BalanceInsuficientError,InvalidValueError,LimitDayError,LimitError,ResourceNotFoundError} from "./errors"
 
-export interface DTORequestWithdrawTransctionsUseCase {
-    valueWithdraw: number
-    id: number
+export class DTORequestWithdrawTransctionsUseCase {
+    public valueWithdraw: number
+    public id: number
+    constructor(valueWithdraw: number, id:number){
+        this.valueWithdraw = valueWithdraw;
+        this.id = id;
+    }
 }
 
-export interface DTOResponseWithdrawTransctionsUseCase {
-    extratoNew: {
-        id_user: number,
-        name: string,
-        tipo: string,
-        saldo: number,
-        data: string,
-        descricao: string,
+interface ExtractNew {
+    id_user: number,
+    name: string,
+    tipo: string,
+    saldo: number,
+    data: string,
+    descricao: string,
+}
+
+export class DTOResponseWithdrawTransctionsUseCase {
+    public extratoNew: ExtractNew
+    constructor(extractNew: ExtractNew){
+        this.extratoNew = extractNew;
     }
 }
 
@@ -63,9 +72,9 @@ class WithdrawTransactionsUseCase implements IWithdrawTransctionsUseCase{
             }
             
             const data = `${new Date()}`;
-            const tipo = "Saque";
+            const type = "Saque";
 
-            const totalDiario = await this.ExtractsRepository.CountByWithdraw({dateStart: data, dateEnd: data, UserId:user.id})
+            const dailyTotal = await this.ExtractsRepository.CountByWithdraw({dateStart: data, dateEnd: data, UserId:user.id})
 
             const limitsDay = [
                 {
@@ -83,30 +92,28 @@ class WithdrawTransactionsUseCase implements IWithdrawTransctionsUseCase{
             ]
 
             for (const limitDay of limitsDay) {
-                if(user.typeaccont === limitDay.type && totalDiario+valueWithdraw > limitDay.value){
+                if(user.typeaccont === limitDay.type && dailyTotal+valueWithdraw > limitDay.value){
                     throw new LimitDayError(limitDay.value, limitDay.type);
                 }
             }
 
-            const saldoNovo = user.saldo - valueWithdraw;
+            const balanceNew = user.saldo - valueWithdraw;
 
             const desc = `Voce sacou R$${valueWithdraw.toFixed(2).replace('.',',')}`
 
-            const extratoNew = {
+            const extractNew = {
                 id_user: id,
                 name: user.name,
-                tipo: tipo,
+                tipo: type,
                 saldo: valueWithdraw,
                 data: data,
                 descricao: desc,
             }
 
-            await this.ExtractsRepository.createExtracts(extratoNew);
-            await this.UserRepository.updateBalanceById(id, saldoNovo);
+            await this.ExtractsRepository.createExtracts(extractNew);
+            await this.UserRepository.updateBalanceById(id, balanceNew);
 
-            return {
-                extratoNew,
-            }
+            return new DTOResponseWithdrawTransctionsUseCase(extractNew);
 
     }
 }

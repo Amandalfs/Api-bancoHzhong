@@ -4,7 +4,7 @@
 
 ### Refatoracao
 - trocado a importacao de varios arquivos para um unico no controlador de Deposit Transactions.
-
+- Substituido as interfaces DTOs do useCase WithdrawTransactions para classes DTOs.
 <br>
 <br>
 <br>
