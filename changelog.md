@@ -1,10 +1,14 @@
 # Changelog de Atualizacoes da api Hzhong
 
+## Versão 2.0.15 - 22/06/2023
 
+### Adicionado
+- Criado o controlador independente WithdrawTransactions e criado o tratamento de erros desconhecidos.
 
 ### Refatoracao
 - trocado a importacao de varios arquivos para um unico no controlador de Deposit Transactions.
 - Substituido as interfaces DTOs do useCase WithdrawTransactions para classes DTOs.
+
 <br>
 <br>
 <br>

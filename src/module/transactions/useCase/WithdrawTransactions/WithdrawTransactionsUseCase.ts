@@ -34,7 +34,7 @@ export interface IWithdrawTransctionsUseCase {
 class WithdrawTransactionsUseCase implements IWithdrawTransctionsUseCase{
     constructor(private UserRepository:IUserRepository, private ExtractsRepository:IExtracsRepository){}
 
-    async execute({valueWithdraw, id}){
+    async execute({valueWithdraw, id}: DTORequestWithdrawTransctionsUseCase){
 
             const user = await this.UserRepository.findUserById(id);
             
