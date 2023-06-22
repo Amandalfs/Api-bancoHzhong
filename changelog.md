@@ -6,6 +6,7 @@
 - Criado o controlador independente WithdrawTransactions e criado o tratamento de erros desconhecidos.
 - Criado o tratamento de erro 400 no controlador WithdrawTransactions.
 - Criado o tratamento de erro 401 no controlador WithdrawTransactions.
+- Criado o tratamento de erro 404 no controlador WithdrawTransactions.
 
 
 ### Refatoracao
