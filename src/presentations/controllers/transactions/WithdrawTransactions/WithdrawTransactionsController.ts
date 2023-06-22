@@ -2,7 +2,7 @@
 import { DTORequestWithdrawTransctionsUseCase, IWithdrawTransctionsUseCase } from '../../../../module/transactions/useCase/WithdrawTransactions/WithdrawTransactionsUseCase';
 import { HttpRequest, HttpResponse } from '../../../protocols/http';
 import { HttpController } from './../../../protocols/Controller';
-import { BadRequest, ServerError } from './../../../helpers';
+import { BadRequest, ServerError, Unauthorized } from './../../../helpers';
 
 export class WithdrawTransactionsController implements HttpController {
     constructor(private withdrawTransctionsUseCase: IWithdrawTransctionsUseCase){}
@@ -22,6 +22,10 @@ export class WithdrawTransactionsController implements HttpController {
 
             if(error.statusCode === 400){
                 return BadRequest(error.message);
+            }
+
+            if(error.statusCode === 401){
+                return Unauthorized(error.message);
             }
         }
     }
