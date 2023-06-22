@@ -7,6 +7,7 @@
 - Criado o tratamento de erro 400 no controlador WithdrawTransactions.
 - Criado o tratamento de erro 401 no controlador WithdrawTransactions.
 - Criado o tratamento de erro 404 no controlador WithdrawTransactions.
+- Criado o teste para ver que o usuario deixou de enviar os parametros no controlador WithdrawTransactions.
 
 
 ### Refatoracao

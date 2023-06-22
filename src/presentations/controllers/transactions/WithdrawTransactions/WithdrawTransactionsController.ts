@@ -3,14 +3,19 @@ import { DTORequestWithdrawTransctionsUseCase, IWithdrawTransctionsUseCase } fro
 import { HttpRequest, HttpResponse } from '../../../protocols/http';
 import { HttpController } from './../../../protocols/Controller';
 import { BadRequest, NotFound, ServerError, Unauthorized } from './../../../helpers';
+import { InvalidParams } from '../../errors/InvalidParams';
 
 export class WithdrawTransactionsController implements HttpController {
     constructor(private withdrawTransctionsUseCase: IWithdrawTransctionsUseCase){}
 
     async handle(req: HttpRequest): Promise<HttpResponse> {
         try {
-            const { withdraw } = req.body;
             const { id } = req.user;
+            const { withdraw } = req.body;
+
+            if(!withdraw){
+                throw new InvalidParams("withdraw")
+            }
 
             const input = new DTORequestWithdrawTransctionsUseCase(withdraw, id);
             const output = await this.withdrawTransctionsUseCase.execute(input);
