@@ -1,9 +1,8 @@
-
-import { DTORequestWithdrawTransctionsUseCase, IWithdrawTransctionsUseCase } from '../../../../module/transactions/useCase/WithdrawTransactions/WithdrawTransactionsUseCase';
-import { HttpRequest, HttpResponse } from '../../../protocols/http';
-import { HttpController } from './../../../protocols/Controller';
-import { BadRequest, NotFound, ServerError, Success, Unauthorized } from './../../../helpers';
-import { InvalidParams } from '../../errors/InvalidParams';
+import { DTORequestWithdrawTransctionsUseCase, IWithdrawTransctionsUseCase,
+        HttpRequest, HttpResponse, HttpController,
+        BadRequest, NotFound, ServerError, Success, 
+        Unauthorized,  InvalidParams
+} from './WithdrawTransactionsControllerProtocols';
 
 export class WithdrawTransactionsController implements HttpController {
     constructor(private withdrawTransctionsUseCase: IWithdrawTransctionsUseCase){}
