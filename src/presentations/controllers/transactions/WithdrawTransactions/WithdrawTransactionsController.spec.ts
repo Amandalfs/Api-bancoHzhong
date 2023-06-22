@@ -128,5 +128,27 @@ describe("Testando o controllador de saque", ()=>{
         expect(useCaseSpy[0][0]).toEqual({ valueWithdraw: 50, id: 200})
     })
 
+    it("esperado que receba o controller consiga enviar os status 200 e os dados do useCase caso de tudo certo",async ()=>{
+        const { sut, useCase } = makeSut();
+        const request: HttpRequest = {
+            user: {
+                id: 200,    
+            },
+            body: {
+                withdraw: 50
+            }
+        }
+        const { body, statusCode } = await sut.handle(request);
+        expect(statusCode).toEqual(200);
+        const expected = new DTOResponseWithdrawTransctionsUseCase({
+            data:  "00000",
+            descricao: "testes",
+            id_user: 1,
+            name: "testes",
+            saldo: 50,
+            tipo: "teste",
+        });
+        expect(body.params).toEqual(expected);
+    })
 
 })
