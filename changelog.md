@@ -1,6 +1,15 @@
 # Changelog de Atualizacoes da api Hzhong
 
 
+
+### Refatoracao
+- trocado a importacao de varios arquivos para um unico no controlador de Deposit Transactions.
+
+<br>
+<br>
+<br>
+
+
 ## Versão 2.0.14 - 21/06/2023
 
 ### Adicionado

@@ -1,7 +1,7 @@
-import { DTORequestDepositTransactionsUseCase, IDepositTransactionsUseCase } from "../../../../module/transactions/useCase/DepositTransactions/DepositTransactionsUseCase";
-import { BadRequest, NotFound, ServerError, Success } from "../../../helpers";
-import { HttpController } from "../../../protocols/Controller";
-import { HttpRequest, HttpResponse } from "../../../protocols/http";
+import { HttpRequest, HttpResponse, HttpController,
+    BadRequest, NotFound, ServerError, Success,
+    DTORequestDepositTransactionsUseCase, IDepositTransactionsUseCase
+} from "./DepositTransactionsControllerProtocols";
 
 export class DepositTransactionsController implements HttpController {
     constructor(private depositTransactionsUseCase: IDepositTransactionsUseCase){}
