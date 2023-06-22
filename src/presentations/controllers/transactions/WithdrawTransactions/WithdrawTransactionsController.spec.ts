@@ -49,5 +49,20 @@ describe("Testando o controllador de saque", ()=>{
         expect(response.body.msg).toEqual("Server Internal Error");
     })
 
+    it("esperado que receba o controller consiga tratar erros desconhecido",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 400, message: "Bad Request"});
+        const request: HttpRequest = {
+            user: {
+                id: 400,    
+            },
+            body: {
+                withdraw: 400
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Bad Request");
+    })
 
 })
