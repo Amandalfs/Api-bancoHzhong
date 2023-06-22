@@ -98,5 +98,21 @@ describe("Testando o controllador de saque", ()=>{
         expect(response.body.msg).toEqual("Not Found");
     })
 
+    it("esperado que receba o controller retorne um erro se nao mandar o valor do saque",async ()=>{
+        const { sut, useCase } = makeSut();
+        const request: HttpRequest = {
+            user: {
+                id: 404,    
+            },
+            body: {
+                
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Invalid param:withdraw");
+    })
+
+
 
 })
