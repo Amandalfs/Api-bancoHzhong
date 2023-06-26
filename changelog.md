@@ -22,6 +22,8 @@ SendingMoneyTransactionsController.
 - Criado o teste para ver que o controlador ExtractsByDateTransctions esta enviando os dados corretos para o useCase.
 - criado o retorno de sintaxe invalida caso o usuario nao mande a dateStart no query no extractsByDateTransactions controller.
 - criado o retorno de sintaxe invalida caso o usuario nao mande a dateEnd no query no extractsByDateTransactions controller.
+- Criado a resposta de status 200 e o envio dos dados que o useCase envia para
+ExtractsByDateTransactionsController.
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.

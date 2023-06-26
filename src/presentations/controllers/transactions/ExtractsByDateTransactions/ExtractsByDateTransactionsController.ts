@@ -1,7 +1,7 @@
 import { DTORequestExtractsByDateUseCase, IExtractsByDateUseCase } from "../../../../module/transactions/useCase/ExtractsByData/ExtractsByDataUseCase";
 import { HttpController } from "../../../protocols/Controller"
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
-import { BadRequest, NotFound, ServerError, Unauthorized } from "../../../helpers";
+import { BadRequest, NotFound, ServerError, Success, Unauthorized } from "../../../helpers";
 import { InvalidParams } from "../../errors/InvalidParams";
 
 export class ExtractsByDateTransactionsController implements HttpController {
@@ -22,7 +22,9 @@ export class ExtractsByDateTransactionsController implements HttpController {
             }
 
             const input = new DTORequestExtractsByDateUseCase(id, dateStart, dateEnd);
-            await this.extractsByDateUseCase.execute(input);
+            const output = await this.extractsByDateUseCase.execute(input);
+
+            return Success(output);
 
         } catch (error) {
             if(!error.statusCode){
