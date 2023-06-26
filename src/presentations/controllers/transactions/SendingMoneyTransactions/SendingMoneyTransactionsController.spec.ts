@@ -166,4 +166,39 @@ describe("Testando o controllador de envio de dinheiro", ()=>{
         expect(response.statusCode).toEqual(400);
         expect(response.body.msg).toEqual("Invalid param:value");
     })
+
+    it("esperado que o controlador envie o status de sucesso caso o useCase processe tudo certo",async ()=>{
+        const send = {
+            id_user: 1,
+            name: "Test 01",
+            tipo: "envio",
+            saldo: 50,
+            data: `00000`,
+            descricao: `Voce transferiu R$50`,
+        }
+
+        const receive = {
+                id_user: 2,
+                name: "Test 02",
+                tipo: "recebido",
+                saldo: 50,
+                data: `00000`,
+                descricao: `Voce recebeu R$50`,
+        }
+        
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            user: {
+                id: 1,    
+            },
+            body: {
+                keypix: "valid",
+                value: 50,
+            }
+        }
+
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.params).toEqual(new DTOResponseSendingMoneyUseCase(send, receive));
+    })
 })
