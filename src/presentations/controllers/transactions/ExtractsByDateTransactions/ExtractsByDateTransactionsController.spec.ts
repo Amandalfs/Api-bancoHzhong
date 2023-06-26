@@ -32,7 +32,7 @@ const makeSut = ():TypesSut =>{
 }
 
 describe("Testando o controllador de extratos", ()=>{
-    it("esperado que receba o controller consiga tratar erros desconhecido",async ()=>{
+    it("esperado que o controller consiga tratar erros desconhecido",async ()=>{
         const { sut, useCase } = makeSut();
         vi.spyOn(useCase, "execute").mockRejectedValue(new Error);
         const request: HttpRequest = {
@@ -49,7 +49,7 @@ describe("Testando o controllador de extratos", ()=>{
         expect(response.body.msg).toEqual("Server Internal Error");
     })
 
-    it("esperado que receba o controller consiga tratar erros 400",async ()=>{
+    it("esperado que o controller consiga tratar erros 400",async ()=>{
         const { sut, useCase } = makeSut();
         vi.spyOn(useCase, "execute").mockRejectedValue({ statusCode: 400, message: "Bad Request"});
         const request: HttpRequest = {
@@ -66,7 +66,7 @@ describe("Testando o controllador de extratos", ()=>{
         expect(response.body.msg).toEqual("Bad Request");
     })
 
-    it("esperado que receba o controller consiga tratar erros 401",async ()=>{
+    it("esperado que o controller consiga tratar erros 401",async ()=>{
         const { sut, useCase } = makeSut();
         vi.spyOn(useCase, "execute").mockRejectedValue({ statusCode: 401, message: "Unauthorized"});
         const request: HttpRequest = {
@@ -83,7 +83,7 @@ describe("Testando o controllador de extratos", ()=>{
         expect(response.body.msg).toEqual("Unauthorized");
     })
 
-    it("esperado que receba o controller consiga tratar erros 404",async ()=>{
+    it("esperado que o controller consiga tratar erros 404",async ()=>{
         const { sut, useCase } = makeSut();
         vi.spyOn(useCase, "execute").mockRejectedValue({ statusCode: 404, message: "Not Found"});
         const request: HttpRequest = {
@@ -118,5 +118,22 @@ describe("Testando o controllador de extratos", ()=>{
             dateStart: "valid",
             dateEnd: "valid",
         })
+    })
+
+    it("esperado que o contralador envie erro que sintaxe invalida se o usuario nao passar a data inicial",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mock.calls;
+        const request: HttpRequest = {
+            user: {
+                id: 1,    
+            },
+            query: {
+                dateEnd: "invalid"
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Invalid param:DateStart");
+    
     })
 })
