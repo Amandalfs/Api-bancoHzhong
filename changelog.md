@@ -6,15 +6,18 @@
 
 ### Adicionado
 - Criado o controlador independente SendingMoneyTransactions e criado o tratamento de erros desconhecidos.
-
-### Refatoracao
-- Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
 - Criado o tratamento de erro 400 no controlador sendingMoneyTransactions.
 - Criado o tratamento de erro 401 no controlador sendingMoneyTransactions.
 - Criado o tratamento de erro 404 no controlador sendingMoneyTransactions.
 - Criado o teste para ver que o controlador SendigMoneyTransctions esta enviando os dados corretos para o useCase.
 - criado o retorno de sintaxe invalida caso o usuario nao mande a keypix no body no sendingMoneyTransactions.
-- criado o retorno de sintaxe invalida caso o usuario nao mande o valor no body no sendingMoneyTransactions.
+- criado o retorno de sintaxe invalida caso o usuario nao mande o valor no body no sendingMoneyTransactions. 
+- Criado a resposta de status 200 e o envio dos dados que o useCase envia para
+SendingMoneyTransactionsController.
+
+### Refatoracao
+- Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
+
 
 <br>
 <br>
