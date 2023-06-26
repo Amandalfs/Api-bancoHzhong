@@ -153,4 +153,27 @@ describe("Testando o controllador de extratos", ()=>{
         expect(response.body.msg).toEqual("Invalid param:DateEnd");
     
     })
+
+    it("esperado que o contralador envie os status de 200 que tudo estiver certo",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mock.calls;
+        const request: HttpRequest = {
+            user: {
+                id: 1,    
+            },
+            query: {
+                dateStart: "valid",
+                dateEnd: "valid"
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.params.extracts).toEqual([{
+            tipo: "envio",
+            saldo: 50,
+            data: '0000',
+            descricao: "test",
+        }]);
+    
+    })
 })
