@@ -15,6 +15,7 @@
 - Criado a resposta de status 200 e o envio dos dados que o useCase envia para
 SendingMoneyTransactionsController.
 - Adicionado a propriedade query no protocolo http de requisicao. 
+- Criado o controlador independente ExtractsByDateTransactions e criado o tratamento de erros desconhecidos.
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
