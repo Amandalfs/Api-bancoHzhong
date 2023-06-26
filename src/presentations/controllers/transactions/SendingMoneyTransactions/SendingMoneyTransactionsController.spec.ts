@@ -96,4 +96,22 @@ describe("Testando o controllador de envio de dinheiro", ()=>{
         expect(response.statusCode).toEqual(401);
         expect(response.body.msg).toEqual("Unauthorized");
     })
+
+    
+    it("esperado que receba o controller consiga tratar erros 404",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({ statusCode: 404, message: "Not Found"});
+        const request: HttpRequest = {
+            user: {
+                id: 404,    
+            },
+            body: {
+                keypix: "401",
+                value: 404
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(404);
+        expect(response.body.msg).toEqual("Not Found");
+    })
 })
