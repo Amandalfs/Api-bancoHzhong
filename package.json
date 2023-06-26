@@ -1,6 +1,6 @@
 {
-  "name": "crud-bancohzhong",
-  "version": "2.0.15",
+  "name": "api-bancohzhong",
+  "version": "2.0.16",
   "description": "",
   "main": "index.js",
   "scripts": {

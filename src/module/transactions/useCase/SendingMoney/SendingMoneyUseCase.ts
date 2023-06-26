@@ -3,35 +3,43 @@ import { IExtracsRepository, IUserRepository } from "./protocols"
 import { CannotSendMoneyToYourAccountError, InvalidPixKeyError, BalanceInsuficientError, 
     InvalidValueError, LimitDayError, LimitError, ResourceNotFoundError } from "./errors"
 
-export interface DTORequestSendingMoneyUseCase {
-    id: number,
-    keyPix: string,
-    value: number
+export class DTORequestSendingMoneyUseCase {
+    public id: number
+    public keyPix: string
+    public value: number
+    constructor(id: number, keyPix:string , value: number){
+        this.id = id;
+        this.keyPix = keyPix;
+        this.value = value;
+    }
 }
 
-export interface DTOResponsetSendingMoneyUseCase {
-    extratos: {
-        send:{
-            id_user: number
-            name: string
-            tipo: string
-            saldo: number
-            data: string
-            descricao: string
-        },
-        receive: {
-            id_user: number
-            name: string
-            tipo: string
-            saldo: number
-            data: string
-            descricao: string
+type Extracts = {
+    send: Extract
+    receive: Extract
+} 
+
+type Extract = {
+    id_user: number
+    name: string
+    tipo: string
+    saldo: number
+    data: string
+    descricao: string
+}
+
+export class DTOResponseSendingMoneyUseCase {
+    public extracts: Extracts;
+    constructor(send: Extract, receive: Extract){
+        this.extracts = {
+            send,
+            receive,
         }
     }
 }
 
 export interface ISendingMoneyUseCase {
-    execute(data:DTORequestSendingMoneyUseCase): Promise<DTOResponsetSendingMoneyUseCase>
+    execute(data:DTORequestSendingMoneyUseCase): Promise<DTOResponseSendingMoneyUseCase>
 }
 
 class SendingMoneyUseCase implements ISendingMoneyUseCase{
@@ -105,36 +113,37 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                 }
             }
 
-            const saldoReceive =  user.saldo - value;
-            const saldoSend = receiveUser.saldo + value;
+            const balanceReceive =  user.saldo - value;
+            const balanceSend = receiveUser.saldo + value;
     
-            const extratos = {
-                send:{
+
+            const send = {
                     id_user: id,
                     name: user.name,
                     tipo: "envio",
                     saldo: value,
                     data: `${new Date()}`,
                     descricao: `Voce transferiu R$${value.toFixed(2).replace('.',',')} para ${user.name}`,
-                },
-                receive: {
+            }
+
+            const receive = {
                     id_user: receiveUser.id,
                     name: receiveUser.name,
                     tipo: "recebido",
                     saldo: value,
                     data: `${new Date()}`,
                     descricao: `Voce recebeu R${value.toFixed(2).replace('.',',')} de ${receiveUser.name}`,
-                }
-                
             }
+                
     
-            await this.ExtractsRepository.createExtracts(extratos.send);
-            await this.ExtractsRepository.createExtracts(extratos.receive);
     
-            await this.UserRepository.updateBalanceById(user.id, saldoSend);
-            await this.UserRepository.updateBalanceById(receiveUser.id, saldoReceive);
-            return {extratos};
-       
+            await this.ExtractsRepository.createExtracts(send);
+            await this.ExtractsRepository.createExtracts(receive);
+    
+            await this.UserRepository.updateBalanceById(user.id, balanceSend);
+            await this.UserRepository.updateBalanceById(receiveUser.id, balanceReceive);
+            
+            return new DTOResponseSendingMoneyUseCase(send, receive); 
     }
 }
 
