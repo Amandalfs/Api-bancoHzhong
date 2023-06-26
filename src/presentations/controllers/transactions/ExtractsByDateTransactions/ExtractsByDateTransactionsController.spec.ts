@@ -39,13 +39,30 @@ describe("Testando o controllador de extratos", ()=>{
             user: {
                 id: 500,    
             },
-            body: {
-                keypix: "500",
-                value: 500
+            query: {
+                dateStart: "500",
+                dateEnd: "500"
             }
         }
         const response = await sut.handle(request);
         expect(response.statusCode).toEqual(500);
         expect(response.body.msg).toEqual("Server Internal Error");
+    })
+
+    it("esperado que receba o controller consiga tratar erros 400",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({ statusCode: 400, message: "Bad Request"});
+        const request: HttpRequest = {
+            user: {
+                id: 500,    
+            },
+            query: {
+                dateStart: "400",
+                dateEnd: "400"
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Bad Request");
     })
 })
