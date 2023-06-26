@@ -14,6 +14,7 @@
 - criado o retorno de sintaxe invalida caso o usuario nao mande o valor no body no sendingMoneyTransactions. 
 - Criado a resposta de status 200 e o envio dos dados que o useCase envia para
 SendingMoneyTransactionsController.
+- Adicionado a propriedade query no protocolo http de requisicao. 
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
