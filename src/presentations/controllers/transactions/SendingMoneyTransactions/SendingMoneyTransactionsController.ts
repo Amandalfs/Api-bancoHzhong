@@ -13,7 +13,11 @@ export class SendingMoneyTransactionsController implements HttpController {
             const { value, keypix} = req.body;
 
             if(!keypix){
-                throw new InvalidParams("keypix")
+                throw new InvalidParams("keypix");
+            }
+
+            if(!value){
+                throw new InvalidParams("value");
             }
 
             const  input = new DTORequestSendingMoneyUseCase(id, keypix, value);
