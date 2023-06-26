@@ -150,4 +150,20 @@ describe("Testando o controllador de envio de dinheiro", ()=>{
         expect(response.statusCode).toEqual(400);
         expect(response.body.msg).toEqual("Invalid param:keypix");
     })
+
+    it("esperado que receba o controller nao deixe o usuario processar sem mandar o valor",async ()=>{
+        const { sut, useCase } = makeSut();
+        const request: HttpRequest = {
+            user: {
+                id: 1,    
+            },
+            body: {
+                keypix: "invalid"
+            }
+        }
+
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Invalid param:value");
+    })
 })
