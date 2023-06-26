@@ -1,7 +1,7 @@
 import { DTORequestExtractsByDateUseCase, IExtractsByDateUseCase } from "../../../../module/transactions/useCase/ExtractsByData/ExtractsByDataUseCase";
 import { HttpController } from "../../../protocols/Controller"
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
-import { ServerError } from "../DepositTransactions/DepositTransactionsControllerProtocols";
+import { BadRequest, ServerError } from "../../../helpers";
 
 export class ExtractsByDateTransactionsController implements HttpController {
     constructor(private extractsByDateUseCase: IExtractsByDateUseCase){
@@ -16,6 +16,10 @@ export class ExtractsByDateTransactionsController implements HttpController {
         } catch (error) {
             if(!error.statusCode){
                 return ServerError();
+            }
+
+            if(error.statusCode === 400){
+                return BadRequest(error.message);
             }
         }
     }

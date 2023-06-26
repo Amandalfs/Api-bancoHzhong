@@ -16,6 +16,7 @@
 SendingMoneyTransactionsController.
 - Adicionado a propriedade query no protocolo http de requisicao. 
 - Criado o controlador independente ExtractsByDateTransactions e criado o tratamento de erros desconhecidos.
+- Criado o tratamento de erro 400 no controlador extractsByDateTransactions.
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
