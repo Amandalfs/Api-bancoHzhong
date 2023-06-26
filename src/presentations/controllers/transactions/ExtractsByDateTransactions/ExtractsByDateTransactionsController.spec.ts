@@ -99,4 +99,24 @@ describe("Testando o controllador de extratos", ()=>{
         expect(response.statusCode).toEqual(404);
         expect(response.body.msg).toEqual("Not Found");
     })
+
+    it("esperado que receba o controller consiga enviar os dados corretos para o useCase",async ()=>{
+        const { sut, useCase } = makeSut();
+        const useCaseSpy = vi.spyOn(useCase, "execute").mock.calls;
+        const request: HttpRequest = {
+            user: {
+                id: 1,    
+            },
+            query: {
+                dateStart: "valid",
+                dateEnd: "valid"
+            }
+        }
+        await sut.handle(request);
+        expect(useCaseSpy[0][0]).toEqual({
+            id_user: 1,
+            dateStart: "valid",
+            dateEnd: "valid",
+        })
+    })
 })

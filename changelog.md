@@ -19,6 +19,7 @@ SendingMoneyTransactionsController.
 - Criado o tratamento de erro 400 no controlador extractsByDateTransactions.
 - Criado o tratamento de erro 401 no controlador extractsByDateTransactions.
 - Criado o tratamento de erro 404 no controlador extractsByDateTransactions.
+- Criado o teste para ver que o controlador ExtractsByDateTransctions esta enviando os dados corretos para o useCase.
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
