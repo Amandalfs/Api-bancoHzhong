@@ -1,7 +1,7 @@
 import { DTORequestExtractsByDateUseCase, IExtractsByDateUseCase } from "../../../../module/transactions/useCase/ExtractsByData/ExtractsByDataUseCase";
 import { HttpController } from "../../../protocols/Controller"
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
-import { BadRequest, ServerError, Unauthorized } from "../../../helpers";
+import { BadRequest, NotFound, ServerError, Unauthorized } from "../../../helpers";
 
 export class ExtractsByDateTransactionsController implements HttpController {
     constructor(private extractsByDateUseCase: IExtractsByDateUseCase){
@@ -24,6 +24,10 @@ export class ExtractsByDateTransactionsController implements HttpController {
 
             if(error.statusCode === 401){
                 return Unauthorized(error.message);
+            }
+
+            if(error.statusCode === 404){
+                return NotFound(error.message);
             }
         }
     }
