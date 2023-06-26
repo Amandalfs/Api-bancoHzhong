@@ -17,6 +17,10 @@ export class ExtractsByDateTransactionsController implements HttpController {
                 throw new InvalidParams("DateStart");
             }
 
+            if(!dateEnd){
+                throw new InvalidParams("DateEnd");
+            }
+
             const input = new DTORequestExtractsByDateUseCase(id, dateStart, dateEnd);
             await this.extractsByDateUseCase.execute(input);
 

@@ -21,6 +21,7 @@ SendingMoneyTransactionsController.
 - Criado o tratamento de erro 404 no controlador extractsByDateTransactions.
 - Criado o teste para ver que o controlador ExtractsByDateTransctions esta enviando os dados corretos para o useCase.
 - criado o retorno de sintaxe invalida caso o usuario nao mande a dateStart no query no extractsByDateTransactions controller.
+- criado o retorno de sintaxe invalida caso o usuario nao mande a dateEnd no query no extractsByDateTransactions controller.
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
