@@ -136,4 +136,21 @@ describe("Testando o controllador de extratos", ()=>{
         expect(response.body.msg).toEqual("Invalid param:DateStart");
     
     })
+
+    it("esperado que o contralador envie erro que sintaxe invalida se o usuario nao passar a data final",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mock.calls;
+        const request: HttpRequest = {
+            user: {
+                id: 1,    
+            },
+            query: {
+                dateStart: "invalid",
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Invalid param:DateEnd");
+    
+    })
 })
