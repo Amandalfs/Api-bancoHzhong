@@ -13,6 +13,7 @@
 - Criado o tratamento de erro 401 no controlador sendingMoneyTransactions.
 - Criado o tratamento de erro 404 no controlador sendingMoneyTransactions.
 - Criado o teste para ver que o controlador SendigMoneyTransctions esta enviando os dados corretos para o useCase.
+- criado o retorno de sintaxe invalida caso o usuario nao mande a keypix no body no sendingMoneyTransactions.
 
 <br>
 <br>

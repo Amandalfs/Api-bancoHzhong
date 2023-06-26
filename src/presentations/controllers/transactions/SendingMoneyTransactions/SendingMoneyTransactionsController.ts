@@ -2,6 +2,7 @@ import { DTORequestSendingMoneyUseCase, ISendingMoneyUseCase } from "../../../..
 import { HttpRequest, HttpResponse } from  "../../../protocols/http"
 import { HttpController } from "../../../protocols/Controller"
 import { BadRequest, NotFound, ServerError, Unauthorized } from "../../../helpers";
+import { InvalidParams } from "../../errors/InvalidParams";
 
 export class SendingMoneyTransactionsController implements HttpController {
     constructor(private sendingMoneyTransactionsUseCase: ISendingMoneyUseCase){}
@@ -10,6 +11,11 @@ export class SendingMoneyTransactionsController implements HttpController {
        try {
             const { id } = req.user;
             const { value, keypix} = req.body;
+
+            if(!keypix){
+                throw new InvalidParams("keypix")
+            }
+
             const  input = new DTORequestSendingMoneyUseCase(id, keypix, value);
             await this.sendingMoneyTransactionsUseCase.execute(input);
        } catch (error) {
