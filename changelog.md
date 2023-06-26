@@ -4,6 +4,9 @@
 
 ## Versão 2.0.16 - 26/06/2023
 
+### Adicionado
+- Criado o controlador independente SendingMoneyTransactions e criado o tratamento de erros desconhecidos.
+
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
 
