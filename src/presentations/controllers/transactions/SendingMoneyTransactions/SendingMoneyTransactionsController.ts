@@ -1,7 +1,7 @@
 import { DTORequestSendingMoneyUseCase, ISendingMoneyUseCase } from "../../../../module/transactions/useCase/SendingMoney/SendingMoneyUseCase";
 import { HttpRequest, HttpResponse } from  "../../../protocols/http"
 import { HttpController } from "../../../protocols/Controller"
-import { BadRequest, ServerError } from "../../../helpers";
+import { BadRequest, ServerError, Unauthorized } from "../../../helpers";
 
 export class SendingMoneyTransactionsController implements HttpController {
     constructor(private sendingMoneyTransactionsUseCase: ISendingMoneyUseCase){}
@@ -19,6 +19,10 @@ export class SendingMoneyTransactionsController implements HttpController {
 
             if(error.statusCode === 400){
                 return BadRequest(error.message);
+            }
+
+            if(error.statusCode === 401){
+                return Unauthorized(error.message);
             }
        }
     }

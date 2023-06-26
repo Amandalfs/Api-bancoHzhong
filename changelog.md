@@ -10,6 +10,7 @@
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
 - Criado o tratamento de erro 400 no controlador sendingMoneyTransactions.
+- Criado o tratamento de erro 401 no controlador sendingMoneyTransactions.
 
 <br>
 <br>
