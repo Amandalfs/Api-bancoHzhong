@@ -17,6 +17,7 @@ SendingMoneyTransactionsController.
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase SendingMoneyTransactions para classes DTOs.
+- Substituido as interfaces DTOs do useCase ExtractsByDateTransactions para classes DTOs.
 
 
 <br>

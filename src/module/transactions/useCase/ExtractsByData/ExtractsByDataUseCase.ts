@@ -1,13 +1,21 @@
 import { IExtracsRepository, IReponseExtracs } from "./protocols";
 
-export interface DTORequestExtractsByDateUseCase {
-    id_user: number,
-    dateStart: string,
-    dateEnd: string
+export class DTORequestExtractsByDateUseCase {
+    public id_user: number
+    public dateStart: string
+    public dateEnd: string
+    constructor(id: number, start: string, end: string){
+        this.id_user = id;
+        this.dateStart = start;
+        this.dateEnd = end;
+    }
 }
 
-export interface DTOResponseExtractsByDateUseCase {
-    extracts: IReponseExtracs[]
+export class DTOResponseExtractsByDateUseCase {
+    public extracts: IReponseExtracs[]
+    constructor(extracts: IReponseExtracs[]){
+        this.extracts = extracts;
+    }
 }
 
 export interface IExtractsByDateUseCase {
@@ -19,7 +27,7 @@ class ExtractsByDataUseCase implements IExtractsByDateUseCase{
 
     async execute({id_user, dateStart, dateEnd}: DTORequestExtractsByDateUseCase){
         const extracts = await this.ExtractsRepository.SearchForDataStartAndEndbyId({id:id_user, dateStart, dateEnd});
-        return {extracts};
+        return new DTOResponseExtractsByDateUseCase(extracts);
     }
 }
 
