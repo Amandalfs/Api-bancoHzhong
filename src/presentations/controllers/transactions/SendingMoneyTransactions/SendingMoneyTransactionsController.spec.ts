@@ -134,4 +134,20 @@ describe("Testando o controllador de envio de dinheiro", ()=>{
             value: 50
         });
     })
+
+    it("esperado que receba o controller nao deixe o usuario processar sem mandar a keypix",async ()=>{
+        const { sut, useCase } = makeSut();
+        const request: HttpRequest = {
+            user: {
+                id: 1,    
+            },
+            body: {
+                value: 50
+            }
+        }
+
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Invalid param:keypix");
+    })
 })
