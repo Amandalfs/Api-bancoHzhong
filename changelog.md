@@ -2,6 +2,9 @@
 
 ## Versão 2.0.17 - 28/06/2023
 
+### Adicionado
+- Criado o controlador independente ShowKeyController e criado o tratamento de erros desconhecidos.
+
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase ShowKeyUseCase para classes DTOs.
 
