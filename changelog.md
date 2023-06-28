@@ -4,6 +4,7 @@
 
 ### Adicionado
 - Criado o controlador independente ShowKeyController e criado o tratamento de erros desconhecidos.
+- Criado o tratamento de erro 400 no controlador ShowKey.
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase ShowKeyUseCase para classes DTOs.

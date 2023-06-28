@@ -1,5 +1,5 @@
 import { DTORequestShowKeyUseCase, IShowKeyUseCase } from "../../../../module/keys/useCase/ShowKey/ShowKeyUseCase";
-import { ServerError } from "../../../helpers";
+import { BadRequest, ServerError } from "../../../helpers";
 import { HttpController } from "../../../protocols/Controller";
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
 
@@ -14,6 +14,10 @@ export class ShowKeyController implements HttpController {
         } catch (error) {
             if(!error.statusCode){
                 return ServerError();
+            }
+
+            if(error.statusCode === 400){
+                return BadRequest(error.message);
             }
         }
     }
