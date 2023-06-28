@@ -1,5 +1,13 @@
 # Changelog de Atualizacoes da api Hzhong
 
+## Versão 2.0.17 - 28/06/2023
+
+### Refatoracao
+- Substituido as interfaces DTOs do useCase ShowKeyUseCase para classes DTOs.
+
+<br>
+<br>
+<br>
 
 
 ## Versão 2.0.16 - 26/06/2023

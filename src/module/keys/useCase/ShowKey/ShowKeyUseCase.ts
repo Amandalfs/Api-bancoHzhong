@@ -2,12 +2,18 @@ import { IUserRepository } from "./protocols";
 
 import { KeyDoesNotExistError, ResourceNotFoundError } from "./errors";
 
-export interface DTORequestShowKeyUseCase{
-    id: number
+export class DTORequestShowKeyUseCase{
+    public id: number
+    constructor(id){
+        this.id = id
+    }
 }
 
-export interface DTOResponseShowKeyUseCase{
-    key: string
+export class DTOResponseShowKeyUseCase{
+    public key: string
+    constructor(key){
+        this.key = key
+    }
 }
 
 export interface IShowKeyUseCase{
@@ -28,7 +34,7 @@ class ShowKeyUseCase implements IShowKeyUseCase{
             throw new KeyDoesNotExistError();
         }
 
-        return {key:user.keypix};
+        return new DTOResponseShowKeyUseCase(user.keypix);
     }
 }
 
