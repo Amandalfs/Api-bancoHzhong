@@ -15,6 +15,7 @@
 - Criado o controlador independente DeleteKeyController e criado o tratamento de erros desconhecidos.
 - Criado o tratamento de erro 400 no controlador DeleteKey.
 - Criado o tratamento de erro 401 no controlador DeleteKey.
+- Criado o tratamento de erro 404 no controlador DeleteKey.
 
 ### Teste
 - Criado o teste para ver que os parametros estao entrando corretamente no controlador de monstrar chave.
