@@ -2,7 +2,7 @@ import'express-async-errors';
 
 import express, { NextFunction, Request, Response} from "express";
 import cors  from "cors";
-import { routes } from "./routes";
+import { routes } from "./main/routes";
 
 import { AppError } from './utils/errors/AppError';
 
