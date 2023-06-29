@@ -1,5 +1,5 @@
 import { DTORequestShowKeyUseCase, IShowKeyUseCase } from "../../../../module/keys/useCase/ShowKey/ShowKeyUseCase";
-import { BadRequest, ServerError, Unauthorized } from "../../../helpers";
+import { BadRequest, NotFound, ServerError, Unauthorized } from "../../../helpers";
 import { HttpController } from "../../../protocols/Controller";
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
 
@@ -22,6 +22,10 @@ export class ShowKeyController implements HttpController {
 
             if(error.statusCode === 401){
                 return Unauthorized(error.message);
+            }
+
+            if(error.statusCode === 404){
+                return NotFound(error.message);
             }
         }
     }
