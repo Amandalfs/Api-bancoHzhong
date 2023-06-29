@@ -79,4 +79,16 @@ describe("Testando o controllador de mosntrar chave pix", ()=>{
         expect(response.body.msg).toEqual("Not Found");
     })
 
+
+    it("esperado que receba o controller consiga enviar os dados corretos para o useCase",async ()=>{
+        const { sut, useCase } = makeSut();
+        const useCaseSpy =vi.spyOn(useCase, "execute").mock.calls
+        const request: HttpRequest = {
+            user: {
+                id: 200,    
+            }
+        }
+        await sut.handle(request);
+        expect(useCaseSpy[0][0]).toEqual({id: 200});
+    })
 })

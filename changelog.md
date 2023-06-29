@@ -14,9 +14,11 @@
 
 ### Teste
 - Criado o teste para ver que os parametros estao entrando corretamente no controlador de monstrar chave.
+- Criado o teste para ver que os parametros estao entrando corretamente no controlador de criar chave.
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase CreateKeyUseCase para classes DTOs.
+
 
 <br>
 <br>
