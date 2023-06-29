@@ -92,6 +92,17 @@ describe("Testando o controlador de deleta chave", ()=>{
 
     })
     
-    
+    it("esperado que receba o controller envie os dados para o usuario que tudo der certo",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            user: {
+                id: 200,    
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.params).toEqual({msg:"Chave deletada com sucesso"});
+
+    })
     
 })
