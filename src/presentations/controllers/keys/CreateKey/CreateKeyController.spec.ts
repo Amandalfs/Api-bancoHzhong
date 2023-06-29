@@ -66,4 +66,17 @@ describe("Testando o controllador de mosntrar chave pix", ()=>{
         expect(response.body.msg).toEqual("Unauthorized");
     })
 
+    it("esperado que receba o controller consiga tratar erros 404",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 404, message: "Not Found"});
+        const request: HttpRequest = {
+            user: {
+                id: 404,    
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(404);
+        expect(response.body.msg).toEqual("Not Found");
+    })
+
 })
