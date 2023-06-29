@@ -88,8 +88,20 @@ describe("Testando o controllador de mosntrar chave pix", ()=>{
                 id: 200,    
             }
         }
-        const response = await sut.handle(request);
+        await sut.handle(request);
         expect(useCaseSpy[0][0]).toEqual({id:200});
+    })
+
+    it("esperado que receba o controller envie os dados para o usuario que tudo estiver ok",async ()=>{
+        const { sut } = makeSut();
+        const request: HttpRequest = {
+            user: {
+                id: 200,    
+            }
+        }
+        const response  = await sut.handle(request);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.params).toEqual({key: "Chave Aleatoria"});
     })
 
 
