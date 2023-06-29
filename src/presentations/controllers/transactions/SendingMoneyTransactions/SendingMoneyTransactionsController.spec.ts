@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { HttpRequest } from "../../../protocols/http"
-import { DTORequestSendingMoneyUseCase, DTOResponseSendingMoneyUseCase, ISendingMoneyUseCase } from "../../../../module/transactions/useCase/SendingMoney/SendingMoneyUseCase";
+import { DTORequestSendingMoneyUseCase, DTOResponseSendingMoneyUseCase, ISendingMoneyUseCase } from "../../../../domain/module/transactions/useCase/SendingMoney/SendingMoneyUseCase";
 import { SendingMoneyTransactionsController } from "./SendingMoneyTransactionsController";
 
 interface TypesSut {

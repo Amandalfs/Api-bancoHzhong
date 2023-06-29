@@ -20,6 +20,7 @@
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase CreateKeyUseCase para classes DTOs.
 - Substituido as interfaces DTOs do useCase DeleteKeyUseCase para classes DTOs.
+- Movido a pasta de useCase para domain e movido a pasta Repositories para entities.
 
 
 <br>

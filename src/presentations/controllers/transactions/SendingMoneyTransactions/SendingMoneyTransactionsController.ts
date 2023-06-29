@@ -1,4 +1,4 @@
-import { DTORequestSendingMoneyUseCase, ISendingMoneyUseCase } from "../../../../module/transactions/useCase/SendingMoney/SendingMoneyUseCase";
+import { DTORequestSendingMoneyUseCase, ISendingMoneyUseCase } from "../../../../domain/module/transactions/useCase/SendingMoney/SendingMoneyUseCase";
 import { HttpRequest, HttpResponse } from  "../../../protocols/http"
 import { HttpController } from "../../../protocols/Controller"
 import { BadRequest, NotFound, ServerError, Success, Unauthorized } from "../../../helpers";

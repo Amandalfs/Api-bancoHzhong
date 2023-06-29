@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest"
 import { HttpRequest } from "../../../protocols/http";
-import { DTORequestExtractsByDateUseCase, DTOResponseExtractsByDateUseCase, IExtractsByDateUseCase } from "../../../../module/transactions/useCase/ExtractsByData/ExtractsByDataUseCase";
+import { DTORequestExtractsByDateUseCase, DTOResponseExtractsByDateUseCase, IExtractsByDateUseCase } from "../../../../domain/module/transactions/useCase/ExtractsByData/ExtractsByDataUseCase";
 import { ExtractsByDateTransactionsController } from "./ExtractsByDateTransactionsController";
 
 interface TypesSut {

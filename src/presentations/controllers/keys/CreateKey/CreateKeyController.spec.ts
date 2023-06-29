@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { CreateKeyController } from "./CreateKeyController";
 import { HttpRequest } from "../../../protocols/http";
-import { DTORequestCreatekeyUseCase, DTOResponseCreatekeyUseCase, ICreatekeyUseCase } from "../../../../module/keys/useCase/CreateKey/CreateKeyUseCase";
+import { DTORequestCreatekeyUseCase, DTOResponseCreatekeyUseCase, ICreatekeyUseCase } from "../../../../domain/module/keys/useCase/CreateKey/CreateKeyUseCase";
 
 interface TypesSut {
     sut: CreateKeyController,

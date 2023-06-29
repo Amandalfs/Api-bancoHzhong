@@ -1,4 +1,4 @@
-import { ISessionsUsersUseCase } from "../../../../module/acconts/useCase/SessionsUsers/SessionsUsersUseCase";
+import { ISessionsUsersUseCase } from "../../../../domain/module/acconts/useCase/SessionsUsers/SessionsUsersUseCase";
 import { InvalidParams } from "../../errors/InvalidParams";
 import { BadRequest, HttpController, HttpRequest, HttpResponse, ServerError, Success, Unauthorized } from "../CreateUser/CreateUserControllerProtocols";
 

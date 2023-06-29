@@ -1,4 +1,4 @@
-import { DTORequestShowKeyUseCase, IShowKeyUseCase } from "../../../../module/keys/useCase/ShowKey/ShowKeyUseCase";
+import { DTORequestShowKeyUseCase, IShowKeyUseCase } from "../../../../domain/module/keys/useCase/ShowKey/ShowKeyUseCase";
 import { BadRequest, NotFound, ServerError, Success, Unauthorized } from "../../../helpers";
 import { HttpController } from "../../../protocols/Controller";
 import { HttpRequest, HttpResponse } from "../../../protocols/http";

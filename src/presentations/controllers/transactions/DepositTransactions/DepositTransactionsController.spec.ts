@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { DepositTransactionsController } from "./DepositTransactionsController";
-import { DTORequestDepositTransactionsUseCase, DTOResponseDepositTransactionsUseCase, IDepositTransactionsUseCase } from "../../../../module/transactions/useCase/DepositTransactions/DepositTransactionsUseCase";
+import { DTORequestDepositTransactionsUseCase, DTOResponseDepositTransactionsUseCase, IDepositTransactionsUseCase } from "../../../../domain/module/transactions/useCase/DepositTransactions/DepositTransactionsUseCase";
 import { HttpRequest } from "../../../protocols/http";
 
 interface TypesSut {

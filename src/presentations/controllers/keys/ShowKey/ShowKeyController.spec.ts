@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { ShowKeyController } from "./ShowKeyController";
 import { HttpRequest } from "../../../protocols/http";
-import { DTORequestShowKeyUseCase, DTOResponseShowKeyUseCase, IShowKeyUseCase } from "../../../../module/keys/useCase/ShowKey/ShowKeyUseCase";
+import { DTORequestShowKeyUseCase, DTOResponseShowKeyUseCase, IShowKeyUseCase } from "../../../../domain/module/keys/useCase/ShowKey/ShowKeyUseCase";
 
 interface TypesSut {
     sut: ShowKeyController,

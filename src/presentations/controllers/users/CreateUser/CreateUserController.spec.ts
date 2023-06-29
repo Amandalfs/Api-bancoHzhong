@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { HttpRequest } from './../../../protocols/http'
 import { CreateUserController } from "./CreateUserController";
-import { ICreateUserRequestDTO, ICreateUserResponseDTO, ICreateUserUseCase } from "../../../../module/acconts/useCase/CreateUser/CreateUserUseCase";
+import { ICreateUserRequestDTO, ICreateUserResponseDTO, ICreateUserUseCase } from "../../../../domain/module/acconts/useCase/CreateUser/CreateUserUseCase";
 
 interface TypesSut {
     sut: CreateUserController,

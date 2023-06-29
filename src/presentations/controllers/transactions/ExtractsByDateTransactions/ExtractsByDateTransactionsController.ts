@@ -1,4 +1,4 @@
-import { DTORequestExtractsByDateUseCase, IExtractsByDateUseCase } from "../../../../module/transactions/useCase/ExtractsByData/ExtractsByDataUseCase";
+import { DTORequestExtractsByDateUseCase, IExtractsByDateUseCase } from "../../../../domain/module/transactions/useCase/ExtractsByData/ExtractsByDataUseCase";
 import { HttpController } from "../../../protocols/Controller"
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
 import { BadRequest, NotFound, ServerError, Success, Unauthorized } from "../../../helpers";

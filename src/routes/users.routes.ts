@@ -5,9 +5,9 @@ const usersRoutes = Router();
 
 import garantirAuth from "../middlewares/garantirAuth";
 
-import createUserController from '../module/acconts/useCase/CreateUser';
-import sessionsUsersController from '../module/acconts/useCase/SessionsUsers';
-import showUserController from "../module/acconts/useCase/ShowUser";
+import createUserController from '../domain/module/acconts/useCase/CreateUser';
+import sessionsUsersController from '../domain/module/acconts/useCase/SessionsUsers';
+import showUserController from "../domain/module/acconts/useCase/ShowUser";
 
 usersRoutes.post('/sessions', (req: Request, res: Response)=>{
     return sessionsUsersController.handle(req, res);

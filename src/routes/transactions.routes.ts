@@ -5,10 +5,10 @@ const transactionsRoutes = Router();
 
 import { AppError } from "../utils/errors/AppError";
 
-import depositTransactionsController from '../module/transactions/useCase/DepositTransactions';
-import withdrawTransactionsController from '../module/transactions/useCase/WithdrawTransactions';
-import sendingMoneyController from '../module/transactions/useCase/SendingMoney';
-import extractsByDataController from '../module/transactions/useCase/ExtractsByData';
+import depositTransactionsController from '../domain/module/transactions/useCase/DepositTransactions';
+import withdrawTransactionsController from '../domain/module/transactions/useCase/WithdrawTransactions';
+import sendingMoneyController from '../domain/module/transactions/useCase/SendingMoney';
+import extractsByDataController from '../domain/module/transactions/useCase/ExtractsByData';
 
 const validarDate = (req: Request, res: Response, next: NextFunction) =>{
     const {dateInicial, dateFinal} = req.query;

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { HttpRequest } from "../../../protocols/http";
-import { DTORequestWithdrawTransctionsUseCase, DTOResponseWithdrawTransctionsUseCase, IWithdrawTransctionsUseCase } from "../../../../module/transactions/useCase/WithdrawTransactions/WithdrawTransactionsUseCase";
+import { DTORequestWithdrawTransctionsUseCase, DTOResponseWithdrawTransctionsUseCase, IWithdrawTransctionsUseCase } from "../../../../domain/module/transactions/useCase/WithdrawTransactions/WithdrawTransactionsUseCase";
 import { WithdrawTransactionsController } from "./WithdrawTransactionsController";
 
 interface TypesSut {

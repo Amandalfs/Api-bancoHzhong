@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { HttpRequest } from './../../../protocols/http'
 import { SessionsUserController } from "./SessionsUserController";
-import { DTORequestSessionsUseCase, DTOResponseSessionsUseCase, ISessionsUsersUseCase } from "../../../../module/acconts/useCase/SessionsUsers/SessionsUsersUseCase";
+import { DTORequestSessionsUseCase, DTOResponseSessionsUseCase, ISessionsUsersUseCase } from "../../../../domain/module/acconts/useCase/SessionsUsers/SessionsUsersUseCase";
 
 interface TypesSut {
     sut: SessionsUserController,
