@@ -1,7 +1,7 @@
 # Changelog de Atualizacoes da api Hzhong
 
 
-## Versão 2.0.17 - 28/06/2023
+## Versão 2.0.18 - 29/06/2023
 
 ### Adicionado
 - Criado o tratamento de erro 401 no controlador ShowKey.
@@ -10,6 +10,9 @@
 
 ### Teste
 - Criado o teste para ver que os parametros estao entrando corretamente no controlador de monstrar chave.
+
+### Refatoracao
+- Substituido as interfaces DTOs do useCase CreateKeyUseCase para classes DTOs.
 
 <br>
 <br>

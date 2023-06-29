@@ -1,12 +1,18 @@
 import { IKeyGenerator, IUserRepository } from "./protocols"
 import { KeyAlreadyExistsError, ResourceNotFoundError } from "./errors";
 
-export interface DTORequestCreatekeyUseCase {
-    id:number
+export class DTORequestCreatekeyUseCase {
+    public id:number
+    constructor(id:number){
+        this.id = id
+    }
 }
 
-export interface DTOResponseCreatekeyUseCase {
+export class DTOResponseCreatekeyUseCase {
     key: string
+    constructor(key: string){
+        this.key = key
+    }
 }
 
 export interface ICreatekeyUseCase {
@@ -32,7 +38,7 @@ class CreateKeyUseCase implements ICreatekeyUseCase{
         const key = this.keyGenerator.execute();
         await this.UserRepository.createKeyPixById(id, key);
 
-        return {key};
+        return new DTOResponseCreatekeyUseCase(key);
     }
 }
 
