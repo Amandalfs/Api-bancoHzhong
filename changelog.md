@@ -7,6 +7,9 @@
 - Criado o tratamento de erro 401 no controlador ShowKey.
 - Criado o tratamento de erro 404 no controlador ShowKey.
 
+### Teste
+- Criado o teste para ver que os parametros estao entrando corretamente no controlador de monstrar chave.
+
 <br>
 <br>
 <br>
