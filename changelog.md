@@ -16,6 +16,7 @@
 - Criado o tratamento de erro 400 no controlador DeleteKey.
 - Criado o tratamento de erro 401 no controlador DeleteKey.
 - Criado o tratamento de erro 404 no controlador DeleteKey.
+- Retornado a messsagem de que a chave do usuario foi deletada no controlador CreateKey.
 
 ### Teste
 - Criado o teste para ver que os parametros estao entrando corretamente no controlador de monstrar chave.
