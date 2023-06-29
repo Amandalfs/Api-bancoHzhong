@@ -52,6 +52,19 @@ describe("Testando o controlador de deleta chave", ()=>{
         expect(response.body.msg).toEqual("Bad Request");
     })
     
-
+    
+    it("esperado que receba o controller consiga tratar erros 401",async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 401, message: "Unauthorized"});
+        const request: HttpRequest = {
+            user: {
+                id: 401,    
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(401);
+        expect(response.body.msg).toEqual("Unauthorized");
+    })
+    
     
 })
