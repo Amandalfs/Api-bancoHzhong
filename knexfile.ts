@@ -35,10 +35,8 @@ export default {
       searchPath: ['knex', 'public']
     },
     test: {
-      client: 'sqlite3',
-      connection: {
-        filename: path.resolve(__dirname, "src", "sql", "dbTests", "test.db")
-      },
+      client: 'pg',
+      connection: process.env.BASE_URL,
       useNullAsDefault: true,
       migrations: {
         tableName: 'migrations',
