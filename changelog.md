@@ -1,5 +1,15 @@
 # Changelog de Atualizacoes da api Hzhong
 
+
+## Versão 2.0.17 - 28/06/2023
+
+### Adicionado
+- Criado o tratamento de erro 401 no controlador ShowKey.
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.17 - 28/06/2023
 
 ### Adicionado
