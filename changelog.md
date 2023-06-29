@@ -19,6 +19,7 @@
 
 ### Refatoracao
 - Substituido as interfaces DTOs do useCase CreateKeyUseCase para classes DTOs.
+- Substituido as interfaces DTOs do useCase DeleteKeyUseCase para classes DTOs.
 
 
 <br>

@@ -1,12 +1,18 @@
 import { IUserRepository } from "./protocols";
 import { KeyDoesNotExistError, ResourceNotFoundError } from "./errors";
 
-export interface DTORequestDeleteKeyUseCase {
-    id: number
+export class DTORequestDeleteKeyUseCase {
+    public id: number
+    constructor(id:number){
+        this.id = id;
+    }
 }
 
-export interface DTOResponseDeleteKeyUseCase {
-    msg: string
+export class DTOResponseDeleteKeyUseCase {
+    public msg: string
+    constructor(msg: string){
+        this.msg = msg
+    }
 }
 
 export interface IDeleteKeyUseCase{
@@ -31,9 +37,7 @@ class DeleteKeyUseCase implements IDeleteKeyUseCase{
 
         await this.UserRepository.deleteKeyPixById(id);
 
-        return {
-            msg: "key delete success"
-        }
+        return new DTOResponseDeleteKeyUseCase("key delete success");
     }
 }
 
