@@ -13,6 +13,7 @@
 - Criado o tratamento de erro 404 no controlador CreateKey.
 - Retornado a chave pix do usuario no controlador CreateKey.
 - Criado o controlador independente DeleteKeyController e criado o tratamento de erros desconhecidos.
+- Criado o tratamento de erro 400 no controlador DeleteKey.
 
 ### Teste
 - Criado o teste para ver que os parametros estao entrando corretamente no controlador de monstrar chave.
