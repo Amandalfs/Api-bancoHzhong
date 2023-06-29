@@ -78,6 +78,19 @@ describe("Testando o controlador de deleta chave", ()=>{
         expect(response.statusCode).toEqual(404);
         expect(response.body.msg).toEqual("Not Found");
     })
+
+    it("esperado que receba o controller envie os dados corretos para o useCase",async ()=>{
+        const { sut, useCase } = makeSut();
+        const useCaseSpy = vi.spyOn(useCase, "execute").mock.calls
+        const request: HttpRequest = {
+            user: {
+                id: 200,    
+            }
+        }
+        await sut.handle(request);
+        expect(useCaseSpy[0][0]).toEqual({id: 200})
+
+    })
     
     
     
