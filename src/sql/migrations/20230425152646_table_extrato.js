@@ -1,6 +1,5 @@
-import { Knex } from "knex"
 
-export async function up(knex: Knex): Promise<void> {
+export async function up(knex) {
     knex.schema.createTableIfNotExists('extratos', function (table) {
         table.increments('id').primary();
         table.integer('id_user').references('id').inTable('users');
@@ -18,6 +17,6 @@ export async function up(knex: Knex): Promise<void> {
 
 
 
-export async function down(knex:Knex): Promise<void> {
+export async function down(knex) {
     knex.schema.dropTable('extratos');
 };

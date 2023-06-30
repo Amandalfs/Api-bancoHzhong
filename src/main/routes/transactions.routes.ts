@@ -1,14 +1,14 @@
-import garantirAuth from "../middlewares/garantirAuth";
+import garantirAuth from "../../middlewares/garantirAuth";
 
 import { NextFunction, Request, Response, Router } from "express";
 const transactionsRoutes = Router();
 
-import { AppError } from "../utils/errors/AppError";
+import { AppError } from "../../utils/errors/AppError";
 
-import depositTransactionsController from '../domain/module/transactions/useCase/DepositTransactions';
-import withdrawTransactionsController from '../domain/module/transactions/useCase/WithdrawTransactions';
-import sendingMoneyController from '../domain/module/transactions/useCase/SendingMoney';
-import extractsByDataController from '../domain/module/transactions/useCase/ExtractsByData';
+import depositTransactionsController from '../../domain/module/transactions/useCase/DepositTransactions';
+import withdrawTransactionsController from '../../domain/module/transactions/useCase/WithdrawTransactions';
+import sendingMoneyController from '../../domain/module/transactions/useCase/SendingMoney';
+import extractsByDataController from '../../domain/module/transactions/useCase/ExtractsByData';
 
 const validarDate = (req: Request, res: Response, next: NextFunction) =>{
     const {dateInicial, dateFinal} = req.query;

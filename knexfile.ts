@@ -1,11 +1,20 @@
-const { config } = require('dotenv');
+import"dotenv/config"
 
 import path from "path";
-config();
+import knex, { Knex } from 'knex';
 
-import knex from "knex"
 
-export default {
+export default<Knex.Config> {
+    test: {
+      client: 'pg',
+      connection: process.env.DATABASE_URL,
+      useNullAsDefault: true,
+      migrations: {
+        tableName: 'migrations',
+        directory: './src/sql/migrations',
+      },
+      searchPath: ['public']
+    },
     development: {
       client: 'sqlite3',
       connection: {
@@ -14,7 +23,7 @@ export default {
       useNullAsDefault: true,
       migrations: {
         tableName: 'migrations',
-        directory: './src/sql/migrations'
+        directory: './src/sql/migrations',
       }
     },
     production: {
@@ -30,18 +39,10 @@ export default {
       useNullAsDefault: true,
       migrations: {
         tableName: 'migrations',
-        directory: './src/sql/migrations'
+        directory: './src/sql/migrations',
       },
       searchPath: ['knex', 'public']
     },
-    test: {
-      client: 'pg',
-      connection: process.env.BASE_URL,
-      useNullAsDefault: true,
-      migrations: {
-        tableName: 'migrations',
-        directory: './src/sql/migrations'
-      }
-    }
+   
   }
   

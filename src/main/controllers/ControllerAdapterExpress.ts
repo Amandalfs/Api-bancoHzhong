@@ -6,7 +6,10 @@ export class ControllerAdapterExpress {
     async handle(req: Request, res: Response, controller: HttpController){
         const request:HttpRequest = {
             body: req.body,
-            headers: req.headers,
+            headers:{ 
+                ...req.headers,
+                passwordConfirmation:req.headers.passwordconfirmation 
+            },
             params: req.params,
             query: req.query,
             user: req.user,
