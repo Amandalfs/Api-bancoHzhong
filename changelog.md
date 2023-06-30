@@ -1,7 +1,9 @@
 # Changelog de Atualizacoes da api Hzhong
 
+## Versão 2.0.19 - 30/06/2023
 
 ## Versão 2.0.18 - 29/06/2023
+- adicionado o controlador createUser na rota e feito o teste e2e.
 
 ### Adicionado
 - Criado o tratamento de erro 401 no controlador ShowKey.
