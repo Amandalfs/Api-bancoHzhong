@@ -6,6 +6,13 @@
 - criado a fabrica de controlador de sessions
 - adicionado o controlador de sessions nas rotas.
 
+### Test
+- criado o teste do makeSessionsUserController
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.18 - 29/06/2023
 - adicionado o controlador createUser na rota e feito o teste e2e.
 

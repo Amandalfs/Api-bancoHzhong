@@ -1,9 +1,10 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { app } from "../../../../app";
 import request from "supertest";
+import"dotenv/config"
 
 let server;
-describe("testando a rota de criar usuarios", ()=>{
+describe('Testando a rota de fazer login',()=>{
     beforeAll(()=>{
         server = app.listen();
     })
@@ -12,8 +13,9 @@ describe("testando a rota de criar usuarios", ()=>{
         server.close();
     })
 
-    it("deve ser possivel cadastrar um usuario", async ()=>{
-        const response = await request(server)
+    it("deve ser possivel logar com a conta certa e poder receber o seu token", async()=>{
+        console.log(process.env.DATABASE_URL)
+        await request(server)
             .post("/users")
             .set('password', "12345678")
             .set('passwordconfirmation', "12345678")
@@ -25,8 +27,17 @@ describe("testando a rota de criar usuarios", ()=>{
                 typeaccont: "poupanca",
                 email: "usuario57@test.com",
             })
-        expect(response.statusCode).toEqual(201);
-        expect(response.body.msg).toEqual("created");
-        
+        const response = await request(server)
+            .post("/users/sessions")
+            .send({
+                username: "UsuarioTest",
+                password: "12345678",
+            })
+        expect(response.status).toEqual(200);
+        expect(response.body.params).toEqual({
+            token: expect.any(String)
+        });
     })
+
 })
+
