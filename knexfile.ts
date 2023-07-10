@@ -2,7 +2,8 @@ import"dotenv/config"
 
 import path from "path";
 import knex, { Knex } from 'knex';
-
+const variableUrlSchema = new URL(process.env.DATABASE_URL).searchParams;
+const schema = variableUrlSchema.get("schema")
 
 export default<Knex.Config> {
     test: {
@@ -12,8 +13,9 @@ export default<Knex.Config> {
       migrations: {
         tableName: 'migrations',
         directory: './src/sql/migrations',
+        schemaName: schema
       },
-      searchPath: ['public']
+      searchPath: [schema]
     },
     development: {
       client: 'sqlite3',
