@@ -3,6 +3,8 @@
 ## Versão 2.0.19 - 10/07/2023
 ### Adicionado
 - adicionado a criacao e exclusao do schema a cada vez que roda o test.
+- criado a fabrica de controlador de sessions
+- adicionado o controlador de sessions nas rotas.
 
 ## Versão 2.0.18 - 29/06/2023
 - adicionado o controlador createUser na rota e feito o teste e2e.

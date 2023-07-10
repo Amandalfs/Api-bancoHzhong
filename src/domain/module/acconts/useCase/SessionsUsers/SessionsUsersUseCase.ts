@@ -31,9 +31,8 @@ class SessionsUsersUseCase implements ISessionsUsersUseCase{
         if(!user){
             throw new PassordOrUsernameInvalidError();
         }
-
         const passwordPassed = await this.codificador.comparador(password, user.password);
-        
+
         if(!passwordPassed){
             throw new PassordOrUsernameInvalidError();
         }
@@ -44,7 +43,7 @@ class SessionsUsersUseCase implements ISessionsUsersUseCase{
             subject: String(user.id),
             expiresIn
         })
-
+        
         return {token};
     }
 }
