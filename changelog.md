@@ -4,10 +4,13 @@
 ## Versão 2.0.20 - 12/07/2023
 ### Adicionado
 - criado a fabrica de controlador de show user
+- criado a fabrica de controlador de create key
 - adicionado o controlador de show nas rotas.
+- adicionado o controlador de create key nas rotas.
 
 ### Test
 - criado o teste do makeShowUserController
+- criado o teste do makeCreateKeyController
 
 <br>
 <br>
