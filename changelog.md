@@ -6,14 +6,17 @@
 - criado a fabrica de controlador de show user
 - criado a fabrica de controlador de create key
 - criado a fabrica de controlador de show key
+- criado a fabrica de controlador de delete key
 - adicionado o controlador de show user nas rotas.
 - adicionado o controlador de create key nas rotas.
 - adicionado o controlador de show key nas rotas.
+- adicionado o controlador de delete key nas rotas.
 
 ### Test
 - criado o teste do makeShowUserController
 - criado o teste do makeCreateKeyController
 - criado o teste do makeShowKeyController
+- criado o teste do makeDeleteKeyController
 
 <br>
 <br>
