@@ -5,12 +5,12 @@ const usersRoutes = Router();
 
 import garantirAuth from "../../middlewares/garantirAuth";
 
-import showUserController from "../../domain/module/acconts/useCase/ShowUser";
 import { ControllerAdapterExpress } from "../controllers/ControllerAdapterExpress";
 const controllerAdapterExpress = new ControllerAdapterExpress;
 
 import { makeSessionsUserController } from "../controllers/factores/makeUsers/makeSessionsUserController";
 import { makeCreateUserController } from "../controllers/factores/makeUsers/makeCreateUserController";
+import { makeShowUserController } from "../controllers/factores/makeUsers/makeShowUserController";
 
 usersRoutes.post('/sessions', (req: Request, res: Response)=>{
     const controller = makeSessionsUserController();
@@ -23,7 +23,8 @@ usersRoutes.post('/', (req: Request, res: Response)=>{
 });
 
 usersRoutes.get('/show', garantirAuth, (req: Request, res: Response)=>{
-    return showUserController.handle(req, res)
+    const controller = makeShowUserController();
+    return controllerAdapterExpress.handle(req, res, controller);
 });
 
 export { usersRoutes };
