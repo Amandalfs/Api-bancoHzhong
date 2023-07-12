@@ -4,9 +4,11 @@ import garantirAuth from '../../middlewares/garantirAuth';
 
 
 import deleteKeyController from "../../domain/module/keys/useCase/DeleteKey";
-import showKeyController from "../../domain/module/keys/useCase/ShowKey";
 import { ControllerAdapterExpress } from './../controllers/ControllerAdapterExpress';
+
 import { makeCreateKeyController } from '../controllers/factores/makeKeys/makeCreateKeyController';
+import { makeShowKeyController } from '../controllers/factores/makeKeys/makeShowKeyController';
+
 const controllerAdapterExpress = new ControllerAdapterExpress;
 
 keysRoutes.post('/', garantirAuth, (req: Request, res: Response)=>{
@@ -19,7 +21,8 @@ keysRoutes.delete('/',garantirAuth, (req: Request, res: Response)=>{
 });
 
 keysRoutes.get('/', garantirAuth, (req: Request, res: Response)=>{
-    return showKeyController.handle(req, res);
+    const controller = makeShowKeyController();
+    return controllerAdapterExpress.handle(req, res, controller);
 });
 
 export { keysRoutes };
