@@ -5,12 +5,15 @@
 ### Adicionado
 - criado a fabrica de controlador de show user
 - criado a fabrica de controlador de create key
-- adicionado o controlador de show nas rotas.
+- criado a fabrica de controlador de show key
+- adicionado o controlador de show user nas rotas.
 - adicionado o controlador de create key nas rotas.
+- adicionado o controlador de show key nas rotas.
 
 ### Test
 - criado o teste do makeShowUserController
 - criado o teste do makeCreateKeyController
+- criado o teste do makeShowKeyController
 
 <br>
 <br>
