@@ -1,5 +1,18 @@
 # Changelog de Atualizacoes da api Hzhong
 
+
+## Versão 2.0.20 - 12/07/2023
+### Adicionado
+- criado a fabrica de controlador de show user
+- adicionado o controlador de show nas rotas.
+
+### Test
+- criado o teste do makeShowUserController
+
+<br>
+<br>
+<br>
+
 ## Versão 2.0.19 - 10/07/2023
 ### Adicionado
 - adicionado a criacao e exclusao do schema a cada vez que roda o test.

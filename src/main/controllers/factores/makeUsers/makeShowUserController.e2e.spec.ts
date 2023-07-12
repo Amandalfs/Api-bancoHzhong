@@ -1,10 +1,9 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import  request  from "supertest"
+import { afterAll, beforeAll, describe, expect, it } from "vitest"
 import { app } from "../../../../app";
-import request from "supertest";
-import"dotenv/config"
 
 let server;
-describe('Testando a rota de fazer login',()=>{
+describe('testando o usuario conseguir pega suas informacoes', ()=>{
     beforeAll(()=>{
         server = app.listen();
     })
@@ -13,7 +12,7 @@ describe('Testando a rota de fazer login',()=>{
         server.close();
     })
 
-    it("deve ser possivel logar com a conta certa e poder receber o seu token", async()=>{
+    it('usuario deve consegui acessar a rota de show user', async () =>{ 
         await request(server)
             .post("/users")
             .set('password', "12345678")
@@ -26,17 +25,21 @@ describe('Testando a rota de fazer login',()=>{
                 typeaccont: "poupanca",
                 email: "usuario57@test.com",
             })
-        const response = await request(server)
+        const responseSessions = await request(server)
             .post("/users/sessions")
             .send({
                 username: "UsuarioTest",
                 password: "12345678",
             })
-        expect(response.status).toEqual(200);
-        expect(response.body.params).toEqual({
-            token: expect.any(String)
-        });
+        const response = await request(server)
+            .get("/users/show")
+            .set('Authorization', `Bearer ${responseSessions.body.params.token}`);
+        expect(response.body.params.userSend).toEqual(expect.objectContaining({
+            name: 'Usuario Test',
+            username: 'UsuarioTest',
+            saldo: 0,
+            typeaccont: 'poupanca',
+            keypix: null
+        }))
     })
-
 })
-
