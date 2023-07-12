@@ -3,12 +3,15 @@ const keysRoutes = Router();
 import garantirAuth from '../../middlewares/garantirAuth';
 
 
-import createKeyController from '../../domain/module/keys/useCase/CreateKey';
 import deleteKeyController from "../../domain/module/keys/useCase/DeleteKey";
 import showKeyController from "../../domain/module/keys/useCase/ShowKey";
+import { ControllerAdapterExpress } from './../controllers/ControllerAdapterExpress';
+import { makeCreateKeyController } from '../controllers/factores/makeKeys/makeCreateKeyController';
+const controllerAdapterExpress = new ControllerAdapterExpress;
 
-keysRoutes.patch('/', garantirAuth, (req: Request, res: Response)=>{
-    return createKeyController.handle(req, res);
+keysRoutes.post('/', garantirAuth, (req: Request, res: Response)=>{
+    const controller = makeCreateKeyController();
+    return controllerAdapterExpress.handle(req, res, controller);
 });
 
 keysRoutes.delete('/',garantirAuth, (req: Request, res: Response)=>{
