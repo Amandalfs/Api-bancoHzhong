@@ -16,7 +16,7 @@ const makeSut = ():TypesSut =>{
                 name: "TEST",
                 tipo: "Test",
                 saldo: 50,
-                data: "00000",
+                data: new Date(),
                 descricao: "Test",
             })))
         }
@@ -103,7 +103,7 @@ describe("Testando o controllador de Deposito", ()=>{
             name: "TEST",
             tipo: "Test",
             saldo: 50,
-            data: "00000",
+            data: new Date(),
             descricao: "Test",
         })
         expect(statusCode).toEqual(200);
