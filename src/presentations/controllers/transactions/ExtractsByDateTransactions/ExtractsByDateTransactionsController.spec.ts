@@ -15,7 +15,7 @@ const makeSut = ():TypesSut =>{
                 new DTOResponseExtractsByDateUseCase([{
                     tipo: "envio",
                     saldo: 50,
-                    data: '0000',
+                    data: new Date(2022,1,1),
                     descricao: "test",
                 }])
             ))
@@ -91,8 +91,8 @@ describe("Testando o controllador de extratos", ()=>{
                 id: 404,    
             },
             query: {
-                dateStart: "404",
-                dateEnd: "404"
+                dateStart: new Date(2022,1,1),
+                dateEnd: new Date(2022,1,1),
             }
         }
         const response = await sut.handle(request);
@@ -108,15 +108,15 @@ describe("Testando o controllador de extratos", ()=>{
                 id: 1,    
             },
             query: {
-                dateStart: "valid",
-                dateEnd: "valid"
+                dateStart: String(new Date(2022,1,1)),
+                dateEnd: String(new Date(2022,1,1)),
             }
         }
         await sut.handle(request);
         expect(useCaseSpy[0][0]).toEqual({
             id_user: 1,
-            dateStart: "valid",
-            dateEnd: "valid",
+            dateStart: new Date(String(new Date(2022,1,1))),
+            dateEnd: new Date(String(new Date(2022,1,1))),
         })
     })
 
@@ -162,8 +162,8 @@ describe("Testando o controllador de extratos", ()=>{
                 id: 1,    
             },
             query: {
-                dateStart: "valid",
-                dateEnd: "valid"
+                dateStart: String(new Date(2022,1,1)),
+                dateEnd: String(new Date(2022,1,1)),
             }
         }
         const response = await sut.handle(request);
@@ -171,7 +171,7 @@ describe("Testando o controllador de extratos", ()=>{
         expect(response.body.params.extracts).toEqual([{
             tipo: "envio",
             saldo: 50,
-            data: '0000',
+            data: new Date(2022,1,1),
             descricao: "test",
         }]);
     

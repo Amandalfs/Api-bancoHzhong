@@ -2,9 +2,9 @@ import { IExtracsRepository, IReponseExtracs } from "./protocols";
 
 export class DTORequestExtractsByDateUseCase {
     public id_user: number
-    public dateStart: string
-    public dateEnd: string
-    constructor(id: number, start: string, end: string){
+    public dateStart: Date
+    public dateEnd: Date
+    constructor(id: number, start: Date, end: Date){
         this.id_user = id;
         this.dateStart = start;
         this.dateEnd = end;
