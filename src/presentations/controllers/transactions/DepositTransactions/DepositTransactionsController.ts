@@ -10,7 +10,7 @@ export class DepositTransactionsController implements HttpController {
             const { id } = req.user;
             const { deposit } = req.body;
 
-            const input = new DTORequestDepositTransactionsUseCase(id, deposit);
+            const input = new DTORequestDepositTransactionsUseCase(deposit, id);
             const output = await this.depositTransactionsUseCase.execute(input);
             return Success(output);
         } catch (error) {

@@ -16,7 +16,7 @@ interface ExtractNew{
     name: string
     tipo: string
     saldo: number
-    data: string
+    data: Date
     descricao: string
 }
 export class DTOResponseDepositTransactionsUseCase {
@@ -24,7 +24,7 @@ export class DTOResponseDepositTransactionsUseCase {
     public name: string
     public tipo: string
     public saldo: number
-    public data: string
+    public data: Date
     public descricao: string
     constructor({id_user, name, tipo, saldo, data, descricao}: ExtractNew){
         this.id_user = id_user;
@@ -67,7 +67,7 @@ class DepositTransactionsUseCase implements IDepositTransactionsUseCase {
             name: name,
             tipo: tipo,
             saldo: deposit,
-            data: `${new Date()}`,
+            data: new Date(),
             descricao: desc,
         }
 

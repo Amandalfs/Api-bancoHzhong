@@ -4,6 +4,6 @@ export interface IExtracts {
     name: string,
     tipo: string,
     saldo: number,
-    data: string,
+    data: Date,
     descricao: string,
 }
