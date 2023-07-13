@@ -104,7 +104,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     value: 2250
                 }
             ]
-            const dateNew = `${new Date()}`
+            const dateNew = new Date();
 
             const totalDiario = await this.ExtractsRepository.CountBySending({dateStart: dateNew, dateEnd: dateNew, UserId: user.id});
             for (const limitDay of limitsDay) {

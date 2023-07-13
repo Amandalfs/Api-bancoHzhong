@@ -1,7 +1,7 @@
 import { DTORequestSendingMoneyUseCase, ISendingMoneyUseCase } from "../../../../domain/module/transactions/useCase/SendingMoney/SendingMoneyUseCase";
 import { HttpRequest, HttpResponse } from  "../../../protocols/http"
 import { HttpController } from "../../../protocols/Controller"
-import { BadRequest, NotFound, ServerError, Success, Unauthorized } from "../../../helpers";
+import { BadRequest, Forbidden, NotFound, ServerError, Success, Unauthorized } from "../../../helpers";
 import { InvalidParams } from "../../errors/InvalidParams";
 
 export class SendingMoneyTransactionsController implements HttpController {
@@ -21,8 +21,8 @@ export class SendingMoneyTransactionsController implements HttpController {
             }
 
             const input = new DTORequestSendingMoneyUseCase(id, keypix, value);
-            const ouput = await this.sendingMoneyTransactionsUseCase.execute(input);
-            return Success(ouput);
+            const output = await this.sendingMoneyTransactionsUseCase.execute(input);
+            return Success(output);
 
        } catch (error) {
             if(!error.statusCode){
@@ -35,6 +35,10 @@ export class SendingMoneyTransactionsController implements HttpController {
 
             if(error.statusCode === 401){
                 return Unauthorized(error.message);
+            }
+
+            if(error.statusCode === 403){
+                return Forbidden(error.message);
             }
 
             if(error.statusCode === 404){
