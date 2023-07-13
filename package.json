@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "tsx ./src/server",
     "knex": "node --no-warnings --loader tsx ./node_modules/knex/bin/cli.js",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint ./src --ext .ts",
+    "lint:fix": "eslint ./src --ext .ts --fix",
     "test": "vitest run ",
     "test:watch": "vitest ",
     "test:coverage": "vitest run --coverage ",

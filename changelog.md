@@ -1,5 +1,26 @@
 # Changelog de Atualizacoes da api Hzhong
 
+## Versão 2.0.21 - 13/07/2023
+
+### Adicionado
+- criado a fabrica de controlador de deposit transactions
+- adicionado o controlador de deposit transactions nas rotas.
+
+### Test
+- criado o teste do makeDepositTransactionsController
+
+## Corrigido 
+- arrumado o formato de data enviado para o banco de dados.
+- arrumado o formato do date no teste unitario do controlador de deposito
+
+### Alterado
+- mudado o nome do recurso principal nas rotas de transacao.
+ 
+<br>
+<br>
+<br>
+
+## Versão 2.0.
 
 ## Versão 2.0.20 - 12/07/2023
 ### Adicionado
@@ -17,6 +38,8 @@
 - criado o teste do makeCreateKeyController
 - criado o teste do makeShowKeyController
 - criado o teste do makeDeleteKeyController
+
+
 
 <br>
 <br>
