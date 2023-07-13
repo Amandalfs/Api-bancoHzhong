@@ -3,11 +3,11 @@ import garantirAuth from "../../middlewares/garantirAuth";
 import { Request, Response, Router } from "express";
 const transactionsRoutes = Router();
 
-import extractsByDataController from '../../domain/module/transactions/useCase/ExtractsByData';
 
 import { makeDepositTransactionsController } from "../controllers/factores/makeTransactions/makeDepositTransactionsControlller";
 import { makeWithdrawTransactionsController } from "../controllers/factores/makeTransactions/makeWithdrawTransactionsController";
 import { makeSendingMoneyTransactionsController } from "../controllers/factores/makeTransactions/makeSendingMoneyTransactionsController";
+import { makeExtractByDateTransactionsController } from "../controllers/factores/makeTransactions/makeExtractByDateTransactionsController";
 
 import { ControllerAdapterExpress } from "../controllers/ControllerAdapterExpress";
 const controllerAdapterExpress = new ControllerAdapterExpress();
@@ -28,7 +28,8 @@ transactionsRoutes.patch('/sendingMoney', garantirAuth, (req: Request, res: Resp
 });
 
 transactionsRoutes.get('/extracts', garantirAuth, (req: Request, res: Response)=>{
-    return extractsByDataController.handle(req, res);
+    const controller = makeExtractByDateTransactionsController();
+    return controllerAdapterExpress.handle(req, res, controller);
 });
 
 export { transactionsRoutes };
