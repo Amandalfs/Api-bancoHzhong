@@ -4,10 +4,13 @@
 
 ### Adicionado
 - criado a fabrica de controlador de deposit transactions
+- criado a fabrica de controlador de withdraw transactions
 - adicionado o controlador de deposit transactions nas rotas.
+- adicionado o controlador de withdraw transactions nas rotas.
 
 ### Test
 - criado o teste do makeDepositTransactionsController
+- criado o teste do makeWithdrawTransactionsController
 
 ## Corrigido 
 - arrumado o formato de data enviado para o banco de dados.
