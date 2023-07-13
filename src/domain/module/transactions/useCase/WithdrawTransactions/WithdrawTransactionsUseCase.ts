@@ -16,7 +16,7 @@ interface ExtractNew {
     name: string,
     tipo: string,
     saldo: number,
-    data: string,
+    data: Date,
     descricao: string,
 }
 
@@ -106,7 +106,7 @@ class WithdrawTransactionsUseCase implements IWithdrawTransctionsUseCase{
                 name: user.name,
                 tipo: type,
                 saldo: valueWithdraw,
-                data: data,
+                data: new Date(),
                 descricao: desc,
             }
 

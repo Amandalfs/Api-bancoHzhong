@@ -24,7 +24,7 @@ type Extract = {
     name: string
     tipo: string
     saldo: number
-    data: string
+    data: Date
     descricao: string
 }
 
@@ -122,7 +122,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     name: user.name,
                     tipo: "envio",
                     saldo: value,
-                    data: `${new Date()}`,
+                    data: new Date(),
                     descricao: `Voce transferiu R$${value.toFixed(2).replace('.',',')} para ${user.name}`,
             }
 
@@ -131,7 +131,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     name: receiveUser.name,
                     tipo: "recebido",
                     saldo: value,
-                    data: `${new Date()}`,
+                    data: new Date(),
                     descricao: `Voce recebeu R${value.toFixed(2).replace('.',',')} de ${receiveUser.name}`,
             }
                 
