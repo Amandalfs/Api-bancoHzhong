@@ -21,6 +21,7 @@ export class WithdrawTransactionsController implements HttpController {
             return Success(output);
         } catch (error) {
             if(!error.statusCode){
+                console.error(error)
                 return ServerError();
             }
 

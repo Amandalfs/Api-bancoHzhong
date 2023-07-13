@@ -71,7 +71,7 @@ class WithdrawTransactionsUseCase implements IWithdrawTransctionsUseCase{
                 }                
             }
             
-            const data = `${new Date()}`;
+            const data = new Date();
             const type = "Saque";
 
             const dailyTotal = await this.ExtractsRepository.CountByWithdraw({dateStart: data, dateEnd: data, UserId:user.id})

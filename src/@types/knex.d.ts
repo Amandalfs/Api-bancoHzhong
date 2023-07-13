@@ -21,7 +21,7 @@ declare module 'knex/types/tables'{
             name: string,
             tipo: string,
             saldo: number,
-            data: string,
+            data: Date,
             descricao: string,
         }
 

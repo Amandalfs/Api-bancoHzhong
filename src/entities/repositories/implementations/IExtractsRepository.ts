@@ -3,26 +3,26 @@ import { IExtracts } from "../model/IExtracts"
 export interface IReponseExtracs {
     tipo: string,
     saldo: number,
-    data: string,
+    data: Date,
     descricao: string,
 }
 
 export interface IRequestCountByWithdraw {
-    dateStart: string
-    dateEnd: string
+    dateStart: Date
+    dateEnd: Date
     UserId: number
 }
 
 export interface IRequestCountBySending {
-    dateStart: string
-    dateEnd: string
+    dateStart: Date
+    dateEnd: Date
     UserId: number
 }
 
 export interface IRequestSearchForDataStartAndEndbyId {
     id: number
-    dateStart: string,
-    dateEnd: string,
+    dateStart: Date,
+    dateEnd: Date,
 }
 
 
