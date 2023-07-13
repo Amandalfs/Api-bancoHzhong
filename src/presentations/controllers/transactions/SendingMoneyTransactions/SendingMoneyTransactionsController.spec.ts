@@ -17,7 +17,7 @@ const makeSut = ():TypesSut =>{
                     name: "Test 01",
                     tipo: "envio",
                     saldo: 50,
-                    data: `00000`,
+                    data:  new Date(2020,1,1,1),
                     descricao: `Voce transferiu R$50`,
             }
 
@@ -26,7 +26,7 @@ const makeSut = ():TypesSut =>{
                     name: "Test 02",
                     tipo: "recebido",
                     saldo: 50,
-                    data: `00000`,
+                    data:  new Date(2020,1,1,1),
                     descricao: `Voce recebeu R$50`,
             }
             
@@ -173,7 +173,7 @@ describe("Testando o controllador de envio de dinheiro", ()=>{
             name: "Test 01",
             tipo: "envio",
             saldo: 50,
-            data: `00000`,
+            data: new Date(2020,1,1,1),
             descricao: `Voce transferiu R$50`,
         }
 
@@ -182,7 +182,7 @@ describe("Testando o controllador de envio de dinheiro", ()=>{
                 name: "Test 02",
                 tipo: "recebido",
                 saldo: 50,
-                data: `00000`,
+                data:  new Date(2020,1,1,1),
                 descricao: `Voce recebeu R$50`,
         }
         

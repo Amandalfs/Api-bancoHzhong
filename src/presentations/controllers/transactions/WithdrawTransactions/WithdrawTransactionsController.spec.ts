@@ -12,7 +12,7 @@ const makeSut = ():TypesSut =>{
     const useCaseShowMock = new class withdrawTransactionsUserUseCase implements IWithdrawTransctionsUseCase {
         execute(data: DTORequestWithdrawTransctionsUseCase): Promise<DTOResponseWithdrawTransctionsUseCase> {
             return new Promise(resolve => resolve(new DTOResponseWithdrawTransctionsUseCase({
-                data:  "00000",
+                data: new Date(2020,1,1,1),
                 descricao: "testes",
                 id_user: 1,
                 name: "testes",
@@ -141,7 +141,7 @@ describe("Testando o controllador de saque", ()=>{
         const { body, statusCode } = await sut.handle(request);
         expect(statusCode).toEqual(200);
         const expected = new DTOResponseWithdrawTransctionsUseCase({
-            data:  "00000",
+            data: new Date(2020,1,1,1),
             descricao: "testes",
             id_user: 1,
             name: "testes",
