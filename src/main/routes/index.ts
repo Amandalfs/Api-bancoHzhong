@@ -6,7 +6,7 @@ import { keysRoutes } from "./keys.routes";
 const routes = Router();
 
 routes.use("/users", usersRoutes);
-routes.use("/users", transactionsRoutes);
+routes.use("/transactions", transactionsRoutes);
 routes.use("/users/keys", keysRoutes);
 
 export { routes };
