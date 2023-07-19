@@ -9,3 +9,7 @@ services:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=hzhong
+  hzhong-api:
+    image: amandalfs/hzhong-node:16
+    ports:
+      - 8020:8020
