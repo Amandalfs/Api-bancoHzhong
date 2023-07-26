@@ -2,8 +2,13 @@ import"dotenv/config"
 
 import path from "path";
 import knex, { Knex } from 'knex';
-const variableUrlSchema = new URL(process.env.DATABASE_URL).searchParams;
-const schema = variableUrlSchema.get("schema")
+
+let schema = 'public';
+if(process.env.DATABASE_URL){
+  const variableUrlSchema = new URL(process.env.DATABASE_URL).searchParams;
+  schema = variableUrlSchema.get("schema");
+}
+
 
 export default<Knex.Config> {
     test: {
