@@ -34,6 +34,7 @@ export class CreateUserController implements HttpController{
         } catch (error) {
 
             if(!error.statusCode){
+                console.log(error);
                 return ServerError();
             }
 

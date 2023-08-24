@@ -9,3 +9,13 @@ services:
       - POSTGRESQL_USERNAME=docker
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=hzhong
+    # network_mode: REDE1
+  hzhong-api:
+    image: amandalfs/hzhong-node
+    ports:
+      - 8020:8020
+    # network_mode: REDE1
+
+# volumes:
+#   data-pg:
+#     driver: local
