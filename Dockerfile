@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run knex migrate:latest
+
 EXPOSE 8020
 
 CMD ["npm", "run", "dev"]
