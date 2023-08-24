@@ -1,5 +1,5 @@
+import"dotenv/config";
 import { app } from "./app";
-const port = 8020;
+const port = Number(process.env.PORT) | 8020;
 
 app.listen(port, () => console.log(`Tudo ok, porta ${port}`));
-

@@ -2,8 +2,13 @@ import"dotenv/config"
 
 import path from "path";
 import knex, { Knex } from 'knex';
-const variableUrlSchema = new URL(process.env.DATABASE_URL).searchParams;
-const schema = variableUrlSchema.get("schema")
+
+let schema = 'public';
+if(process.env.DATABASE_URL){
+  const variableUrlSchema = new URL(process.env.DATABASE_URL).searchParams;
+  schema = variableUrlSchema.get("schema");
+}
+
 
 export default<Knex.Config> {
     test: {
@@ -31,17 +36,16 @@ export default<Knex.Config> {
     production: {
       client: 'pg',
       connection: {
-        host:process.env.PQ_HOST,
-        port:5432,
-        user:process.env.PQ_NAMEHOST,
-        password:process.env.PQ_PASSWORD,
-        database:process.env.PQ_DATABASE,
-        ssl:false,
+        connectionString:process.env.DATABASE_URL,
+        ssl: true
       },
       useNullAsDefault: true,
       migrations: {
         tableName: 'migrations',
         directory: './src/sql/migrations',
+      },
+      ssl: {
+        require: true
       },
       searchPath: ['knex', 'public']
     },
