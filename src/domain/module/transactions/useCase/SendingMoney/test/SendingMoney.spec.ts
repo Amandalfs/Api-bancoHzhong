@@ -299,7 +299,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         await usersRepository.createUser({
             numero: 153,
             agencia: "003",
-            saldo: 2000, 
+            saldo: 4500, 
             "username": "UsuarioTest",
             "name": "Usuario Test",
             "nasc": "02-10-2003",
@@ -325,9 +325,8 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
 
         const id = 1
         const keyPix = "gkprjmbpoertpbnoefdoaBNM-FGNDRFBJESDNBFVOIL"
-
         for (let index = 0; index < 5; index++) {
-            await sut.execute({id, keyPix, value:290});
+           await sut.execute({id, keyPix, value:290});
         }
 
         await expect(sut.execute({id, keyPix, value:290})).rejects.toEqual(new LimitDayError(1500, "poupanca")) // valor, id        
@@ -343,7 +342,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         await usersRepository.createUser({
             numero: 153,
             agencia: "003",
-            saldo: 2000, 
+            saldo: 8000, 
             "username": "UsuarioTest",
             "name": "Usuario Test",
             "nasc": "02-10-2003",
@@ -387,7 +386,7 @@ describe("Testando o envio de dinheiro para outro usuario", ()=>{
         await usersRepository.createUser({
             numero: 153,
             agencia: "003",
-            saldo: 2000, 
+            saldo: 8000, 
             "username": "UsuarioTest",
             "name": "Usuario Test",
             "nasc": "02-10-2003",

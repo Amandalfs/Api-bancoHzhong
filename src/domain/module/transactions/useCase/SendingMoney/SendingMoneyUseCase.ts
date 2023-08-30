@@ -113,9 +113,8 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                 }
             }
 
-            const balanceReceive =  user.saldo - value;
-            const balanceSend = receiveUser.saldo + value;
-    
+            const balanceReceive = receiveUser.saldo + value;
+            const balanceSend = user.saldo - value;
 
             const send = {
                     id_user: id,
@@ -134,8 +133,6 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     data: new Date(),
                     descricao: `Voce recebeu R${value.toFixed(2).replace('.',',')} de ${receiveUser.name}`,
             }
-                
-    
     
             await this.ExtractsRepository.createExtracts(send);
             await this.ExtractsRepository.createExtracts(receive);
