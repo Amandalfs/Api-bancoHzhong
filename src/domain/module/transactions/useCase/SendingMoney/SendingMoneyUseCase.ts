@@ -122,7 +122,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     tipo: "envio",
                     saldo: value,
                     data: new Date(),
-                    descricao: `Voce transferiu R$${value.toFixed(2).replace('.',',')} para ${user.name}`,
+                    descricao: `Voce transferiu R$${value.toFixed(2).replace('.',',')} para ${receiveUser.name}`,
             }
 
             const receive = {
@@ -131,7 +131,7 @@ class SendingMoneyUseCase implements ISendingMoneyUseCase{
                     tipo: "recebido",
                     saldo: value,
                     data: new Date(),
-                    descricao: `Voce recebeu R${value.toFixed(2).replace('.',',')} de ${receiveUser.name}`,
+                    descricao: `Voce recebeu R${value.toFixed(2).replace('.',',')} de ${user.name}`,
             }
     
             await this.ExtractsRepository.createExtracts(send);

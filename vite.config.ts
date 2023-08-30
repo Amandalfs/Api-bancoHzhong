@@ -7,6 +7,7 @@ export default defineConfig({
 	},
 	knex: {
 		environment: [["src/**", "knex"]],
-		exclude: ['node_modules', 'dist', '.idea', '.git', '.cache']
+		exclude: ['node_modules', 'dist', '.idea', '.git', '.cache'],
+		setTimeout: 10000
 	}
 });
