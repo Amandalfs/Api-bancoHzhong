@@ -1,6 +1,8 @@
+import { AccontExistsError } from "../CreateUser/errors";
 import { IUserRepository } from "../SessionsUsers/protocols"
 import { ResourceNotFoundError } from "../ShowUser/errors";
 import { Codificador } from './../../../../../utils/Codificador/Codificador';
+import { PasswordInvalidError } from "./errors/PasswordInvalidError";
 
 export interface inputModifyUserDTO {
     id:  number,
@@ -35,24 +37,27 @@ export class ModifyUserUseCase {
 
         if(email){
             const emailExists = await this.userRepository.findUserByEmail(email);
-            if(!emailExists){
-                user.email =  email ?? user.email;
+            if(emailExists){
+                throw new AccontExistsError("email");
             }
+            user.email =  email ?? user.email;
         }
 
         if(username){
             const usernameExists = await this.userRepository.findUserByUsername(username)
-            if(!usernameExists){
-                user.username =  username ?? user.username;
+            if(usernameExists){
+                throw new AccontExistsError("username");
             }
+            user.username =  username ?? user.username;
         }
 
         if(oldPassword){
             const passwordPassed = await this.codificador.comparador(oldPassword, user.password);
-            if(passwordPassed){
-                const newPassword = await this.codificador.criptografia(password, 10);
-                user.password = newPassword;
+            if(!passwordPassed){
+                throw new PasswordInvalidError();
             }
+            const newPassword = await this.codificador.criptografia(password, 10);
+            user.password = newPassword;
         }
 
         user = await this.userRepository.updateAccont(id, user);
