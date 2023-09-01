@@ -22,7 +22,7 @@ export interface outputModifyUserDTO {
 }
 
 export interface IModifyUserUseCase {
-    execute(output: outputModifyUserDTO): Promise<inputModifyUserDTO>
+    execute(input: inputModifyUserDTO): Promise<outputModifyUserDTO>
 }
 
 export class ModifyUserUseCase {
