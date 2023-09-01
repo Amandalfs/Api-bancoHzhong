@@ -42,4 +42,25 @@ describe("Modify user controller tests units", ()=>{
         expect(response.statusCode).toEqual(500);
         expect(response.body.msg).toEqual("Server Internal Error");
     })
+
+    it("should throw a 400 bad request error status", async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({
+            statusCode: 400,
+            message: "Bad Request"
+        });
+        const request: HttpRequest = {
+            body: {
+                username: "Error400",
+                name: "Error400Name", 
+                email: "Error400Email"
+            },
+            user: {
+                id: 1
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Bad Request");
+    })
 })
