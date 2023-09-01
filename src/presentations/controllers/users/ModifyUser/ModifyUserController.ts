@@ -1,5 +1,5 @@
 import { IModifyUserUseCase } from "../../../../domain/module/acconts/useCase/ModifyUser/ModifyUserUseCase";
-import { HttpController, HttpRequest, HttpResponse, ServerError, Success } from "../CreateUser/CreateUserControllerProtocols";
+import { BadRequest, HttpController, HttpRequest, HttpResponse, ServerError, Success } from "../CreateUser/CreateUserControllerProtocols";
 
 export class ModifyUserController implements HttpController {
     
@@ -25,6 +25,10 @@ export class ModifyUserController implements HttpController {
         } catch (error) {
             if(!error.statusCode){
                 return ServerError();
+            }
+
+            if(error.statusCode === 400){
+                return BadRequest(error.message);
             }
         }
     }
