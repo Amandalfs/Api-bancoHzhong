@@ -1,5 +1,39 @@
 # Changelog de Atualizacoes da api Hzhong
 
+## Versão 3.0.0 - 01/09/2023
+
+### Adicionado
+- Implementado tratamento de erro para status 404 no controlador de modificação de usuário.
+- Implementado tratamento de erro para status 403 no controlador de modificação de usuário.
+- Implementado tratamento de erro para status 401 no controlador de modificação de usuário.
+- Implementado tratamento de erro para status 400 no controlador de modificação de usuário.
+- Adicionado o controlador de modificação de usuário.
+- Adicionado o caso de uso de modificação de usuário.
+
+### Test
+- Criado teste para tratamento de erro com status 404 no controlador de modificação de usuário.
+- Criado teste para tratamento de erro com status 403 no controlador de modificação de usuário.
+- Criado teste para tratamento de erro com status 401 no controlador de modificação de usuário.
+- Criado teste para tratamento de erro com status 400 no controlador de modificação de usuário.
+- Criado teste para o controlador de modificação de usuário.
+- Criado teste para o caso de uso de modificação de usuário.
+
+## Corrigido
+- Corrigida interface do caso de uso de modificação de usuário.
+- Corrigido retorno de atualização de conta.
+
+### Alterado
+- Atualizado o repositório de usuário para incluir a função de atualização de conta no Knex.
+- Atualizado o caso de uso de modificação de usuário.
+
+### Outros
+- Adicionada a funcionalidade de atualização de conta ao repositório de usuário em memória.
+
+<br>
+<br>
+<br>
+
+
 ## Versão 2.0.21 - 13/07/2023
 
 ### Adicionado
