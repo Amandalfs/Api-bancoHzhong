@@ -21,6 +21,10 @@ export interface outputModifyUserDTO {
     email: string, 
 }
 
+export interface IModifyUserUseCase {
+    execute(output: outputModifyUserDTO): Promise<inputModifyUserDTO>
+}
+
 export class ModifyUserUseCase {
     
     constructor(private userRepository: IUserRepository, private codificador: Codificador){}
