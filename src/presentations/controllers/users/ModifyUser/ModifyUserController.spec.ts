@@ -84,4 +84,25 @@ describe("Modify user controller tests units", ()=>{
         expect(response.statusCode).toEqual(401);
         expect(response.body.msg).toEqual("Unauthorized");
     })
+
+    it("should throw a 403 forbidden error status", async ()=>{
+        const { sut, useCase } = makeSut();
+        vi.spyOn(useCase, "execute").mockRejectedValue({
+            statusCode: 403,
+            message: "Forbidden"
+        });
+        const request: HttpRequest = {
+            body: {
+                username: "Error400",
+                name: "Error400Name", 
+                email: "Error400Email"
+            },
+            user: {
+                id: 1
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(403);
+        expect(response.body.msg).toEqual("Forbidden");
+    })
 })
