@@ -2,6 +2,7 @@ import { AccontExistsError } from "../CreateUser/errors";
 import { IUserRepository } from "../SessionsUsers/protocols"
 import { ResourceNotFoundError } from "../ShowUser/errors";
 import { Codificador } from './../../../../../utils/Codificador/Codificador';
+import { FieldNotFilledError } from "./errors/FieldNotFilledError.";
 import { PasswordInvalidError } from "./errors/PasswordInvalidError";
 
 export interface inputModifyUserDTO {
@@ -35,6 +36,12 @@ export class ModifyUserUseCase {
 
         if(!user){
             throw new ResourceNotFoundError();
+        }
+
+        const hasFilledField = !email && !name && !username && !password && !oldPassword
+    
+        if(hasFilledField){
+            throw new FieldNotFilledError();
         }
 
         user.name = name ?? user.name;
