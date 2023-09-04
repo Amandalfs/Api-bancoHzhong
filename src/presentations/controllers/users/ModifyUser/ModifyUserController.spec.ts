@@ -126,4 +126,30 @@ describe("Modify user controller tests units", ()=>{
         expect(response.statusCode).toEqual(404);
         expect(response.body.msg).toEqual("Not Found");
     })
+
+    it("should be able to send the data correctly to the use case", async ()=>{
+        const { sut, useCase } = makeSut();
+        const useCaseSpy = vi.spyOn(useCase, "execute");
+        const request: HttpRequest = {
+            body: {
+                username: "Success",
+                name: "Success", 
+                email: "Success",
+                oldPassword: "Success",
+                password: "Success",
+            },
+            user: {
+                id: 1
+            }
+        }
+        await sut.handle(request);
+        expect(useCaseSpy.mock.calls[0][0].userUpdate).toEqual({
+            username: "Success",
+            name: "Success", 
+            email: "Success",
+            oldPassword: "Success",
+            password: "Success",
+          })
+    })
 })
+
