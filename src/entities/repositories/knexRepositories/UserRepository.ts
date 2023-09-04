@@ -45,8 +45,8 @@ class UserRepository implements IUserRepository {
     }
     
     async updateAccont(id: number, user: IReponseUser): Promise<IReponseUser> {
-        const newUser = await db("users").where("id", id).update(user).returning("*").first();
-        return newUser
+        const newUser = await db("users").where("id", id).update(user).returning("*");
+        return newUser[0];
     }
 }
 
