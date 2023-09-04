@@ -10,81 +10,93 @@
     },
     "paths": {
         "/users": {
-            "post":{
-                "tags": ["accounts"],
-                "sumary": "criacao usuarios",
-                "description": "Criacao de um novo usuario",
-                "requestBody": {
-                    "content":{
-                        "application/json":{
-                            "schema":{
-                                "type":"object",
-                                "properties": {
-                                    "username": {
-                                        "type": "string"    
-                                    },
-                                    "name": {
-                                        "type":"string"
-                                    },
-                                    "email":{
-                                        "type": "string"
-                                    },
-                                    "nasc": {
-                                        "type":"string"
-                                    }
-                                },
-                                "example":{
-                                    "name": "userTest",
-                                    "email": "user@test.com",
-                                    "senha": "user#123.Test",
-                                    "typeaccont": "poupanca"
-                                }
-                            }
+            "post": {
+            "tags": ["accounts"],
+            "summary": "Criação de Usuários",
+            "description": "Criação de um novo usuário.",
+            "requestBody": {
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                        "type": "string"
+                        },
+                        "name": {
+                        "type": "string"
+                        },
+                        "email": {
+                        "type": "string"
+                        },
+                        "nasc": {
+                        "type": "string"
+                        },
+                        "typeaccont": {
+                        "type": "string"
                         }
+                    },
+                    "example": {
+                        "username": "UsuarioTest",
+                        "name": "Usuario Test",
+                        "email": "usuario57@test.com",
+                        "nasc": "02-10-2003",
+                        "typeaccont": "poupanca"
                     }
+                    }
+                }
+                }
+            },
+            "parameters": [
+                {
+                "name": "password",
+                "in": "header",
+                "description": "Primeira senha",
+                "required": true,
+                "schema": {
+                    "type": "string"
                 },
-                "parameters": [
-                    {
-                        "name":"password",
-                        "in": "header",
-                        "description": "primeira senha",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "12345678"
+                "example": "12345678"
+                },
+                {
+                "name": "passwordconfirmation",
+                "in": "header",
+                "description": "Repita a senha",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                },
+                "example": "12345678"
+                },
+                {
+                "name": "cpf",
+                "in": "header",
+                "description": "Coloque o CPF válido",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                },
+                "example": "12603863096"
+                }
+            ],
+            "responses": {
+                "400": {
+                "description": "Já existe uma conta"
+                },
+                "201": {
+                "description": "Conta criada",
+                "content": {
+                    "text/plain": {
+                    "schema": {
+                        "type": "string"
                     },
-                    {
-                        "name":"password2",
-                        "in": "header",
-                        "description": "repita a senha",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "12345678"
-                    },
-                    {
-                        "name":"cpf",
-                        "in": "header",
-                        "description": "coloque o cpf valido",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "88888888808"
+                    "example": "created"
                     }
-                ],
-                "responses": {
-                    "400": {
-                      "description": "Ja existente uma conta"
-                    },
-                    "201": {
-                        "description": "conta criada"
-                    }
-                  }
-            }      
-        },
+                }
+                }
+            }
+            }
+        },  
         "/users/show": {
             "get": {
                 "tags": ["accounts"],
