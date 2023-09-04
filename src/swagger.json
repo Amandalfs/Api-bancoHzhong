@@ -1,652 +1,1209 @@
 {
-    "openapi": "3.0.0",
+    "openapi": "3.0.1",
     "info": {
-        "title": "Api Banco Hzhong Documetancao",
-        "description": "Api Banco Hzhong",
-        "version": "2.0.18",
+        "title": "API do Banco hzhong",
+        "description": "A API do Banco hzhong é uma plataforma que permite realizar operações bancárias, incluindo autenticação de usuários, atualização de informações de usuários, consulta de métricas financeiras e realização de transações. Esta documentação fornece informações detalhadas sobre como usar a API e suas funcionalidades.",
+        "version": "3.0.1",
+        "termsOfService": "https://seusite.com/terms-of-service",
         "contact": {
-            "email": "newlabshzhong@gmail.com"
+          "name": "Amanda (Desenvolvedora Plena)",
+          "email": "amandalfs57@gmail.com",
+          "url": "https://www.linkedin.com/in/amanda-rodrigues-dfbd/"
+        },
+        "license": {
+          "name": "Licença de Uso",
+          "url": "https://seusite.com/license"
         }
+      },
+      "externalDocs": {
+        "description": "Documentação Adicional",
+        "url": "https://seusite.com/docs"
     },
+    "servers": [
+          {
+            "url": "http://localhost:8020",
+            "description": "Servidor de Desenvolvimento"
+          },
+          {
+            "url": "https://api-test.example.com",
+            "description": "Servidor de Teste"
+          },
+          {
+            "url": "https://api-prod.example.com",
+            "description": "Servidor de Produção"
+          }
+    ],   
     "paths": {
         "/users": {
-            "post":{
-                "tags": ["acconts"],
-                "sumary": "criacao usuarios",
-                "description": "Criacao de um novo usuario",
-                "requestBody": {
-                    "content":{
-                        "application/json":{
-                            "schema":{
-                                "type":"object",
-                                "properties": {
-                                    "username": {
-                                        "type": "string"    
-                                    },
-                                    "name": {
-                                        "type":"string"
-                                    },
-                                    "email":{
-                                        "type": "string"
-                                    },
-                                    "nasc": {
-                                        "type":"string"
-                                    }
-                                },
-                                "example":{
-                                    "name": "userTest",
-                                    "email": "user@test.com",
-                                    "senha": "user#123.Test",
-                                    "typeaccont": "poupanca"
-                                }
-                            }
+            "post": {
+            "tags": ["accounts"],
+            "summary": "Criação de Usuários",
+            "description": "Criação de um novo usuário.",
+            "requestBody": {
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                        "type": "string"
+                        },
+                        "name": {
+                        "type": "string"
+                        },
+                        "email": {
+                        "type": "string"
+                        },
+                        "nasc": {
+                        "type": "string"
+                        },
+                        "typeaccont": {
+                        "type": "string"
                         }
+                    },
+                    "example": {
+                        "username": "UsuarioTest",
+                        "name": "Usuario Test",
+                        "email": "usuario57@test.com",
+                        "nasc": "02-10-2003",
+                        "typeaccont": "poupanca"
                     }
+                    }
+                }
+                }
+            },
+            "parameters": [
+                {
+                "name": "password",
+                "in": "header",
+                "description": "Primeira senha",
+                "required": true,
+                "schema": {
+                    "type": "string"
                 },
-                "parameters": [
-                    {
-                        "name":"password",
-                        "in": "header",
-                        "description": "primeira senha",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "12345678"
+                "example": "12345678"
+                },
+                {
+                "name": "passwordconfirmation",
+                "in": "header",
+                "description": "Repita a senha",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                },
+                "example": "12345678"
+                },
+                {
+                "name": "cpf",
+                "in": "header",
+                "description": "Coloque o CPF válido",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                },
+                "example": "12603863096"
+                }
+            ],
+            "responses": {
+                "400": {
+                "description": "Já existe uma conta"
+                },
+                "201": {
+                "description": "Conta criada",
+                "content": {
+                    "text/plain": {
+                    "schema": {
+                        "type": "string"
                     },
-                    {
-                        "name":"password2",
-                        "in": "header",
-                        "description": "repita a senha",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "12345678"
-                    },
-                    {
-                        "name":"cpf",
-                        "in": "header",
-                        "description": "coloque o cpf valido",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "88888888808"
+                    "example": "created"
                     }
-                ],
-                "responses": {
-                    "400": {
-                      "description": "Ja existente uma conta"
-                    },
-                    "201": {
-                        "description": "conta criada"
+                }
+                }
+            }
+            }
+        },  
+        "/users/sessions": {
+            "post": {
+              "tags": ["accounts"],
+              "summary": "Login do Usuário",
+              "description": "Criando uma sessão para o usuário.",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "username": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        }
+                      },
+                      "example": {
+                        "username": "userTest1",
+                        "password": "12345678"
+                      }
                     }
                   }
-            }      
+                }
+              },
+              "responses": {
+                "202": {
+                  "description": "Login bem-sucedido.",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string"
+                          }
+                        },
+                        "example": {
+                          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODQ4NTIxNTAsImV4cCI6MTY4NDkzODU1MCwic3ViIjoiMiJ9.lWUgvkjnemvlehpivcnepgOYbSdsovbjweblsYXS8kRXkN5i6Qb6jgGvokDpoiircpx63I"
+                        }
+                      }
+                    }
+                  }
+                },
+                "401": {
+                  "description": "Senha ou nome de usuário incorretos."
+                }
+              }
+            }
         },
         "/users/show": {
             "get": {
-                "tags": ["acconts"],
-                "sumary": "infos de usuario",
-                "description": "pegar infos de usuario",
-                "requestBody": {
-                    "content":{
-                        "application/json":{
-                           
-                        }
-                    }
+            "tags": ["accounts"],
+            "summary": "Infos de Usuário",
+            "description": "Pegar informações de usuário.",
+            "parameters": [
+                {
+                "name": "Authorization",
+                "in": "header",
+                "description": "Authorization token",
+                "required": true,
+                "schema": {
+                    "type": "string"
                 },
-                "parameters": [
-                    {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
+                "example": "Bearer SEU_TOKEN_AQUI"
+                }
+            ],
+            "responses": {
+                "404": {
+                "description": "Usuário não encontrado."
+                },
+                "200": {
+                "description": "Sucesso - Informações do usuário.",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "userSend": {
+                            "type": "object",
+                            "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "username": {
+                                "type": "string"
+                            },
+                            "saldo": {
+                                "type": "number"
+                            },
+                            "typeaccont": {
+                                "type": "string"
+                            },
+                            "keypix": {
+                                "type": "string"
+                            }
+                            }
                         },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "400": {
-                      "description": "usuario nao encontrado"
-                    },
-                    "202": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type":"object",
-                                    "properties": {
-                                        "userSend": {
-                                            "type": "object",
-                                            "properties": {
-                                                "name": {
-                                                    "type":"string"
-                                                },
-                                                "username": {
-                                                    "type":"string"
-                                                }, 
-                                                "saldo": {
-                                                    "type":"number"
-                                                },
-                                                "typeaccont": {
-                                                    "type":"string"
-                                                },
-                                                "keypix": {
-                                                    "type":"string"
-                                                }
-                                            }    
-                                        },
-                                        "extracts": {
-                                            "type":"array",
-                                            "properties": {
-                                                "type":"object",
-                                                "properties": {
-                                                    "tipo": {
-                                                        "type":"string"
-                                                    },
-                                                    "saldo": {
-                                                        "type":"number"
-                                                    },
-                                                    "data": {
-                                                        "type":"date"
-                                                    },
-                                                    "descricao": {
-                                                        "type":"string"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "example":{
-                                        "dados": {
-                                            "userSend": {
-                                                "name": "user Test",
-                                                "username":"userTestSuper",
-                                                "saldo": 5000,
-                                                "typeaccont": "poupanca",
-                                                "keypix": null
-                                            },
-                                            "extracts": [
-                                                {
-                                                    "tipo":"saque",
-                                                    "saldo": 258,
-                                                    "data": "05/05/2023",
-                                                    "descricao": "Voce sacou R$258,00"
-                                                },
-                                                {
-                                                    "tipo":"saque",
-                                                    "saldo": 258,
-                                                    "data": "05/05/2023",
-                                                    "descricao": "Voce sacou R$258,00"
-                                                },
-                                                {
-                                                    "tipo":"saque",
-                                                    "saldo": 258,
-                                                    "data": "05/05/2023",
-                                                    "descricao": "Voce sacou R$258,00"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
+                        "extracts": {
+                            "type": "array",
+                            "items": {
+                            "type": "object",
+                            "properties": {
+                                "tipo": {
+                                "type": "string"
+                                },
+                                "saldo": {
+                                "type": "number"
+                                },
+                                "data": {
+                                "type": "string"
+                                },
+                                "descricao": {
+                                "type": "string"
                                 }
                             }
+                            }
                         }
+                        },
+                        "example": {
+                        "userSend": {
+                            "name": "user Test",
+                            "username": "userTestSuper",
+                            "saldo": 5000,
+                            "typeaccont": "poupanca",
+                            "keypix": null
+                        },
+                        "extracts": [
+                            {
+                            "tipo": "saque",
+                            "saldo": 258,
+                            "data": "05/05/2023 12:30",
+                            "descricao": "Você sacou R$258,00"
+                            },
+                            {
+                            "tipo": "saque",
+                            "saldo": 258,
+                            "data": "05/05/2023 12:35",
+                            "descricao": "Você sacou R$258,00"
+                            },
+                            {
+                            "tipo": "saque",
+                            "saldo": 258,
+                            "data": "05/05/2023 12:40",
+                            "descricao": "Você sacou R$258,00"
+                            }
+                        ]
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            }
+        },          
+        "/users/modify": {
+              "patch": {
+                "tags": ["accounts"],
+                "summary": "Modificação de Usuário",
+                "description": "Modifica informações de um usuário existente.",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "oldPassword": {
+                            "type": "string"
+                          },
+                          "password": {
+                            "type": "string"
+                          }
+                        },
+                        "example": {
+                          "username": "new username",
+                          "name": "new name",
+                          "email": "new email",
+                          "oldPassword": "12345678",
+                          "password": "new password"
+                        }
+                      }
+                    }
                   }
-            }
+                },
+                "parameters": [
+                  {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "Token de autorização (Bearer Token)",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Bearer TOKEN_AQUI"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Informações do usuário modificadas com sucesso.",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "params": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "username": {
+                                  "type": "string"
+                                },
+                                "email": {
+                                  "type": "string"
+                                }
+                              },
+                              "example": {
+                                "params": {
+                                  "name": "new name",
+                                  "username": "new username",
+                                  "email": "new email"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+        },   
 
-        },
-        "users/sessions": {
-            "post":{
-                "tags": ["acconts"],
-                "sumary": "login do usuario",
-                "description": "criando uma sessao para o usuario",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema":{
-                                "type":"object",
-                                "properties":{
-                                    "username": {
-                                        "type":"string"
-                                    },
-                                    "password": {
-                                        "type":"string"
-                                    }
-                                },
-                                "example": {
-                                    "username": "userTest1",
-                                    "password": "12345678"
-                                }
-                            }
+        
+        "transactions/sendingMoney": {
+            "patch": {
+              "tags": ["transactions"],
+              "summary": "Envio de Dinheiro",
+              "description": "Envio de dinheiro para outro usuário.",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "deposit": {
+                          "type": "number"
+                        },
+                        "keypix": {
+                          "type": "string"
                         }
+                      },
+                      "example": {
+                        "deposit": 50,
+                        "keypix": "vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
+                      }
                     }
+                  }
+                }
+              },
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Authorization token",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "example": "Bearer SEU_TOKEN_AQUI"
+                }
+              ],
+              "responses": {
+                "400": {
+                  "description": "Valor inválido",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "msg": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "examples": {
+                        "Valor inválido": {
+                          "value": {
+                            "msg": "Valor inválido"
+                          }
+                        },
+                        "Sua conta do tipo {type} atingiu o limite diário de R${limit.toFixed(2)}": {
+                          "value": {
+                            "msg": "Sua conta do tipo poupança atingiu o limite diário de R$1000.00"
+                          }
+                        },
+                        "Você não pode enviar dinheiro para você": {
+                          "value": {
+                            "msg": "Você não pode enviar dinheiro para você"
+                          }
+                        },
+                        "A chave pix é inválida": {
+                          "value": {
+                            "msg": "A chave pix é inválida"
+                          }
+                        }
+                      }
+                    }
+                  }
                 },
-                "responses": {
-                    "202":{
-                        "content": {
-                            "application/json": {
+                "401": {
+                  "description": "Você não tem saldo suficiente",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "msg": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": {
+                        "msg": "Você não tem saldo suficiente"
+                      }
+                    }
+                  }
+                },
+                "403": {
+                  "description": "Sua conta do tipo {type} tem um limite de R$${limit}",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "msg": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": {
+                        "msg": "Sua conta do tipo poupança tem um limite de R$1000"
+                      }
+                    }
+                  }
+                },
+                "201": {
+                  "description": "Sucesso - Informações da transação.",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "extracts": {
+                            "type": "object",
+                            "properties": {
+                              "send": {
                                 "type": "object",
                                 "properties": {
-                                    "token": {
-                                        "type": "string"
-                                    }
-                                },
-                                "example": {
-                                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODQ4NTIxNTAsImV4cCI6MTY4NDkzODU1MCwic3ViIjoiMiJ9.lWUgvkjnemvlehpivcnepgOYbSdsovbjweblsYXS8kRXkN5i6Qb6jgGvokDpoiircpx63I"
+                                  "id_user": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "tipo": {
+                                    "type": "string"
+                                  },
+                                  "saldo": {
+                                    "type": "number"
+                                  },
+                                  "data": {
+                                    "type": "string"
+                                  },
+                                  "descricao": {
+                                    "type": "string"
+                                  }
                                 }
+                              },
+                              "receive": {
+                                "type": "object",
+                                "properties": {
+                                  "id_user": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "tipo": {
+                                    "type": "string"
+                                  },
+                                  "saldo": {
+                                    "type": "number"
+                                  },
+                                  "data": {
+                                    "type": "string"
+                                  },
+                                  "descricao": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
                             }
+                          }
+                        },
+                        "example": {
+                          "extracts": {
+                            "send": {
+                              "id_user": 1,
+                              "name": "user Test",
+                              "tipo": "transferência(envio)",
+                              "saldo": 50,
+                              "data": "05/05/2023 12:30",
+                              "descricao": "Você transferiu R$50,00 para test2"
+                            },
+                            "receive": {
+                              "id_user": 2,
+                              "name": "user Test2",
+                              "tipo": "transferência(recebido)",
+                              "saldo": 50,
+                              "data": "05/05/2023 12:35",
+                              "descricao": "Você recebeu R$50,00 de test"
+                            }
+                          }
                         }
-                    },
-                    "401": {
-                        "description": "Senha Ou Username digitada esta errada"
+                      }
                     }
-                }            
+                  }
+                }
+              }
             }
-            
-        },
-        "users/sendingMoney": {
-            "patch": {
+        },          
+        "transactions/deposit": {
+          "patch": {
+            "tags": ["transactions"],
+            "summary": "Depósito de Dinheiro",
+            "description": "Depósito de dinheiro.",
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "deposit": {
+                        "type": "number"
+                      }
+                    },
+                    "example": {
+                      "deposit": 58
+                    }
+                  }
+                }
+              }
+            },
+            "parameters": [
+              {
+                "name": "Authorization",
+                "in": "header",
+                "description": "Authorization token",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Bearer SEU_TOKEN_AQUI"
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Saldo inválido",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "msg": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "example": {
+                      "msg": "Saldo inválido"
+                    }
+                  }
+                }
+              },
+              "200": {
+                "description": "Depósito efetuado com sucesso",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "tipo": {
+                          "type": "string"
+                        },
+                        "saldo": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "example": {
+                      "name": "Usuario Test",
+                      "tipo": "deposito",
+                      "saldo": 500
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Recurso não encontrado",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "msg": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "example": {
+                      "msg": "Recurso não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },        
+        "transactions/withdraw":{
+            "patch":
+            {
                 "tags": ["transactions"],
-                "sumary": "envio de dinheiro",
-                "description": "envio de dinheiro para outro usuario",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                           "schema": {
-                                "type":"object",
-                                "properties": {
-                                    "deposit": {
-                                        "type":"number"
-                                    },
-                                    "keypix": {
-                                        "type": "string"
-                                    }
-                                },
-                                "example": {
-                                    "deposit": 50,
-                                    "keypix": "vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
-                                }
-                           }
-                        }
-                    }
-                },
-                "parameters": [
+                "summary": "Saque de dinheiro",
+                "description": "Saque de dinheiro do usuário",
+                "requestBody":
+                {
+                    "content":
                     {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description":"saldo invalido"
-                    },
-                    "201": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type":"object",
-                                    "properties": {
-                                        "extratos": {
-                                            "type": "object",
-                                            "properties": {
-                                                "send": {
-                                                    "type":"object",
-                                                    "properties": {
-                                                        "id_user": {
-                                                            "type":"number"
-                                                        },
-                                                        "name": {
-                                                            "type":"string"
-                                                        },
-                                                        "tipo": {
-                                                            "type":"string"
-                                                        },
-                                                        "saldo": {
-                                                            "type":"number"
-                                                        },
-                                                        "data": {
-                                                            "type":"date"
-                                                        },
-                                                        "descricao": {
-                                                            "type":"string"
-                                                        }
-                                                    }
-                                                },
-                                                "receive": {
-                                                    "type":"object",
-                                                    "properties": {
-                                                        "id_user": {
-                                                            "type":"number"
-                                                        },
-                                                        "name": {
-                                                            "type":"string"
-                                                        },
-                                                        "tipo": {
-                                                            "type":"string"
-                                                        },
-                                                        "saldo": {
-                                                            "type":"number"
-                                                        },
-                                                        "data": {
-                                                            "type":"date"
-                                                        },
-                                                        "descricao": {
-                                                            "type":"string"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        },
-                                        "example":{
-                                            "extracts": {
-                                                "send": {
-                                                    "id_user": 1,
-                                                    "name": "user Test",
-                                                    "tipo": "transaferencia(envio)",
-                                                    "saldo": 50,
-                                                    "data": "05/05/2023",
-                                                    "descricao": "Voce transaferiu R$50,00 para test2"
-                                                },
-                                                "receive": {
-                                                    "id_user": 2,
-                                                    "name": "user Test2",
-                                                    "tipo": "transaferencia(recebido)",
-                                                    "saldo": 50,
-                                                    "data": "05/05/2023",
-                                                    "descricao": "Voce recebeu R$50,00 de test"
-                                                }
-                                            }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }   
-            }
-        },
-        "users/extracts": {
-            "get": {
-                "tags":["transactions"],
-                "sumary": "extratos por data",
-                "description": "extratos por data especifica",
-                "parameters": [
-                    {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    },
-                    {
-                        "name":"dateInicial",
-                        "in": "query",
-                        "schema": {
-                            "type": "date"
-                        },
-                        "example": "05-02-2023"
-                    },
-                    {
-                        "name":"dateFinal",
-                        "in": "query",
-                        "schema": {
-                            "type": "date"
-                        },
-                        "example": "05-02-2023"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "schema": {
-                                "type":"array",
-                                "properties": {
-                                    "type":"object",
-                                    "properties":{
-                                        "tipo": {
-                                            "type":"string"
-                                        },
-                                        "saldo": {
-                                            "type":"number"
-                                        },
-                                        "data": {
-                                            "type":"date"
-                                        },
-                                        "descricao": {
-                                            "type":"string"
-                                        }
-                                    }
-                                },
-                                "example": {
-                                    "extratos": [
-                                        {
-                                            "tipo":"saque",
-                                            "saldo": 258,
-                                            "data": "05/05/2023",
-                                            "descricao": "Voce sacou R$258,00"
-                                        },
-                                        {
-                                            "tipo":"saque",
-                                            "saldo": 258,
-                                            "data": "05/05/2023",
-                                            "descricao": "Voce sacou R$258,00"
-                                        },
-                                        {
-                                            "tipo":"saque",
-                                            "saldo": 258,
-                                            "data": "05/05/2023",
-                                            "descricao": "Voce sacou R$258,00"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "users/deposit": {
-            "patch": {
-                "tags":["transactions"],
-                "sumary":"deposito de dinheiro",
-                "description":"Deposito de dinheiro",
-                "requestBody":{
-                    "content":{
-                        "application/json":{
-                            "schema": {
+                        "application/json":
+                        {
+                            "schema":
+                            {
                                 "type": "object",
-                                "properties": {
-                                    "deposit": {
-                                        "type":"number"
+                                "properties":
+                                {
+                                    "withdraw":
+                                    {
+                                        "type": "number"
                                     }
                                 },
-                                "example": {
-                                    "deposit": 58
+                                "example":
+                                {
+                                    "withdraw": 50
                                 }
                             }
                         }
                     }
                 },
-                "parameters": [
+                "parameters":
+                [
                     {
-                        "name":"Authorization",
+                        "name": "Authorization",
                         "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
+                        "description": "Token de autorização",
+                        "required": true,
+                        "schema":
+                        {
+                            "type": "string"
                         },
                         "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
                     }
                 ],
-                "responses": {
-                    "400": {
-                        "description":"saldo invalido"
+                "responses":
+                {
+                    "200":
+                    {
+                        "description": "Saque efetuado com sucesso",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "example":
+                                {
+                                    "params":
+                                    {
+                                        "extratoNew":
+                                        {
+                                            "name": "Usuario Test",
+                                            "tipo": "Saque",
+                                            "saldo": 300
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
-                    "202": {
-                        "description":"Deposito efetuado com sucesso"
-                    }
-                }
-            }
-        },
-        "users/withdraw": {
-            "patch": {
-                "tags":["transactions"],
-                "sumary":"saque de dinheiro",
-                "description": "saque de dinheiro do usuario",
-                "requestBody": {
-                    "content":{
+                    "400": {
+                      "description": "Valor inválido",
+                      "content": {
                         "application/json": {
-                            "schema":{
-                                "type":"object",
-                                "properties": {
-                                    "valueWithdraw":  {
-                                        "type":"number"
-                                    }
-                                },
-                                "example": {
-                                    "valueWithdraw": 50
+                          "schema": {
+                            "type": "object",
+                            "properties": {
+                              "msg": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "examples": {
+                            "Valor inválido": {
+                              "value": {
+                                "msg": "Valor inválido"
+                              }
+                            },
+                            "Sua conta do tipo {type} atingiu o limite diário de R${limit.toFixed(2)}": {
+                              "value": {
+                                "msg": "Sua conta do tipo poupança atingiu o limite diário de R$1000.00"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "401":
+                    {
+                        "description": "Você não tem saldo suficiente",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "example":
+                                {
+                                    "error": "Você não tem saldo suficiente",
+                                    "msg": "Você não tem saldo suficiente"
                                 }
                             }
                         }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Saque efetuado com sucesso"
                     },
-                    "400":{
-                        "description": "saldo invalido"
+                    "403":
+                    {
+                        "description": "Sua conta do tipo {type} tem um limite de R${limit}",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "example":
+                                {
+                                    "error": "sua conta do tipo ${type} tem um limite de R$${limit}",
+                                    "msg": "Sua conta do tipo {type} tem um limite de R${limit}"
+                                }
+                            }
+                        }
+                    },
+                    "404":
+                    {
+                        "description": "Recurso não encontrado",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "example":
+                                {
+                                    "error": "Recurso não encontrado",
+                                    "msg": "Recurso não encontrado"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
-        "users/keys": {
-            "post": {
-                "tags":["keys"],
-                "sumary": "Criacao de chave",
-                "description": "criacao de uma chave",
-                "parameters": [
+        "transactions/extracts":{
+          "get":{
+            "tags": ["transactions"],
+            "summary": "Extratos por data",
+            "description": "Extratos por data específica",
+            "parameters":
+            [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "Token de autorização",
+                    "required": true,
+                    "schema":
                     {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "schema": {
-                                "type":"object",
-                                "properties":{
-                                    "keypix": {
-                                        "type":"string"
+                        "type": "string"
+                    },
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                },
+                {
+                    "name": "dateStart",
+                    "in": "query",
+                    "schema":
+                    {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "example": "2023-05-02T10:30:00"
+                },
+                {
+                    "name": "dateEnd",
+                    "in": "query",
+                    "schema":
+                    {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "example": "2023-05-02T14:45:00"
+                }
+            ],
+            "responses":
+            {
+                "200":
+                {
+                    "description": "Sucesso",
+                    "content":
+                    {
+                        "application/json":
+                        {
+                            "schema":
+                            {
+                                "type": "array",
+                                "items":
+                                {
+                                    "type": "object",
+                                    "properties":
+                                    {
+                                        "tipo":
+                                        {
+                                            "type": "string"
+                                        },
+                                        "saldo":
+                                        {
+                                            "type": "number"
+                                        },
+                                        "data":
+                                        {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "descricao":
+                                        {
+                                            "type": "string"
+                                        }
                                     }
                                 },
-                                "example": {
-                                    "keypix":"vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
-                                }
-                            }
-                        }
-                    }, 
-                    "400": {
-                        "description": "Voce ja possui uma chave pix"
-                    }
-                }
-            },
-            "get": {
-                "tags":["keys"],
-                "sumary": "Monstrar keypix",
-                "description":"Conseguir ver a sua chave pix",
-                "parameters": [
-                    {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "schema": {
-                                "type":"object",
-                                "properties":{
-                                    "keypix": {
-                                        "type":"string"
+                                "example":
+                                [
+                                    {
+                                        "tipo": "saque",
+                                        "saldo": 258,
+                                        "data": "2023-05-05T11:15:00",
+                                        "descricao": "Você sacou R$258,00"
+                                    },
+                                    {
+                                        "tipo": "saque",
+                                        "saldo": 258,
+                                        "data": "2023-05-05T12:30:00",
+                                        "descricao": "Você sacou R$258,00"
+                                    },
+                                    {
+                                        "tipo": "saque",
+                                        "saldo": 258,
+                                        "data": "2023-05-05T14:00:00",
+                                        "descricao": "Você sacou R$258,00"
                                     }
-                                },
-                                "example": {
-                                    "keypix":"vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
-                                }
+                                ]
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Voce nao tem uma chave pix"
-                    }
-                }
-            },
-            "delete": {
-                "tags": ["keys"],
-                "sumary": "Excluir chave pix",
-                "description": "exlusao de chave pix da conta",
-                "parameters": [
-                    {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Chave pix deletada com sucesso"
-                    },
-                    "400": {
-                        "description":"Impossivel deletar uma chave que não existe"
                     }
                 }
             }
-           
+          }
+        },
+  
+        "users/keys": {
+          "post":{
+              "tags": ["keys"],
+              "summary": "Criação de chave",
+              "description": "Criação de uma chave",
+              "parameters":
+              [
+                  {
+                      "name": "Authorization",
+                      "in": "header",
+                      "description": "Token de autorização",
+                      "required": true,
+                      "schema":
+                      {
+                          "type": "string"
+                      },
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                  }
+              ],
+              "responses":
+              {
+                  "200":
+                  {
+                      "description": "Sucesso",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "keypix":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "keypix": "vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
+                                  }
+                              }
+                          }
+                      }
+                  },
+                  "400":
+                  {
+                      "description": "Erro na requisição",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "msg":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "msg": "Chave PIX já existe"
+                                  }
+                              }
+                          }
+                      }
+                  },
+                  "404":
+                  {
+                      "description": "Recurso não encontrado",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "msg":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "msg": "Recurso não encontrado"
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          },          
+          "get":{
+              "tags": ["keys"],
+              "summary": "Mostrar keypix",
+              "description": "Obter a sua chave PIX",
+              "parameters":
+              [
+                  {
+                      "name": "Authorization",
+                      "in": "header",
+                      "description": "Token de autorização",
+                      "required": true,
+                      "schema":
+                      {
+                          "type": "string"
+                      },
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                  }
+              ],
+              "responses":
+              {
+                  "200":
+                  {
+                      "description": "Sucesso",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "keypix":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "keypix": "vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
+                                  }
+                              }
+                          }
+                      }
+                  },
+                  "400":
+                  {
+                      "description": "Erro na requisição",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "msg":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "msg": "Você não tem uma chave PIX"
+                                  }
+                              }
+                          }
+                      }
+                  },
+                  "404":
+                  {
+                      "description": "Recurso não encontrado",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "msg":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "msg": "Chave PIX não existe"
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          },          
+          "delete":{
+              "tags": ["keys"],
+              "summary": "Excluir chave PIX",
+              "description": "Exclusão de chave PIX da conta",
+              "parameters":
+              [
+                  {
+                      "name": "Authorization",
+                      "in": "header",
+                      "description": "Token de autorização",
+                      "required": true,
+                      "schema":
+                      {
+                          "type": "string"
+                      },
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                  }
+              ],
+              "responses":
+              {
+                  "200":
+                  {
+                      "description": "Sucesso",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "msg":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "msg": "Chave PIX deletada com sucesso"
+                                  }
+                              }
+                          }
+                      }
+                  },
+                  "400":
+                  {
+                      "description": "Erro na requisição",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "msg":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "msg": "Impossível deletar uma chave que não existe"
+                                  }
+                              }
+                          }
+                      }
+                  },
+                  "404":
+                  {
+                      "description": "Recurso não encontrado",
+                      "content":
+                      {
+                          "application/json":
+                          {
+                              "schema":
+                              {
+                                  "type": "object",
+                                  "properties":
+                                  {
+                                      "msg":
+                                      {
+                                          "type": "string"
+                                      }
+                                  },
+                                  "example":
+                                  {
+                                      "msg": "Chave PIX não existe"
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }  
         }
     }
 }

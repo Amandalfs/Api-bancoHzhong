@@ -66,4 +66,9 @@ export class InMemoryUsersRepository implements IUserRepository{
         return user.keypix
     }
 
+    async updateAccont(id: number, user: IReponseUser): Promise<IReponseUser> {
+        const newUser = await this.users.find(user=> user.id === id);
+        Object.assign(newUser, user);
+        return new Promise(resolve => resolve(newUser));
+    }
 }

@@ -1,5 +1,5 @@
 import { db } from "../../../sql/knex";
-import { IUserRepository } from "../implementations/IUserRepository";
+import { IReponseUser, IUserRepository } from "../implementations/IUserRepository";
 import { IUser } from "../model/IUser";
 
 
@@ -43,7 +43,11 @@ class UserRepository implements IUserRepository {
     async getKeyPixById(id:number){
         return await db('users').where("id", id).select("keypix").first();
     }
-   
+    
+    async updateAccont(id: number, user: IReponseUser): Promise<IReponseUser> {
+        const newUser = await db("users").where("id", id).update(user).returning("*");
+        return newUser[0];
+    }
 }
 
 export { UserRepository }
