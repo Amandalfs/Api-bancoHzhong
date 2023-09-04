@@ -365,29 +365,225 @@
                 }
               }
         },   
-        "users/sendingMoney": {
+
+        
+        "transactions/sendingMoney": {
             "patch": {
-                "tags": ["transactions"],
-                "sumary": "envio de dinheiro",
-                "description": "envio de dinheiro para outro usuario",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                           "schema": {
-                                "type":"object",
+              "tags": ["transactions"],
+              "summary": "Envio de Dinheiro",
+              "description": "Envio de dinheiro para outro usuário.",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "deposit": {
+                          "type": "number"
+                        },
+                        "keypix": {
+                          "type": "string"
+                        }
+                      },
+                      "example": {
+                        "deposit": 50,
+                        "keypix": "vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
+                      }
+                    }
+                  }
+                }
+              },
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "in": "header",
+                  "description": "Authorization token",
+                  "required": true,
+                  "schema": {
+                    "type": "string"
+                  },
+                  "example": "Bearer SEU_TOKEN_AQUI"
+                }
+              ],
+              "responses": {
+                "400": {
+                  "description": "Valor inválido",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "msg": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "examples": {
+                        "Valor inválido": {
+                          "value": {
+                            "msg": "Valor inválido"
+                          }
+                        },
+                        "Sua conta do tipo {type} atingiu o limite diário de R${limit.toFixed(2)}": {
+                          "value": {
+                            "msg": "Sua conta do tipo poupança atingiu o limite diário de R$1000.00"
+                          }
+                        },
+                        "Você não pode enviar dinheiro para você": {
+                          "value": {
+                            "msg": "Você não pode enviar dinheiro para você"
+                          }
+                        },
+                        "A chave pix é inválida": {
+                          "value": {
+                            "msg": "A chave pix é inválida"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "401": {
+                  "description": "Você não tem saldo suficiente",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "msg": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": {
+                        "msg": "Você não tem saldo suficiente"
+                      }
+                    }
+                  }
+                },
+                "403": {
+                  "description": "Sua conta do tipo {type} tem um limite de R$${limit}",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "msg": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": {
+                        "msg": "Sua conta do tipo poupança tem um limite de R$1000"
+                      }
+                    }
+                  }
+                },
+                "201": {
+                  "description": "Sucesso - Informações da transação.",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "extracts": {
+                            "type": "object",
+                            "properties": {
+                              "send": {
+                                "type": "object",
+                                "properties": {
+                                  "id_user": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "tipo": {
+                                    "type": "string"
+                                  },
+                                  "saldo": {
+                                    "type": "number"
+                                  },
+                                  "data": {
+                                    "type": "string"
+                                  },
+                                  "descricao": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "receive": {
+                                "type": "object",
+                                "properties": {
+                                  "id_user": {
+                                    "type": "number"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "tipo": {
+                                    "type": "string"
+                                  },
+                                  "saldo": {
+                                    "type": "number"
+                                  },
+                                  "data": {
+                                    "type": "string"
+                                  },
+                                  "descricao": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "example": {
+                          "extracts": {
+                            "send": {
+                              "id_user": 1,
+                              "name": "user Test",
+                              "tipo": "transferência(envio)",
+                              "saldo": 50,
+                              "data": "05/05/2023 12:30",
+                              "descricao": "Você transferiu R$50,00 para test2"
+                            },
+                            "receive": {
+                              "id_user": 2,
+                              "name": "user Test2",
+                              "tipo": "transferência(recebido)",
+                              "saldo": 50,
+                              "data": "05/05/2023 12:35",
+                              "descricao": "Você recebeu R$50,00 de test"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        },          
+        "transactions/deposit": {
+            "patch": {
+                "tags":["transactions"],
+                "sumary":"deposito de dinheiro",
+                "description":"Deposito de dinheiro",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
                                 "properties": {
                                     "deposit": {
                                         "type":"number"
-                                    },
-                                    "keypix": {
-                                        "type": "string"
                                     }
                                 },
                                 "example": {
-                                    "deposit": 50,
-                                    "keypix": "vbsvSBOV4554-fdbhkjndfpbad-jbkvdfvfbvkdoutrs"
+                                    "deposit": 58
                                 }
-                           }
+                            }
                         }
                     }
                 },
@@ -407,92 +603,57 @@
                     "400": {
                         "description":"saldo invalido"
                     },
-                    "201": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type":"object",
-                                    "properties": {
-                                        "extratos": {
-                                            "type": "object",
-                                            "properties": {
-                                                "send": {
-                                                    "type":"object",
-                                                    "properties": {
-                                                        "id_user": {
-                                                            "type":"number"
-                                                        },
-                                                        "name": {
-                                                            "type":"string"
-                                                        },
-                                                        "tipo": {
-                                                            "type":"string"
-                                                        },
-                                                        "saldo": {
-                                                            "type":"number"
-                                                        },
-                                                        "data": {
-                                                            "type":"date"
-                                                        },
-                                                        "descricao": {
-                                                            "type":"string"
-                                                        }
-                                                    }
-                                                },
-                                                "receive": {
-                                                    "type":"object",
-                                                    "properties": {
-                                                        "id_user": {
-                                                            "type":"number"
-                                                        },
-                                                        "name": {
-                                                            "type":"string"
-                                                        },
-                                                        "tipo": {
-                                                            "type":"string"
-                                                        },
-                                                        "saldo": {
-                                                            "type":"number"
-                                                        },
-                                                        "data": {
-                                                            "type":"date"
-                                                        },
-                                                        "descricao": {
-                                                            "type":"string"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        },
-                                        "example":{
-                                            "extracts": {
-                                                "send": {
-                                                    "id_user": 1,
-                                                    "name": "user Test",
-                                                    "tipo": "transaferencia(envio)",
-                                                    "saldo": 50,
-                                                    "data": "05/05/2023",
-                                                    "descricao": "Voce transaferiu R$50,00 para test2"
-                                                },
-                                                "receive": {
-                                                    "id_user": 2,
-                                                    "name": "user Test2",
-                                                    "tipo": "transaferencia(recebido)",
-                                                    "saldo": 50,
-                                                    "data": "05/05/2023",
-                                                    "descricao": "Voce recebeu R$50,00 de test"
-                                                }
-                                            }
+                    "202": {
+                        "description":"Deposito efetuado com sucesso"
+                    }
+                }
+            }
+        },
+        "transactions/withdraw": {
+            "patch": {
+                "tags":["transactions"],
+                "sumary":"saque de dinheiro",
+                "description": "saque de dinheiro do usuario",
+                "requestBody": {
+                    "content":{
+                        "application/json": {
+                            "schema":{
+                                "type":"object",
+                                "properties": {
+                                    "valueWithdraw":  {
+                                        "type":"number"
                                     }
+                                },
+                                "example": {
+                                    "valueWithdraw": 50
                                 }
                             }
                         }
                     }
-                }   
+                },
+                "parameters": [
+                    {
+                        "name":"Authorization",
+                        "in": "header",
+                        "description": "authorization token",
+                        "required": "true",
+                        "schema": {
+                            "type":"string" 
+                        },
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Saque efetuado com sucesso"
+                    },
+                    "400":{
+                        "description": "saldo invalido"
+                    }
+                }
             }
         },
-        "users/extracts": {
+        "transactions/extracts": {
             "get": {
                 "tags":["transactions"],
                 "sumary": "extratos por data",
@@ -575,94 +736,8 @@
                 }
             }
         },
-        "users/deposit": {
-            "patch": {
-                "tags":["transactions"],
-                "sumary":"deposito de dinheiro",
-                "description":"Deposito de dinheiro",
-                "requestBody":{
-                    "content":{
-                        "application/json":{
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "deposit": {
-                                        "type":"number"
-                                    }
-                                },
-                                "example": {
-                                    "deposit": 58
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description":"saldo invalido"
-                    },
-                    "202": {
-                        "description":"Deposito efetuado com sucesso"
-                    }
-                }
-            }
-        },
-        "users/withdraw": {
-            "patch": {
-                "tags":["transactions"],
-                "sumary":"saque de dinheiro",
-                "description": "saque de dinheiro do usuario",
-                "requestBody": {
-                    "content":{
-                        "application/json": {
-                            "schema":{
-                                "type":"object",
-                                "properties": {
-                                    "valueWithdraw":  {
-                                        "type":"number"
-                                    }
-                                },
-                                "example": {
-                                    "valueWithdraw": 50
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Saque efetuado com sucesso"
-                    },
-                    "400":{
-                        "description": "saldo invalido"
-                    }
-                }
-            }
-        },
+        
+
         "users/keys": {
             "post": {
                 "tags":["keys"],
