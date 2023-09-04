@@ -665,46 +665,145 @@
             }
           }
         },        
-        "transactions/withdraw": {
-            "patch": {
-                "tags":["transactions"],
-                "sumary":"saque de dinheiro",
-                "description": "saque de dinheiro do usuario",
-                "requestBody": {
-                    "content":{
-                        "application/json": {
-                            "schema":{
-                                "type":"object",
-                                "properties": {
-                                    "valueWithdraw":  {
-                                        "type":"number"
+        "transactions/withdraw":{
+            "patch":
+            {
+                "tags": ["transactions"],
+                "summary": "Saque de dinheiro",
+                "description": "Saque de dinheiro do usuário",
+                "requestBody":
+                {
+                    "content":
+                    {
+                        "application/json":
+                        {
+                            "schema":
+                            {
+                                "type": "object",
+                                "properties":
+                                {
+                                    "withdraw":
+                                    {
+                                        "type": "number"
                                     }
                                 },
-                                "example": {
-                                    "valueWithdraw": 50
+                                "example":
+                                {
+                                    "withdraw": 50
                                 }
                             }
                         }
                     }
                 },
-                "parameters": [
+                "parameters":
+                [
                     {
-                        "name":"Authorization",
+                        "name": "Authorization",
                         "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
+                        "description": "Token de autorização",
+                        "required": true,
+                        "schema":
+                        {
+                            "type": "string"
                         },
                         "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
                     }
                 ],
-                "responses": {
-                    "200": {
-                        "description": "Saque efetuado com sucesso"
+                "responses":
+                {
+                    "200":
+                    {
+                        "description": "Saque efetuado com sucesso",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "example":
+                                {
+                                    "params":
+                                    {
+                                        "extratoNew":
+                                        {
+                                            "name": "Usuario Test",
+                                            "tipo": "Saque",
+                                            "saldo": 300
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
-                    "400":{
-                        "description": "saldo invalido"
+                    "400": {
+                      "description": "Valor inválido",
+                      "content": {
+                        "application/json": {
+                          "schema": {
+                            "type": "object",
+                            "properties": {
+                              "msg": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "examples": {
+                            "Valor inválido": {
+                              "value": {
+                                "msg": "Valor inválido"
+                              }
+                            },
+                            "Sua conta do tipo {type} atingiu o limite diário de R${limit.toFixed(2)}": {
+                              "value": {
+                                "msg": "Sua conta do tipo poupança atingiu o limite diário de R$1000.00"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "401":
+                    {
+                        "description": "Você não tem saldo suficiente",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "example":
+                                {
+                                    "error": "Você não tem saldo suficiente",
+                                    "msg": "Você não tem saldo suficiente"
+                                }
+                            }
+                        }
+                    },
+                    "403":
+                    {
+                        "description": "Sua conta do tipo {type} tem um limite de R${limit}",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "example":
+                                {
+                                    "error": "sua conta do tipo ${type} tem um limite de R$${limit}",
+                                    "msg": "Sua conta do tipo {type} tem um limite de R${limit}"
+                                }
+                            }
+                        }
+                    },
+                    "404":
+                    {
+                        "description": "Recurso não encontrado",
+                        "content":
+                        {
+                            "application/json":
+                            {
+                                "example":
+                                {
+                                    "error": "Recurso não encontrado",
+                                    "msg": "Recurso não encontrado"
+                                }
+                            }
+                        }
                     }
                 }
             }
