@@ -1,13 +1,38 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Api Banco Hzhong Documetancao",
-        "description": "Api Banco Hzhong",
-        "version": "2.0.18",
+        "title": "API do Banco hzhong",
+        "description": "A API do Banco hzhong é uma plataforma que permite realizar operações bancárias, incluindo autenticação de usuários, atualização de informações de usuários, consulta de métricas financeiras e realização de transações. Esta documentação fornece informações detalhadas sobre como usar a API e suas funcionalidades.",
+        "version": "3.0.1",
+        "termsOfService": "https://seusite.com/terms-of-service",
         "contact": {
-            "email": "newlabshzhong@gmail.com"
+          "name": "Amanda (Desenvolvedora Plena)",
+          "email": "amandalfs57@gmail.com",
+          "url": "https://www.linkedin.com/in/amanda-rodrigues-dfbd/"
+        },
+        "license": {
+          "name": "Licença de Uso",
+          "url": "https://seusite.com/license"
         }
+      },
+      "externalDocs": {
+        "description": "Documentação Adicional",
+        "url": "https://seusite.com/docs"
     },
+    "servers": [
+          {
+            "url": "http://localhost:8020",
+            "description": "Servidor de Desenvolvimento"
+          },
+          {
+            "url": "https://api-test.example.com",
+            "description": "Servidor de Teste"
+          },
+          {
+            "url": "https://api-prod.example.com",
+            "description": "Servidor de Produção"
+          }
+    ],   
     "paths": {
         "/users": {
             "post": {
