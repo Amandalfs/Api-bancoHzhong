@@ -12,9 +12,9 @@ const makeSut = ():TypesSut =>{
     const useCaseModifyUseCaseMock = new class ModifyUseCase implements IModifyUserUseCase {
         async execute(input: inputModifyUserDTO): Promise<outputModifyUserDTO> {
             return new Promise(resolve => resolve({
-                email: "test",
-                name: "test",
-                username: "test",
+                email: "new email",
+                name: "new name",
+                username: "new username",
             }));
         }
     }
@@ -150,6 +150,29 @@ describe("Modify user controller tests units", ()=>{
             oldPassword: "Success",
             password: "Success",
           })
+    })
+    
+    it("should be able to modify a user and return success.", async ()=>{
+        const { sut, useCase } = makeSut();
+        const request: HttpRequest = {
+            body: {
+                username: "new username",
+                name: "new name", 
+                email: "new email",
+                oldPassword: "old password",
+                password: "new password",
+            },
+            user: {
+                id: 1
+            }
+        }
+        const response = await sut.handle(request);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.params).toEqual({
+            email: "new email",
+            name: "new name",
+            username: "new username",
+        })
     })
 })
 
