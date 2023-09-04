@@ -122,6 +122,57 @@
             }
             }
         },  
+        "/users/sessions": {
+            "post": {
+              "tags": ["accounts"],
+              "summary": "Login do Usuário",
+              "description": "Criando uma sessão para o usuário.",
+              "requestBody": {
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "username": {
+                          "type": "string"
+                        },
+                        "password": {
+                          "type": "string"
+                        }
+                      },
+                      "example": {
+                        "username": "userTest1",
+                        "password": "12345678"
+                      }
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "202": {
+                  "description": "Login bem-sucedido.",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "token": {
+                            "type": "string"
+                          }
+                        },
+                        "example": {
+                          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODQ4NTIxNTAsImV4cCI6MTY4NDkzODU1MCwic3ViIjoiMiJ9.lWUgvkjnemvlehpivcnepgOYbSdsovbjweblsYXS8kRXkN5i6Qb6jgGvokDpoiircpx63I"
+                        }
+                      }
+                    }
+                  }
+                },
+                "401": {
+                  "description": "Senha ou nome de usuário incorretos."
+                }
+              }
+            }
+        },
         "/users/show": {
             "get": {
                 "tags": ["accounts"],
@@ -235,55 +286,6 @@
                   }
             }
 
-        },
-        "users/sessions": {
-            "post":{
-                "tags": ["accounts"],
-                "sumary": "login do usuario",
-                "description": "criando uma sessao para o usuario",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema":{
-                                "type":"object",
-                                "properties":{
-                                    "username": {
-                                        "type":"string"
-                                    },
-                                    "password": {
-                                        "type":"string"
-                                    }
-                                },
-                                "example": {
-                                    "username": "userTest1",
-                                    "password": "12345678"
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "202":{
-                        "content": {
-                            "application/json": {
-                                "type": "object",
-                                "properties": {
-                                    "token": {
-                                        "type": "string"
-                                    }
-                                },
-                                "example": {
-                                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODQ4NTIxNTAsImV4cCI6MTY4NDkzODU1MCwic3ViIjoiMiJ9.lWUgvkjnemvlehpivcnepgOYbSdsovbjweblsYXS8kRXkN5i6Qb6jgGvokDpoiircpx63I"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Senha Ou Username digitada esta errada"
-                    }
-                }            
-            }
-            
         },
         "/users/modify": {
               "patch": {
