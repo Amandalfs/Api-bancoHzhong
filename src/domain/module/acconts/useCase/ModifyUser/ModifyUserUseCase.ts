@@ -62,7 +62,7 @@ export class ModifyUserUseCase {
             user.username =  username ?? user.username;
         }
 
-        if(oldPassword){
+        if(oldPassword && (password.length >= 8 && password.length <= 32)){
             const passwordPassed = await this.codificador.comparador(oldPassword, user.password);
             if(!passwordPassed){
                 throw new PasswordInvalidError();
