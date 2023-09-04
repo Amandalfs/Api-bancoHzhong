@@ -566,49 +566,105 @@
             }
         },          
         "transactions/deposit": {
-            "patch": {
-                "tags":["transactions"],
-                "sumary":"deposito de dinheiro",
-                "description":"Deposito de dinheiro",
-                "requestBody":{
-                    "content":{
-                        "application/json":{
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "deposit": {
-                                        "type":"number"
-                                    }
-                                },
-                                "example": {
-                                    "deposit": 58
-                                }
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
-                ],
-                "responses": {
-                    "400": {
-                        "description":"saldo invalido"
+          "patch": {
+            "tags": ["transactions"],
+            "summary": "Depósito de Dinheiro",
+            "description": "Depósito de dinheiro.",
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "deposit": {
+                        "type": "number"
+                      }
                     },
-                    "202": {
-                        "description":"Deposito efetuado com sucesso"
+                    "example": {
+                      "deposit": 58
                     }
+                  }
                 }
+              }
+            },
+            "parameters": [
+              {
+                "name": "Authorization",
+                "in": "header",
+                "description": "Authorization token",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Bearer SEU_TOKEN_AQUI"
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Saldo inválido",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "msg": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "example": {
+                      "msg": "Saldo inválido"
+                    }
+                  }
+                }
+              },
+              "200": {
+                "description": "Depósito efetuado com sucesso",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "tipo": {
+                          "type": "string"
+                        },
+                        "saldo": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "example": {
+                      "name": "Usuario Test",
+                      "tipo": "deposito",
+                      "saldo": 500
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Recurso não encontrado",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "msg": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "example": {
+                      "msg": "Recurso não encontrado"
+                    }
+                  }
+                }
+              }
             }
-        },
+          }
+        },        
         "transactions/withdraw": {
             "patch": {
                 "tags":["transactions"],
