@@ -5,6 +5,7 @@ import { CodificadorAdapterCrypto } from './../../../../../utils/Codificador/Cod
 import { ResourceNotFoundError } from "../ShowUser/errors";
 import { AccontExistsError } from "../CreateUser/errors";
 import { PasswordInvalidError } from "./errors/PasswordInvalidError";
+import { FieldNotFilledError } from "./errors/FieldNotFilledError.";
 
 
 const makeSuit = ()=>{
@@ -260,6 +261,34 @@ describe("tests units modify user", ()=>{
 
         const id = 1;
         await expect(suit.execute({ userUpdate: newUser, id})).rejects.toEqual(new PasswordInvalidError());
+    })
+
+    it("should throw an error if no field is sent to the modify user use case.", async ()=>{
+        const { suit, repository, cod } = makeSuit();
+
+        const passwordHashed = await cod.criptografia("12345678", 10);
+
+        repository.createUser({
+            "username": "Usuario Test",
+            "name": "Usuario Test",
+            "nasc": "02-10-2003",
+            "typeaccont": "poupanca",
+            "email": "usuario57@test.com",
+            "password": passwordHashed,
+            "cpf": "12603863096",
+            agencia: "001",
+            numero: 123,
+            saldo: 500,
+            keypix: "jhbvjouabdfovisdfb",
+        })
+
+        const userUpdate = {}
+        await expect(
+            suit.execute({
+                id: 1,
+                userUpdate
+            })
+        ).rejects.toEqual(new FieldNotFilledError());
     })
 
     it("should be able to change all the data at once", async ()=>{
