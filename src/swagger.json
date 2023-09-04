@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.0",
+    "openapi": "3.0.1",
     "info": {
         "title": "API do Banco hzhong",
         "description": "A API do Banco hzhong é uma plataforma que permite realizar operações bancárias, incluindo autenticação de usuários, atualização de informações de usuários, consulta de métricas financeiras e realização de transações. Esta documentação fornece informações detalhadas sobre como usar a API e suas funcionalidades.",

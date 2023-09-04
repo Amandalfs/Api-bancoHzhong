@@ -3,6 +3,39 @@
 ## Versão 3.0.0 - 01/09/2023
 
 ### Adicionado
+- Atualização da documentação para a rota de exclusão de keypix no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota show keypix no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota create keypix no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota extracts no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota de saque no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota de depósito e adição de todos os tipos de erros personalizados ao Swagger.
+- Atualização da rota e resposta para o dinheiro enviado ao usuário e adição de todos os tipos de erros personalizados ao Swagger.
+- Atualização da rota de exibição de usuários no Swagger.
+- Atualização da rota de sessões no Swagger.
+- Atualização da documentação do Swagger para a criação de usuário.
+- Criação de documentação Swagger para a rota de modificação de usuário.
+
+### Test
+- Criação de um teste de ponta a ponta testando a rota de modificação de usuário.
+
+## Corrigido
+- Correção do erro de enviar várias atualizações ao repositório de uma vez em vez de uma única.
+- Adição de validação para verificar se a nova senha foi fornecida.
+
+### Outros
+- Criação de um erro quando nada é passado no caso de uso de modificação de usuário.
+- Criação do erro fieldNotFilledError.
+
+### Documentação
+- Atualização da documentação Swagger para a rota de modificação de usuário.
+
+<br>
+<br>
+<br>
+
+## Versão 3.0.0 - 01/09/2023
+
+### Adicionado
 - Implementado tratamento de erro para status 404 no controlador de modificação de usuário.
 - Implementado tratamento de erro para status 403 no controlador de modificação de usuário.
 - Implementado tratamento de erro para status 401 no controlador de modificação de usuário.
