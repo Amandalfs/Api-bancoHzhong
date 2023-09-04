@@ -808,89 +808,110 @@
                 }
             }
         },
-        "transactions/extracts": {
-            "get": {
-                "tags":["transactions"],
-                "sumary": "extratos por data",
-                "description": "extratos por data especifica",
-                "parameters": [
+        "transactions/extracts":{
+          "get":{
+            "tags": ["transactions"],
+            "summary": "Extratos por data",
+            "description": "Extratos por data específica",
+            "parameters":
+            [
+                {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "Token de autorização",
+                    "required": true,
+                    "schema":
                     {
-                        "name":"Authorization",
-                        "in": "header",
-                        "description": "authorization token",
-                        "required": "true",
-                        "schema": {
-                            "type":"string" 
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                        "type": "string"
                     },
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                },
+                {
+                    "name": "dateStart",
+                    "in": "query",
+                    "schema":
                     {
-                        "name":"dateInicial",
-                        "in": "query",
-                        "schema": {
-                            "type": "date"
-                        },
-                        "example": "05-02-2023"
+                        "type": "string",
+                        "format": "date-time"
                     },
+                    "example": "2023-05-02T10:30:00"
+                },
+                {
+                    "name": "dateEnd",
+                    "in": "query",
+                    "schema":
                     {
-                        "name":"dateFinal",
-                        "in": "query",
-                        "schema": {
-                            "type": "date"
-                        },
-                        "example": "05-02-2023"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "schema": {
-                                "type":"array",
-                                "properties": {
-                                    "type":"object",
-                                    "properties":{
-                                        "tipo": {
-                                            "type":"string"
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "example": "2023-05-02T14:45:00"
+                }
+            ],
+            "responses":
+            {
+                "200":
+                {
+                    "description": "Sucesso",
+                    "content":
+                    {
+                        "application/json":
+                        {
+                            "schema":
+                            {
+                                "type": "array",
+                                "items":
+                                {
+                                    "type": "object",
+                                    "properties":
+                                    {
+                                        "tipo":
+                                        {
+                                            "type": "string"
                                         },
-                                        "saldo": {
-                                            "type":"number"
+                                        "saldo":
+                                        {
+                                            "type": "number"
                                         },
-                                        "data": {
-                                            "type":"date"
+                                        "data":
+                                        {
+                                            "type": "string",
+                                            "format": "date-time"
                                         },
-                                        "descricao": {
-                                            "type":"string"
+                                        "descricao":
+                                        {
+                                            "type": "string"
                                         }
                                     }
                                 },
-                                "example": {
-                                    "extratos": [
-                                        {
-                                            "tipo":"saque",
-                                            "saldo": 258,
-                                            "data": "05/05/2023",
-                                            "descricao": "Voce sacou R$258,00"
-                                        },
-                                        {
-                                            "tipo":"saque",
-                                            "saldo": 258,
-                                            "data": "05/05/2023",
-                                            "descricao": "Voce sacou R$258,00"
-                                        },
-                                        {
-                                            "tipo":"saque",
-                                            "saldo": 258,
-                                            "data": "05/05/2023",
-                                            "descricao": "Voce sacou R$258,00"
-                                        }
-                                    ]
-                                }
+                                "example":
+                                [
+                                    {
+                                        "tipo": "saque",
+                                        "saldo": 258,
+                                        "data": "2023-05-05T11:15:00",
+                                        "descricao": "Você sacou R$258,00"
+                                    },
+                                    {
+                                        "tipo": "saque",
+                                        "saldo": 258,
+                                        "data": "2023-05-05T12:30:00",
+                                        "descricao": "Você sacou R$258,00"
+                                    },
+                                    {
+                                        "tipo": "saque",
+                                        "saldo": 258,
+                                        "data": "2023-05-05T14:00:00",
+                                        "descricao": "Você sacou R$258,00"
+                                    }
+                                ]
                             }
                         }
                     }
                 }
             }
+          }
         },
+  
         
 
         "users/keys": {
