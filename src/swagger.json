@@ -11,7 +11,7 @@
     "paths": {
         "/users": {
             "post":{
-                "tags": ["acconts"],
+                "tags": ["accounts"],
                 "sumary": "criacao usuarios",
                 "description": "Criacao de um novo usuario",
                 "requestBody": {
@@ -87,7 +87,7 @@
         },
         "/users/show": {
             "get": {
-                "tags": ["acconts"],
+                "tags": ["accounts"],
                 "sumary": "infos de usuario",
                 "description": "pegar infos de usuario",
                 "requestBody": {
@@ -201,7 +201,7 @@
         },
         "users/sessions": {
             "post":{
-                "tags": ["acconts"],
+                "tags": ["accounts"],
                 "sumary": "login do usuario",
                 "description": "criando uma sessao para o usuario",
                 "requestBody": {
@@ -248,6 +248,93 @@
             }
             
         },
+        "/users/modify": {
+              "patch": {
+                "tags": ["accounts"],
+                "summary": "Modificação de Usuário",
+                "description": "Modifica informações de um usuário existente.",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "oldPassword": {
+                            "type": "string"
+                          },
+                          "password": {
+                            "type": "string"
+                          }
+                        },
+                        "example": {
+                          "username": "new username",
+                          "name": "new name",
+                          "email": "new email",
+                          "oldPassword": "12345678",
+                          "password": "new password"
+                        }
+                      }
+                    }
+                  }
+                },
+                "parameters": [
+                  {
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "Token de autorização (Bearer Token)",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    },
+                    "example": "Bearer TOKEN_AQUI"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "Informações do usuário modificadas com sucesso.",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "params": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "username": {
+                                  "type": "string"
+                                },
+                                "email": {
+                                  "type": "string"
+                                }
+                              },
+                              "example": {
+                                "params": {
+                                  "name": "new name",
+                                  "username": "new username",
+                                  "email": "new email"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+        },   
         "users/sendingMoney": {
             "patch": {
                 "tags": ["transactions"],
