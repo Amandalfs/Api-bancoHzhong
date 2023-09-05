@@ -1,5 +1,5 @@
 import { IMetricsUserUseCase } from '../../../../domain/module/acconts/useCase/MetricsUser/MetricsUserUseCase';
-import { BadRequest, Forbidden, HttpRequest, HttpResponse, NotFound, ServerError, Unauthorized } from '../CreateUser/CreateUserControllerProtocols';
+import { BadRequest, Forbidden, HttpRequest, HttpResponse, NotFound, ServerError, Success, Unauthorized } from '../CreateUser/CreateUserControllerProtocols';
 import { HttpController } from './../../../protocols/Controller';
 
 export class MetricsUserController implements HttpController {
@@ -13,6 +13,7 @@ export class MetricsUserController implements HttpController {
                 id
             };
             const output = await this.metricsUserUseCase.execute(input);
+            return Success(output);
         } catch (error) {
             return this.handleErrors(error);
         }
