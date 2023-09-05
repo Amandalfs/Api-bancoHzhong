@@ -19,6 +19,15 @@
         "description": "Documentação Adicional",
         "url": "https://seusite.com/docs"
     },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    },
     "servers": [
           {
             "url": "http://localhost:8020",
@@ -178,17 +187,10 @@
             "tags": ["accounts"],
             "summary": "Infos de Usuário",
             "description": "Pegar informações de usuário.",
-            "parameters": [
-                {
-                "name": "Authorization",
-                "in": "header",
-                "description": "Authorization token",
-                "required": true,
-                "schema": {
-                    "type": "string"
-                },
-                "example": "Bearer SEU_TOKEN_AQUI"
-                }
+            "security": [
+              {
+                "bearerAuth": []
+              }
             ],
             "responses": {
                 "404": {
@@ -241,7 +243,7 @@
                             }
                             }
                         }
-                        },
+                      },
                         "example": {
                         "userSend": {
                             "name": "user Test",
@@ -277,6 +279,61 @@
                 }
             }
             }
+        },
+        "/users/metrics": {
+          "get": {
+            "summary": "Obter métricas de usuário",
+            "tags": ["accounts"],
+            "description": "Obtém as métricas mensais de renda e despesas do usuário.",
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Sucesso",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "params": {
+                      "type": "object",
+                      "properties": {
+                        "monthlyIncome": {
+                          "type": "number",
+                          "description": "Renda mensal do usuário."
+                        },
+                        "monthlyExpenses": {
+                          "type": "number",
+                          "description": "Despesas mensais do usuário."
+                        }
+                      },
+                      "examples": {
+                        "application/json": {
+                          "params": {
+                            "monthlyIncome": 500,
+                            "monthlyExpenses": 300
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Não encontrado",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensagem de erro."
+                    }
+                  }
+                }
+              }
+            }
+          }
         },          
         "/users/modify": {
               "patch": {
@@ -316,16 +373,9 @@
                     }
                   }
                 },
-                "parameters": [
+                "security": [
                   {
-                    "name": "Authorization",
-                    "in": "header",
-                    "description": "Token de autorização (Bearer Token)",
-                    "required": true,
-                    "schema": {
-                      "type": "string"
-                    },
-                    "example": "Bearer TOKEN_AQUI"
+                    "bearerAuth": []
                   }
                 ],
                 "responses": {
@@ -365,7 +415,6 @@
                 }
               }
         },   
-
         
         "transactions/sendingMoney": {
             "patch": {
@@ -393,16 +442,9 @@
                   }
                 }
               },
-              "parameters": [
+              "security": [
                 {
-                  "name": "Authorization",
-                  "in": "header",
-                  "description": "Authorization token",
-                  "required": true,
-                  "schema": {
-                    "type": "string"
-                  },
-                  "example": "Bearer SEU_TOKEN_AQUI"
+                  "bearerAuth": []
                 }
               ],
               "responses": {
@@ -587,16 +629,9 @@
                 }
               }
             },
-            "parameters": [
+            "security": [
               {
-                "name": "Authorization",
-                "in": "header",
-                "description": "Authorization token",
-                "required": true,
-                "schema": {
-                  "type": "string"
-                },
-                "example": "Bearer SEU_TOKEN_AQUI"
+                "bearerAuth": []
               }
             ],
             "responses": {
@@ -695,19 +730,10 @@
                         }
                     }
                 },
-                "parameters":
-                [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "Token de autorização",
-                        "required": true,
-                        "schema":
-                        {
-                            "type": "string"
-                        },
-                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                    }
+                "security": [
+                  {
+                    "bearerAuth": []
+                  }
                 ],
                 "responses":
                 {
@@ -816,17 +842,6 @@
             "parameters":
             [
                 {
-                    "name": "Authorization",
-                    "in": "header",
-                    "description": "Token de autorização",
-                    "required": true,
-                    "schema":
-                    {
-                        "type": "string"
-                    },
-                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                },
-                {
                     "name": "dateStart",
                     "in": "query",
                     "schema":
@@ -846,6 +861,11 @@
                     },
                     "example": "2023-05-02T14:45:00"
                 }
+            ],
+            "security": [
+              {
+                "bearerAuth": []
+              }
             ],
             "responses":
             {
@@ -917,19 +937,10 @@
               "tags": ["keys"],
               "summary": "Criação de chave",
               "description": "Criação de uma chave",
-              "parameters":
-              [
-                  {
-                      "name": "Authorization",
-                      "in": "header",
-                      "description": "Token de autorização",
-                      "required": true,
-                      "schema":
-                      {
-                          "type": "string"
-                      },
-                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                  }
+              "security": [
+                {
+                  "bearerAuth": []
+                }
               ],
               "responses":
               {
@@ -1014,19 +1025,10 @@
               "tags": ["keys"],
               "summary": "Mostrar keypix",
               "description": "Obter a sua chave PIX",
-              "parameters":
-              [
-                  {
-                      "name": "Authorization",
-                      "in": "header",
-                      "description": "Token de autorização",
-                      "required": true,
-                      "schema":
-                      {
-                          "type": "string"
-                      },
-                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                  }
+              "security": [
+                {
+                  "bearerAuth": []
+                }
               ],
               "responses":
               {
@@ -1111,19 +1113,10 @@
               "tags": ["keys"],
               "summary": "Excluir chave PIX",
               "description": "Exclusão de chave PIX da conta",
-              "parameters":
-              [
-                  {
-                      "name": "Authorization",
-                      "in": "header",
-                      "description": "Token de autorização",
-                      "required": true,
-                      "schema":
-                      {
-                          "type": "string"
-                      },
-                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCJjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
-                  }
+              "security": [
+                {
+                  "bearerAuth": []
+                }
               ],
               "responses":
               {
