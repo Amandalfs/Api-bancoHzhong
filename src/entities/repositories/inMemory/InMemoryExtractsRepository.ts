@@ -1,10 +1,11 @@
 import { IExtracsRepository, IReponseExtracs, IRequestCountBySending, IRequestCountByWithdraw, IRequestSearchForDataStartAndEndbyId } from "../implementations/IExtractsRepository";
 import { IExtracts } from "../model/IExtracts";
-import { compareAsc, isAfter, isBefore, isEqual } from 'date-fns';
+import { compareAsc, isAfter, isBefore, isEqual, isWithinInterval } from 'date-fns';
 
 // "tipo", "saldo", "data", "descricao"
 
 export class InMemoryExtractsRepository implements IExtracsRepository {
+    
     public items: IExtracts[] = [];
 
     async SearchForMoreRecentExtractsById(id_user: number): Promise<IReponseExtracs[]> {
@@ -80,10 +81,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
             const dateStartISO = new Date(dateStart);
             const dateEndISO = new Date(dateEnd);
             
-            if( ( isAfter(dateStartISO, dateIso) ||  isEqual(dateIso, dateStartISO)) && 
-                ( isBefore(dateIso, dateEndISO) || isEqual(dateIso, dateEndISO))){
-                    return item;
-            }
+            return isWithinInterval(dateIso, { start: dateStartISO, end: dateEndISO });
         })
         const some =  extractsFilter.reduce((acumulador, extrato)=>{
             if(extrato.tipo === "Saque"){
@@ -103,10 +101,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
             const dateStartISO = new Date(dateStart);
             const dateEndISO = new Date(dateEnd);
             
-            if( ( isAfter(dateStartISO, dateIso) ||  isEqual(dateIso, dateStartISO)) && 
-                ( isBefore(dateIso, dateEndISO) || isEqual(dateIso, dateEndISO))){
-                    return item;
-            }
+            return isWithinInterval(dateIso, { start: dateStartISO, end: dateEndISO });
         })
 
         const some =  extractsFilter.reduce((acumulador, extrato)=>{
@@ -117,5 +112,55 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
             return some;
         },0)
         return some;
+    }
+
+    async findIncomesByDate({ id, today, lastMonth}: { id: number; today: Date; lastMonth: Date; }): Promise<number> {
+        const extracts = this.items.filter((item)=> {
+            return item.id_user = id;
+        })
+
+        const extractsFilter = extracts.filter((item)=>{
+            const dateIso = item.data;
+            const dateStartISO = lastMonth;
+            const dateEndISO = today;
+            
+            return isWithinInterval(dateIso, { start: dateStartISO, end: dateEndISO });
+        })
+
+        const some =  extractsFilter.reduce((acumulador, extrato)=>{
+            let some = acumulador
+            if(extrato.tipo === "recebido" || extrato.tipo === "deposito"){
+                some += extrato.saldo;
+            }
+            return some;
+        },0)
+
+        return new Promise(resolve => resolve(some));
+    }
+
+    findExpensesByDate({ id, today, lastMonth }: { id: number; today: Date; lastMonth: Date; }): Promise<number> {
+        const extracts = this.items.filter((item)=> {
+            return item.id_user = id;
+        })
+       
+
+        const extractsFilter = extracts.filter((item)=>{
+            const dateIso = item.data;
+            const dateStartISO = lastMonth
+            const dateEndISO = today;
+            
+            return isWithinInterval(dateIso, { start: dateStartISO, end: dateEndISO });
+        })
+       
+
+        const some =  extractsFilter.reduce((acumulador, extrato)=>{
+            let some = acumulador
+            if(extrato.tipo === "enviado" || extrato.tipo === "Saque"){
+                some += extrato.saldo;
+            }
+            return some;
+        },0)
+
+        return new Promise(resolve => resolve(some));
     }
 }

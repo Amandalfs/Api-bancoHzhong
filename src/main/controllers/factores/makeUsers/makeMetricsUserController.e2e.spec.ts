@@ -1,34 +1,31 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import { app } from "../../../../app";
 import request from "supertest";
 
-let server;
-describe('Teste de rota de monstrar extratos', ()=>{
-    
+let server: any;
+describe("metrics user test e2e", async ()=>{
+
     beforeEach(()=>{
         server = app.listen();
-        vi.useFakeTimers();
     })
 
-    afterEach(()=>{
+    afterAll(()=>{
         server.close();
-        vi.useRealTimers();
     })
 
-    it("Deve ser possivel monstrar os extratos do usuario de acordo com a data", async()=>{
-        vi.setSystemTime(new Date(2023, 1, 1))
 
+    it("should be able to access their metrics route.", async ()=>{
         await request(server)
-            .post("/users")
-            .set('password', "12345678")
-            .set('passwordconfirmation', "12345678")
-            .set('cpf', "05154964055")
-            .send({
-                username: "UsuarioTest2",
-                name: "Usuario Test2",
-                nasc: "02-10-2003",
-                typeaccont: "poupanca",
-                email: "usuario58@test.com",
+        .post("/users")
+        .set('password', "12345678")
+        .set('passwordconfirmation', "12345678")
+        .set('cpf', "05154964055")
+        .send({
+            username: "UsuarioTest2",
+            name: "Usuario Test2",
+            nasc: "02-10-2003",
+            typeaccont: "poupanca",
+            email: "usuario58@test.com",
         });
 
         const responseSessionsReceive = await request(server)
@@ -68,14 +65,7 @@ describe('Teste de rota de monstrar extratos', ()=>{
             .send({
                 deposit: 500,
             });
-
-        await request(server)
-            .patch("/transactions/withdraw")
-            .set('Authorization', `Bearer ${responseSessionsSending.body.params.token}`)
-            .send({
-                withdraw: 200,
-            });
-
+        
         await request(server)
             .patch("/transactions/sendingMoney")
             .set('Authorization', `Bearer ${responseSessionsSending.body.params.token}`)
@@ -83,20 +73,12 @@ describe('Teste de rota de monstrar extratos', ()=>{
                 keypix: responseKeyReceive.body.params.key,
                 value: 300,
             });
-        
-        const dateStart = new Date(2022, 11, 1);
-        const dateEnd = new Date(2023, 2, 1);
-
-        const { statusCode, body}= await request(server)
-            .get(`/transactions/extracts?dateStart=${dateStart}&dateEnd=${dateEnd}`)
-            .set('Authorization', `Bearer ${responseSessionsSending.body.params.token}`)
+    
+        const { statusCode, body } = await request(server)
+            .get("/users/metrics")
+            .set('Authorization', `Bearer ${responseSessionsSending.body.params.token}`);
         expect(statusCode).toEqual(200);
-        expect(body.params.extracts[0]).toEqual(expect.objectContaining({
-            tipo: "deposito",
-            saldo: 500,
-            descricao: 'Voce depositou R$500,00',
-        }))
-        expect(body.params.extracts).toHaveLength(3);
-        
+        expect(body.params.monthlyIncome).toEqual(500);
+        expect(body.params.monthlyExpenses).toEqual(300);
     })
-})
+});

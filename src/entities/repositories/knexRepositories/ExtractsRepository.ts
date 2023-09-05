@@ -3,11 +3,13 @@ import { IExtracsRepository, IRequestCountBySending, IRequestCountByWithdraw, IR
 import {IExtracts} from "../model/IExtracts";
 
 class ExtractsRepository implements IExtracsRepository {
+    
     async SearchForMoreRecentExtractsById(id_user: number){
-        return await db('extratos')
+        const extracts = await db('extratos')
         .select("tipo", "saldo", "data", "descricao")
         .where("id_user",id_user).orderBy('data', 'desc')
         .limit(5);
+        return extracts;
     }
 
     async createExtracts(data: IExtracts){
@@ -15,29 +17,58 @@ class ExtractsRepository implements IExtracsRepository {
     }
 
     async SearchForDataStartAndEndbyId({id, dateStart, dateEnd}: IRequestSearchForDataStartAndEndbyId){
-        return await db('extratos')
+        const extracts = await db('extratos')
         .select("tipo", "saldo", "data", "descricao")
         .where("id_user",id).where('data', '>=', dateStart)
         .where('data', '<=', dateEnd);
+
+        return extracts;
     }
 
     async CountByWithdraw({dateStart, dateEnd, UserId}: IRequestCountByWithdraw): Promise<number> {
-        return await db("extratos")
+        const { sum: CountWithdraw } = await db("extratos")
         .where("id_user", UserId)
         .where('tipo','saque')
         .where('data', '>=', dateStart)
         .where('data', '<=', dateEnd)
-        .count("saldo");
+        .sum("saldo").first();
+
+        return CountWithdraw;
     }
 
     async CountBySending({dateStart, dateEnd, UserId }: IRequestCountBySending): Promise<number> {
-        return await db("extratos")
+        const { sum: countSending } = await db("extratos")
         .where("id_user", UserId)
         .where('tipo','envio')
         .where('data', '>=', dateStart)
         .where('data', '<=', dateEnd)
-        .count("saldo");
+        .sum("saldo").first();
+
+        return countSending;
+    }
+
+    async findIncomesByDate({ id, lastMonth, today }: { id: number; today: Date; lastMonth: Date; }): Promise<number> {
+        const { sum: incomes } = await db("extratos")
+            .where("id_user", id)
+            .where('data', '>=', lastMonth)
+            .where('data', '<=', today)
+            .where((builder) => {
+                builder.where("tipo", "recebido").orWhere("tipo", "deposito");
+            })
+            .sum("saldo").first();
+        return incomes;
+}
+
+    async findExpensesByDate({ id, lastMonth, today }: { id: number; today: Date; lastMonth: Date; }): Promise<number> {
+        const { sum: expenses } = await db("extratos")
+            .where("id_user", id)
+            .where('data', '>=', lastMonth)
+            .where('data', '<=', today)
+            .where((builder) => {
+                builder.where("tipo", "envio").orWhere("tipo", "Saque");
+            }).sum("saldo").first();
+        return expenses;
     }
 }
 
-export  {ExtractsRepository};
+export  { ExtractsRepository };

@@ -1,5 +1,47 @@
 # Changelog de Atualizacoes da api Hzhong
 
+
+# Changelog - Versão 3.1.0 (Data: 05 de setembro de 2023)
+
+## Correções:
+- Corrigido teste de extratos baseado em data, agora ele recebe o saldo como um tipo numérico.
+- Corrigido o repositório Knex 'extratos' nas funções de soma, que usava 'count' em vez de 'sum', e fez ajustes na cláusula 'where' em 'findExpensesByDate'.
+- Alterado o tipo de dados da coluna 'saldo' na tabela 'extratos' de texto para float.
+- Ajustes na configuração do vitest.
+- Tratamento de erros 404 Not Found no controlador de métricas do usuário.
+- Tratamento de erros 403 Forbidden no controlador de métricas do usuário.
+- Tratamento de erros 401 Unauthorized no controlador de métricas do usuário.
+- Tratamento de erros 400 Bad Request no controlador de métricas do usuário.
+
+## Refatoração:
+- Melhorias nas funções de filtragem do repositório de declarações em memória.
+
+## Feats:
+- Adicionado controlador de métricas do usuário à rota do Express.
+- Criado factory para o controlador de métricas do usuário.
+- Criado envio de status 200 e do objeto de resultado das métricas no controlador de métricas do usuário.
+- Tratamento de erros desconhecidos no controlador de métricas do usuário e criação do controlador de métricas do usuário.
+- Adicionadas funções para receitas e despesas no repositório Knex de extratos.
+- Implementadas as funcionalidades de despesas e receitas no repositório de declarações em memória.
+- Criada uma interface para as funções de retorno de despesas e receitas no extractsRepository.
+- Criado caso de uso para métricas do usuário.
+
+## Testes:
+- Criado teste de ponta a ponta para validar a rota de métricas do usuário.
+- Criado envio de status 200 e do objeto de resultado das métricas no controlador de métricas do usuário.
+- Criado teste para verificar se o controlador de métricas do usuário envia corretamente o ID para o caso de uso.
+- Tratamento de erros 404 Not Found no controlador de métricas do usuário.
+- Tratamento de erros 403 Forbidden no controlador de métricas do usuário.
+- Tratamento de erros 401 Unauthorized no controlador de métricas do usuário.
+- Tratamento de erros 400 Bad Request no controlador de métricas do usuário.
+- Tratamento de erros desconhecidos no controlador de métricas do usuário e criação do controlador de métricas do usuário.
+- Criado caso de uso para métricas do usuário.
+
+
+<br>
+<br>
+<br>
+
 ## Versão 3.0.0 - 01/09/2023
 
 ### Adicionado
