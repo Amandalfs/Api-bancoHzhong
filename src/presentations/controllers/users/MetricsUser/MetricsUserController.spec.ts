@@ -68,4 +68,18 @@ describe("metrics user controller tests units", ()=>{
         expect(response.statusCode).toEqual(401);
         expect(response.body.msg).toEqual("Unauthorized");
     });
+
+    it("should throw a 403 Forbidden error status", async()=>{
+        const { suit, useCase } = makeSuit();
+
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 403, message: "Forbidden"});
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            }
+        }
+        const response = await suit.handle(request);
+        expect(response.statusCode).toEqual(403);
+        expect(response.body.msg).toEqual("Forbidden");
+    });
 });
