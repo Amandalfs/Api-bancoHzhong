@@ -1,5 +1,5 @@
 import { IMetricsUserUseCase } from '../../../../domain/module/acconts/useCase/MetricsUser/MetricsUserUseCase';
-import { BadRequest, Forbidden, HttpRequest, HttpResponse, ServerError, Unauthorized } from '../CreateUser/CreateUserControllerProtocols';
+import { BadRequest, Forbidden, HttpRequest, HttpResponse, NotFound, ServerError, Unauthorized } from '../CreateUser/CreateUserControllerProtocols';
 import { HttpController } from './../../../protocols/Controller';
 
 export class MetricsUserController implements HttpController {
@@ -14,22 +14,32 @@ export class MetricsUserController implements HttpController {
             };
             const output = await this.metricsUserUseCase.execute(input);
         } catch (error) {
-            if(!error.statusCode){
-                return ServerError();
-            }
-
-            if(error.statusCode === 400){
-                return BadRequest(error.message);
-            }
-
-            if(error.statusCode === 401){
-                return Unauthorized(error.message);
-            }
-
-            if(error.statusCode === 403){
-                return Forbidden(error.message);
-            }
+            return this.handleErrors(error);
         }
+    }
+
+    private handleErrors(error: any){
+        if(!error.statusCode){
+            return ServerError();
+        }
+
+        if(error.statusCode === 400){
+            return BadRequest(error.message);
+        }
+
+        if(error.statusCode === 401){
+            return Unauthorized(error.message);
+        }
+
+        if(error.statusCode === 403){
+            return Forbidden(error.message);
+        }
+
+        if(error.statusCode === 404){
+            return NotFound(error.message);
+        }
+
+        return ServerError();
     }
 
 }
