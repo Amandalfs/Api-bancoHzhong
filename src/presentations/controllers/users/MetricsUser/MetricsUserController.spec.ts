@@ -54,4 +54,18 @@ describe("metrics user controller tests units", ()=>{
         expect(response.statusCode).toEqual(400);
         expect(response.body.msg).toEqual("Bad Request");
     });
+
+    it("should throw a 401 Unauthorized error status", async()=>{
+        const { suit, useCase } = makeSuit();
+
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 401, message: "Unauthorized"});
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            }
+        }
+        const response = await suit.handle(request);
+        expect(response.statusCode).toEqual(401);
+        expect(response.body.msg).toEqual("Unauthorized");
+    });
 });
