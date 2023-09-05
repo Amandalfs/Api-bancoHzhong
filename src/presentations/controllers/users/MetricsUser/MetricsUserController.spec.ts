@@ -96,4 +96,16 @@ describe("metrics user controller tests units", ()=>{
         expect(response.statusCode).toEqual(404);
         expect(response.body.msg).toEqual("Not Found");
     });
+
+    it("should be able to send the data correctly to the use case", async ()=>{
+        const { suit, useCase } = makeSuit();
+        const useCaseSpy = vi.spyOn(useCase, "execute");
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            }
+        }
+        await suit.handle(request);
+        expect(useCaseSpy.mock.calls[0][0].id).toEqual(1);
+    })
 });
