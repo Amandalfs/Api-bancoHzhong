@@ -81,10 +81,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
             const dateStartISO = new Date(dateStart);
             const dateEndISO = new Date(dateEnd);
             
-            if( ( isAfter(dateStartISO, dateIso) ||  isEqual(dateIso, dateStartISO)) && 
-                ( isBefore(dateIso, dateEndISO) || isEqual(dateIso, dateEndISO))){
-                    return item;
-            }
+            return isWithinInterval(dateIso, { start: dateStartISO, end: dateEndISO });
         })
         const some =  extractsFilter.reduce((acumulador, extrato)=>{
             if(extrato.tipo === "Saque"){
@@ -104,10 +101,7 @@ export class InMemoryExtractsRepository implements IExtracsRepository {
             const dateStartISO = new Date(dateStart);
             const dateEndISO = new Date(dateEnd);
             
-            if( ( isAfter(dateStartISO, dateIso) ||  isEqual(dateIso, dateStartISO)) && 
-                ( isBefore(dateIso, dateEndISO) || isEqual(dateIso, dateEndISO))){
-                    return item;
-            }
+            return isWithinInterval(dateIso, { start: dateStartISO, end: dateEndISO });
         })
 
         const some =  extractsFilter.reduce((acumulador, extrato)=>{
