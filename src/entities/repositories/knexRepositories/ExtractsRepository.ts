@@ -26,52 +26,48 @@ class ExtractsRepository implements IExtracsRepository {
     }
 
     async CountByWithdraw({dateStart, dateEnd, UserId}: IRequestCountByWithdraw): Promise<number> {
-        const count: number = await db("extratos")
+        const { sum: CountWithdraw } = await db("extratos")
         .where("id_user", UserId)
         .where('tipo','saque')
         .where('data', '>=', dateStart)
         .where('data', '<=', dateEnd)
-        .count("saldo");
+        .sum("saldo").first();
 
-        return count;
+        return CountWithdraw;
     }
 
     async CountBySending({dateStart, dateEnd, UserId }: IRequestCountBySending): Promise<number> {
-        const count: number = await db("extratos")
+        const { sum: countSending } = await db("extratos")
         .where("id_user", UserId)
         .where('tipo','envio')
         .where('data', '>=', dateStart)
         .where('data', '<=', dateEnd)
-        .count("saldo");
+        .sum("saldo").first();
 
-        return count;
+        return countSending;
     }
 
     async findIncomesByDate({ id, lastMonth, today }: { id: number; today: Date; lastMonth: Date; }): Promise<number> {
-        const count: number = await db("extratos")
-        .where("id_user", id)
-        .where((builder) => {
-            builder.where("tipo", "recebido").orWhere("tipo", "deposito");
-        })
-        .where('data', '>=', lastMonth)
-        .where('data', '<=', today)
-        .count("saldo");
-
-        return count;
-    }
+        const { sum: incomes } = await db("extratos")
+            .where("id_user", id)
+            .where('data', '>=', lastMonth)
+            .where('data', '<=', today)
+            .where((builder) => {
+                builder.where("tipo", "recebido").orWhere("tipo", "deposito");
+            })
+            .sum("saldo").first();
+        return incomes;
+}
 
     async findExpensesByDate({ id, lastMonth, today }: { id: number; today: Date; lastMonth: Date; }): Promise<number> {
-        const count: number = await db("extratos")
-        .where("id_user", id)
-        .where('data', '>=', lastMonth)
-        .where('data', '<=', today)
-        .orWhere("tipo","envio")
-        .where((builder) => {
-            builder.where("tipo", "envio").orWhere("tipo", "Saque");
-        })
-        .count("saldo");
-
-        return count;
+        const { sum: expenses } = await db("extratos")
+            .where("id_user", id)
+            .where('data', '>=', lastMonth)
+            .where('data', '<=', today)
+            .where((builder) => {
+                builder.where("tipo", "envio").orWhere("tipo", "Saque");
+            }).sum("saldo").first();
+        return expenses;
     }
 }
 
