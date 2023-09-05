@@ -108,4 +108,17 @@ describe("metrics user controller tests units", ()=>{
         await suit.handle(request);
         expect(useCaseSpy.mock.calls[0][0].id).toEqual(1);
     })
+
+    it("should send a status of 200 and send an object with monthlyIncome and monthlyExpenses.", async() => {
+        const { suit } = makeSuit();
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            }
+        }
+        const response = await suit.handle(request);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.params.monthlyExpenses).toEqual(10);
+        expect(response.body.params.monthlyIncome).toEqual(500);
+    })
 });
