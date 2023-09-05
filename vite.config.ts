@@ -1,14 +1,6 @@
-import { defineConfig, UserConfigExport } from "vitest/config";
-interface KnexConfig {
-	environment: string[][];
-	exclude: string[];
-	setTimeout: number;
-}
+import { defineConfig } from "vitest/config";
 
-interface ExtendedConfig extends UserConfigExport {
-	knex: KnexConfig;
-}
-export default defineConfig<ExtendedConfig>({
+export default defineConfig({
 	test: {
 		environmentMatchGlobs:[["src/**", ""]],	
 		exclude:['node_modules', 'dist', '.idea', '.git', '.cache', 'src/main/**']
