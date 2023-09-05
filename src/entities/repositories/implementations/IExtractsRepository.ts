@@ -36,4 +36,8 @@ export interface IExtracsRepository {
     CountByWithdraw(data: IRequestCountByWithdraw): Promise<number>
 
     CountBySending(data: IRequestCountBySending): Promise<number>
+
+    findIncomesByDate(data: { id: number, today: Date, lastMonth: Date }): Promise<number>
+
+    findExpensesByDate(data: { id: number, today: Date, lastMonth: Date }): Promise<number>
 }
