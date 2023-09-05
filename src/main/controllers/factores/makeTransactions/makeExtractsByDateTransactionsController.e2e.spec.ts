@@ -93,7 +93,7 @@ describe('Teste de rota de monstrar extratos', ()=>{
         expect(statusCode).toEqual(200);
         expect(body.params.extracts[0]).toEqual(expect.objectContaining({
             tipo: "deposito",
-            saldo: "500",
+            saldo: 500,
             descricao: 'Voce depositou R$500,00',
         }))
         expect(body.params.extracts).toHaveLength(3);
