@@ -12,6 +12,7 @@ import { makeSessionsUserController } from "../controllers/factores/makeUsers/ma
 import { makeCreateUserController } from "../controllers/factores/makeUsers/makeCreateUserController";
 import { makeShowUserController } from "../controllers/factores/makeUsers/makeShowUserController";
 import { makeModifyUserController } from "../controllers/factores/makeUsers/makeModifyUserController";
+import { makeMetricsUserController } from "../controllers/factores/makeUsers/makeMetricsUserController";
 
 usersRoutes.post("/sessions", (req: Request, res: Response)=>{
     const controller = makeSessionsUserController();
@@ -30,6 +31,11 @@ usersRoutes.get("/show", garantirAuth, (req: Request, res: Response)=>{
 
 usersRoutes.patch("/modify", garantirAuth, (req: Request, res: Response)=>{
     const controller = makeModifyUserController();
+    return controllerAdapterExpress.handle(req, res, controller);
+})
+
+usersRoutes.get("/metrics", garantirAuth, (req: Request, res: Response) =>{
+    const controller = makeMetricsUserController();
     return controllerAdapterExpress.handle(req, res, controller);
 })
 
