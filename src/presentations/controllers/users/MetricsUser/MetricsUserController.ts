@@ -1,5 +1,5 @@
 import { IMetricsUserUseCase } from '../../../../domain/module/acconts/useCase/MetricsUser/MetricsUserUseCase';
-import { BadRequest, HttpRequest, HttpResponse, ServerError, Unauthorized } from '../CreateUser/CreateUserControllerProtocols';
+import { BadRequest, Forbidden, HttpRequest, HttpResponse, ServerError, Unauthorized } from '../CreateUser/CreateUserControllerProtocols';
 import { HttpController } from './../../../protocols/Controller';
 
 export class MetricsUserController implements HttpController {
@@ -24,6 +24,10 @@ export class MetricsUserController implements HttpController {
 
             if(error.statusCode === 401){
                 return Unauthorized(error.message);
+            }
+
+            if(error.statusCode === 403){
+                return Forbidden(error.message);
             }
         }
     }
