@@ -1,5 +1,5 @@
 import { IMetricsUserUseCase } from '../../../../domain/module/acconts/useCase/MetricsUser/MetricsUserUseCase';
-import { HttpRequest, HttpResponse, ServerError } from '../CreateUser/CreateUserControllerProtocols';
+import { BadRequest, HttpRequest, HttpResponse, ServerError } from '../CreateUser/CreateUserControllerProtocols';
 import { HttpController } from './../../../protocols/Controller';
 
 export class MetricsUserController implements HttpController {
@@ -16,6 +16,10 @@ export class MetricsUserController implements HttpController {
         } catch (error) {
             if(!error.statusCode){
                 return ServerError();
+            }
+
+            if(error.statusCode === 400){
+                return BadRequest(error.message);
             }
         }
     }
