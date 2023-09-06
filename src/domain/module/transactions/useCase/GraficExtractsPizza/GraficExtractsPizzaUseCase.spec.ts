@@ -2,16 +2,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { InMemoryExtractsRepository } from '../../../../../entities/repositories/inMemory/InMemoryExtractsRepository';
 import { IExtracsRepository } from '../DepositTransactions/protocols';
-import { GraficExtractsPizza } from './GraficExtractsPizzaUseCase';
+import { GraficExtractsPizzaUseCase } from './GraficExtractsPizzaUseCase';
 
 interface TypeSuit {
     extractsRepository: IExtracsRepository,
-    suit: GraficExtractsPizza,
+    suit: GraficExtractsPizzaUseCase,
 }
 
 const makeSuit = (): TypeSuit => {
     const extractsRepository = new InMemoryExtractsRepository();
-    const useCase = new GraficExtractsPizza(extractsRepository);
+    const useCase = new GraficExtractsPizzaUseCase(extractsRepository);
     
     return {
         extractsRepository,
