@@ -10,6 +10,8 @@ import { makeSendingMoneyTransactionsController } from "../controllers/factores/
 import { makeExtractByDateTransactionsController } from "../controllers/factores/makeTransactions/makeExtractByDateTransactionsController";
 
 import { ControllerAdapterExpress } from "../controllers/ControllerAdapterExpress";
+import { makeGraficExtractsPizza } from "../controllers/factores/makeTransactions/makeGraficExtractsPizza";
+
 const controllerAdapterExpress = new ControllerAdapterExpress();
 
 transactionsRoutes.patch('/deposit', garantirAuth, (req: Request, res: Response)=>{
@@ -29,6 +31,11 @@ transactionsRoutes.patch('/sendingMoney', garantirAuth, (req: Request, res: Resp
 
 transactionsRoutes.get('/extracts', garantirAuth, (req: Request, res: Response)=>{
     const controller = makeExtractByDateTransactionsController();
+    return controllerAdapterExpress.handle(req, res, controller);
+});
+
+transactionsRoutes.get('/grafic/pizza', garantirAuth, (req: Request, res: Response)=>{
+    const controller = makeGraficExtractsPizza();
     return controllerAdapterExpress.handle(req, res, controller);
 });
 
