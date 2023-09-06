@@ -2,12 +2,12 @@ name: Action-Tests-Units
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, feature/extractsGraficPizza ]
   pull_request:
     branches: [ develop, main ]
 
 jobs:
-   ActionTestsUnits:
+  ActionTestsUnits:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,3 +17,26 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
+  ActionTestsE2E: 
+    name: Run E2E Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: bitnami/postgresql
+        ports: 
+          - 5432:5432
+        env: 
+          POSTGRESQL_USERNAME: docker
+          POSTGRESQL_PASSWORD: docker
+          POSTGRESQL_DATABASE: hzhong
+    steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 18
+            cache: 'npm'
+          env:
+            DATABASE_URL: postgres://docker:docker@localhost:5432/hzhong?schema=public
+        - run: npm ci
+        - run: npm test:e2e
