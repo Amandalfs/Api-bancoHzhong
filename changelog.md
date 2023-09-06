@@ -1,5 +1,42 @@
 # Changelog de Atualizacoes da api Hzhong
 
+# Changelog - Versão 3.2.0 (Data: 06 de setembro de 2023)
+
+## Feats:
+- Adicionado o controlador 'grafic extracts pizza' às rotas.
+- Criado uma fábrica para criar o controlador 'grafic extracts pizza'.
+- Criado um controlador de resposta de sucesso no 'grafic extracts pizza' controller.
+
+## Correções:
+- Corrigido o nome no caso de uso 'grafics extracs pizza' e sua importação.
+- Fixado o nome no caso de uso 'grafics extracs pizza' e sua importação.
+- Convertidos os parâmetros para o formato de data a serem enviados ao caso de uso 'grafic extracts pizza'.
+
+## Refatoração:
+- Transformado o adaptador do controlador Express em uma função estática.
+
+## Testes:
+- Criado teste de ponta a ponta para testar a rota de 'transactions/grafic/pizza'.
+- Criado teste para validar se o caso de uso do controlador 'grafic extracs pizza' está recebendo os dados corretamente.
+- Criado tratamento de erros 404 Not Found no controlador 'grafic extracs pizza'.
+- Criado tratamento de erros 403 Forbidden no controlador 'grafic extracs pizza'.
+- Criado tratamento de erros 401 Unauthorized no controlador 'grafic extracs pizza'.
+- Criado tratamento de erros 400 Bad Request no controlador 'grafic extracs pizza'.
+- Criado tratamento de erros desconhecidos no controlador 'grafic extracs pizza'.
+- Criado caso de uso para 'grafic extracts pizza'.
+
+## Documentação:
+- Criada documentação para a rota 'grafic extracts pizza'.
+
+## CI/CD:
+- Removido o branch 'feature/extractsGraficPizza' dos testes e2e e units.
+- Corrigido o comando 'test:e2e' invertido a ordem da config.
+- Corrigido o comando 'test:e2e'.
+- Teste de CI e2e.
+- Criado teste para verificar retornos iguais a zero.
+- Criado arquivo de configuração de teste e2e.
+
+
 
 # Changelog - Versão 3.1.0 (Data: 05 de setembro de 2023)
 
