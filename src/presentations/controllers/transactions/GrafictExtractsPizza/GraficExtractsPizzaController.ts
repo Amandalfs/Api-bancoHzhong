@@ -11,11 +11,13 @@ export class GraficExtractsPizzaController implements HttpController {
         try {
             const { id } = req.user;
             const { startDate, endDate } = req.query;
+
             const input = { 
                 id,
-                startDate,
-                endDate,
+                startDate: new Date(startDate),
+                endDate: new Date(endDate),
             }
+            
             const output = await this.graficExtractsPizzaUseCase.execute(input);
             return Success(output);
         } catch (error) {
