@@ -1,7 +1,7 @@
 import { HttpController } from "../../../protocols/Controller";
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
 import { IGraficExtractsPizzaUseCase } from './../../../../domain/module/transactions/useCase/GraficExtractsPizza/GraficExtractsPizzaUseCase';
-import { Forbidden, BadRequest, ServerError, Unauthorized, NotFound } from './../../../helpers/index';
+import { Forbidden, BadRequest, ServerError, Unauthorized, NotFound, Success } from './../../../helpers/index';
 
 export class GraficExtractsPizzaController implements HttpController {
     
@@ -17,6 +17,7 @@ export class GraficExtractsPizzaController implements HttpController {
                 endDate,
             }
             const output = await this.graficExtractsPizzaUseCase.execute(input);
+            return Success(output);
         } catch (error) {
             return this.handleErrors(error);
         }
