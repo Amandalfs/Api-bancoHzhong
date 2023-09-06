@@ -100,5 +100,21 @@ describe("grafic extracs pizza controller tests units", ()=>{
         expect(response.body.msg).toEqual("Forbidden");
     });
 
+    it("should throw a 404 not found error status", async()=>{
+        const { suit, useCase } = makeSuit();
 
+        vi.spyOn(useCase, "execute").mockRejectedValue({statusCode: 404, message: "Not Found"});
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            },
+            query: {
+                startDate: new Date(),
+                endDate: new Date(),
+            }
+        }
+        const response = await suit.handle(request);
+        expect(response.statusCode).toEqual(404);
+        expect(response.body.msg).toEqual("Not Found");
+    });
 })
