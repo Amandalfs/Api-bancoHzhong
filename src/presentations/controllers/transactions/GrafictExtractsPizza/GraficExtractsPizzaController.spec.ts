@@ -139,4 +139,24 @@ describe("grafic extracs pizza controller tests units", ()=>{
             endDate: request.query.endDate,
         });
     });
+
+    it("should receive a status 200 with the chart data.", async ()=>{
+        const { suit } = makeSuit();
+
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            },
+            query: {
+                startDate: new Date(),
+                endDate: new Date(),
+            }
+        }
+        const response = await suit.handle(request);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.params).toEqual({
+            expenses: 50,
+            incomes: 70,
+        });
+    })
 })
