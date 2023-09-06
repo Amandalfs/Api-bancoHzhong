@@ -1,7 +1,7 @@
 import { HttpController } from "../../../protocols/Controller";
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
-import { BadRequest, ServerError, Unauthorized } from "../DepositTransactions/DepositTransactionsControllerProtocols";
 import { IGraficExtractsPizzaUseCase } from './../../../../domain/module/transactions/useCase/GraficExtractsPizza/GraficExtractsPizzaUseCase';
+import { Forbidden, BadRequest, ServerError, Unauthorized } from './../../../helpers/index';
 
 export class GraficExtractsPizzaController implements HttpController {
     
@@ -33,6 +33,10 @@ export class GraficExtractsPizzaController implements HttpController {
 
         if(error.statusCode === 401){
             return Unauthorized(error.message);
+        }
+
+        if(error.statusCode === 403){
+            return Forbidden(error.message);
         }
     }
 }
