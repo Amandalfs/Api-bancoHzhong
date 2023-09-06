@@ -2,7 +2,7 @@ name: Action-Tests-Units
 
 on:
   push:
-    branches: [ develop, feature/extractsGraficPizza ]
+    branches: [ develop ]
   pull_request:
     branches: [ develop, main ]
 
