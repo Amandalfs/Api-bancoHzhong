@@ -3,7 +3,7 @@ import { HttpController } from "../../presentations/protocols/Controller";
 import { HttpRequest } from "../../presentations/protocols/http";
 
 export class ControllerAdapterExpress {
-    async handle(req: Request, res: Response, controller: HttpController){
+    static async handle(req: Request, res: Response, controller: HttpController){
         const request:HttpRequest = {
             body: req.body,
             headers:{ 
