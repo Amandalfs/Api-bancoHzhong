@@ -931,7 +931,69 @@
             }
           }
         },
-  
+        "/transactions/grafic/pizza": {
+            "get": {
+              "tags": ["transactions"],
+              "summary": "Obter dados do gráfico de transações de pizza",
+              "description": "Obtém dados do gráfico de transações de pizza com base nas datas especificadas.",
+              "security": [
+                {
+                  "bearerAuth": []
+                }
+              ],
+              "parameters": [
+                {
+                  "name": "startDate",
+                  "in": "query",
+                  "required": true,
+                  "type": "string",
+                  "format": "date",
+                  "description": "Data de início para o gráfico (formato: yyyy-MM-dd H:M)."
+                },
+                {
+                  "name": "endDate",
+                  "in": "query",
+                  "required": true,
+                  "type": "string",
+                  "format": "date",
+                  "description": "Data de término para o gráfico (formato: yyyy-MM-dd H:M)."
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Sucesso",
+                  "content":{
+                      "application/json":{
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "params": {
+                              "type": "object",
+                              "properties": {
+                                "incomes": {
+                                  "type": "number",
+                                  "description": "Total de renda."
+                                },
+                                "expenses": {
+                                  "type": "number",
+                                  "description": "Total de despesas."
+                                }
+                              }
+                            }
+                          },
+                          "example": {
+                            "params": {
+                              "incomes": 500,
+                              "expenses": 300
+                            }
+                          }
+                        }
+                      }
+                  }
+                }
+              }
+            }
+        },
         "users/keys": {
           "post":{
               "tags": ["keys"],
