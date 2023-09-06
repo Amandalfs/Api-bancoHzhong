@@ -1,21 +1,21 @@
 import { IExtracsRepository } from "../DepositTransactions/protocols";
 
-interface InputGraficExtractsPizzaDTO {
+export interface InputGraficExtractsPizzaDTO {
     id: number,
     startDate: Date,
     endDate: Date,
 }
 
-interface OutputGraficExtractsPizzaDTO {
+export interface OutputGraficExtractsPizzaDTO {
     incomes: number,
     expenses: number,
 }
 
-interface IGraficExtractsPizzaUseCase {
+export interface IGraficExtractsPizzaUseCase {
     execute(input: InputGraficExtractsPizzaDTO): Promise<OutputGraficExtractsPizzaDTO>
 }
 
-export class GraficExtractsPizza implements IGraficExtractsPizzaUseCase {
+export class GraficExtractsPizzaUseCase implements IGraficExtractsPizzaUseCase {
     
     constructor(private extractsRepository: IExtracsRepository){}
     
