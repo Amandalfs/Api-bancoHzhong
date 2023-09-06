@@ -68,4 +68,16 @@ describe("grafic extracts pizza use case tests units", ()=>{
         expect(response.incomes).toEqual(300);
         expect(response.expenses).toEqual(150);
     })
+
+    it("should return zero if no data is found.", async ()=>{
+        const { suit } = makeSuit();
+        const input = {
+            id: 1,
+            startDate: new Date(),
+            endDate: new Date(),
+        }
+        const response = await suit.execute(input);
+        expect(response.expenses).toEqual(0);
+        expect(response.incomes).toEqual(0);
+    })
 });
