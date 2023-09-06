@@ -1,6 +1,6 @@
 import { HttpController } from "../../../protocols/Controller";
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
-import { BadRequest, ServerError } from "../DepositTransactions/DepositTransactionsControllerProtocols";
+import { BadRequest, ServerError, Unauthorized } from "../DepositTransactions/DepositTransactionsControllerProtocols";
 import { IGraficExtractsPizzaUseCase } from './../../../../domain/module/transactions/useCase/GraficExtractsPizza/GraficExtractsPizzaUseCase';
 
 export class GraficExtractsPizzaController implements HttpController {
@@ -29,6 +29,10 @@ export class GraficExtractsPizzaController implements HttpController {
 
         if(error.statusCode === 400){
             return BadRequest(error.message);
+        }
+
+        if(error.statusCode === 401){
+            return Unauthorized(error.message);
         }
     }
 }
