@@ -1,6 +1,6 @@
 import { HttpController } from "../../../protocols/Controller";
 import { HttpRequest, HttpResponse } from "../../../protocols/http";
-import { ServerError } from "../DepositTransactions/DepositTransactionsControllerProtocols";
+import { BadRequest, ServerError } from "../DepositTransactions/DepositTransactionsControllerProtocols";
 import { IGraficExtractsPizzaUseCase } from './../../../../domain/module/transactions/useCase/GraficExtractsPizza/GraficExtractsPizzaUseCase';
 
 export class GraficExtractsPizzaController implements HttpController {
@@ -25,6 +25,10 @@ export class GraficExtractsPizzaController implements HttpController {
     private handleErrors(error:any) {
         if(!error.statusCode){
             return ServerError();
+        }
+
+        if(error.statusCode === 400){
+            return BadRequest(error.message);
         }
     }
 }
