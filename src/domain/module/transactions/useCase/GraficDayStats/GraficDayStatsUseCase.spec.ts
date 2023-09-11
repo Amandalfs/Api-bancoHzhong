@@ -84,7 +84,8 @@ describe("grafic day stats tests units", async ()=>{
     it("should receive two arrays from the use case with input and output data.", async () => {
         const { revenues, expenses } = await suit.execute({
             startDate: new Date(2023, 1, 1, 1),
-            endDate: new Date(2023, 2, 1, 1)
+            endDate: new Date(2023, 2, 1, 1),
+            id: 1,
         });
     
         expect(revenues).toHaveLength(2);
@@ -97,7 +98,8 @@ describe("grafic day stats tests units", async ()=>{
         await expect(
             suit.execute({
                 startDate: new Date(2023, 1, 1, 1),
-                endDate: new Date(2023, 2, 1, 1)
+                endDate: new Date(2023, 2, 1, 1),
+                id: 1,
             })
         ).rejects.toEqual({message: "error"});
     })
