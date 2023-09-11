@@ -17,8 +17,8 @@ export class GraficExtractsDayByColumnController implements HttpController {
     
             const input = new InputGraficDayStatsUseCaseDTO({
                 id,
-                startDate,
-                endDate,
+                startDate: new Date(startDate),
+                endDate: new Date(endDate),
             })
             const output = await this.graficDayStatsUseCase.execute(input);
             return Success(output);
