@@ -70,8 +70,24 @@ class ExtractsRepository implements IExtracsRepository {
         return expenses;
     }
 
-    async revenuesExtractsByDays(data: { startDate: Date; endDate: Date; userId: number }): Promise<{ date: Date; value: number; }[]> {
-        throw new Error("Method not implemented.");
+    async revenuesExtractsByDays({ endDate, startDate, userId }: { startDate: Date; endDate: Date; userId: number }): Promise<{ date: Date; value: number; }[]> {
+        const extracts: {
+            date: Date,
+            value: number
+        }[] = await db("extratos")
+            .select(
+                db.raw('CAST(data AS DATE) as date'),
+                db.raw('SUM(saldo) as value')
+            )
+            .where('id_user', userId)
+            .where('data', '>=', startDate)
+            .where('data', '<=', endDate)
+            .where((builder) => {
+                builder.whereILike("tipo", "deposito").orWhereILike("tipo", "recebido");
+            })
+            .groupByRaw('CAST(data AS DATE)')
+            
+        return extracts;
     }
 
     async expensesExtractsByDays({ userId, endDate, startDate }: { startDate: Date; endDate: Date; userId: number }): Promise<{ date: Date; value: number; }[]> {
