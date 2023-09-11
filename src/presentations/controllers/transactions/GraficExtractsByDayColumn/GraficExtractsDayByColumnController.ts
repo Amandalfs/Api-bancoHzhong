@@ -1,6 +1,6 @@
 
 import { IGraficDayStatsUseCase } from '../../../../domain/module/transactions/useCase/GraficDayStats/GraficDayStatsUseCase';
-import { HttpRequest, HttpResponse, ServerError } from '../DepositTransactions/DepositTransactionsControllerProtocols';
+import { BadRequest, HttpRequest, HttpResponse, ServerError } from '../DepositTransactions/DepositTransactionsControllerProtocols';
 import { HttpController } from './../../../protocols/Controller';
 import { InputGraficDayStatsUseCaseDTO } from './../../../../domain/module/transactions/useCase/GraficDayStats/GraficDayStatsUseCase';
 
@@ -28,6 +28,10 @@ export class GraficExtractsDayByColumnController implements HttpController {
     handleErrors(error: any){
         if(!error.statusCode){
             return ServerError();
+        }
+        
+        if(error.statusCode === 400){
+            return BadRequest(error.message);
         }
     }
 
