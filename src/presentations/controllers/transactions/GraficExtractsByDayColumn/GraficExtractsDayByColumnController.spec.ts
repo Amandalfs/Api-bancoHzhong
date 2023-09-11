@@ -56,4 +56,23 @@ describe("grafic extracts day by column controller tests units", async () => {
         expect(response.body.msg).toEqual("Server Internal Error");
     });
 
+    it("should throw a 400 bad request error status", async()=>{
+        const { suit, useCase } = makeSuit();
+
+        vi.spyOn(useCase, "execute").mockRejectedValue({ statusCode: 400, message: "Bad Request"});
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            },
+            query: {
+                startDate: new Date(),
+                endDate: new Date(),
+            }
+        }
+        const response = await suit.handle(request);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.msg).toEqual("Bad Request");
+    });
+
+
 })
