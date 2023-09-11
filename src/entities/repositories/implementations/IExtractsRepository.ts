@@ -41,7 +41,7 @@ export interface IExtracsRepository {
 
     findExpensesByDate(data: { id: number, today: Date, lastMonth: Date }): Promise<number>
 
-    revenuesExtractsByDays(data: { startDate: Date, endDate: Date}): Promise<{date: Date, value: number}[]>
+    revenuesExtractsByDays(data: { startDate: Date, endDate: Date, userId: number}): Promise<{date: Date, value: number}[]>
 
-    expensesExtractsByDays(data: { startDate: Date, endDate: Date}): Promise<{date: Date, value: number}[]>
+    expensesExtractsByDays(data: { startDate: Date, endDate: Date, userId: number}): Promise<{date: Date, value: number}[]>
 }
