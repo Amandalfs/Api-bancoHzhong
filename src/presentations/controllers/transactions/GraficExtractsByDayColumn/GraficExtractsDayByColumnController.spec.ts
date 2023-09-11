@@ -92,5 +92,21 @@ describe("grafic extracts day by column controller tests units", async () => {
         expect(response.body.msg).toEqual("Unauthorized");
     });
 
+    it("should throw a 403 Forbidden error status", async()=>{
+        const { suit, useCase } = makeSuit();
 
+        vi.spyOn(useCase, "execute").mockRejectedValue({ statusCode: 403, message: "Forbidden"});
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            },
+            query: {
+                startDate: new Date(),
+                endDate: new Date(),
+            }
+        }
+        const response = await suit.handle(request);
+        expect(response.statusCode).toEqual(403);
+        expect(response.body.msg).toEqual("Forbidden");
+    });
 })
