@@ -3,7 +3,7 @@ import { IGraficDayStatsUseCase } from '../../../../domain/module/transactions/u
 import { BadRequest, HttpRequest, HttpResponse, ServerError, Unauthorized } from '../DepositTransactions/DepositTransactionsControllerProtocols';
 import { HttpController } from './../../../protocols/Controller';
 import { InputGraficDayStatsUseCaseDTO } from './../../../../domain/module/transactions/useCase/GraficDayStats/GraficDayStatsUseCase';
-import { Forbidden } from './../../../helpers/index';
+import { Forbidden, NotFound } from './../../../helpers/index';
 
 export class GraficExtractsDayByColumnController implements HttpController {
     
@@ -42,6 +42,12 @@ export class GraficExtractsDayByColumnController implements HttpController {
         if(error.statusCode === 403){
             return Forbidden(error.message);
         }
+
+        if(error.statusCode === 404){
+            return NotFound(error.message);
+        }
+
+        return ServerError();
     }
 
 }
