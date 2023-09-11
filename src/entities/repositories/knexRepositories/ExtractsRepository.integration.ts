@@ -268,4 +268,51 @@ describe("repository extracts tests integrations  by knex", () => {
         expect(total).toEqual(1500);
 
     })
+
+    it("Should be able to search for the total expense within an interval.", async () => {
+
+        vi.setSystemTime(new Date(2023, 5, 1));
+
+        const [{ id }] = await db("users").insert({
+            name: "Usuario Test",
+            username: "UsuarioTest",
+            nasc: "02-10-2003",
+            typeaccont: "poupanca",
+            password: "12345678",
+            cpf: "12603863096",
+            agencia: "123",
+            saldo: 50,
+            keypix: null,
+        }).returning("id");
+
+        const schemaExtract = {
+            data: new Date(2023, 1, 1),
+            descricao: "test",
+            id_user: id,
+            name: "Test",
+            saldo: 150,
+            tipo: "Saque",
+        }
+
+        await db("extratos").insert(schemaExtract);
+        
+        for (let index = 1; index <= 10; index++) {
+            await db("extratos").insert({
+                data: new Date(2023, 4, index),
+                descricao: "test",
+                id_user: id,
+                name: "Test",
+                saldo: 150,
+                tipo: index<5?"saque":"envio",
+            });
+        }
+
+        const total = await new ExtractsRepository().findExpensesByDate({
+            today: new Date(2023, 5, 1),
+            lastMonth: new Date(2023, 4, 1),
+            id,
+        })
+        expect(total).toEqual(1500);
+
+    })
 })
