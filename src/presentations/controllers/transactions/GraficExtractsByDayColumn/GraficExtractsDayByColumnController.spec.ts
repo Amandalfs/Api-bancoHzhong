@@ -149,4 +149,28 @@ describe("grafic extracts day by column controller tests units", async () => {
             endDate: request.query.endDate,
         });
     })
+
+    it("Create a success status for the GraficExtractsDayByColumnController if the use case sends the search results.", async ()=>{
+        const { suit, useCase } = makeSuit();
+        const useCaseSpy = vi.spyOn(useCase, "execute");
+        
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            },
+            query: {
+                startDate: new Date(),
+                endDate: new Date(),
+            }
+        }
+        
+        const { statusCode, body } = await suit.handle(request);
+        expect(statusCode).toEqual(200);
+        expect(body.params.revenues).toHaveLength(1);           
+        expect(body.params.revenues[0].value).toBeDefined();
+        expect(body.params.revenues[0].date).toBeDefined();
+        expect(body.params.expenses).toHaveLength(1);
+        expect(body.params.expenses[0].value).toBeDefined();
+        expect(body.params.expenses[0].date).toBeDefined();
+    })
 })
