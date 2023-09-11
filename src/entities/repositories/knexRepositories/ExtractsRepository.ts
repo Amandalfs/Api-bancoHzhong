@@ -3,6 +3,12 @@ import { IExtracsRepository, IRequestCountBySending, IRequestCountByWithdraw, IR
 import {IExtracts} from "../model/IExtracts";
 
 class ExtractsRepository implements IExtracsRepository {
+    revenuesExtractsByDays(data: { startDate: Date; endDate: Date; }): Promise<{ date: Date; value: number; }[]> {
+        throw new Error("Method not implemented.");
+    }
+    expensesExtractsByDays(data: { startDate: Date; endDate: Date; }): Promise<{ date: Date; value: number; }[]> {
+        throw new Error("Method not implemented.");
+    }
     
     async SearchForMoreRecentExtractsById(id_user: number){
         const extracts = await db('extratos')
