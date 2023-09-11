@@ -3,6 +3,7 @@ import { IExtracsRepository as IExtractsRepository } from "../../../../../entiti
 export class InputGraficDayStatsUseCaseDTO {
     public startDate: Date;
     public endDate: Date;
+    public id: number;
 
     constructor(props: InputGraficDayStatsUseCaseDTO){
         Object.assign(this, props);
@@ -32,15 +33,17 @@ export class GraficDayStatsUseCase implements IGraficDayStatsUseCase {
     
     constructor(private extractsRepository: IExtractsRepository){}
 
-    async execute({ startDate, endDate }: InputGraficDayStatsUseCaseDTO): Promise<OutputGraficDayStatsUseCaseDTO> {
+    async execute({ startDate, endDate, id }: InputGraficDayStatsUseCaseDTO): Promise<OutputGraficDayStatsUseCaseDTO> {
         const revenues = await this.extractsRepository.revenuesExtractsByDays({
             startDate,
             endDate,
+            userId: id,
         })
 
         const expenses = await this.extractsRepository.expensesExtractsByDays({
             startDate,
             endDate,
+            userId: id,
         })
 
         const output = new OutputGraficDayStatsUseCaseDTO({
