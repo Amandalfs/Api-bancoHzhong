@@ -3,7 +3,7 @@
     "info": {
         "title": "API do Banco hzhong",
         "description": "A API do Banco hzhong é uma plataforma que permite realizar operações bancárias, incluindo autenticação de usuários, atualização de informações de usuários, consulta de métricas financeiras e realização de transações. Esta documentação fornece informações detalhadas sobre como usar a API e suas funcionalidades.",
-        "version": "3.2.0",
+        "version": "3.3.0",
         "termsOfService": "https://seusite.com/terms-of-service",
         "contact": {
           "name": "Amanda (Desenvolvedora Plena)",
@@ -994,6 +994,102 @@
               }
             }
         },
+
+        "/transactions/grafic/column-day": {
+          "get": {
+            "tags": ["transactions"],
+            "summary": "Obter gráfico de colunas diário",
+            "description": "Obtém um gráfico de colunas diário com base nas datas especificadas.",
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ],
+            "parameters": [
+              {
+                "name": "startDate",
+                "in": "query",
+                "required": true,
+                "type": "string",
+                "format": "date",
+                "description": "Data de início para o gráfico (formato: yyyy-MM-dd)."
+              },
+              {
+                "name": "endDate",
+                "in": "query",
+                "required": true,
+                "type": "string",
+                "format": "date",
+                "description": "Data de término para o gráfico (formato: yyyy-MM-dd)."
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Sucesso",
+                    "content": {
+                      "application/json": {
+                        "properties": {
+                          "params": {
+                            "type": "object",
+                            "properties": {
+                              "revenues": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "value": {
+                                      "type": "number",
+                                      "description": "Valor da receita."
+                                    },
+                                    "date": {
+                                      "type": "string",
+                                      "format": "date",
+                                      "description": "Data da receita (formato: yyyy-MM-dd)."
+                                    }
+                                  }
+                                }
+                              },
+                              "expenses": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "value": {
+                                      "type": "number",
+                                      "description": "Valor da despesa."
+                                    },
+                                    "date": {
+                                      "type": "string",
+                                      "format": "date",
+                                      "description": "Data da despesa (formato: yyyy-MM-dd)."
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "example": {
+                          "params": {
+                            "revenues": [
+                              { "value": 800, "date": "2023-01-01" },
+                              { "value": 600, "date": "2023-01-02" }
+                            ],
+                            "expenses": [
+                              { "value": 300, "date": "2023-01-01" },
+                              { "value": 150, "date": "2023-01-02" }
+                            ]
+                        }
+                        }
+                      }
+                    }
+                }
+               
+              }
+
+          }
+        },
+
         "users/keys": {
           "post":{
               "tags": ["keys"],

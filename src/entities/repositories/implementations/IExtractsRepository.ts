@@ -40,4 +40,8 @@ export interface IExtracsRepository {
     findIncomesByDate(data: { id: number, today: Date, lastMonth: Date }): Promise<number>
 
     findExpensesByDate(data: { id: number, today: Date, lastMonth: Date }): Promise<number>
+
+    revenuesExtractsByDays(data: { startDate: Date, endDate: Date, userId: number}): Promise<{date: Date, value: number}[]>
+
+    expensesExtractsByDays(data: { startDate: Date, endDate: Date, userId: number}): Promise<{date: Date, value: number}[]>
 }

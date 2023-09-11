@@ -28,7 +28,7 @@ class ExtractsRepository implements IExtracsRepository {
     async CountByWithdraw({dateStart, dateEnd, UserId}: IRequestCountByWithdraw): Promise<number> {
         const { sum: CountWithdraw } = await db("extratos")
         .where("id_user", UserId)
-        .where('tipo','saque')
+        .whereILike('tipo','Saque')
         .where('data', '>=', dateStart)
         .where('data', '<=', dateEnd)
         .sum("saldo").first();
@@ -39,7 +39,7 @@ class ExtractsRepository implements IExtracsRepository {
     async CountBySending({dateStart, dateEnd, UserId }: IRequestCountBySending): Promise<number> {
         const { sum: countSending } = await db("extratos")
         .where("id_user", UserId)
-        .where('tipo','envio')
+        .whereILike('tipo','envio')
         .where('data', '>=', dateStart)
         .where('data', '<=', dateEnd)
         .sum("saldo").first();
@@ -53,7 +53,7 @@ class ExtractsRepository implements IExtracsRepository {
             .where('data', '>=', lastMonth)
             .where('data', '<=', today)
             .where((builder) => {
-                builder.where("tipo", "recebido").orWhere("tipo", "deposito");
+                builder.whereILike("tipo", "recebido").orWhereILike("tipo", "deposito");
             })
             .sum("saldo").first();
         return incomes;
@@ -65,9 +65,49 @@ class ExtractsRepository implements IExtracsRepository {
             .where('data', '>=', lastMonth)
             .where('data', '<=', today)
             .where((builder) => {
-                builder.where("tipo", "envio").orWhere("tipo", "Saque");
+                builder.whereILike("tipo", "envio").orWhereILike("tipo", "Saque");
             }).sum("saldo").first();
         return expenses;
+    }
+
+    async revenuesExtractsByDays({ endDate, startDate, userId }: { startDate: Date; endDate: Date; userId: number }): Promise<{ date: Date; value: number; }[]> {
+        const extracts: {
+            date: Date,
+            value: number
+        }[] = await db("extratos")
+            .select(
+                db.raw('CAST(data AS DATE) as date'),
+                db.raw('SUM(saldo) as value')
+            )
+            .where('id_user', userId)
+            .where('data', '>=', startDate)
+            .where('data', '<=', endDate)
+            .where((builder) => {
+                builder.whereILike("tipo", "deposito").orWhereILike("tipo", "recebido");
+            })
+            .groupByRaw('CAST(data AS DATE)')
+            
+        return extracts;
+    }
+
+    async expensesExtractsByDays({ userId, endDate, startDate }: { startDate: Date; endDate: Date; userId: number }): Promise<{ date: Date; value: number; }[]> {
+        const extracts: {
+            date: Date,
+            value: number
+        }[] = await db("extratos")
+            .select(
+                db.raw('CAST(data AS DATE) as date'),
+                db.raw('SUM(saldo) as value')
+            )
+            .where('id_user', userId)
+            .where('data', '>=', startDate)
+            .where('data', '<=', endDate)
+            .where((builder) => {
+                builder.whereILike("tipo", "envio").orWhereILike("tipo", "Saque");
+            })
+            .groupByRaw('CAST(data AS DATE)')
+            
+        return extracts;
     }
 }
 
