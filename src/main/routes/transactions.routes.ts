@@ -9,6 +9,7 @@ import { makeExtractByDateTransactionsController } from "../controllers/factores
 
 import { ControllerAdapterExpress } from "../controllers/ControllerAdapterExpress";
 import { makeGraficExtractsPizza } from "../controllers/factores/makeTransactions/makeGraficExtractsPizza";
+import { makeGraficExtractsDayByColumnController } from "../controllers/factores/makeTransactions/makeGraficExtractsDayByColumnController";
 
 transactionsRoutes.patch('/deposit', (req: Request, res: Response)=>{
     const controller = makeDepositTransactionsController();
@@ -34,5 +35,10 @@ transactionsRoutes.get('/grafic/pizza', (req: Request, res: Response)=>{
     const controller = makeGraficExtractsPizza();
     return ControllerAdapterExpress.handle(req, res, controller);
 });
+
+transactionsRoutes.get('/grafic/column-day', (req: Request, res: Response)=>{
+    const controller = makeGraficExtractsDayByColumnController();
+    return ControllerAdapterExpress.handle(req, res, controller);
+})
 
 export { transactionsRoutes };
