@@ -34,7 +34,7 @@ class ExtractsRepository implements IExtracsRepository {
     async CountByWithdraw({dateStart, dateEnd, UserId}: IRequestCountByWithdraw): Promise<number> {
         const { sum: CountWithdraw } = await db("extratos")
         .where("id_user", UserId)
-        .where('tipo','saque')
+        .whereILike('tipo','Saque')
         .where('data', '>=', dateStart)
         .where('data', '<=', dateEnd)
         .sum("saldo").first();
@@ -45,7 +45,7 @@ class ExtractsRepository implements IExtracsRepository {
     async CountBySending({dateStart, dateEnd, UserId }: IRequestCountBySending): Promise<number> {
         const { sum: countSending } = await db("extratos")
         .where("id_user", UserId)
-        .where('tipo','envio')
+        .whereILike('tipo','envio')
         .where('data', '>=', dateStart)
         .where('data', '<=', dateEnd)
         .sum("saldo").first();
@@ -59,7 +59,7 @@ class ExtractsRepository implements IExtracsRepository {
             .where('data', '>=', lastMonth)
             .where('data', '<=', today)
             .where((builder) => {
-                builder.where("tipo", "recebido").orWhere("tipo", "deposito");
+                builder.whereILike("tipo", "recebido").orWhereILike("tipo", "deposito");
             })
             .sum("saldo").first();
         return incomes;
@@ -71,7 +71,7 @@ class ExtractsRepository implements IExtracsRepository {
             .where('data', '>=', lastMonth)
             .where('data', '<=', today)
             .where((builder) => {
-                builder.where("tipo", "envio").orWhere("tipo", "Saque");
+                builder.whereILike("tipo", "envio").orWhereILike("tipo", "Saque");
             }).sum("saldo").first();
         return expenses;
     }
