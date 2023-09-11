@@ -127,4 +127,26 @@ describe("grafic extracts day by column controller tests units", async () => {
         expect(response.statusCode).toEqual(404);
         expect(response.body.msg).toEqual("Not Found");
     });
+
+    it("should send the data correctly to the use case.", async ()=>{
+        const { suit, useCase } = makeSuit();
+        const useCaseSpy = vi.spyOn(useCase, "execute");
+        
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            },
+            query: {
+                startDate: new Date(),
+                endDate: new Date(),
+            }
+        }
+        
+        await suit.handle(request);
+        expect(useCaseSpy.mock.calls[0][0]).toEqual({
+            id: request.user.id,
+            startDate: request.query.startDate,
+            endDate: request.query.endDate,
+        });
+    })
 })
