@@ -74,5 +74,23 @@ describe("grafic extracts day by column controller tests units", async () => {
         expect(response.body.msg).toEqual("Bad Request");
     });
 
+    it("should throw a 401 unauthorized error status", async()=>{
+        const { suit, useCase } = makeSuit();
+
+        vi.spyOn(useCase, "execute").mockRejectedValue({ statusCode: 401, message: "Unauthorized"});
+        const request: HttpRequest = {
+            user: {
+                id: 1
+            },
+            query: {
+                startDate: new Date(),
+                endDate: new Date(),
+            }
+        }
+        const response = await suit.handle(request);
+        expect(response.statusCode).toEqual(401);
+        expect(response.body.msg).toEqual("Unauthorized");
+    });
+
 
 })
