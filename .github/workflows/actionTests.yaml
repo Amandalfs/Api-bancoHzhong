@@ -1,4 +1,4 @@
-name: Action-Tests-Units
+name: Action-Tests
 
 on:
   push:
@@ -40,3 +40,28 @@ jobs:
         - run: npm run test:e2e
           env:
             DATABASE_URL: postgres://docker:docker@localhost:5432/hzhong?schema=public
+  
+  ActionTestsIntegration: 
+    name: Run Integration Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: bitnami/postgresql
+        ports: 
+          - 5432:5432
+        env: 
+          POSTGRESQL_USERNAME: docker
+          POSTGRESQL_PASSWORD: docker
+          POSTGRESQL_DATABASE: hzhong
+    steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 18
+            cache: 'npm'
+        - run: npm ci
+        - run: npm run test:integration
+          env:
+            DATABASE_URL: postgres://docker:docker@localhost:5432/hzhong?schema=public
+  
