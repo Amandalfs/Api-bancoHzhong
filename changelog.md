@@ -1,5 +1,43 @@
 # Changelog de Atualizacoes da api Hzhong
 
+# Changelog - Versão 3.3.0 (Data: 07 de setembro de 2023)
+
+## Documentação:
+- Criada documentação para a rota '/transactions/grafic/column-day'.
+
+## Testes:
+- Criado um teste de ponta a ponta (e2e) para a rota '/transactions/grafic/column-day'.
+- Criado um teste para validar se o caso de uso do controlador 'GraficExtractsDayByColumnController' está recebendo os dados corretamente.
+- Criado tratamento de erros 404 Not Found no controlador 'GraficExtractsDayByColumnController'.
+- Criado tratamento de erros 403 Forbidden no controlador 'GraficExtractsDayByColumnController'.
+- Criado tratamento de erros 401 Unauthorized no controlador 'GraficExtractsDayByColumnController'.
+- Criado tratamento de erros 400 Bad Request no controlador 'GraficExtractsDayByColumnController'.
+- Criado tratamento de erros desconhecidos no controlador 'GraficExtractsDayByColumnController'.
+- Criado teste de integração para a função 'revenuesExtractsByDays' do repositório de extratos.
+- Criado teste de integração para a função 'expensesExtractsByDays' do repositório de extratos.
+- Criado teste de integração para a função 'findExpensesByDate' do repositório de extratos.
+- Criado teste de integração para a função 'findIncomesByDate' do repositório de extratos.
+- Criado teste de integração para a função 'CountBySending' do repositório de extratos.
+- Criado teste de integração para a função 'CountByWithdraw' do repositório de extratos.
+- Criado teste de integração para a função 'SearchForDataStartAndEndbyId' do repositório de extratos.
+- Criado teste de integração para a busca dos 5 extratos mais recentes usando o repositório.
+- Criado teste de integração para a criação de extratos usando o repositório.
+- Criado teste de caso de uso para verificar se está retornando o formato correto do caso de uso e enviando erros para a camada acima.
+
+## Feats:
+- Adicionado o controlador 'GraficExtractsDayByColumnController' à rota '/transactions/grafic/column-day'.
+- Criado uma fábrica para criar o controlador 'GraficExtractsDayByColumnController'.
+- Criado um controlador de resposta de sucesso no 'GraficExtractsDayByColumnController'.
+- Implementações de novas funcionalidades nos repositórios de extratos.
+- Criado o caso de uso para 'grafic extracts days'.
+
+## Fix:
+- Convertidos as datas para o tipo 'date' no 'GraficExtractsDayByColumnController'.
+
+<br>
+<br>
+<br>
+
 # Changelog - Versão 3.2.0 (Data: 06 de setembro de 2023)
 
 ## Feats:

@@ -3,7 +3,7 @@
     "info": {
         "title": "API do Banco hzhong",
         "description": "A API do Banco hzhong é uma plataforma que permite realizar operações bancárias, incluindo autenticação de usuários, atualização de informações de usuários, consulta de métricas financeiras e realização de transações. Esta documentação fornece informações detalhadas sobre como usar a API e suas funcionalidades.",
-        "version": "3.2.0",
+        "version": "3.3.0",
         "termsOfService": "https://seusite.com/terms-of-service",
         "contact": {
           "name": "Amanda (Desenvolvedora Plena)",
