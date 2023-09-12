@@ -120,14 +120,17 @@ describe("repository extracts tests integrations  by knex", () => {
             id,
             dateStart: new Date(2023, 4, 1),
             dateEnd: new Date(2023, 5, 1),
+            page: 1,
+            rows: 5,
         })
-        expect(extracts).toHaveLength(10);
+
+        expect(extracts).toHaveLength(5);
         expect(extracts[0]).toEqual({
             tipo: 'Saque',
             saldo: 150,
-            data: new Date(2023, 4, 1),
+            data: new Date(2023, 4, 10),
             descricao: 'test'
-        })
+        });
     })
 
     it("should be able to count the total withdrawal amount.", async () => {
