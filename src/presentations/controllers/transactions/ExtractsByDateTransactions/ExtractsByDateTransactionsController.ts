@@ -11,7 +11,7 @@ export class ExtractsByDateTransactionsController implements HttpController {
     async handle(req: HttpRequest): Promise<HttpResponse> {
         try {
             const { id } = req.user
-            const { dateStart, dateEnd } = req.query;
+            const { dateStart, dateEnd, page, rows } = req.query;            
 
             if(!dateStart){
                 throw new InvalidParams("DateStart");
@@ -21,7 +21,7 @@ export class ExtractsByDateTransactionsController implements HttpController {
                 throw new InvalidParams("DateEnd");
             }
 
-            const input = new DTORequestExtractsByDateUseCase(id, new Date(dateStart), new Date(dateEnd));
+            const input = new DTORequestExtractsByDateUseCase(id, new Date(dateStart), new Date(dateEnd), page ?? 1, rows ?? 5);
             const output = await this.extractsByDateUseCase.execute(input);
 
             return Success(output);

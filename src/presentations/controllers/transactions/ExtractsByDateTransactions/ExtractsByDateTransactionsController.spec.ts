@@ -12,12 +12,19 @@ const makeSut = ():TypesSut =>{
     const useCaseShowMock = new class sendingMoneyTransactionsUserUseCase implements IExtractsByDateUseCase {
         execute(data: DTORequestExtractsByDateUseCase): Promise<DTOResponseExtractsByDateUseCase> {
             return new Promise(resolve => resolve(
-                new DTOResponseExtractsByDateUseCase([{
-                    tipo: "envio",
-                    saldo: 50,
-                    data: new Date(2022,1,1),
-                    descricao: "test",
-                }])
+                new DTOResponseExtractsByDateUseCase({
+                    extracts: [{
+                        tipo: "envio",
+                        saldo: 50,
+                        data: new Date(2022,1,1),
+                        descricao: "test",
+                    }],
+                    details: {
+                        page: 1,
+                        pagesTotal: 1,
+                        totalDocs: 1,
+                    }
+            })
             ))
         }
        
@@ -117,6 +124,8 @@ describe("Testando o controllador de extratos", ()=>{
             id_user: 1,
             dateStart: new Date(String(new Date(2022,1,1))),
             dateEnd: new Date(String(new Date(2022,1,1))),
+            page: 1,
+            rows: 5,
         })
     })
 

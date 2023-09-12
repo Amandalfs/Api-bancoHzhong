@@ -1,6 +1,23 @@
 # Changelog de Atualizacoes da api Hzhong
 
-# Changelog - Versão 3.3.0 (Data: 07 de setembro de 2023)
+# Changelog - Versão 4.0.0 (Data: 12 de setembro de 2023)
+
+## Documentação:
+- Atualizada a documentação para a rota de extratos.
+
+## Feats:
+- Adicionado consulta por página e quantidade de linhas ao controlador de extratos.
+- Criada função para retornar o número total de documentos com base na data no repositório de extratos.
+- Adicionada função para arredondamento do número total de páginas no caso de uso de extratos.
+- Adicionada paginação ao repositório de extratos.
+- Adicionada paginação e detalhes de paginação ao caso de uso de extratos.
+
+<br>
+<br>
+<br>
+
+
+# Changelog - Versão 3.3.0 (Data: 11 de setembro de 2023)
 
 ## Documentação:
 - Criada documentação para a rota '/transactions/grafic/column-day'.

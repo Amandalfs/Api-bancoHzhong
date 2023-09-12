@@ -3,6 +3,14 @@ import { IExtracsRepository, IRequestCountBySending, IRequestCountByWithdraw, IR
 import {IExtracts} from "../model/IExtracts";
 
 class ExtractsRepository implements IExtracsRepository {
+    async getCountDocs({ userId, startDate, endDate }: { startDate: Date; endDate: Date; userId: number; }): Promise<number> {
+        const { count: total } = await db('extratos')
+        .where("id_user", userId)
+        .where('data', '>=', startDate)
+        .where('data', '<=', endDate)
+        .count("id").first();
+        return Number(total);
+    }
     
     async SearchForMoreRecentExtractsById(id_user: number){
         const extracts = await db('extratos')
@@ -16,11 +24,14 @@ class ExtractsRepository implements IExtracsRepository {
         await  db('extratos').insert(data);
     }
 
-    async SearchForDataStartAndEndbyId({id, dateStart, dateEnd}: IRequestSearchForDataStartAndEndbyId){
+    async SearchForDataStartAndEndbyId({id, dateStart, dateEnd, page, rows}: IRequestSearchForDataStartAndEndbyId){
         const extracts = await db('extratos')
         .select("tipo", "saldo", "data", "descricao")
         .where("id_user",id).where('data', '>=', dateStart)
-        .where('data', '<=', dateEnd);
+        .where('data', '<=', dateEnd)
+        .limit(rows)
+        .offset(rows*(page-1))
+        .orderBy("data", "desc");
 
         return extracts;
     }

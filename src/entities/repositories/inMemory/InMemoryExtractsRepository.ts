@@ -5,6 +5,9 @@ import { compareAsc, isAfter, isBefore, isEqual, isWithinInterval } from 'date-f
 // "tipo", "saldo", "data", "descricao"
 
 export class InMemoryExtractsRepository implements IExtracsRepository {
+    getCountDocs(data: { startDate: Date; endDate: Date; userId: number; }): Promise<number> {
+        return new Promise(resolve => resolve(10));
+    }
     revenuesExtractsByDays(data: { startDate: Date; endDate: Date; }): Promise<{ date: Date; value: number; }[]> {
         throw new Error("Method not implemented.");
     }
