@@ -124,6 +124,8 @@ describe("Testando o controllador de extratos", ()=>{
             id_user: 1,
             dateStart: new Date(String(new Date(2022,1,1))),
             dateEnd: new Date(String(new Date(2022,1,1))),
+            page: 1,
+            rows: 5,
         })
     })
 

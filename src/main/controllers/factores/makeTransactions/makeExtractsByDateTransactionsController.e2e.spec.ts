@@ -97,6 +97,8 @@ describe('Teste de rota de monstrar extratos', ()=>{
             descricao: 'Voce depositou R$500,00',
         }))
         expect(body.params.extracts).toHaveLength(3);
+        expect(body.params.details.page).toEqual(1);
+        expect(body.params.details.pagesTotal).toEqual(1);
         
     })
 })
