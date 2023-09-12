@@ -3,8 +3,13 @@ import { IExtracsRepository, IRequestCountBySending, IRequestCountByWithdraw, IR
 import {IExtracts} from "../model/IExtracts";
 
 class ExtractsRepository implements IExtracsRepository {
-    async getCountDocs(data: { startDate: Date; endDate: Date; userId: number; }): Promise<number> {
-        throw new Error("Method not implemented.");
+    async getCountDocs({ userId, startDate, endDate }: { startDate: Date; endDate: Date; userId: number; }): Promise<number> {
+        const { count: total } = await db('extratos')
+        .where("id_user", userId)
+        .where('data', '>=', startDate)
+        .where('data', '<=', endDate)
+        .count("id").first();
+        return Number(total);
     }
     
     async SearchForMoreRecentExtractsById(id_user: number){
@@ -26,7 +31,7 @@ class ExtractsRepository implements IExtracsRepository {
         .where('data', '<=', dateEnd)
         .limit(rows)
         .offset(rows*(page-1))
-        .orderBy("data", "first");
+        .orderBy("data", "desc");
 
         return extracts;
     }
