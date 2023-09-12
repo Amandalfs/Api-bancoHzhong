@@ -3,7 +3,7 @@
     "info": {
         "title": "API do Banco hzhong",
         "description": "A API do Banco hzhong é uma plataforma que permite realizar operações bancárias, incluindo autenticação de usuários, atualização de informações de usuários, consulta de métricas financeiras e realização de transações. Esta documentação fornece informações detalhadas sobre como usar a API e suas funcionalidades.",
-        "version": "3.3.0",
+        "version": "4.0.0",
         "termsOfService": "https://seusite.com/terms-of-service",
         "contact": {
           "name": "Amanda (Desenvolvedora Plena)",
@@ -860,7 +860,25 @@
                         "format": "date-time"
                     },
                     "example": "2023-05-02T14:45:00"
-                }
+                },
+                {
+                  "name": "page",
+                  "in": "query",
+                  "schema":
+                  {
+                      "type": "number"
+                  },
+                  "example": 1
+              },
+              {
+                "name": "rows",
+                "in": "query",
+                "schema":
+                  {
+                      "type": "number"
+                  },
+                  "example": 5
+              }
             ],
             "security": [
               {
@@ -878,9 +896,11 @@
                         {
                             "schema":
                             {
-                                "type": "array",
-                                "items":
-                                {
+                              "type":"object",
+                              "properties": {
+                                "extracts":{
+                                  "type": "array",
+                                  "items":{
                                     "type": "object",
                                     "properties":
                                     {
@@ -902,29 +922,53 @@
                                             "type": "string"
                                         }
                                     }
+                                  }
                                 },
-                                "example":
-                                [
-                                    {
-                                        "tipo": "saque",
-                                        "saldo": 258,
-                                        "data": "2023-05-05T11:15:00",
-                                        "descricao": "Você sacou R$258,00"
+                                "details":{
+                                  "type":"object",
+                                  "properties":{
+                                    "page": {
+                                      "type":"number"
                                     },
-                                    {
-                                        "tipo": "saque",
-                                        "saldo": 258,
-                                        "data": "2023-05-05T12:30:00",
-                                        "descricao": "Você sacou R$258,00"
+                                    "totalPages": {
+                                      "type": "number"
                                     },
-                                    {
-                                        "tipo": "saque",
-                                        "saldo": 258,
-                                        "data": "2023-05-05T14:00:00",
-                                        "descricao": "Você sacou R$258,00"
+                                    "totalDocs": {
+                                      "type": "number"
                                     }
-                                ]
-                            }
+                                  }
+                                }
+                              },
+                                "example":{
+                                  "extracts":[
+                                    {
+                                      "tipo": "saque",
+                                      "saldo": 258,
+                                      "data": "2023-05-05T11:15:00",
+                                      "descricao": "Você sacou R$258,00"
+                                  },
+                                  {
+                                      "tipo": "saque",
+                                      "saldo": 258,
+                                      "data": "2023-05-05T12:30:00",
+                                      "descricao": "Você sacou R$258,00"
+                                  },
+                                  {
+                                      "tipo": "saque",
+                                      "saldo": 258,
+                                      "data": "2023-05-05T14:00:00",
+                                      "descricao": "Você sacou R$258,00"
+                                  }
+                                  ],
+                                  "details": {
+                                    "page": 1,
+                                    "pagesTotal": 1,
+                                    "totalDocs": 3
+                                  }
+                                }
+                                 
+                                
+                              }
                         }
                     }
                 }
