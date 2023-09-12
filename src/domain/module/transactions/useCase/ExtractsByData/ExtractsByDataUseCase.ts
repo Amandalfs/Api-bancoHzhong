@@ -45,7 +45,7 @@ class ExtractsByDataUseCase implements IExtractsByDateUseCase{
             extracts,
             details: {
                 page,
-                pagesTotal,
+                pagesTotal: pagesTotal < 1 ? 1: Math.ceil(pagesTotal),
                 totalDocs,
             }
         });
