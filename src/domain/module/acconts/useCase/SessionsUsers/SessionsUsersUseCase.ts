@@ -1,5 +1,5 @@
 import { PassordOrUsernameInvalidError } from "./errors";
-import { AuthConfigToken, Codificador, GerenciadorDeToken, IUserRepository} from "./protocols"
+import { AuthConfigToken, Codificador, GerenciadorDeToken, IUserRepository} from "./protocols";
 
 export interface DTORequestSessionsUseCase {
     username: string
@@ -17,35 +17,35 @@ export interface ISessionsUsersUseCase {
 
 class SessionsUsersUseCase implements ISessionsUsersUseCase{
 
-    constructor(
+	constructor(
         private UserRepository: IUserRepository,
         private codificador: Codificador,
         private authConfig: AuthConfigToken,
         private gerenciadorDeToken: GerenciadorDeToken,
-    ){}
+	){}
     
-    async execute({username, password}:DTORequestSessionsUseCase){
+	async execute({username, password}:DTORequestSessionsUseCase){
 
-        const user = await this.UserRepository.findUserByUsername(username);
+		const user = await this.UserRepository.findUserByUsername(username);
 
-        if(!user){
-            throw new PassordOrUsernameInvalidError();
-        }
-        const passwordPassed = await this.codificador.comparador(password, user.password);
+		if(!user){
+			throw new PassordOrUsernameInvalidError();
+		}
+		const passwordPassed = await this.codificador.comparador(password, user.password);
 
-        if(!passwordPassed){
-            throw new PassordOrUsernameInvalidError();
-        }
+		if(!passwordPassed){
+			throw new PassordOrUsernameInvalidError();
+		}
 
-        const { secret, expiresIn } = this.authConfig.jwt;
+		const { secret, expiresIn } = this.authConfig.jwt;
 
-        const token = this.gerenciadorDeToken.createToken({}, secret, {
-            subject: String(user.id),
-            expiresIn
-        })
+		const token = this.gerenciadorDeToken.createToken({}, secret, {
+			subject: String(user.id),
+			expiresIn
+		});
         
-        return {token};
-    }
+		return {token};
+	}
 }
 
-export { SessionsUsersUseCase }
+export { SessionsUsersUseCase };

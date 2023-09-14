@@ -1,4 +1,4 @@
-import { Codificador, IUser, IUserRepository, IValidarCpf, IVerifyAge } from "./protocols"
+import { Codificador, IUser, IUserRepository, IValidarCpf, IVerifyAge } from "./protocols";
 import { AccontExistsError, ConfirmationPasswordInvalidError, InvalidCpfError, UserUnder18YearsOldError } from "./errors";
 
 interface ICreateUserRequestDTO {
@@ -21,63 +21,63 @@ interface ICreateUserUseCase {
 }
 
 class CreateUserUseCase implements ICreateUserUseCase {
-    constructor(private UserRepository:IUserRepository, 
+	constructor(private UserRepository:IUserRepository, 
         private verifyAge: IVerifyAge, 
         private validarCpf: IValidarCpf,
         private codificador: Codificador,
-        ){}
+	){}
 
-    async execute({username, name, nasc, typeaccont, email,  password, password2, cpf}: ICreateUserRequestDTO){
+	async execute({username, name, nasc, typeaccont, email,  password, password2, cpf}: ICreateUserRequestDTO){
 
-        if(this.verifyAge.execute(nasc)){
-            throw new UserUnder18YearsOldError();
-        }
+		if(this.verifyAge.execute(nasc)){
+			throw new UserUnder18YearsOldError();
+		}
 
-        if(this.validarCpf.execute(cpf)){
-            throw new InvalidCpfError();
-        }
+		if(this.validarCpf.execute(cpf)){
+			throw new InvalidCpfError();
+		}
 
-        const isEmail = await this.UserRepository.findUserByEmail(email);
-        const isUsername = await this.UserRepository.findUserByUsername(username);
-        const isCpf = await this.UserRepository.findUserByCPF(cpf);
+		const isEmail = await this.UserRepository.findUserByEmail(email);
+		const isUsername = await this.UserRepository.findUserByUsername(username);
+		const isCpf = await this.UserRepository.findUserByCPF(cpf);
 
-        if(isEmail){
-            throw new AccontExistsError("Email");
-        }
+		if(isEmail){
+			throw new AccontExistsError("Email");
+		}
     
-        if(isUsername){
-            throw new AccontExistsError("Username");
-        }
+		if(isUsername){
+			throw new AccontExistsError("Username");
+		}
     
-        if(isCpf){
-            throw new AccontExistsError("Cpf");
-        }
+		if(isCpf){
+			throw new AccontExistsError("Cpf");
+		}
 
-        if(password !== password2){
-            throw new ConfirmationPasswordInvalidError();
-        }
+		if(password !== password2){
+			throw new ConfirmationPasswordInvalidError();
+		}
 
-        const passwordCriptografada = await this.codificador.criptografia(password, 10);
+		const passwordCriptografada = await this.codificador.criptografia(password, 10);
 
-        const newUser:IUser = {
-            numero: 153,
-            agencia: "003",
-            saldo: 0, 
-            username,
-            name,
-            nasc, 
-            typeaccont,
-            email,
-            password: passwordCriptografada,
-            cpf,
-        }
+		const newUser:IUser = {
+			numero: 153,
+			agencia: "003",
+			saldo: 0, 
+			username,
+			name,
+			nasc, 
+			typeaccont,
+			email,
+			password: passwordCriptografada,
+			cpf,
+		};
 
-        await this.UserRepository.createUser(newUser);
+		await this.UserRepository.createUser(newUser);
 
-        return {
-            user: "created"
-        }
-    }
+		return {
+			user: "created"
+		};
+	}
 }
 
 export {CreateUserUseCase, ICreateUserUseCase, ICreateUserRequestDTO, ICreateUserResponseDTO};

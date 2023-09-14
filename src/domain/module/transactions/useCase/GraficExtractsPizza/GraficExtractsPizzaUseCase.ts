@@ -17,25 +17,25 @@ export interface IGraficExtractsPizzaUseCase {
 
 export class GraficExtractsPizzaUseCase implements IGraficExtractsPizzaUseCase {
     
-    constructor(private extractsRepository: IExtracsRepository){}
+	constructor(private extractsRepository: IExtracsRepository){}
     
-    async execute({ id, startDate, endDate }: InputGraficExtractsPizzaDTO): Promise<OutputGraficExtractsPizzaDTO> {
-        const incomes = await this.extractsRepository.findIncomesByDate({
-            id,
-            lastMonth: startDate,
-            today: endDate
-        }) 
+	async execute({ id, startDate, endDate }: InputGraficExtractsPizzaDTO): Promise<OutputGraficExtractsPizzaDTO> {
+		const incomes = await this.extractsRepository.findIncomesByDate({
+			id,
+			lastMonth: startDate,
+			today: endDate
+		}); 
 
-        const expenses = await this.extractsRepository.findExpensesByDate({
-            id,
-            lastMonth: startDate,
-            today: endDate,
-        })
+		const expenses = await this.extractsRepository.findExpensesByDate({
+			id,
+			lastMonth: startDate,
+			today: endDate,
+		});
 
-        return {
-            expenses: expenses ?? 0,
-            incomes: incomes ?? 0,
-        }
-    }
+		return {
+			expenses: expenses ?? 0,
+			incomes: incomes ?? 0,
+		};
+	}
 
 }

@@ -7,10 +7,10 @@ import { GerenciadorDeTokenAdaptarJsonWebToken } from "../../../../utils/Gerenci
 
 
 export function makeSessionsUserController(){
-    const usersRepository = new UserRepository();
-    const encoder = new CodificadorAdapterCrypto();
-    const tokenManager = new GerenciadorDeTokenAdaptarJsonWebToken();
-    const sessionsUserUseCase = new SessionsUsersUseCase(usersRepository, encoder, AuthConfig, tokenManager);
-    const controller = new SessionsUserController(sessionsUserUseCase);
-    return controller;
+	const usersRepository = new UserRepository();
+	const encoder = new CodificadorAdapterCrypto();
+	const tokenManager = new GerenciadorDeTokenAdaptarJsonWebToken();
+	const sessionsUserUseCase = new SessionsUsersUseCase(usersRepository, encoder, AuthConfig, tokenManager);
+	const controller = new SessionsUserController(sessionsUserUseCase);
+	return controller;
 }

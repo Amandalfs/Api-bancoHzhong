@@ -3,8 +3,8 @@ import { ExtractsRepository } from "../../../../entities/repositories/knexReposi
 import { ExtractsByDateTransactionsController } from "../../../../presentations/controllers/transactions/ExtractsByDateTransactions/ExtractsByDateTransactionsController";
 
 export function makeExtractByDateTransactionsController(){
-    const extractsRepository = new ExtractsRepository(); 
-    const extractsByDateTransactionsUseCase = new ExtractsByDataUseCase(extractsRepository);
-    const controller = new ExtractsByDateTransactionsController(extractsByDateTransactionsUseCase);
-    return controller;
+	const extractsRepository = new ExtractsRepository(); 
+	const extractsByDateTransactionsUseCase = new ExtractsByDataUseCase(extractsRepository);
+	const controller = new ExtractsByDateTransactionsController(extractsByDateTransactionsUseCase);
+	return controller;
 }

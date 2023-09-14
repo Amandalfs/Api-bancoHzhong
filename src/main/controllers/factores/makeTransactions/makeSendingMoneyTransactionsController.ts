@@ -4,9 +4,9 @@ import { UserRepository } from "../../../../entities/repositories/knexRepositori
 import { SendingMoneyTransactionsController } from "../../../../presentations/controllers/transactions/SendingMoneyTransactions/SendingMoneyTransactionsController";
 
 export function makeSendingMoneyTransactionsController(){
-    const userRepository = new UserRepository();
-    const extractsRepository = new ExtractsRepository();
-    const sendingMoneyUseCase = new SendingMoneyUseCase(userRepository, extractsRepository);
-    const controller = new SendingMoneyTransactionsController(sendingMoneyUseCase);
-    return controller;
+	const userRepository = new UserRepository();
+	const extractsRepository = new ExtractsRepository();
+	const sendingMoneyUseCase = new SendingMoneyUseCase(userRepository, extractsRepository);
+	const controller = new SendingMoneyTransactionsController(sendingMoneyUseCase);
+	return controller;
 }

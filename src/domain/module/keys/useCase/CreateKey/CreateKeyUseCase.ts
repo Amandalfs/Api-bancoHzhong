@@ -1,18 +1,18 @@
-import { IKeyGenerator, IUserRepository } from "./protocols"
+import { IKeyGenerator, IUserRepository } from "./protocols";
 import { KeyAlreadyExistsError, ResourceNotFoundError } from "./errors";
 
 export class DTORequestCreatekeyUseCase {
-    public id:number
-    constructor(id:number){
-        this.id = id
-    }
+	public id:number;
+	constructor(id:number){
+		this.id = id;
+	}
 }
 
 export class DTOResponseCreatekeyUseCase {
-    key: string
-    constructor(key: string){
-        this.key = key
-    }
+	key: string;
+	constructor(key: string){
+		this.key = key;
+	}
 }
 
 export interface ICreatekeyUseCase {
@@ -22,24 +22,24 @@ export interface ICreatekeyUseCase {
 
 class CreateKeyUseCase implements ICreatekeyUseCase{
 
-    constructor(private UserRepository: IUserRepository, private keyGenerator: IKeyGenerator){}
+	constructor(private UserRepository: IUserRepository, private keyGenerator: IKeyGenerator){}
 
-    async execute({id}: DTORequestCreatekeyUseCase){
-        const user = await this.UserRepository.findUserById(id);
+	async execute({id}: DTORequestCreatekeyUseCase){
+		const user = await this.UserRepository.findUserById(id);
 
-        if(!user){
-            throw new ResourceNotFoundError();
-        }
+		if(!user){
+			throw new ResourceNotFoundError();
+		}
 
-        if(user.keypix){
-            throw new KeyAlreadyExistsError();
-        }
+		if(user.keypix){
+			throw new KeyAlreadyExistsError();
+		}
 
-        const key = this.keyGenerator.execute();
-        await this.UserRepository.createKeyPixById(id, key);
+		const key = this.keyGenerator.execute();
+		await this.UserRepository.createKeyPixById(id, key);
 
-        return new DTOResponseCreatekeyUseCase(key);
-    }
+		return new DTOResponseCreatekeyUseCase(key);
+	}
 }
 
-export { CreateKeyUseCase }
+export { CreateKeyUseCase };

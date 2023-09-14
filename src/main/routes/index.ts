@@ -2,7 +2,7 @@ import { Router } from "express";
 import { usersRoutes } from "./users.routes";
 import { transactionsRoutes } from "./transactions.routes";
 import { keysRoutes } from "./keys.routes";
-import garantirAuth from './../../middlewares/garantirAuth';
+import garantirAuth from "./../../middlewares/garantirAuth";
 
 const routes = Router();
 
