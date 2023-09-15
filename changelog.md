@@ -1,5 +1,206 @@
 # Changelog de Atualizacoes da api Hzhong
 
+# Changelog - Versão 4.0.0 (Data: 12 de setembro de 2023)
+
+## Documentação:
+- Atualizada a documentação para a rota de extratos.
+
+## Feats:
+- Adicionado consulta por página e quantidade de linhas ao controlador de extratos.
+- Criada função para retornar o número total de documentos com base na data no repositório de extratos.
+- Adicionada função para arredondamento do número total de páginas no caso de uso de extratos.
+- Adicionada paginação ao repositório de extratos.
+- Adicionada paginação e detalhes de paginação ao caso de uso de extratos.
+
+<br>
+<br>
+<br>
+
+
+# Changelog - Versão 3.3.0 (Data: 11 de setembro de 2023)
+
+## Documentação:
+- Criada documentação para a rota '/transactions/grafic/column-day'.
+
+## Testes:
+- Criado um teste de ponta a ponta (e2e) para a rota '/transactions/grafic/column-day'.
+- Criado um teste para validar se o caso de uso do controlador 'GraficExtractsDayByColumnController' está recebendo os dados corretamente.
+- Criado tratamento de erros 404 Not Found no controlador 'GraficExtractsDayByColumnController'.
+- Criado tratamento de erros 403 Forbidden no controlador 'GraficExtractsDayByColumnController'.
+- Criado tratamento de erros 401 Unauthorized no controlador 'GraficExtractsDayByColumnController'.
+- Criado tratamento de erros 400 Bad Request no controlador 'GraficExtractsDayByColumnController'.
+- Criado tratamento de erros desconhecidos no controlador 'GraficExtractsDayByColumnController'.
+- Criado teste de integração para a função 'revenuesExtractsByDays' do repositório de extratos.
+- Criado teste de integração para a função 'expensesExtractsByDays' do repositório de extratos.
+- Criado teste de integração para a função 'findExpensesByDate' do repositório de extratos.
+- Criado teste de integração para a função 'findIncomesByDate' do repositório de extratos.
+- Criado teste de integração para a função 'CountBySending' do repositório de extratos.
+- Criado teste de integração para a função 'CountByWithdraw' do repositório de extratos.
+- Criado teste de integração para a função 'SearchForDataStartAndEndbyId' do repositório de extratos.
+- Criado teste de integração para a busca dos 5 extratos mais recentes usando o repositório.
+- Criado teste de integração para a criação de extratos usando o repositório.
+- Criado teste de caso de uso para verificar se está retornando o formato correto do caso de uso e enviando erros para a camada acima.
+
+## Feats:
+- Adicionado o controlador 'GraficExtractsDayByColumnController' à rota '/transactions/grafic/column-day'.
+- Criado uma fábrica para criar o controlador 'GraficExtractsDayByColumnController'.
+- Criado um controlador de resposta de sucesso no 'GraficExtractsDayByColumnController'.
+- Implementações de novas funcionalidades nos repositórios de extratos.
+- Criado o caso de uso para 'grafic extracts days'.
+
+## Fix:
+- Convertidos as datas para o tipo 'date' no 'GraficExtractsDayByColumnController'.
+
+<br>
+<br>
+<br>
+
+# Changelog - Versão 3.2.0 (Data: 06 de setembro de 2023)
+
+## Feats:
+- Adicionado o controlador 'grafic extracts pizza' às rotas.
+- Criado uma fábrica para criar o controlador 'grafic extracts pizza'.
+- Criado um controlador de resposta de sucesso no 'grafic extracts pizza' controller.
+
+## Correções:
+- Corrigido o nome no caso de uso 'grafics extracs pizza' e sua importação.
+- Fixado o nome no caso de uso 'grafics extracs pizza' e sua importação.
+- Convertidos os parâmetros para o formato de data a serem enviados ao caso de uso 'grafic extracts pizza'.
+
+## Refatoração:
+- Transformado o adaptador do controlador Express em uma função estática.
+
+## Testes:
+- Criado teste de ponta a ponta para testar a rota de 'transactions/grafic/pizza'.
+- Criado teste para validar se o caso de uso do controlador 'grafic extracs pizza' está recebendo os dados corretamente.
+- Criado tratamento de erros 404 Not Found no controlador 'grafic extracs pizza'.
+- Criado tratamento de erros 403 Forbidden no controlador 'grafic extracs pizza'.
+- Criado tratamento de erros 401 Unauthorized no controlador 'grafic extracs pizza'.
+- Criado tratamento de erros 400 Bad Request no controlador 'grafic extracs pizza'.
+- Criado tratamento de erros desconhecidos no controlador 'grafic extracs pizza'.
+- Criado caso de uso para 'grafic extracts pizza'.
+
+## Documentação:
+- Criada documentação para a rota 'grafic extracts pizza'.
+
+## CI/CD:
+- Removido o branch 'feature/extractsGraficPizza' dos testes e2e e units.
+- Corrigido o comando 'test:e2e' invertido a ordem da config.
+- Corrigido o comando 'test:e2e'.
+- Teste de CI e2e.
+- Criado teste para verificar retornos iguais a zero.
+- Criado arquivo de configuração de teste e2e.
+
+
+
+# Changelog - Versão 3.1.0 (Data: 05 de setembro de 2023)
+
+## Correções:
+- Corrigido teste de extratos baseado em data, agora ele recebe o saldo como um tipo numérico.
+- Corrigido o repositório Knex 'extratos' nas funções de soma, que usava 'count' em vez de 'sum', e fez ajustes na cláusula 'where' em 'findExpensesByDate'.
+- Alterado o tipo de dados da coluna 'saldo' na tabela 'extratos' de texto para float.
+- Ajustes na configuração do vitest.
+- Tratamento de erros 404 Not Found no controlador de métricas do usuário.
+- Tratamento de erros 403 Forbidden no controlador de métricas do usuário.
+- Tratamento de erros 401 Unauthorized no controlador de métricas do usuário.
+- Tratamento de erros 400 Bad Request no controlador de métricas do usuário.
+
+## Refatoração:
+- Melhorias nas funções de filtragem do repositório de declarações em memória.
+
+## Feats:
+- Adicionado controlador de métricas do usuário à rota do Express.
+- Criado factory para o controlador de métricas do usuário.
+- Criado envio de status 200 e do objeto de resultado das métricas no controlador de métricas do usuário.
+- Tratamento de erros desconhecidos no controlador de métricas do usuário e criação do controlador de métricas do usuário.
+- Adicionadas funções para receitas e despesas no repositório Knex de extratos.
+- Implementadas as funcionalidades de despesas e receitas no repositório de declarações em memória.
+- Criada uma interface para as funções de retorno de despesas e receitas no extractsRepository.
+- Criado caso de uso para métricas do usuário.
+
+## Testes:
+- Criado teste de ponta a ponta para validar a rota de métricas do usuário.
+- Criado envio de status 200 e do objeto de resultado das métricas no controlador de métricas do usuário.
+- Criado teste para verificar se o controlador de métricas do usuário envia corretamente o ID para o caso de uso.
+- Tratamento de erros 404 Not Found no controlador de métricas do usuário.
+- Tratamento de erros 403 Forbidden no controlador de métricas do usuário.
+- Tratamento de erros 401 Unauthorized no controlador de métricas do usuário.
+- Tratamento de erros 400 Bad Request no controlador de métricas do usuário.
+- Tratamento de erros desconhecidos no controlador de métricas do usuário e criação do controlador de métricas do usuário.
+- Criado caso de uso para métricas do usuário.
+
+
+<br>
+<br>
+<br>
+
+## Versão 3.0.0 - 01/09/2023
+
+### Adicionado
+- Atualização da documentação para a rota de exclusão de keypix no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota show keypix no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota create keypix no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota extracts no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota de saque no Swagger e adição de todos os erros personalizados à documentação.
+- Atualização da documentação para a rota de depósito e adição de todos os tipos de erros personalizados ao Swagger.
+- Atualização da rota e resposta para o dinheiro enviado ao usuário e adição de todos os tipos de erros personalizados ao Swagger.
+- Atualização da rota de exibição de usuários no Swagger.
+- Atualização da rota de sessões no Swagger.
+- Atualização da documentação do Swagger para a criação de usuário.
+- Criação de documentação Swagger para a rota de modificação de usuário.
+
+### Test
+- Criação de um teste de ponta a ponta testando a rota de modificação de usuário.
+
+## Corrigido
+- Correção do erro de enviar várias atualizações ao repositório de uma vez em vez de uma única.
+- Adição de validação para verificar se a nova senha foi fornecida.
+
+### Outros
+- Criação de um erro quando nada é passado no caso de uso de modificação de usuário.
+- Criação do erro fieldNotFilledError.
+
+### Documentação
+- Atualização da documentação Swagger para a rota de modificação de usuário.
+
+<br>
+<br>
+<br>
+
+## Versão 3.0.0 - 01/09/2023
+
+### Adicionado
+- Implementado tratamento de erro para status 404 no controlador de modificação de usuário.
+- Implementado tratamento de erro para status 403 no controlador de modificação de usuário.
+- Implementado tratamento de erro para status 401 no controlador de modificação de usuário.
+- Implementado tratamento de erro para status 400 no controlador de modificação de usuário.
+- Adicionado o controlador de modificação de usuário.
+- Adicionado o caso de uso de modificação de usuário.
+
+### Test
+- Criado teste para tratamento de erro com status 404 no controlador de modificação de usuário.
+- Criado teste para tratamento de erro com status 403 no controlador de modificação de usuário.
+- Criado teste para tratamento de erro com status 401 no controlador de modificação de usuário.
+- Criado teste para tratamento de erro com status 400 no controlador de modificação de usuário.
+- Criado teste para o controlador de modificação de usuário.
+- Criado teste para o caso de uso de modificação de usuário.
+
+## Corrigido
+- Corrigida interface do caso de uso de modificação de usuário.
+- Corrigido retorno de atualização de conta.
+
+### Alterado
+- Atualizado o repositório de usuário para incluir a função de atualização de conta no Knex.
+- Atualizado o caso de uso de modificação de usuário.
+
+### Outros
+- Adicionada a funcionalidade de atualização de conta ao repositório de usuário em memória.
+
+<br>
+<br>
+<br>
+
+
 ## Versão 2.0.21 - 13/07/2023
 
 ### Adicionado

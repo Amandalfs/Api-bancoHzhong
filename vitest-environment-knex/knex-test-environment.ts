@@ -26,15 +26,16 @@ export default <Environment>{
 		process.env.DATABASE_URL = dataBaseURL;
 		try {
 			await db.schema.createSchema(`${schema}`);
-			const command = 'npm run knex migrate:latest -- --env test';
+			const command = "npm run knex migrate:latest -- --env test";
 			execSync(command);
 		} catch (error) {
+			console.log(error);
 		}
 
 		return {
 			async teardown() {
 				await db.schema.dropSchemaIfExists(schema, true);
-                await db.destroy();
+				await db.destroy();
 			},
 		};
 	},

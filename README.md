@@ -20,8 +20,7 @@
 <br>
 
 ## 💻 Sobre o projeto
-Api para o banco hzhong a onde usuário poderar gerenciar suas financias e fazer pagamentos. <br>
-Hzhong o banco que facilita sua vida.
+O Banco Hzhong é a solução definitiva para suas necessidades financeiras. Com acesso a uma ampla gama de recursos e um dashboard intuitivo, você pode gerenciar suas finanças de forma eficaz e eficiente.
 
 <br>
 
@@ -29,16 +28,32 @@ Hzhong o banco que facilita sua vida.
 
 ## ⚙️ Funcionalidades
 
-- Criar Conta:
-- Fazer login:
-- Monstrar Infos do usuario:
-- Sacar dinheiro:
-- Transferir dinheiro:
-- Depositar dinheiro:
-- Monstrar Extrato:
-- Entidades:
-  - Usuário.
-  - Extrato.
+- **Criar Conta:** Registre-se no Banco Hzhong para criar uma nova conta de usuário.
+
+- **Fazer login:** Faça login de forma segura na sua conta do Banco Hzhong.
+
+- **Mostrar Infos do Usuário:** Visualize informações detalhadas da sua conta de usuário, incluindo nome, saldo e dados pessoais.
+
+- **Sacar Dinheiro:** Retire dinheiro da sua conta conforme necessário.
+
+- **Transferir Dinheiro:** Transfira fundos para outras contas de maneira rápida e segura.
+
+- **Depositar Dinheiro:** Adicione fundos à sua conta facilmente.
+
+- **Mostrar Extrato:** Acesse seu extrato bancário para ver um registro completo de suas transações.
+
+- **Entidades:**
+  - **Usuário:** Representa informações sobre o cliente do Banco Hzhong.
+  - **Extrato:** Registra todas as transações financeiras realizadas na conta do usuário.
+
+- **Modificar Usuário:** Atualize suas informações pessoais ou detalhes da conta de usuário.
+
+- **Mostrar Dados de Gráfico de Coluna por Dia:** Visualize seus dados financeiros em um gráfico de coluna que mostra entradas e saídas por dia.
+
+- **Mostrar Dados de Gráfico de Pizza:** Obtenha uma representação visual de suas finanças com um gráfico de pizza que mostra a distribuição de gastos.
+
+- **Navegar pelos Extratos usando Paginação:** Navegue de forma eficiente pelos extratos de suas transações financeiras com funcionalidade de paginação.
+
 
 ---
 
@@ -48,7 +63,9 @@ Hzhong o banco que facilita sua vida.
 
 <br>
 <a href="https://i.imgur.com/eNVnF2e.png">
-  <img alt="Arquitetura feita pela Amandalfs" src="https://i.imgur.com/eNVnF2e.png">
+
+  ![Alt text](image.png)
+  
 </a>
 
 <br>
@@ -91,10 +108,10 @@ Ela vai rodar o banco de dados sqlite mas que tu quiser rodar em ambiente de pro
 ```bash
 
 # Clone este repositório
-$ git clone git@github.com:Amandalfs/CRUD-bancoHzhong.git
+$ git clone git@github.com:Amandalfs/Api-bancoHzhong.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd CRUD-BANCOHZHONG
+$ cd Api-bancoHzhong
 
 # Instale as dependências
 $ npm install
@@ -142,6 +159,16 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - SOLID 
 
 ---
+
+## 📚 Documentação
+
+Para obter informações detalhadas sobre as APIs e endpoints do Banco Hzhong, consulte nossa documentação no Swagger:
+
+[Documentação do Swagger](https://api-hzhong.onrender.com/api-docs/)
+
+A documentação do Swagger fornece uma visão abrangente de como usar nossos serviços bancários, incluindo detalhes sobre os endpoints, parâmetros e exemplos de solicitações.
+
+Certifique-se de verificar a documentação para aproveitar ao máximo os recursos do Banco Hzhong.
 
 <br>
 

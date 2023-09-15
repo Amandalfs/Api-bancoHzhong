@@ -6,10 +6,10 @@ import { ValidarCpf } from "../../../../utils/verify/validarCpf";
 import { CodificadorAdapterCrypto } from "../../../../utils/Codificador/CodificadorAdapterCrypto";
 
 export function makeCreateUserController():CreateUserController{
-    const usersRepository = new UserRepository;
-    const VerifyAge = new verifyAge;
-    const validatyCpf = new ValidarCpf;
-    const codificador = new CodificadorAdapterCrypto;
-    const createUserUseCase = new CreateUserUseCase(usersRepository, VerifyAge, validatyCpf, codificador);
-    return new CreateUserController(createUserUseCase);
+	const usersRepository = new UserRepository;
+	const VerifyAge = new verifyAge;
+	const validatyCpf = new ValidarCpf;
+	const codificador = new CodificadorAdapterCrypto;
+	const createUserUseCase = new CreateUserUseCase(usersRepository, VerifyAge, validatyCpf, codificador);
+	return new CreateUserController(createUserUseCase);
 }

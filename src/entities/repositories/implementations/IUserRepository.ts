@@ -1,4 +1,4 @@
-import { IUser } from "../model/IUser"
+import { IUser } from "../model/IUser";
 
 export interface  IReponseUser {
      id?: number, 
@@ -11,6 +11,7 @@ export interface  IReponseUser {
      agencia: string,
      cpf: string,
      keypix?:string,
+     email?: string
 }
 
 export interface IUserRepository {
@@ -33,5 +34,7 @@ export interface IUserRepository {
      deleteKeyPixById(id:number):Promise<void>
 
      getKeyPixById(id:number):Promise<string>
+
+     updateAccont(id: number, user: IReponseUser): Promise<IReponseUser>
    
 }

@@ -4,9 +4,9 @@ import { UserRepository } from "../../../../entities/repositories/knexRepositori
 import { KeyGeneratorAdapterCrypto } from "../../../../utils/keyGenerator";
 
 export function makeCreateKeyController(){
-    const userRepositoy = new UserRepository;
-    const keyGenerator = new KeyGeneratorAdapterCrypto();
-    const createKeyUseCase = new CreateKeyUseCase(userRepositoy, keyGenerator);
-    const controller = new CreateKeyController(createKeyUseCase);
-    return controller;
+	const userRepositoy = new UserRepository;
+	const keyGenerator = new KeyGeneratorAdapterCrypto();
+	const createKeyUseCase = new CreateKeyUseCase(userRepositoy, keyGenerator);
+	const controller = new CreateKeyController(createKeyUseCase);
+	return controller;
 }

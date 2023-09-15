@@ -3,8 +3,8 @@ import { UserRepository } from "../../../../entities/repositories/knexRepositori
 import { DeleteKeyController } from "../../../../presentations/controllers/keys/DeleteKey/DeleteKeyController";
 
 export function makeDeleteKeyController(){
-    const userRepository = new UserRepository;
-    const deleteKeyUseCase = new DeleteKeyUseCase(userRepository);
-    const controller = new DeleteKeyController(deleteKeyUseCase);
-    return controller;
+	const userRepository = new UserRepository;
+	const deleteKeyUseCase = new DeleteKeyUseCase(userRepository);
+	const controller = new DeleteKeyController(deleteKeyUseCase);
+	return controller;
 }
