@@ -248,4 +248,26 @@ describe("repository users tests integrations  by knex", () => {
 		const user = await db("users").where("id", id).first();
 		expect(user.keypix).toEqual("fclvbjdfivbdapbd");
 	});
+
+	it("should be able to delete a Pix key.", async () => {
+		const { suit } = makeSuit();
+		const input = {
+			name: "test",
+			username: "testname",
+			password: "12345678",
+			nasc: "02-10-2003",
+			saldo: 500,
+			cpf: "2156216365252",
+			email: "test@test.com",
+			typeaccont: "poupanca",
+			agencia: "001",
+			numero: 101,
+			keypix: "fclvbjdfivbdapbd",
+		};
+		const [{ id }] = await db("users").insert(input).returning("id");
+
+		await suit.deleteKeyPixById(id);
+		const user = await db("users").where("id", id).first();
+		expect(user.keypix).toBeNull();
+	});
 });
