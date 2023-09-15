@@ -114,4 +114,34 @@ describe("repository users tests integrations  by knex", () => {
 		expect(user.agencia).toEqual(input.agencia);
 		expect(user.keypix).toBeNull();
 	});
+    
+	it("should be able to search for a user by cpf.", async () => {
+		const { suit } = makeSuit();
+		const input = {
+			name: "test",
+			username: "testname",
+			password: "12345678",
+			nasc: "02-10-2003",
+			saldo: 500,
+			cpf: "2156216365252",
+			email: "test@test.com",
+			typeaccont: "poupanca",
+			agencia: "001",
+			numero: 101,
+		};
+		await db("users").insert(input);
+
+		const user = await suit.findUserByCPF(input.cpf);
+		expect(user.id).toBeDefined();
+		expect(user.name).toEqual(input.name);
+		expect(user.username).toEqual(input.username);
+		expect(user.email).toEqual(input.email);
+		expect(user.cpf).toEqual(input.cpf);
+		expect(user.password).toEqual(input.password);
+		expect(user.nasc).toBeDefined();
+		expect(user.saldo).toEqual(input.saldo);
+		expect(user.typeaccont).toEqual(input.typeaccont);
+		expect(user.agencia).toEqual(input.agencia);
+		expect(user.keypix).toBeNull();
+	});
 });
