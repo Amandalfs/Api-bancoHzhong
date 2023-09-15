@@ -8,6 +8,7 @@ declare module "knex/types/tables"{
             username: string,
             password: string,
             nasc: string,
+            email: string,
             typeaccont: string,
             saldo: number,
             agencia: string,
