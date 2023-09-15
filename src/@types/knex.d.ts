@@ -1,6 +1,6 @@
-import { knex } from 'knex'
+import { knex } from "knex";
 
-declare module 'knex/types/tables'{
+declare module "knex/types/tables"{
     export interface Tables{
         users:{
             id?: number, 
@@ -8,6 +8,7 @@ declare module 'knex/types/tables'{
             username: string,
             password: string,
             nasc: string,
+            email: string,
             typeaccont: string,
             saldo: number,
             agencia: string,

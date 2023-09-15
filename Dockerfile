@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run knex migrate:latest
+RUN npm run knex -- migrate:latest --env production
 
 EXPOSE 8020
 

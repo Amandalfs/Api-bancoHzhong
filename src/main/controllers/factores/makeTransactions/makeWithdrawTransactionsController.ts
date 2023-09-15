@@ -4,9 +4,9 @@ import { WithdrawTransactionsController } from "../../../../presentations/contro
 import { WithdrawTransactionsUseCase } from "../../../../presentations/controllers/transactions/WithdrawTransactions/WithdrawTransactionsControllerProtocols";
 
 export function makeWithdrawTransactionsController(){
-    const userRepository = new UserRepository();
-    const extractsRepository = new ExtractsRepository();
-    const withdrawTransactionsUseCase = new WithdrawTransactionsUseCase(userRepository, extractsRepository);
-    const controller = new WithdrawTransactionsController(withdrawTransactionsUseCase);
-    return controller;
+	const userRepository = new UserRepository();
+	const extractsRepository = new ExtractsRepository();
+	const withdrawTransactionsUseCase = new WithdrawTransactionsUseCase(userRepository, extractsRepository);
+	const controller = new WithdrawTransactionsController(withdrawTransactionsUseCase);
+	return controller;
 }

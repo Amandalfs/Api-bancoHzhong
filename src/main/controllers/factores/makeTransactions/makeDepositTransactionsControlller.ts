@@ -5,9 +5,9 @@ import { DepositTransactionsUseCase } from "../../../../presentations/controller
 
 
 export function makeDepositTransactionsController(){
-    const userRepository = new UserRepository();
-    const extractsRepository = new ExtractsRepository();
-    const depositTransactionsUseCase = new DepositTransactionsUseCase(userRepository, extractsRepository);
-    const controller = new DepositTransactionsController(depositTransactionsUseCase);
-    return controller
+	const userRepository = new UserRepository();
+	const extractsRepository = new ExtractsRepository();
+	const depositTransactionsUseCase = new DepositTransactionsUseCase(userRepository, extractsRepository);
+	const controller = new DepositTransactionsController(depositTransactionsUseCase);
+	return controller;
 }
