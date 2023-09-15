@@ -227,4 +227,25 @@ describe("repository users tests integrations  by knex", () => {
 		const user = await db("users").where("id", id).first();
 		expect(user.saldo).toEqual(610);
 	});
+
+	it("should be able to create a Pix key.", async () => {
+		const { suit } = makeSuit();
+		const input = {
+			name: "test",
+			username: "testname",
+			password: "12345678",
+			nasc: "02-10-2003",
+			saldo: 500,
+			cpf: "2156216365252",
+			email: "test@test.com",
+			typeaccont: "poupanca",
+			agencia: "001",
+			numero: 101,
+		};
+		const [{ id }] = await db("users").insert(input).returning("id");
+
+		await suit.createKeyPixById(id,"fclvbjdfivbdapbd");
+		const user = await db("users").where("id", id).first();
+		expect(user.keypix).toEqual("fclvbjdfivbdapbd");
+	});
 });
