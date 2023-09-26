@@ -108,9 +108,12 @@
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.js",
     "knexfile.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.md",       // Exclui todos os arquivos .md
+    "**/*.sqlite3"   // Exclui todos os arquivos .sqlite3
   ]
 }
