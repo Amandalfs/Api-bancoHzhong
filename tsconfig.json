@@ -109,7 +109,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.js",
-    "knexfile.ts"
+    "knexfile.ts",
+    "src/swagger.json"
   ],
   "exclude": [
     "node_modules",
